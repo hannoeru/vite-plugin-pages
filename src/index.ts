@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
 import { Options, UserOptions } from './types'
 import { getPagesPath } from './files'
-import { generateClientCode } from './client'
+import { generateClientCode } from './generate'
 import { debug, normalizePath } from './utils'
 
 const ID = 'vite-plugin-pages/client'

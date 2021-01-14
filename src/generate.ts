@@ -18,6 +18,7 @@ import {
   pathToName,
 } from './utils'
 import { stringifyRoutes } from './stringify'
+
 function prepareRoutes(
   routes: Route[],
   options: Options,
@@ -110,4 +111,11 @@ export function generateRoutes(filesPath: string[], options: Options): string {
   const preparedRoutes = prepareRoutes(routes, options)
 
   return preparedRoutes
+}
+
+export function generateClientCode(filesPath: string[], options: Options) {
+  const routes = generateRoutes(filesPath, options)
+  const { imports, stringRoutes } = stringifyRoutes(routes, options)
+
+  return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
 }

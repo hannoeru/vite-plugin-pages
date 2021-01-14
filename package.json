@@ -28,7 +28,8 @@
     "debug": "^4.3.2",
     "directory-tree": "^2.2.5",
     "fast-glob": "^3.2.4",
-    "glob-to-regexp": "^0.4.1"
+    "glob-to-regexp": "^0.4.1",
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.4.3",
