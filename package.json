@@ -15,7 +15,7 @@
   "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "files": [
     "dist",
-    "src/client.d.ts"
+    "client.d.ts"
   ],
   "scripts": {
     "dev": "npm run build -- --watch",
