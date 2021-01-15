@@ -14,12 +14,10 @@ function resolveOptions(userOptions: UserOptions): Options {
     importMode = 'async',
     exclude = [],
     syncIndex = true,
-    ...options
   } = userOptions
 
   return Object.assign(
     {},
-    options,
     {
       pagesDir,
       extensions,
@@ -27,6 +25,7 @@ function resolveOptions(userOptions: UserOptions): Options {
       exclude,
       syncIndex,
     },
+    userOptions,
   )
 }
 
