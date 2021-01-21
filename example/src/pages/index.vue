@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p>index.vue hahaha</p>
+    <p>index.vue</p>
     <router-link to="/about">
-      aboutss
+      about
     </router-link>
   </div>
 </template>

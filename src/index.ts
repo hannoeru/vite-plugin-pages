@@ -46,23 +46,23 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
       debug('pagesDirPath', pagesDirPath)
     },
     resolveId(id) {
-      return id === ID ? ID : null
+      if (id === ID)
+        return ID
     },
     async load(id) {
-      if (id !== ID)
-        return null
+      if (id === ID) {
+        debug('Generating routes...')
 
-      debug('Generating routes...')
+        filesPath = await getPagesPath(options)
 
-      filesPath = await getPagesPath(options)
+        debug('filesPath: %O', filesPath)
 
-      debug('filesPath: %O', filesPath)
+        const clientCode = generateClientCode(filesPath, options)
 
-      const clientCode = generateClientCode(filesPath, options)
+        debug('client code: %O', clientCode)
 
-      debug('client code: %O', clientCode)
-
-      return clientCode
+        return clientCode
+      }
     },
     async handleHotUpdate({ file, server }) {
       const extensionsRE = new RegExp(`\\.(${options.extensions.join('|')})$`)
@@ -77,7 +77,6 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
 
         return [module] as ModuleNode[]
       }
-      return []
     },
   }
 }
