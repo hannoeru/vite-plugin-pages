@@ -5,7 +5,7 @@
 
 > File system based routing for Vue 3 applications using [Vite](https://github.com/vitejs/vite)
 
-### ℹ️ **This plugin is a refactor version base on [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
+### **This plugin is a refactored version of [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
 
 ## Getting Started
 
