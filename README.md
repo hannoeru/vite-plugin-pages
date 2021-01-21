@@ -121,7 +121,7 @@ export default {
 
 ### Using configuration
 
-To use custom configuration, pass your options to Voie when instantiating the plugin:
+To use custom configuration, pass your options to Pages when instantiating the plugin:
 
 ```js
 // vite.config.js
