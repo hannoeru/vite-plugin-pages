@@ -1,5 +1,5 @@
 /**
- * https://github.com/brattonross/vite-plugin-voie/blob/main/packages/vite-plugin-voie/src/routes.ts
+ * https://github.com/brattonross/vite-plugin-voie/blob/main/packages/vite-plugin-voie/src/options.ts
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file at
