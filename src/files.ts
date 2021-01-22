@@ -16,7 +16,6 @@ export async function getPagesPath(options: ResolvedOptions): Promise<string[]> 
 
   const cwd = normalizePath(resolve(root, pagesDir))
   const ext = extensionsToGlob(extensions)
-  console.log('ext', ext)
 
   const files = await fg(`**/*.${ext}`, {
     ignore: ['node_modules', '.git', ...exclude],
