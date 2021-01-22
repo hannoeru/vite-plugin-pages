@@ -12,6 +12,7 @@ export type ImportModeResolveFn = (filepath: string) => ImportMode
 export interface Route {
   name?: string
   path: string
+  props?: boolean
   component: string
   children?: Route[]
   meta?: Record<string, unknown>
@@ -19,12 +20,7 @@ export interface Route {
 /**
  * Plugin options.
  */
-export interface Options {
-  /**
-   * Resolves to the `root` value from Vite config.
-   * @default config.root
-   */
-  root?: string
+interface Options {
   /**
    * Relative path to the directory to search for page components.
    * @default 'src/pages'
@@ -56,3 +52,11 @@ export interface Options {
 }
 
 export type UserOptions = Partial<Options>
+
+export interface ResolvedOptions extends Options {
+  /**
+   * Resolves to the `root` value from Vite config.
+   * @default config.root
+   */
+  root: string
+}

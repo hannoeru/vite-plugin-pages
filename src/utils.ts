@@ -1,5 +1,5 @@
 import Debug from 'debug'
-import { ImportMode, ImportModeResolveFn, Options } from './types'
+import { ResolvedOptions } from './types'
 
 export function extensionsToGlob(extensions: string[]) {
   return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
@@ -19,7 +19,7 @@ export function isDynamicRoute(routePath: string) {
 
 export function resolveImportMode(
   filepath: string,
-  options: Options,
+  options: ResolvedOptions,
 ) {
   const mode = options.importMode
   if (typeof mode === 'function')

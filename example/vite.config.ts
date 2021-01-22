@@ -1,15 +1,18 @@
 import { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import Route from 'vite-plugin-pages'
+import Pages from 'vite-plugin-pages'
+import Markdown from 'vite-plugin-md'
 
 const config: UserConfig = {
   plugins: [
-    Vue(),
-    Route({
-      importMode(path: string) {
-        return path === '/src/pages/index.vue' ? 'sync' : 'async'
-      },
+    Vue({
+      include: [/\.vue$/, /\.md$/],
     }),
+    Pages({
+      extensions: ['vue', 'md'],
+      syncIndex: false,
+    }),
+    Markdown(),
   ],
 }
 

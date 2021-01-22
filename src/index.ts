@@ -1,13 +1,13 @@
 import { resolve } from 'path'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
-import { Options, UserOptions } from './types'
+import { ResolvedOptions, UserOptions } from './types'
 import { getPagesPath } from './files'
 import { generateClientCode } from './generate'
 import { debug, normalizePath } from './utils'
 
 const ID = 'vite-plugin-pages/client'
 
-function resolveOptions(userOptions: UserOptions): Options {
+function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   const {
     pagesDir = 'src/pages',
     extensions = ['vue', 'js'],
@@ -16,9 +16,12 @@ function resolveOptions(userOptions: UserOptions): Options {
     syncIndex = true,
   } = userOptions
 
+  const root = process.cwd()
+
   return Object.assign(
     {},
     {
+      root,
       pagesDir,
       extensions,
       importMode,
@@ -34,7 +37,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
   let pagesDirPath: string
   let filesPath: string[]
 
-  const options: Options = resolveOptions(userOptions)
+  const options: ResolvedOptions = resolveOptions(userOptions)
 
   return {
     name: 'vite-plugin-pages',

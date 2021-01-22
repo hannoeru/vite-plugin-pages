@@ -2,15 +2,15 @@ import {
   resolveImportMode,
   pathToName,
 } from './utils'
-import { Options } from './types'
+import { ResolvedOptions, Route } from './types'
 
 /**
  * Creates a stringified Vue Router route definition.
  */
 export function stringifyRoutes(
-  preparedRoutes: string,
-  options: Options,
-): string {
+  preparedRoutes: Route[],
+  options: ResolvedOptions,
+) {
   const imports: string[] = []
 
   const stringRoutes = JSON

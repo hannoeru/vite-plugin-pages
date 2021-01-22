@@ -6,22 +6,13 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
-import { resolve, parse, join } from 'path'
-import fg from 'fast-glob'
-import chalk from 'chalk'
-import { Route, Options } from './types'
-import {
-  normalizePath,
-  debug,
-  isDynamicRoute,
-  resolveImportMode,
-  pathToName,
-} from './utils'
+import { Route, ResolvedOptions } from './types'
+import { isDynamicRoute } from './utils'
 import { stringifyRoutes } from './stringify'
 
 function prepareRoutes(
   routes: Route[],
-  options: Options,
+  options: ResolvedOptions,
   parent?: Route,
 ) {
   for (const route of routes) {
@@ -44,14 +35,11 @@ function prepareRoutes(
   return routes
 }
 
-export function generateRoutes(filesPath: string[], options: Options): string {
+export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
   const {
-    root,
     pagesDir,
     extensions,
-    exclude,
   } = options
-  const cwd = normalizePath(resolve(root, pagesDir))
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
   const routes: Route[] = []
@@ -113,7 +101,7 @@ export function generateRoutes(filesPath: string[], options: Options): string {
   return preparedRoutes
 }
 
-export function generateClientCode(filesPath: string[], options: Options) {
+export function generateClientCode(filesPath: string[], options: ResolvedOptions) {
   const routes = generateRoutes(filesPath, options)
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
