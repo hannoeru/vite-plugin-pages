@@ -16,7 +16,7 @@ importers:
       rollup: 2.37.1
       tsup: 3.11.0_typescript@4.1.3
       typescript: 4.1.3
-      vite: 2.0.0-beta.35
+      vite: 2.0.0-beta.36
     specifiers:
       '@antfu/eslint-config': ^0.4.3
       '@types/debug': ^4.1.5
@@ -31,7 +31,7 @@ importers:
       rollup: ^2.37.1
       tsup: ^3.11.0
       typescript: ^4.1.3
-      vite: ^2.0.0-beta.35
+      vite: ^2.0.0-beta.36
       vue-router: ^4.0.3
   example:
     dependencies:
@@ -42,15 +42,15 @@ importers:
       '@vue/compiler-sfc': 3.0.5_vue@3.0.5
       cross-env: 7.0.3
       typescript: 4.1.3
-      vite: 2.0.0-beta.35
-      vite-plugin-md: 0.4.1_vite@2.0.0-beta.35
+      vite: 2.0.0-beta.36
+      vite-plugin-md: 0.4.1_vite@2.0.0-beta.36
       vite-plugin-pages: link:..
     specifiers:
       '@vitejs/plugin-vue': ^1.1.0
       '@vue/compiler-sfc': ^3.0.5
       cross-env: ^7.0.3
       typescript: ^4.1.3
-      vite: ^2.0.0-beta.35
+      vite: ^2.0.0-beta.36
       vite-plugin-md: ^0.4.1
       vite-plugin-pages: workspace:*
       vue: ^3.0.5
@@ -993,12 +993,12 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
-  /esbuild/0.8.33:
+  /esbuild/0.8.34:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-2ms/P6Y9zJfopR9dKo2vHzhXKfGSNlquVVoVOF8YnhjuzZVrvManMVBPadBsR/t7jzIkRnwqvxrs7d4f3C3eyg==
+      integrity: sha512-tnr0V1ooakYr1aRLXQLzCn2GVG1kBTW3FWpRyC+NgrR3ntsouVpJOlTOV0BS4YLATx3/c+x3h/uBq9lWJlUAtQ==
   /escape-string-regexp/1.0.5:
     dev: true
     engines:
@@ -1167,7 +1167,7 @@ packages:
       eslint-utils: 2.1.0
       natural-compare: 1.4.0
       semver: 7.3.4
-      vue-eslint-parser: 7.3.0_eslint@7.18.0
+      vue-eslint-parser: 7.4.1_eslint@7.18.0
     dev: true
     engines:
       node: '>=8.10'
@@ -2759,7 +2759,7 @@ packages:
       cac: 6.7.1
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.33
+      esbuild: 0.8.34
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.0
@@ -2840,19 +2840,19 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==
-  /vite-plugin-md/0.4.1_vite@2.0.0-beta.35:
+  /vite-plugin-md/0.4.1_vite@2.0.0-beta.36:
     dependencies:
       gray-matter: 4.0.2
       markdown-it: 12.0.4
-      vite: 2.0.0-beta.35
+      vite: 2.0.0-beta.36
     dev: true
     peerDependencies:
       vite: ^2.0.0-beta.1
     resolution:
       integrity: sha512-JCvz1KGvK4woRRhbouW5GJLfw+TKxdu/PkXmVv0KNdpJdCMTDL6tQ6dEd09aK3Z1Muz1QvGbs2uSbXN98idAbg==
-  /vite/2.0.0-beta.35:
+  /vite/2.0.0-beta.36:
     dependencies:
-      esbuild: 0.8.33
+      esbuild: 0.8.34
       postcss: 8.2.4
       resolve: 1.19.0
       rollup: 2.37.1
@@ -2863,8 +2863,8 @@ packages:
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-22+MuR3fvy5GmGdjIXHXcUbfVS8P2DK8C2wdcDcdZnugCTd+4XySF2xeRt+VFPyhqq+/KSbdOuA2r47F+VMwig==
-  /vue-eslint-parser/7.3.0_eslint@7.18.0:
+      integrity: sha512-+Q/Twq1/tpNQIZl0HSFTqiEuP7lXj+6H/f9q63+s5I2K/sqgSUajL3PL7W9uUUIv9dYpJ1eLqkO42ppH9w9Ldw==
+  /vue-eslint-parser/7.4.1_eslint@7.18.0:
     dependencies:
       debug: 4.3.2
       eslint: 7.18.0
@@ -2879,7 +2879,7 @@ packages:
     peerDependencies:
       eslint: '>=5.0.0'
     resolution:
-      integrity: sha512-n5PJKZbyspD0+8LnaZgpEvNCrjQx1DyDHw8JdWwoxhhC+yRip4TAvSDpXGf9SWX6b0umeB5aR61gwUo6NVvFxw==
+      integrity: sha512-AFvhdxpFvliYq1xt/biNBslTHE/zbEvSnr1qfHA/KxRIpErmEDrQZlQnvEexednRHmLfDNOMuDYwZL5xkLzIXQ==
   /vue-router/4.0.3:
     dev: false
     peerDependencies:
