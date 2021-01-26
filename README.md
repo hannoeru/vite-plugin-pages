@@ -1,7 +1,7 @@
 # vite-plugin-pages
 
 
-![npm version](https://img.shields.io/npm/v/vite-plugin-pages)
+[![npm version](https://img.shields.io/npm/v/vite-plugin-pages)](https://www.npmjs.com/package/vite-plugin-pages)
 
 > File system based routing for Vue 3 applications using [Vite](https://github.com/vitejs/vite)
 
