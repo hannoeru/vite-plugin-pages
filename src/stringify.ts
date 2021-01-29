@@ -17,7 +17,7 @@ export function stringifyRoutes(
     .stringify(preparedRoutes, null, 2)
     .split('\n')
     .map((str) => {
-      if (str.includes('component')) {
+      if (/"component":\s"\S+"/.test(str)) {
         const start = '"component": "'
         const startIndex = str.indexOf(start) + start.length
         const endIndex = str.indexOf('",')
