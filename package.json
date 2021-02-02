@@ -34,7 +34,8 @@
     "vue-router": "^4.0.3"
   },
   "peerDependencies": {
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vite": "^2.0.0-beta.61"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.4.3",
