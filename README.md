@@ -5,7 +5,7 @@
 
 > File system based routing for Vue 3 applications using [Vite](https://github.com/vitejs/vite)
 
-### **⚠️ Virtual Module name is changed to `pages-generated` sense v0.2.0**
+### **⚠️ Virtual Module name is changed to `pages-generated` since v0.2.0**
 
 ## Getting Started
 
