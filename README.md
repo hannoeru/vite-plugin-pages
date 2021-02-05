@@ -5,7 +5,7 @@
 
 > File system based routing for Vue 3 applications using [Vite](https://github.com/vitejs/vite)
 
-### **This plugin is a refactored version of [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
+### **⚠️ Virtual Module name is changed to `pages-generated` sense v0.2.0**
 
 ## Getting Started
 
@@ -30,11 +30,11 @@ export default {
 
 By default a page is a Vue component exported from a `.vue` or `.js` file in the `src/pages` directory.
 
-You can access the generated routes by importing the `vite-plugin-pages/client` module in your application.
+You can access the generated routes by importing the `pages-generated` module in your application.
 
 ```js
 import { createRouter } from 'vue-router';
-import routes from 'vite-plugin-pages/client';
+import routes from 'pages-generated';
 
 const router = createRouter({
   // ...
