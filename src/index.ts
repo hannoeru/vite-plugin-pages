@@ -5,7 +5,7 @@ import { getPagesPath } from './files'
 import { generateClientCode } from './generate'
 import { debug, normalizePath } from './utils'
 
-const ID = 'vite-plugin-pages/client'
+const ID = 'pages-generated'
 
 function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   const {
