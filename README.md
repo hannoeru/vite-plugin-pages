@@ -81,7 +81,7 @@ Array of valid file extensions for pages.
 
 Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
 
-**Default:** 
+**Default:**
 - Top level index file: `'sync'`
 - Others: `'async'`
 
@@ -148,3 +148,5 @@ export default {
 ```
 
 ### **See more details: [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
+
+### Route block parsing code: [@ktsn/vue-route-generator](https://github.com/ktsn/vue-route-generator)

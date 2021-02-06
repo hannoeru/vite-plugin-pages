@@ -27,6 +27,7 @@
     "example:serve": "npm -C example run serve"
   },
   "dependencies": {
+    "@vue/compiler-sfc": "^3.0.5",
     "debug": "^4.3.2",
     "directory-tree": "^2.2.6",
     "fast-glob": "^3.2.5",

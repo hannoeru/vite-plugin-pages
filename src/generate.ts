@@ -6,9 +6,12 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
+import * as fs from 'fs'
 import { Route, ResolvedOptions } from './types'
-import { isDynamicRoute } from './utils'
+import { debug, isDynamicRoute } from './utils'
 import { stringifyRoutes } from './stringify'
+import { parseSFC } from './parseSfc'
+import { getCwd } from './files'
 
 function prepareRoutes(
   routes: Route[],
@@ -35,14 +38,41 @@ function prepareRoutes(
   return routes
 }
 
+interface FileError extends Error {
+  file?: string
+}
+
+function tryParseCustomBlock(
+  content: string,
+  filePath: string,
+  blockName: string): any {
+  try {
+    return JSON.parse(content)
+  }
+  catch (err) {
+    const wrapped: FileError = new Error(`Invalid json format of <${blockName}> content in ${filePath}\n${err.message}`)
+
+    // Store file path to provide useful information to downstream tools
+    // like friendly-errors-webpack-plugin
+    wrapped.file = filePath
+
+    throw wrapped
+  }
+}
+
 export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
   const {
+    root,
     pagesDir,
     extensions,
   } = options
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
   const routes: Route[] = []
+
+  const cwd = getCwd(options)
+
+  debug('cwd: %O', cwd)
 
   for (const filePath of filesPath) {
     const resolvedPath = filePath.replace(extensionsRE, '')
@@ -93,6 +123,14 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
         }
       }
     }
+
+    const content = fs.readFileSync(`${cwd}/${filePath}`, 'utf8')
+    const parsed = parseSFC(content)
+    const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
+
+    if (routeBlock)
+      Object.assign(route, tryParseCustomBlock(routeBlock.content, filePath, 'route'))
+
     parentRoutes.push(route)
   }
 

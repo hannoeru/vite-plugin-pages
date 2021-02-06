@@ -16,3 +16,8 @@ export default {
 <style>
 
 </style>
+<route>
+{
+  "requiresAuth": true
+}
+</route>

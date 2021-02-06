@@ -8,13 +8,11 @@ import { extensionsToGlob, normalizePath } from './utils'
  */
 export async function getPagesPath(options: ResolvedOptions): Promise<string[]> {
   const {
-    root,
-    pagesDir,
     extensions,
     exclude,
   } = options
 
-  const cwd = normalizePath(resolve(root, pagesDir))
+  const cwd = getCwd(options)
   const ext = extensionsToGlob(extensions)
 
   const files = await fg(`**/*.${ext}`, {
@@ -24,4 +22,13 @@ export async function getPagesPath(options: ResolvedOptions): Promise<string[]> 
   })
 
   return files
+}
+
+export function getCwd(options: ResolvedOptions): string {
+  const {
+    root,
+    pagesDir,
+  } = options
+
+  return normalizePath(resolve(root, pagesDir))
 }
