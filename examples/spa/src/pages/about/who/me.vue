@@ -11,7 +11,7 @@ export default {
 <style>
 
 </style>
-<route lang="json">
+<route>
 {
   "name": "who-me-override",
   "meta": {"requiresAuth": false}

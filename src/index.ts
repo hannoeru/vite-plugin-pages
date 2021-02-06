@@ -90,14 +90,18 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     },
     async transform(code: string, id: string) {
       const { filename, query } = parseVueRequest(id)
-      debug('transform', id, JSON.stringify(query))
 
-      if (query.vue && query.lang === 'route') {
-        debug('transform code: %O', code)
-        return Promise.resolve('')
+      if (query && query.vue && query.lang === 'route') {
+        return {
+          code: 'export default {}',
+          map: null,
+        }
       }
 
-      return Promise.resolve(code)
+      return {
+        code,
+        map: null,
+      }
     },
     async handleHotUpdate({ file, server, read }) {
       const extensionsRE = new RegExp(`\\.(${options.extensions.join('|')})$`)
