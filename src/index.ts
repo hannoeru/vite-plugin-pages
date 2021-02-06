@@ -72,7 +72,8 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
       // Hot reload module when new file created
       if (
         file.startsWith(pagesDirPath)
-        && !filesPath.includes(file.replace(`${pagesDirPath}/`, ''))
+        // we want to hot reload when any page changes under pages, since the route-block may change
+        // && !filesPath.includes(file.replace(`${pagesDirPath}/`, ''))
         && extensionsRE.test(file)
       ) {
         const { moduleGraph } = server
