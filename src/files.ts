@@ -18,7 +18,7 @@ export async function getPagesPath(options: ResolvedOptions): Promise<string[]> 
   const ext = extensionsToGlob(extensions)
 
   const files = await fg(`**/*.${ext}`, {
-    ignore: ['node_modules', '.git', ...exclude],
+    ignore: ['node_modules', '.git', '**/__*__/*', ...exclude],
     onlyFiles: true,
     cwd,
   })
