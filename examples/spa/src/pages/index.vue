@@ -16,7 +16,7 @@ export default {
 <style>
 
 </style>
-<route>
+<route lang="json">
 {
   "meta": {"requiresAuth": true}
 }

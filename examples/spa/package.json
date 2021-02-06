@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cross-env DEBUG=vite-plugin-pages vite",
+    "dev": "cross-env DEBUG=vite-plugin-pages vite --port 3332",
     "build": "cross-env DEBUG=vite-plugin-pages vite build",
     "serve": "vite preview"
   },

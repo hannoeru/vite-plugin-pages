@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import deepEqual from 'deep-equal'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPagesPath } from './files'
@@ -41,11 +42,12 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
   let generatedRoutes: Route[] | null
 
   const options: ResolvedOptions = resolveOptions(userOptions)
-  const checkChildren = (nodes: Route[], filename: string): Route | undefined => {
-    let result = nodes.find(x => x.filename === filename)
+
+  const findRouteByFilename = (routes: Route[], filename: string): Route | undefined => {
+    let result = routes.find(x => x.filename === filename)
     if (result === undefined) {
-      for (const node of nodes) {
-        if (node.children !== undefined) result = checkChildren(node.children, filename)
+      for (const route of routes) {
+        if (route.children !== undefined) result = findRouteByFilename(route.children, filename)
         if (result) break
       }
     }
@@ -86,6 +88,17 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
         return clientCode
       }
     },
+    async transform(code: string, id: string) {
+      const { filename, query } = parseVueRequest(id)
+      debug('transform', id, JSON.stringify(query))
+
+      if (query.vue && query.lang === 'route') {
+        debug('transform code: %O', code)
+        return Promise.resolve('')
+      }
+
+      return Promise.resolve(code)
+    },
     async handleHotUpdate({ file, server, read }) {
       const extensionsRE = new RegExp(`\\.(${options.extensions.join('|')})$`)
       // Hot reload module when new file created
@@ -107,13 +120,12 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
           const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
           if (generatedRoutes && routeBlock) {
             debug('hmr code: %O', routeBlock.content)
-            const node = checkChildren(generatedRoutes, file)
+            const route = findRouteByFilename(generatedRoutes, file)
 
-            if (node) {
-              debug('hmr before: %O', node)
-              Object.assign(node, tryParseCustomBlock(routeBlock.content, file, 'route'))
-              debug('hmr after: %O', node)
-              needReload = true
+            if (route) {
+              const before = Object.assign({}, route)
+              Object.assign(route, tryParseCustomBlock(routeBlock.content, file, 'route'))
+              needReload = !deepEqual(before, route)
             }
           }
         }

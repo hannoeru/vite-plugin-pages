@@ -10,7 +10,7 @@ export type ImportMode = 'sync' | 'async'
 export type ImportModeResolveFn = (filepath: string) => ImportMode
 
 export interface Route {
-  filename?: string
+  filename: string
   name?: string
   path: string
   props?: boolean
