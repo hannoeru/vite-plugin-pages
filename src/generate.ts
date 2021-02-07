@@ -39,7 +39,7 @@ function prepareRoutes(
 }
 
 function findRouteByFilename(routes: Route[], filename: string): Route | undefined {
-  let result = routes.find(x => x.filename === filename)
+  let result = routes.find(x => filename.endsWith(x.component))
   if (result === undefined) {
     for (const route of routes) {
       if (route.children !== undefined) result = findRouteByFilename(route.children, filename)
@@ -67,7 +67,6 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
     const route: Route = {
       name: '',
       path: '',
-      filename: '',
       component,
     }
 
@@ -110,8 +109,7 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
       }
     }
 
-    route.filename = `${pagesDirPath}/${filePath}`
-    const content = fs.readFileSync(route.filename, 'utf8')
+    const content = fs.readFileSync(`${pagesDirPath}/${filePath}`, 'utf8')
     const parsed = parseSFC(content)
     const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
 
