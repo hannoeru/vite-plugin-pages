@@ -11,7 +11,7 @@ import qs from 'querystring'
 export interface VueQuery {
   vue?: boolean
   src?: boolean
-  type?: 'script' | 'template' | 'style' | 'custom'
+  type?: 'script' | 'template' | 'style' | 'custom' | 'route'
   index?: number
   lang?: string
 }

@@ -62,7 +62,7 @@ export interface ResolvedOptions extends Options {
   root: string
 
   /**
-   * Resolves to the cwd (root + pagesDir).
+   * Resolves to the pages path (root + pagesDir).
    */
-  cwd: string
+  pagesDirPath: string
 }

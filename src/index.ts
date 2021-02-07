@@ -18,14 +18,14 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   } = userOptions
 
   const root = process.cwd()
-  const cwd = normalizePath(resolve(root, pagesDir))
+  const pagesDirPath = normalizePath(resolve(root, pagesDir))
 
   return Object.assign(
     {},
     {
-      cwd,
       root,
       pagesDir,
+      pagesDirPath,
       extensions,
       importMode,
       exclude,
@@ -80,7 +80,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     async transform(code: string, id: string) {
       const { filename, query } = parseVueRequest(id)
 
-      if (query && query.vue && query.lang === 'route') {
+      if (query && query.vue && query.type === 'route') {
         return {
           code: 'export default {}',
           map: null,

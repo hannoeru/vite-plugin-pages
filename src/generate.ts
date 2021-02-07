@@ -51,9 +51,9 @@ function findRouteByFilename(routes: Route[], filename: string): Route | undefin
 
 export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
   const {
-    cwd,
     root,
     pagesDir,
+    pagesDirPath,
     extensions,
   } = options
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
@@ -111,13 +111,13 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
       }
     }
 
-    route.filename = `${cwd}/${filePath}`
+    route.filename = `${pagesDirPath}/${filePath}`
     const content = fs.readFileSync(route.filename, 'utf8')
     const parsed = parseSFC(content)
     const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
 
     if (routeBlock)
-      Object.assign(route, tryParseCustomBlock(routeBlock.content, filePath, 'route'))
+      Object.assign(route, tryParseCustomBlock(routeBlock, filePath))
 
     parentRoutes.push(route)
   }
@@ -144,12 +144,12 @@ export function updateRouteFromContent(content: string, filename: string, routes
   const parsed = parseSFC(content)
   const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
   if (routeBlock) {
-    debug('hmr code: %O', routeBlock.content)
+    debug('hmr block: %O', routeBlock)
     const route = findRouteByFilename(routes, filename)
 
     if (route) {
       const before = Object.assign({}, route)
-      Object.assign(route, tryParseCustomBlock(routeBlock.content, filename, 'route'))
+      Object.assign(route, tryParseCustomBlock(routeBlock, filename))
       return !deepEqual(before, route)
     }
   }
