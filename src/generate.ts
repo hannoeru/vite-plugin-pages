@@ -60,6 +60,7 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
     const route: Route = {
       name: '',
       path: '',
+      filename: '',
       component,
     }
 
