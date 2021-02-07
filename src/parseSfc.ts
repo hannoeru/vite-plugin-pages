@@ -31,7 +31,8 @@ export function tryParseCustomBlock(block: CustomBlock, filePath: string): any {
   const lang = block.lang ?? 'any'
   let valid = true
   let err: Error = new Error()
-  let result: any = {}
+  let result: Record<string, any> = {}
+
   if (lang === 'json') {
     try {
       result = JSON.parse(block.content)
