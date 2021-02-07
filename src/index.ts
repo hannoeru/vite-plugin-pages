@@ -13,6 +13,7 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
     pagesDir = 'src/pages',
     extensions = ['vue', 'js'],
     importMode = 'async',
+    routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
   } = userOptions
@@ -23,6 +24,7 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   return Object.assign(
     {},
     {
+      routeBlockLang,
       root,
       pagesDir,
       pagesDirPath,
@@ -109,7 +111,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
         else if (generatedRoutes) {
           // Otherwise, update existing routes
           const content = await read()
-          needReload = updateRouteFromContent(content, file, generatedRoutes)
+          needReload = updateRouteFromContent(content, file, generatedRoutes, options)
         }
 
         if (needReload) {

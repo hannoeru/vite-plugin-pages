@@ -22,6 +22,11 @@ export interface Route {
  */
 interface Options {
   /**
+   * Default route block parser, options are json5, json, yaml
+   * @default 'json5'
+   */
+  routeBlockLang: 'json5' | 'json' | 'yaml'
+  /**
    * Relative path to the directory to search for page components.
    * @default 'src/pages'
    */

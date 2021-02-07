@@ -11,8 +11,11 @@ export default {
 <style>
 
 </style>
-<route lang="yaml">
-name: who-me-override
-meta:
+<route>
+{
+name: "who-me-override"
+meta: {
   requiresAuth: false
+}
+}
 </route>

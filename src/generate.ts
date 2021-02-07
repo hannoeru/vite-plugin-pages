@@ -114,7 +114,7 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
     const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
 
     if (routeBlock)
-      Object.assign(route, tryParseCustomBlock(routeBlock, filePath))
+      Object.assign(route, tryParseCustomBlock(routeBlock, filePath, options))
 
     parentRoutes.push(route)
   }
@@ -137,7 +137,7 @@ export function generateClientCodeFromRoutes(routes: Route[], options: ResolvedO
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
 }
 
-export function updateRouteFromContent(content: string, filename: string, routes: Route[]): boolean {
+export function updateRouteFromContent(content: string, filename: string, routes: Route[], options: ResolvedOptions): boolean {
   const parsed = parseSFC(content)
   const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
   if (routeBlock) {
@@ -146,7 +146,7 @@ export function updateRouteFromContent(content: string, filename: string, routes
 
     if (route) {
       const before = Object.assign({}, route)
-      Object.assign(route, tryParseCustomBlock(routeBlock, filename))
+      Object.assign(route, tryParseCustomBlock(routeBlock, filename, options))
       return !deepEqual(before, route)
     }
   }
