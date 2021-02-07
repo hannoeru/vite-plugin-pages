@@ -18,6 +18,7 @@ export default {
 </style>
 <route>
 {
+  name: "name-override"
   meta: {requiresAuth: false}
 }
 </route>

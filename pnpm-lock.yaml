@@ -9,6 +9,7 @@ importers:
       glob-to-regexp: 0.4.1
       json5: 2.2.0
       vue-router: 4.0.3
+      yaml: 2.0.0-3
     devDependencies:
       '@antfu/eslint-config': 0.4.3_eslint@7.19.0+typescript@4.1.3
       '@types/debug': 4.1.5
@@ -41,6 +42,7 @@ importers:
       typescript: ^4.1.3
       vite: ^2.0.0-beta.64
       vue-router: ^4.0.3
+      yaml: ^2.0.0-3
   examples/spa:
     dependencies:
       vue: 3.0.5
@@ -3651,3 +3653,9 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-yr2icI4glYaNG+KWONODapy2/jDdMSDnrONSjblABjD9B4Z5LgiircSt8m8sRZFNi08kG9Sm0uSHtEmP3zaEGg==
+  /yaml/2.0.0-3:
+    dev: false
+    engines:
+      node: '>= 10'
+    resolution:
+      integrity: sha512-gvtVaY+/mQ0OsXgaWy2Tf830JuXN7qEUYdXWsuiJVSkMRsBBQ90YVpQQofaURbhoA1xSbLBf7965oH6ddzNbBQ==

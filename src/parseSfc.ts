@@ -1,5 +1,6 @@
 import { parse } from '@vue/compiler-sfc'
 import JSON5 from 'json5'
+import YAML from 'yaml'
 
 export interface CustomBlock {
   type: string
@@ -33,12 +34,17 @@ export function tryParseCustomBlock(
     return JSON5.parse(content)
   }
   catch (err) {
-    const wrapped: FileError = new Error(`Invalid json format of <${blockName}> content in ${filePath}\n${err.message}`)
+    try {
+      return YAML.parse(content)
+    }
+    catch {
+      const wrapped: FileError = new Error(`Invalid JSON/JSON5/YAML format of <${blockName}> content in ${filePath}\n${err.message}`)
 
-    // Store file path to provide useful information to downstream tools
-    // like friendly-errors-webpack-plugin
-    wrapped.file = filePath
+      // Store file path to provide useful information to downstream tools
+      // like friendly-errors-webpack-plugin
+      wrapped.file = filePath
 
-    throw wrapped
+      throw wrapped
+    }
   }
 }

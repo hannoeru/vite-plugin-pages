@@ -147,6 +147,30 @@ export default {
 };
 ```
 
+### In-Component Route Data for SFC
+
+Add per-route information to the route by adding a ```<route></route>``` block to the SFC.  Information here is added directly to the route after it is generated, allowing it to override.
+
+JSON/JSON5:
+
+```
+<route>
+{
+  name: "name-override"
+  meta: {requiresAuth: false}
+}
+</route>
+```
+YAML:
+```
+<route>
+name: name-override
+meta:
+  requiresAuth: true
+</route>
+```
+
+
 ### **See more details: [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
 
 ### Route block parsing code: [@ktsn/vue-route-generator](https://github.com/ktsn/vue-route-generator)
