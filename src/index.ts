@@ -78,7 +78,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
       }
     },
     async transform(code: string, id: string) {
-      const { filename, query } = parseVueRequest(id)
+      const { query } = parseVueRequest(id)
 
       if (query && query.vue && query.type === 'route') {
         return {

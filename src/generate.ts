@@ -51,7 +51,6 @@ function findRouteByFilename(routes: Route[], filename: string): Route | undefin
 
 export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
   const {
-    root,
     pagesDir,
     pagesDirPath,
     extensions,
