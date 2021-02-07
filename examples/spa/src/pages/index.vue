@@ -18,6 +18,6 @@ export default {
 </style>
 <route>
 {
-  "meta": {"requiresAuth": true}
+  meta: {requiresAuth: false}
 }
 </route>

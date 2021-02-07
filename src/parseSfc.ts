@@ -1,4 +1,5 @@
 import { parse } from '@vue/compiler-sfc'
+import JSON5 from 'json5'
 
 export interface CustomBlock {
   type: string
@@ -29,7 +30,7 @@ export function tryParseCustomBlock(
   filePath: string,
   blockName: string): any {
   try {
-    return JSON.parse(content)
+    return JSON5.parse(content)
   }
   catch (err) {
     const wrapped: FileError = new Error(`Invalid json format of <${blockName}> content in ${filePath}\n${err.message}`)

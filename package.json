@@ -33,6 +33,7 @@
     "directory-tree": "^2.2.6",
     "fast-glob": "^3.2.5",
     "glob-to-regexp": "^0.4.1",
+    "json5": "^2.2.0",
     "vue-router": "^4.0.3"
   },
   "peerDependencies": {

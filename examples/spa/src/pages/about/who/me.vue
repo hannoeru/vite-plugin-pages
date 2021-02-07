@@ -13,7 +13,7 @@ export default {
 </style>
 <route>
 {
-  "name": "who-me-override",
-  "meta": {"requiresAuth": false}
+  name: "who-me-override",
+  meta: {requiresAuth: true}
 }
 </route>
