@@ -7,11 +7,11 @@
  */
 
 import * as fs from 'fs'
+import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions } from './types'
 import { debug, isDynamicRoute } from './utils'
 import { stringifyRoutes } from './stringify'
 import { tryParseCustomBlock, parseSFC } from './parseSfc'
-import { getCwd } from './files'
 
 function prepareRoutes(
   routes: Route[],
@@ -38,8 +38,20 @@ function prepareRoutes(
   return routes
 }
 
+function findRouteByFilename(routes: Route[], filename: string): Route | undefined {
+  let result = routes.find(x => x.filename === filename)
+  if (result === undefined) {
+    for (const route of routes) {
+      if (route.children !== undefined) result = findRouteByFilename(route.children, filename)
+      if (result) break
+    }
+  }
+  return result
+}
+
 export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
   const {
+    cwd,
     root,
     pagesDir,
     extensions,
@@ -47,10 +59,6 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
   const routes: Route[] = []
-
-  const cwd = getCwd(options)
-
-  debug('cwd: %O', cwd)
 
   for (const filePath of filesPath) {
     const resolvedPath = filePath.replace(extensionsRE, '')
@@ -130,4 +138,20 @@ export function generateClientCodeFromRoutes(routes: Route[], options: ResolvedO
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
+}
+
+export function updateRouteFromContent(content: string, filename: string, routes: Route[]): boolean {
+  const parsed = parseSFC(content)
+  const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
+  if (routeBlock) {
+    debug('hmr code: %O', routeBlock.content)
+    const route = findRouteByFilename(routes, filename)
+
+    if (route) {
+      const before = Object.assign({}, route)
+      Object.assign(route, tryParseCustomBlock(routeBlock.content, filename, 'route'))
+      return !deepEqual(before, route)
+    }
+  }
+  return false
 }

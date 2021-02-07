@@ -60,4 +60,9 @@ export interface ResolvedOptions extends Options {
    * @default config.root
    */
   root: string
+
+  /**
+   * Resolves to the cwd (root + pagesDir).
+   */
+  cwd: string
 }

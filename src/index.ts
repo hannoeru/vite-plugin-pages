@@ -1,12 +1,10 @@
 import { resolve } from 'path'
-import deepEqual from 'deep-equal'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPagesPath } from './files'
-import { generateRoutes, generateClientCode, generateClientCodeFromRoutes } from './generate'
+import { generateRoutes, generateClientCodeFromRoutes, updateRouteFromContent } from './generate'
 import { debug, normalizePath } from './utils'
 import { parseVueRequest } from './query'
-import { tryParseCustomBlock, parseSFC } from './parseSfc'
 
 const ID = 'pages-generated'
 
@@ -20,10 +18,12 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   } = userOptions
 
   const root = process.cwd()
+  const cwd = normalizePath(resolve(root, pagesDir))
 
   return Object.assign(
     {},
     {
+      cwd,
       root,
       pagesDir,
       extensions,
@@ -42,17 +42,6 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
   let generatedRoutes: Route[] | null
 
   const options: ResolvedOptions = resolveOptions(userOptions)
-
-  const findRouteByFilename = (routes: Route[], filename: string): Route | undefined => {
-    let result = routes.find(x => x.filename === filename)
-    if (result === undefined) {
-      for (const route of routes) {
-        if (route.children !== undefined) result = findRouteByFilename(route.children, filename)
-        if (result) break
-      }
-    }
-    return result
-  }
 
   return {
     name: 'vite-plugin-pages',
@@ -117,21 +106,10 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
           generatedRoutes = null
           needReload = true
         }
-        else {
+        else if (generatedRoutes) {
           // Otherwise, update existing routes
           const content = await read()
-          const parsed = parseSFC(content)
-          const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
-          if (generatedRoutes && routeBlock) {
-            debug('hmr code: %O', routeBlock.content)
-            const route = findRouteByFilename(generatedRoutes, file)
-
-            if (route) {
-              const before = Object.assign({}, route)
-              Object.assign(route, tryParseCustomBlock(routeBlock.content, file, 'route'))
-              needReload = !deepEqual(before, route)
-            }
-          }
+          needReload = updateRouteFromContent(content, file, generatedRoutes)
         }
 
         if (needReload) {
