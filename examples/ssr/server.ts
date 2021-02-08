@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from 'fs'
 import path from 'path'
 import express from 'express'
@@ -17,29 +16,29 @@ async function createServer(
     : ''
 
   const manifest = isProd
-    ? require('./dist/client/ssr-manifest.json')
+    ? await import('./dist/client/ssr-manifest.json')
     : {}
 
   const app = express()
 
   let vite: ViteDevServer
   if (!isProd) {
-    vite = await require('vite').createServer({
+    vite = await import('vite').then(i => i.createServer({
       root,
       logLevel: isTest ? 'error' : 'info',
       server: {
         middlewareMode: true,
       },
-    })
+    }))
     // use vite's connect instance as middleware
     app.use(vite.middlewares)
   }
   else {
-    app.use(require('compression')())
-    app.use(
-      require('serve-static')(resolve('dist/client'), {
+    app.use(await import('compression').then(i => i.default()))
+    app.use(await import('serve-static')
+      .then(i => i.default(resolve('dist/client'), {
         index: false,
-      }),
+      })),
     )
   }
 
@@ -58,7 +57,7 @@ async function createServer(
       else {
         template = indexProd
         // @ts-ignore
-        render = require('./dist/server/entry-server.js').render
+        render = await import('./dist/server/entry-server.js').then(i => i.render)
       }
 
       const [appHtml, preloadLinks] = await render(url, manifest)
