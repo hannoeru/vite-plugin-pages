@@ -7,12 +7,9 @@
   </div>
 </template>
 
-<script>
-export default {
-
+<route>
+{
+  name: "name-override",
+  meta: {requiresAuth: false}
 }
-</script>
-
-<style>
-
-</style>
+</route>

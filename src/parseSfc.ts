@@ -24,10 +24,6 @@ export function parseSFC(code: string): ParseResult {
   }
 }
 
-export interface FileError extends Error {
-  file?: string
-}
-
 export function tryParseCustomBlock(block: CustomBlock, filePath: string, options: ResolvedOptions): any {
   const lang = block.lang ?? options.routeBlockLang
 
@@ -36,12 +32,7 @@ export function tryParseCustomBlock(block: CustomBlock, filePath: string, option
       return JSON5.parse(block.content)
     }
     catch (err) {
-      const wrapped: FileError = new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)
-
-      // Store file path to provide useful information to downstream tools
-      // like friendly-errors-webpack-plugin
-      wrapped.file = filePath
-      throw wrapped
+      throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
   }
   else if (lang === 'json') {
@@ -49,9 +40,7 @@ export function tryParseCustomBlock(block: CustomBlock, filePath: string, option
       return JSON.parse(block.content)
     }
     catch (err) {
-      const wrapped: FileError = new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`)
-      wrapped.file = filePath
-      throw wrapped
+      throw new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
   }
 
@@ -60,9 +49,7 @@ export function tryParseCustomBlock(block: CustomBlock, filePath: string, option
       return YAML.parse(block.content)
     }
     catch (err) {
-      const wrapped: FileError = new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
-      wrapped.file = filePath
-      throw wrapped
+      throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
   }
 }

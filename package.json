@@ -22,12 +22,13 @@
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
     "release": "npx bumpp --commit --tag --push && npm publish",
-    "example:dev": "npm -C example run dev",
-    "example:build": "npm -C example run build",
-    "example:serve": "npm -C example run serve"
+    "example:dev": "npm -C examples/spa run dev",
+    "example:build": "npm -C examples/spa run build",
+    "example:serve": "npm -C examples/spa run serve"
   },
   "dependencies": {
     "@vue/compiler-sfc": "^3.0.5",
+    "chalk": "^4.1.0",
     "debug": "^4.3.2",
     "deep-equal": "^2.0.5",
     "directory-tree": "^2.2.6",

@@ -2,6 +2,7 @@ importers:
   .:
     dependencies:
       '@vue/compiler-sfc': 3.0.5
+      chalk: 4.1.0
       debug: 4.3.2
       deep-equal: 2.0.5
       directory-tree: 2.2.6
@@ -30,6 +31,7 @@ importers:
       '@types/node': ^14.14.25
       '@typescript-eslint/eslint-plugin': ^4.14.2
       '@vue/compiler-sfc': ^3.0.5
+      chalk: ^4.1.0
       debug: ^4.3.2
       deep-equal: ^2.0.5
       directory-tree: ^2.2.6
@@ -708,7 +710,6 @@ packages:
   /ansi-styles/4.3.0:
     dependencies:
       color-convert: 2.0.1
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -914,7 +915,6 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-    dev: true
     engines:
       node: '>=10'
     resolution:
@@ -955,7 +955,6 @@ packages:
   /color-convert/2.0.1:
     dependencies:
       color-name: 1.1.4
-    dev: true
     engines:
       node: '>=7.0.0'
     resolution:
@@ -964,7 +963,6 @@ packages:
     resolution:
       integrity: sha1-p9BVi9icQveV3UIyj3QIMcpTvCU=
   /color-name/1.1.4:
-    dev: true
     resolution:
       integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
   /colorette/1.2.1:
@@ -1932,7 +1930,6 @@ packages:
     resolution:
       integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
   /has-flag/4.0.0:
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -3345,7 +3342,6 @@ packages:
   /supports-color/7.2.0:
     dependencies:
       has-flag: 4.0.0
-    dev: true
     engines:
       node: '>=8'
     resolution:

@@ -22,7 +22,7 @@ export interface Route {
  */
 interface Options {
   /**
-   * Default route block parser, options are json5, json, yaml
+   * Set default route block parser, or use `<route lang=xxx>` in SFC route block
    * @default 'json5'
    */
   routeBlockLang: 'json5' | 'json' | 'yaml'

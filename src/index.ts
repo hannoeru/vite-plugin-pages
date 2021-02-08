@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPagesPath } from './files'
-import { generateRoutes, generateClientCodeFromRoutes, updateRouteFromContent } from './generate'
+import { generateRoutes, generateClientCode, updateRouteFromHMR } from './generate'
 import { debug, normalizePath } from './utils'
 import { parseVueRequest } from './query'
 
@@ -39,9 +39,8 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
 
 function routePlugin(userOptions: UserOptions = {}): Plugin {
   let config: ResolvedConfig | undefined
-  let pagesDirPath: string
-  let filesPath: string[]
-  let generatedRoutes: Route[] | null
+  let filesPath: string[] = []
+  let generatedRoutes: Route[] | null | undefined
 
   const options: ResolvedOptions = resolveOptions(userOptions)
 
@@ -51,8 +50,8 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     configResolved(_config) {
       config = _config
       options.root = config.root
-      pagesDirPath = normalizePath(resolve(config.root, options.pagesDir))
-      debug('pagesDirPath', pagesDirPath)
+      options.pagesDirPath = normalizePath(resolve(config.root, options.pagesDir))
+      debug('pagesDirPath', options.pagesDirPath)
     },
     resolveId(id) {
       if (id === ID)
@@ -60,21 +59,20 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     },
     async load(id) {
       if (id === ID) {
-        debug('Loading...')
+        debug('Loading files...')
 
         filesPath = await getPagesPath(options)
 
-        debug('filesPath: %O', filesPath)
+        debug('FilesPath: %O', filesPath)
 
-        if (!generatedRoutes) {
-          debug('Generating initial routes...')
+        if (!generatedRoutes)
           generatedRoutes = generateRoutes(filesPath, options)
-          debug('generatedRoutes: %O', generatedRoutes)
-        }
 
-        const clientCode = generateClientCodeFromRoutes(generatedRoutes, options)
+        debug('Routes: %O', generatedRoutes)
 
-        debug('client code: %O', clientCode)
+        const clientCode = generateClientCode(generatedRoutes, options)
+
+        // debug('Client code: %O', clientCode)
 
         return clientCode
       }
@@ -96,27 +94,30 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     },
     async handleHotUpdate({ file, server, read }) {
       const extensionsRE = new RegExp(`\\.(${options.extensions.join('|')})$`)
-      // Hot reload module when new file created
-      debug('hmr: %O', file)
+      const pagesDirPath = options.pagesDirPath
+      // Handle pages HMR
       if (
         file.startsWith(pagesDirPath)
         && extensionsRE.test(file)
       ) {
         let needReload = false
-        // Need to regenerate routes on new file
+
+        // HMR on new file created
+        // Otherwise, handle HMR from custom block
         if (!filesPath.includes(file.replace(`${pagesDirPath}/`, ''))) {
           generatedRoutes = null
           needReload = true
         }
         else if (generatedRoutes) {
-          // Otherwise, update existing routes
           const content = await read()
-          needReload = updateRouteFromContent(content, file, generatedRoutes, options)
+          needReload = updateRouteFromHMR(content, file, generatedRoutes, options)
         }
 
         if (needReload) {
           const { moduleGraph } = server
           const module = moduleGraph.getModuleById(ID)
+
+          debug('Reload for file: %s', file.replace(options.root, ''))
 
           return [module] as ModuleNode[]
         }

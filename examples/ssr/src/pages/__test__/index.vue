@@ -1,3 +1,3 @@
 <template>
-  <router-view />
+  test default exclude
 </template>

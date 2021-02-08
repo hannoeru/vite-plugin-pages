@@ -124,29 +124,23 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
   return preparedRoutes
 }
 
-export function generateClientCode(filesPath: string[], options: ResolvedOptions) {
-  const routes = generateRoutes(filesPath, options)
+export function generateClientCode(routes: Route[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
 }
 
-export function generateClientCodeFromRoutes(routes: Route[], options: ResolvedOptions) {
-  const { imports, stringRoutes } = stringifyRoutes(routes, options)
-
-  return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
-}
-
-export function updateRouteFromContent(content: string, filename: string, routes: Route[], options: ResolvedOptions): boolean {
+export function updateRouteFromHMR(content: string, filename: string, routes: Route[], options: ResolvedOptions): boolean {
   const parsed = parseSFC(content)
   const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
   if (routeBlock) {
-    debug('hmr block: %O', routeBlock)
     const route = findRouteByFilename(routes, filename)
 
     if (route) {
       const before = Object.assign({}, route)
-      Object.assign(route, tryParseCustomBlock(routeBlock, filename, options))
+      const customBlockContent = tryParseCustomBlock(routeBlock, filename, options)
+      debug('Custom Block: %O', customBlockContent)
+      Object.assign(route, customBlockContent)
       return !deepEqual(before, route)
     }
   }
