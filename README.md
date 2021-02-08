@@ -61,6 +61,7 @@ interface UserOptions {
   exclude: string[]
   importMode?: ImportMode | ImportModeResolveFn
   syncIndex?: boolean
+  routeBlockLang: 'json5' | 'json' | 'yaml'
   extendRoute?: (route: Route, parent: Route | undefined) => Route | void
 }
 ```
@@ -82,7 +83,7 @@ Array of valid file extensions for pages.
 Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
 
 **Default:**
-- Top level index file: `'sync'`
+- Top level index file: `'sync'`, can turn off by option `syncIndex`.
 - Others: `'async'`
 
 To get more fine-grained control over which routes are loaded sync/async, you can use a function to resolve the value based on the route path. For example:
@@ -101,6 +102,12 @@ export default {
   ],
 };
 ```
+
+### routeBlockLang
+
+Default SFC route block parser
+
+**Default:** `'json5'`
 
 ### extendRoute
 
@@ -147,15 +154,19 @@ export default {
 };
 ```
 
-### In-Component Route Data for SFC
+### SFC custom block for Route Data
 
-Add per-route information to the route by adding a ```<route></route>``` block to the SFC.  Information here is added directly to the route after it is generated, allowing it to override.
+Add per-route information to the route by adding a `<route>` block to the SFC.  Information here is directly added to the route after it is generated, and will override it.
 
-Parses JSON, JSON5 and YAML.  If you only want one, you can specify as ```<route lang="yaml>```
+You can specific a parser to use using `<route lang="yaml">`.
+
+**Supported parser:** JSON, JSON5, YAML
+
+**Default:** JSON5
 
 JSON/JSON5:
 
-```
+```html
 <route>
 {
   name: "name-override"
@@ -164,7 +175,7 @@ JSON/JSON5:
 </route>
 ```
 YAML:
-```
+```html
 <route>
 name: name-override
 meta:

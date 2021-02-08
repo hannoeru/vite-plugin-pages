@@ -22,11 +22,6 @@ export interface Route {
  */
 interface Options {
   /**
-   * Set default route block parser, or use `<route lang=xxx>` in SFC route block
-   * @default 'json5'
-   */
-  routeBlockLang: 'json5' | 'json' | 'yaml'
-  /**
    * Relative path to the directory to search for page components.
    * @default 'src/pages'
    */
@@ -50,6 +45,11 @@ interface Options {
    * @default true
    */
   syncIndex: boolean
+  /**
+   * Set default route block parser, or use `<route lang=xxx>` in SFC route block
+   * @default 'json5'
+   */
+  routeBlockLang: 'json5' | 'json' | 'yaml'
   /**
    * Extend route records
    */
