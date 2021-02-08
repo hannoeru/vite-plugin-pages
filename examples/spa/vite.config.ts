@@ -1,9 +1,9 @@
-import { UserConfig } from 'vite'
+import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Markdown from 'vite-plugin-md'
 
-const config: UserConfig = {
+const config = defineConfig({
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
@@ -14,6 +14,6 @@ const config: UserConfig = {
     }),
     Markdown(),
   ],
-}
+})
 
 export default config

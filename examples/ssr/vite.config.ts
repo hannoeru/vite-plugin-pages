@@ -1,8 +1,8 @@
-import { UserConfig } from 'vite'
+import { defineConfig } from 'vite'
 import VuePlugin from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 
-const config: UserConfig = {
+const config = defineConfig({
   plugins: [
     VuePlugin(),
     Pages(),
@@ -10,6 +10,6 @@ const config: UserConfig = {
   build: {
     minify: false,
   },
-}
+})
 
 export default config
