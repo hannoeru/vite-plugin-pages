@@ -1,4 +1,3 @@
-import { resolve } from 'path'
 import fg from 'fast-glob'
 import { ResolvedOptions } from './types'
 import { extensionsToGlob, normalizePath } from './utils'
@@ -8,19 +7,17 @@ import { extensionsToGlob, normalizePath } from './utils'
  */
 export async function getPagesPath(options: ResolvedOptions): Promise<string[]> {
   const {
-    root,
-    pagesDir,
+    pagesDirPath,
     extensions,
     exclude,
   } = options
 
-  const cwd = normalizePath(resolve(root, pagesDir))
   const ext = extensionsToGlob(extensions)
 
   const files = await fg(`**/*.${ext}`, {
     ignore: ['node_modules', '.git', '**/__*__/*', ...exclude],
     onlyFiles: true,
-    cwd,
+    cwd: pagesDirPath,
   })
 
   return files

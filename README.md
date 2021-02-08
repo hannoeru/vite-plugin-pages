@@ -81,7 +81,7 @@ Array of valid file extensions for pages.
 
 Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
 
-**Default:** 
+**Default:**
 - Top level index file: `'sync'`
 - Others: `'async'`
 
@@ -146,5 +146,31 @@ export default {
   ],
 };
 ```
+
+### In-Component Route Data for SFC
+
+Add per-route information to the route by adding a ```<route></route>``` block to the SFC.  Information here is added directly to the route after it is generated, allowing it to override.
+
+Parses JSON, JSON5 and YAML.  If you only want one, you can specify as ```<route lang="yaml>```
+
+JSON/JSON5:
+
+```
+<route>
+{
+  name: "name-override"
+  meta: {requiresAuth: false}
+}
+</route>
+```
+YAML:
+```
+<route>
+name: name-override
+meta:
+  requiresAuth: true
+</route>
+```
+
 
 ### **See more details: [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**

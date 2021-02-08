@@ -1,9 +1,10 @@
 import { resolve } from 'path'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
-import { ResolvedOptions, UserOptions } from './types'
+import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPagesPath } from './files'
-import { generateClientCode } from './generate'
+import { generateRoutes, generateClientCodeFromRoutes, updateRouteFromContent } from './generate'
 import { debug, normalizePath } from './utils'
+import { parseVueRequest } from './query'
 
 const ID = 'pages-generated'
 
@@ -12,17 +13,21 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
     pagesDir = 'src/pages',
     extensions = ['vue', 'js'],
     importMode = 'async',
+    routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
   } = userOptions
 
   const root = process.cwd()
+  const pagesDirPath = normalizePath(resolve(root, pagesDir))
 
   return Object.assign(
     {},
     {
+      routeBlockLang,
       root,
       pagesDir,
+      pagesDirPath,
       extensions,
       importMode,
       exclude,
@@ -36,6 +41,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
   let config: ResolvedConfig | undefined
   let pagesDirPath: string
   let filesPath: string[]
+  let generatedRoutes: Route[] | null
 
   const options: ResolvedOptions = resolveOptions(userOptions)
 
@@ -54,31 +60,66 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     },
     async load(id) {
       if (id === ID) {
-        debug('Generating routes...')
+        debug('Loading...')
 
         filesPath = await getPagesPath(options)
 
         debug('filesPath: %O', filesPath)
 
-        const clientCode = generateClientCode(filesPath, options)
+        if (!generatedRoutes) {
+          debug('Generating initial routes...')
+          generatedRoutes = generateRoutes(filesPath, options)
+          debug('generatedRoutes: %O', generatedRoutes)
+        }
+
+        const clientCode = generateClientCodeFromRoutes(generatedRoutes, options)
 
         debug('client code: %O', clientCode)
 
         return clientCode
       }
     },
-    async handleHotUpdate({ file, server }) {
+    async transform(code: string, id: string) {
+      const { query } = parseVueRequest(id)
+
+      if (query && query.vue && query.type === 'route') {
+        return {
+          code: 'export default {}',
+          map: null,
+        }
+      }
+
+      return {
+        code,
+        map: null,
+      }
+    },
+    async handleHotUpdate({ file, server, read }) {
       const extensionsRE = new RegExp(`\\.(${options.extensions.join('|')})$`)
       // Hot reload module when new file created
+      debug('hmr: %O', file)
       if (
         file.startsWith(pagesDirPath)
-        && !filesPath.includes(file.replace(`${pagesDirPath}/`, ''))
         && extensionsRE.test(file)
       ) {
-        const { moduleGraph } = server
-        const module = moduleGraph.getModuleById(ID)
+        let needReload = false
+        // Need to regenerate routes on new file
+        if (!filesPath.includes(file.replace(`${pagesDirPath}/`, ''))) {
+          generatedRoutes = null
+          needReload = true
+        }
+        else if (generatedRoutes) {
+          // Otherwise, update existing routes
+          const content = await read()
+          needReload = updateRouteFromContent(content, file, generatedRoutes, options)
+        }
 
-        return [module] as ModuleNode[]
+        if (needReload) {
+          const { moduleGraph } = server
+          const module = moduleGraph.getModuleById(ID)
+
+          return [module] as ModuleNode[]
+        }
       }
     },
   }

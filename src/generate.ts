@@ -6,9 +6,12 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
+import * as fs from 'fs'
+import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions } from './types'
-import { isDynamicRoute } from './utils'
+import { debug, isDynamicRoute } from './utils'
 import { stringifyRoutes } from './stringify'
+import { tryParseCustomBlock, parseSFC } from './parseSfc'
 
 function prepareRoutes(
   routes: Route[],
@@ -35,9 +38,21 @@ function prepareRoutes(
   return routes
 }
 
+function findRouteByFilename(routes: Route[], filename: string): Route | undefined {
+  let result = routes.find(x => filename.endsWith(x.component))
+  if (result === undefined) {
+    for (const route of routes) {
+      if (route.children !== undefined) result = findRouteByFilename(route.children, filename)
+      if (result) break
+    }
+  }
+  return result
+}
+
 export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
   const {
     pagesDir,
+    pagesDirPath,
     extensions,
   } = options
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
@@ -93,6 +108,14 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
         }
       }
     }
+
+    const content = fs.readFileSync(`${pagesDirPath}/${filePath}`, 'utf8')
+    const parsed = parseSFC(content)
+    const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
+
+    if (routeBlock)
+      Object.assign(route, tryParseCustomBlock(routeBlock, filePath, options))
+
     parentRoutes.push(route)
   }
 
@@ -106,4 +129,26 @@ export function generateClientCode(filesPath: string[], options: ResolvedOptions
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
+}
+
+export function generateClientCodeFromRoutes(routes: Route[], options: ResolvedOptions) {
+  const { imports, stringRoutes } = stringifyRoutes(routes, options)
+
+  return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
+}
+
+export function updateRouteFromContent(content: string, filename: string, routes: Route[], options: ResolvedOptions): boolean {
+  const parsed = parseSFC(content)
+  const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
+  if (routeBlock) {
+    debug('hmr block: %O', routeBlock)
+    const route = findRouteByFilename(routes, filename)
+
+    if (route) {
+      const before = Object.assign({}, route)
+      Object.assign(route, tryParseCustomBlock(routeBlock, filename, options))
+      return !deepEqual(before, route)
+    }
+  }
+  return false
 }

@@ -27,11 +27,15 @@
     "example:serve": "npm -C example run serve"
   },
   "dependencies": {
+    "@vue/compiler-sfc": "^3.0.5",
     "debug": "^4.3.2",
+    "deep-equal": "^2.0.5",
     "directory-tree": "^2.2.6",
     "fast-glob": "^3.2.5",
     "glob-to-regexp": "^0.4.1",
-    "vue-router": "^4.0.3"
+    "json5": "^2.2.0",
+    "vue-router": "^4.0.3",
+    "yaml": "^2.0.0-3"
   },
   "peerDependencies": {
     "vite": "^2.0.0-beta.64",
@@ -40,6 +44,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.4.3",
     "@types/debug": "^4.1.5",
+    "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.0",
     "@types/node": "^14.14.25",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
