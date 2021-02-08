@@ -169,8 +169,10 @@ JSON/JSON5:
 ```html
 <route>
 {
-  name: "name-override"
-  meta: {requiresAuth: false}
+  name: "name-override",
+  meta: {
+    requiresAuth: false
+  }
 }
 </route>
 ```
