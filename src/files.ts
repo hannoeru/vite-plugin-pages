@@ -5,9 +5,8 @@ import { extensionsToGlob } from './utils'
 /**
  * Resolves the files that are valid pages for the given context.
  */
-export async function getPagesPath(options: ResolvedOptions): Promise<string[]> {
+export async function getFilesFromPath(path: string, options: ResolvedOptions): Promise<string[]> {
   const {
-    pagesDirPath,
     extensions,
     exclude,
   } = options
@@ -17,7 +16,7 @@ export async function getPagesPath(options: ResolvedOptions): Promise<string[]> 
   const files = await fg(`**/*.${ext}`, {
     ignore: ['node_modules', '.git', '**/__*__/*', ...exclude],
     onlyFiles: true,
-    cwd: pagesDirPath,
+    cwd: path,
   })
 
   return files

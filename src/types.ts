@@ -25,7 +25,7 @@ interface Options {
    * Relative path to the directory to search for page components.
    * @default 'src/pages'
    */
-  pagesDir: string
+  pagesDir: string | string[]
   /**
    * Valid file extensions for page components.
    * @default ['vue', 'js']
@@ -68,5 +68,5 @@ export interface ResolvedOptions extends Options {
   /**
    * Resolves to the pages path (root + pagesDir).
    */
-  pagesDirPath: string
+  pagesDirPaths: string[]
 }

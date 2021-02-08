@@ -49,10 +49,8 @@ function findRouteByFilename(routes: Route[], filename: string): Route | undefin
   return result
 }
 
-export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
+export function generateRoutes(filesPath: string[], pagesDir: string, pagesDirPath: string, options: ResolvedOptions): Route[] {
   const {
-    pagesDir,
-    pagesDirPath,
     extensions,
   } = options
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
