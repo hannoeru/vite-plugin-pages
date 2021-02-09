@@ -17,6 +17,12 @@ export interface Route {
   children?: Route[]
   meta?: Record<string, unknown>
 }
+
+export interface PageDirOptions {
+  dir: string
+  baseRoute: string
+}
+
 /**
  * Plugin options.
  */
@@ -25,7 +31,7 @@ interface Options {
    * Relative path to the directory to search for page components.
    * @default 'src/pages'
    */
-  pagesDir: string | string[]
+  pagesDir: string | string[] | PageDirOptions[]
   /**
    * Valid file extensions for page components.
    * @default ['vue', 'js']
@@ -69,4 +75,9 @@ export interface ResolvedOptions extends Options {
    * Resolves to the pages path (root + pagesDir).
    */
   pagesDirPaths: string[]
+
+  /**
+   * Page Dir as a normalized array of PageDirOptions
+   */
+  pagesDirOptions: PageDirOptions[]
 }

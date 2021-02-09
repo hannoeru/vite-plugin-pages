@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
-import { Route, ResolvedOptions, UserOptions } from './types'
+import { Route, ResolvedOptions, UserOptions, PageDirOptions } from './types'
 import { getFilesFromPath } from './files'
 import { generateRoutes, generateClientCode, updateRouteFromHMR } from './generate'
 import { debug, normalizePath } from './utils'
@@ -9,8 +9,6 @@ import { parseVueRequest } from './query'
 const ID = 'pages-generated'
 
 function resolveOptions(userOptions: UserOptions): ResolvedOptions {
-  if (typeof userOptions.pagesDir === 'string') userOptions.pagesDir = [userOptions.pagesDir]
-
   const {
     pagesDir = ['src/pages'],
     extensions = ['vue', 'js'],
@@ -23,6 +21,20 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   const root = process.cwd()
   const pagesDirPaths: string[] = []
 
+  let pagesDirOptions: PageDirOptions[] = []
+
+  if (typeof pagesDir === 'string') {
+    pagesDirOptions = pagesDirOptions.concat({ dir: pagesDir, baseRoute: '' })
+  }
+  else {
+    for (const dir of pagesDir) {
+      if (typeof dir === 'string')
+        pagesDirOptions = pagesDirOptions.concat({ dir, baseRoute: '' })
+      else if (dir as PageDirOptions)
+        pagesDirOptions = pagesDirOptions.concat(dir)
+    }
+  }
+
   return Object.assign(
     {},
     {
@@ -30,6 +42,7 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
       root,
       pagesDir,
       pagesDirPaths,
+      pagesDirOptions,
       extensions,
       importMode,
       exclude,
@@ -60,23 +73,24 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     async load(id) {
       if (id === ID) {
         debug('Loading...')
+        debug('Loading Gen Routes: %O', generatedRoutes)
 
         if (!generatedRoutes) {
           generatedRoutes = []
           filesPath = []
           options.pagesDirPaths = []
-          for (const pageDir of options.pagesDir) {
-            const pageDirPath = normalizePath(resolve(options.root, pageDir))
+          for (const pageDir of options.pagesDirOptions) {
+            const pageDirPath = normalizePath(resolve(options.root, pageDir.dir))
             options.pagesDirPaths = options.pagesDirPaths.concat(pageDirPath)
             debug('Loading PageDir: %O', pageDirPath)
 
             const files = await getFilesFromPath(pageDirPath, options)
-            filesPath = filesPath.concat(files)
-            debug('FilesPath: %O', filesPath)
+            filesPath = filesPath.concat(files.map(f => `${pageDirPath}/${f}`))
+            debug('FilesPath: %O', files)
 
             const routes = generateRoutes(files, pageDir, pageDirPath, options)
             generatedRoutes = generatedRoutes.concat(routes)
-            debug('Routes: %O', generatedRoutes)
+            // debug('Routes: %O', generatedRoutes)
           }
         }
 
@@ -111,7 +125,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
 
         // HMR on new file created
         // Otherwise, handle HMR from custom block
-        if (!filesPath.includes(file.replace(`${matchedPath}/`, ''))) {
+        if (!filesPath.includes(file)) {
           generatedRoutes = null
           needReload = true
         }
