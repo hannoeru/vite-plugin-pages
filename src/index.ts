@@ -56,6 +56,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
   let config: ResolvedConfig | undefined
   let filesPath: string[] = []
   let generatedRoutes: Route[] | null | undefined
+  let pagesDirPaths: string[] = []
 
   const options: ResolvedOptions = resolveOptions(userOptions)
 
@@ -78,10 +79,10 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
         if (!generatedRoutes) {
           generatedRoutes = []
           filesPath = []
-          options.pagesDirPaths = []
+          pagesDirPaths = []
           for (const pageDir of options.pagesDirOptions) {
             const pageDirPath = normalizePath(resolve(options.root, pageDir.dir))
-            options.pagesDirPaths = options.pagesDirPaths.concat(pageDirPath)
+            pagesDirPaths = pagesDirPaths.concat(pageDirPath)
             debug('Loading PageDir: %O', pageDirPath)
 
             const files = await getFilesFromPath(pageDirPath, options)
@@ -118,7 +119,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     },
     async handleHotUpdate({ file, server, read }) {
       const extensionsRE = new RegExp(`\\.(${options.extensions.join('|')})$`)
-      const matchedPath = (options.pagesDirPaths).find(p => file.startsWith(`${p}/`))
+      const matchedPath = (pagesDirPaths).find(p => file.startsWith(`${p}/`))
       // Handle pages HMR
       if (matchedPath && extensionsRE.test(file)) {
         let needReload = false

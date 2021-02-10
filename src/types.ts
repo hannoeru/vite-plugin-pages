@@ -72,11 +72,6 @@ export interface ResolvedOptions extends Options {
   root: string
 
   /**
-   * Resolves to the pages path (root + pagesDir).
-   */
-  pagesDirPaths: string[]
-
-  /**
    * Page Dir as a normalized array of PageDirOptions
    */
   pagesDirOptions: PageDirOptions[]
