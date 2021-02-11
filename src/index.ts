@@ -19,7 +19,6 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   } = userOptions
 
   const root = process.cwd()
-  const pagesDirPaths: string[] = []
 
   let pagesDirOptions: PageDirOptions[] = []
 
@@ -41,7 +40,6 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
       routeBlockLang,
       root,
       pagesDir,
-      pagesDirPaths,
       pagesDirOptions,
       extensions,
       importMode,

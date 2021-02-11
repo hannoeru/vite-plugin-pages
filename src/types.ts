@@ -70,7 +70,6 @@ export interface ResolvedOptions extends Options {
    * @default config.root
    */
   root: string
-
   /**
    * Page Dir as a normalized array of PageDirOptions
    */
