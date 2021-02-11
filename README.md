@@ -56,7 +56,7 @@ If you want type definition of `pages-generated`, add `vite-plugin-pages/client`
 
 ```ts
 interface UserOptions {
-  pagesDir?: string
+  pagesDir?: string | string[] | PageDirOptions[]
   extensions?: string[]
   exclude: string[]
   importMode?: ImportMode | ImportModeResolveFn
@@ -69,6 +69,11 @@ interface UserOptions {
 ### pagesDir
 
 Relative path to the pages directory. Supports globs.
+
+Can be:
+- single path: routes point to `/`
+- array of paths: all routes in the paths point to `/`
+- array of `PageDirOptions` allowing you to specify base routes instead of `/`.  See [Feature Areas](#feature-areas) for more details
 
 **Default:** `'src/pages'`
 
@@ -105,7 +110,7 @@ export default {
 
 ### routeBlockLang
 
-Default SFC route block parser
+Default SFC route block parser.
 
 **Default:** `'json5'`
 
@@ -185,5 +190,24 @@ meta:
 </route>
 ```
 
+### Feature Routes
+
+Specifying an array of `PageDirOptions`  for `pagesDir` allow you to store pages anywhere in the source you'd like, and specify the base route to append to the path and the route name.  This allows you to store your pages in feature areas.
+
+Source structure:
+```
+src/features/
+    -admin/
+       -pages
+       -components
+       -code
+```
+In vite.config.js:
+```js
+pagesDir: [
+  { dir: 'src/pages', baseRoute: '' },
+  { dir: 'src/features/admin/pages', baseRoute: 'admin' },
+],
+```
 
 ### **See more details: [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**

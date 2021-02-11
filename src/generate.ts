@@ -8,7 +8,7 @@
 
 import * as fs from 'fs'
 import deepEqual from 'deep-equal'
-import { Route, ResolvedOptions } from './types'
+import { Route, ResolvedOptions, PageDirOptions } from './types'
 import { debug, isDynamicRoute } from './utils'
 import { stringifyRoutes } from './stringify'
 import { tryParseCustomBlock, parseSFC } from './parseSfc'
@@ -16,20 +16,30 @@ import { tryParseCustomBlock, parseSFC } from './parseSfc'
 function prepareRoutes(
   routes: Route[],
   options: ResolvedOptions,
+  pagesDirOptions: PageDirOptions,
   parent?: Route,
 ) {
   for (const route of routes) {
-    if (route.name)
+    if (route.name) {
       route.name = route.name.replace(/-index$/, '')
+      if (pagesDirOptions.baseRoute)
+        route.name = `${pagesDirOptions.baseRoute}-${route.name}`
+    }
 
-    if (parent)
+    if (parent) {
       route.path = route.path.replace(/^\//, '').replace(/\?$/, '')
+    }
+    else {
+      if (pagesDirOptions.baseRoute)
+        const baseRoute = `/${pagesDirOptions.baseRoute}`
+        route.path === '/' ? baseRoute : baseRoute + route.path
+    }
 
     route.props = true
 
     if (route.children) {
       delete route.name
-      route.children = prepareRoutes(route.children, options, route)
+      route.children = prepareRoutes(route.children, options, pagesDirOptions, route)
     }
 
     if (typeof options.extendRoute === 'function')
@@ -49,10 +59,9 @@ function findRouteByFilename(routes: Route[], filename: string): Route | undefin
   return result
 }
 
-export function generateRoutes(filesPath: string[], options: ResolvedOptions): Route[] {
+export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOptions, pagesDirPath: string, options: ResolvedOptions): Route[] {
+  const { dir: pagesDir } = pagesDirOptions
   const {
-    pagesDir,
-    pagesDirPath,
     extensions,
   } = options
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
@@ -119,7 +128,7 @@ export function generateRoutes(filesPath: string[], options: ResolvedOptions): R
     parentRoutes.push(route)
   }
 
-  const preparedRoutes = prepareRoutes(routes, options)
+  const preparedRoutes = prepareRoutes(routes, options, pagesDirOptions)
 
   return preparedRoutes
 }
