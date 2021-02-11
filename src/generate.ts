@@ -31,7 +31,8 @@ function prepareRoutes(
     }
     else {
       if (pagesDirOptions.baseRoute)
-        route.path = `/${pagesDirOptions.baseRoute}${route.path}`
+        const baseRoute = `/${pagesDirOptions.baseRoute}`
+        route.path === '/' ? baseRoute : baseRoute + route.path
     }
 
     route.props = true
