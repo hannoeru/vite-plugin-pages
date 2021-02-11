@@ -30,9 +30,12 @@ function prepareRoutes(
       route.path = route.path.replace(/^\//, '').replace(/\?$/, '')
     }
     else {
-      if (pagesDirOptions.baseRoute)
+      if (pagesDirOptions.baseRoute) {
         const baseRoute = `/${pagesDirOptions.baseRoute}`
-        route.path === '/' ? baseRoute : baseRoute + route.path
+        route.path = route.path === '/'
+          ? baseRoute
+          : baseRoute + route.path
+      }
     }
 
     route.props = true
