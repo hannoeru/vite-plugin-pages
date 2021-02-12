@@ -16,19 +16,19 @@ importers:
       '@types/debug': 4.1.5
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.0
-      '@types/node': 14.14.25
+      '@types/node': 14.14.27
       '@typescript-eslint/eslint-plugin': 4.15.0_eslint@7.19.0+typescript@4.1.5
       eslint: 7.19.0
       rollup: 2.38.5
       tsup: 3.12.1_typescript@4.1.5
       typescript: 4.1.5
-      vite: 2.0.0-beta.68
+      vite: 2.0.0-beta.69
     specifiers:
       '@antfu/eslint-config': ^0.4.3
       '@types/debug': ^4.1.5
       '@types/deep-equal': ^1.0.1
       '@types/glob-to-regexp': ^0.4.0
-      '@types/node': ^14.14.25
+      '@types/node': ^14.14.27
       '@typescript-eslint/eslint-plugin': ^4.15.0
       '@vue/compiler-sfc': ^3.0.5
       chalk: ^4.1.0
@@ -42,7 +42,7 @@ importers:
       rollup: ^2.38.5
       tsup: ^3.12.1
       typescript: ^4.1.5
-      vite: ^2.0.0-beta.68
+      vite: ^2.0.0-beta.69
       vue-router: ^4.0.3
       yaml: ^2.0.0-3
   examples/spa:
@@ -55,8 +55,8 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.7
       typescript: 4.1.5
-      vite: 2.0.0-beta.68
-      vite-plugin-md: 0.4.2_vite@2.0.0-beta.68
+      vite: 2.0.0-beta.69
+      vite-plugin-md: 0.4.2_vite@2.0.0-beta.69
       vite-plugin-pages: link:../..
     specifiers:
       '@vitejs/plugin-vue': ^1.1.4
@@ -64,7 +64,7 @@ importers:
       cross-env: ^7.0.3
       nodemon: ^2.0.7
       typescript: ^4.1.5
-      vite: ^2.0.0-beta.68
+      vite: ^2.0.0-beta.69
       vite-plugin-md: ^0.4.2
       vite-plugin-pages: workspace:*
       vue: ^3.0.5
@@ -76,7 +76,7 @@ importers:
     devDependencies:
       '@types/compression': 1.7.0
       '@types/express': 4.17.11
-      '@types/node': 14.14.25
+      '@types/node': 14.14.27
       '@vitejs/plugin-vue': 1.1.4_@vue+compiler-sfc@3.0.5
       '@vue/compiler-sfc': 3.0.5_vue@3.0.5
       '@vue/server-renderer': 3.0.5_vue@3.0.5
@@ -87,12 +87,12 @@ importers:
       fast-glob: 3.2.5
       serve-static: 1.14.1
       typescript: 4.1.5
-      vite: 2.0.0-beta.68
+      vite: 2.0.0-beta.69
       vite-plugin-pages: link:../..
     specifiers:
       '@types/compression': ^1.7.0
       '@types/express': ^4.17.11
-      '@types/node': ^14.14.25
+      '@types/node': ^14.14.27
       '@vitejs/plugin-vue': ^1.1.4
       '@vue/compiler-sfc': ^3.0.5
       '@vue/server-renderer': ^3.0.5
@@ -103,7 +103,7 @@ importers:
       fast-glob: ^3.2.5
       serve-static: ^1.14.1
       typescript: ^4.1.5
-      vite: ^2.0.0-beta.68
+      vite: ^2.0.0-beta.69
       vite-plugin-pages: workspace:*
       vue: ^3.0.5
       vue-router: ^4.0.3
@@ -215,16 +215,16 @@ packages:
     dev: true
     resolution:
       integrity: sha512-kocDQvIbgMKlWxXe9fof3TQ+gkIPOUSEYhJjqUjvKMez3krV7vbzYCDq39Oj11UAVK7JqPVGQPlgE85dPNlQww==
-  /@babel/parser/7.12.15:
+  /@babel/parser/7.12.16:
     engines:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-AQBOU2Z9kWwSZMd6lNjCX0GUgFonL1wAM1db8L8PMk9UDaGsRCArBkU4Sc+UCM3AE4hjbXx+h58Lb3QT4oRmrA==
+      integrity: sha512-c/+u9cqV6F0+4Hpq01jnJO+GLp2DdT63ppz9Xa+6cHaajM9VFzK/iDXiKK65YtpeVwu+ctfS6iqlMqRgQRzeCw==
   /@babel/template/7.12.13:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/parser': 7.12.15
+      '@babel/parser': 7.12.16
       '@babel/types': 7.12.13
     dev: true
     resolution:
@@ -235,7 +235,7 @@ packages:
       '@babel/generator': 7.12.15
       '@babel/helper-function-name': 7.12.13
       '@babel/helper-split-export-declaration': 7.12.13
-      '@babel/parser': 7.12.15
+      '@babel/parser': 7.12.16
       '@babel/types': 7.12.13
       debug: 4.3.2
       globals: 11.12.0
@@ -334,7 +334,7 @@ packages:
   /@types/body-parser/1.19.0:
     dependencies:
       '@types/connect': 3.4.34
-      '@types/node': 14.14.25
+      '@types/node': 14.14.27
     dev: true
     resolution:
       integrity: sha512-W98JrE0j2K78swW4ukqMleo8R7h/pFETjM2DQ90MF6XK2i4LO4W3gQ71Lt4w3bfm2EvVSyWHplECvB5sK22yFQ==
@@ -346,7 +346,7 @@ packages:
       integrity: sha512-3LzWUM+3k3XdWOUk/RO+uSjv7YWOatYq2QADJntK1pjkk4DfVP0KrIEPDnXRJxAAGKe0VpIPRmlINLDuCedZWw==
   /@types/connect/3.4.34:
     dependencies:
-      '@types/node': 14.14.25
+      '@types/node': 14.14.27
     dev: true
     resolution:
       integrity: sha512-ePPA/JuI+X0vb+gSWlPKOY0NdNAie/rPUqX2GUPpbZwiKTkSPhjXWuee47E4MtE54QVzGCQMQkAL6JhV2E1+cQ==
@@ -364,7 +364,7 @@ packages:
       integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
   /@types/express-serve-static-core/4.17.18:
     dependencies:
-      '@types/node': 14.14.25
+      '@types/node': 14.14.27
       '@types/qs': 6.9.5
       '@types/range-parser': 1.2.3
     dev: true
@@ -395,10 +395,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
-  /@types/node/14.14.25:
+  /@types/node/14.14.27:
     dev: true
     resolution:
-      integrity: sha512-EPpXLOVqDvisVxtlbvzfyqSsFeQxltFbluZNRndIb8tr9KiBnYNLzrc1N3pyKUCww2RNrfHDViqDWWE1LCJQtQ==
+      integrity: sha512-Ecfmo4YDQPwuqTCl1yBxLV5ihKfRlkBmzUEDcfIRvDxOTGQEeikr317Ln7Gcv0tjA8dVgKI3rniqW2G1OyKDng==
   /@types/normalize-package-data/2.4.0:
     dev: true
     resolution:
@@ -417,14 +417,14 @@ packages:
       integrity: sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
   /@types/resolve/1.17.1:
     dependencies:
-      '@types/node': 14.14.25
+      '@types/node': 14.14.27
     dev: true
     resolution:
       integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
   /@types/serve-static/1.13.9:
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 14.14.25
+      '@types/node': 14.14.27
     dev: true
     resolution:
       integrity: sha512-ZFqF6qa48XsPdjXV5Gsz0Zqmux2PerNd3a/ktL45mHpa19cuMi/cL8tcxdAx497yRh+QtYPuofjT9oWw9P7nkA==
@@ -569,7 +569,7 @@ packages:
       integrity: sha512-cUDILd++9jdhdjpuhgJofQqOabOKe+kTWTE2HQY2PBHEUO2fgwTurLE0cJg9UcIo1x4lHfsp+59S9TBCHgTZkw==
   /@vue/compiler-core/3.0.5:
     dependencies:
-      '@babel/parser': 7.12.15
+      '@babel/parser': 7.12.16
       '@babel/types': 7.12.13
       '@vue/shared': 3.0.5
       estree-walker: 2.0.2
@@ -584,7 +584,7 @@ packages:
       integrity: sha512-HSOSe2XSPuCkp20h4+HXSiPH9qkhz6YbW9z9ZtL5vef2T2PMugH7/osIFVSrRZP/Ul5twFZ7MIRlp8tPX6e4/g==
   /@vue/compiler-sfc/3.0.5:
     dependencies:
-      '@babel/parser': 7.12.15
+      '@babel/parser': 7.12.16
       '@babel/types': 7.12.13
       '@vue/compiler-core': 3.0.5
       '@vue/compiler-dom': 3.0.5
@@ -607,7 +607,7 @@ packages:
       integrity: sha512-uOAC4X0Gx3SQ9YvDC7YMpbDvoCmPvP0afVhJoxRotDdJ+r8VO3q4hFf/2f7U62k4Vkdftp6DVni8QixrfYzs+w==
   /@vue/compiler-sfc/3.0.5_vue@3.0.5:
     dependencies:
-      '@babel/parser': 7.12.15
+      '@babel/parser': 7.12.16
       '@babel/types': 7.12.13
       '@vue/compiler-core': 3.0.5
       '@vue/compiler-dom': 3.0.5
@@ -840,7 +840,7 @@ packages:
   /babel-eslint/10.1.0_eslint@7.19.0:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/parser': 7.12.15
+      '@babel/parser': 7.12.16
       '@babel/traverse': 7.12.13
       '@babel/types': 7.12.13
       eslint: 7.19.0
@@ -4058,17 +4058,17 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
-  /vite-plugin-md/0.4.2_vite@2.0.0-beta.68:
+  /vite-plugin-md/0.4.2_vite@2.0.0-beta.69:
     dependencies:
       gray-matter: 4.0.2
       markdown-it: 12.0.4
-      vite: 2.0.0-beta.68
+      vite: 2.0.0-beta.69
     dev: true
     peerDependencies:
       vite: ^2.0.0-beta.1
     resolution:
       integrity: sha512-gAmtGCiPj0ESdWJikKTg4h0ADqybezRVOh1a51KtWqYk4WgwrvFRpTeVq9fVqLXLFhuU0iUIKJ04V3KeXAeWdQ==
-  /vite/2.0.0-beta.68:
+  /vite/2.0.0-beta.69:
     dependencies:
       esbuild: 0.8.44
       postcss: 8.2.6
@@ -4081,7 +4081,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     resolution:
-      integrity: sha512-0DyHSY1cOikTgdobkE05m+QGA1JnxFiKSy/DoWHQ6PWgQZ91ciQ9XuzcwoIPDfEcoTGujSCZouZkCzAVrr90DA==
+      integrity: sha512-Wf4bWOK/b6Q+06Wyk7uJIBy/LiENGx26do6tn9gOMRRZLEuLizN/cDzGqnQkGVVevbb18xdilyxhnTes0lFjZg==
   /vue-eslint-parser/7.4.1_eslint@7.19.0:
     dependencies:
       debug: 4.3.2
