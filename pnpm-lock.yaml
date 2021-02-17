@@ -22,7 +22,7 @@ importers:
       rollup: 2.39.0
       tsup: 3.12.1_typescript@4.1.5
       typescript: 4.1.5
-      vite: 2.0.0-beta.70
+      vite: 2.0.0
     specifiers:
       '@antfu/eslint-config': ^0.4.3
       '@types/debug': ^4.1.5
@@ -42,7 +42,7 @@ importers:
       rollup: ^2.39.0
       tsup: ^3.12.1
       typescript: ^4.1.5
-      vite: ^2.0.0-beta.70
+      vite: ^2.0.0
       vue-router: ^4.0.3
       yaml: ^2.0.0-3
   examples/spa:
@@ -182,34 +182,20 @@ packages:
     dev: true
     resolution:
       integrity: sha512-HV1Cm0Q3ZrpCR93tkWOYiuYIgLxZXZFVG2VgK+MBWjUqZTundupbfx2aXarXuw5Ko5aMcjtJgbSs4vUGBS5v6g==
-  /@babel/generator/7.12.15:
+  /@babel/eslint-parser/7.12.16_eslint@7.20.0:
     dependencies:
-      '@babel/types': 7.12.13
-      jsesc: 2.5.2
-      source-map: 0.5.7
+      eslint: 7.20.0
+      eslint-scope: 5.1.0
+      eslint-visitor-keys: 1.3.0
+      semver: 6.3.0
     dev: true
+    engines:
+      node: ^10.13.0 || ^12.13.0 || >=14.0.0
+    peerDependencies:
+      '@babel/core': '>=7.11.0'
+      eslint: '>=7.5.0'
     resolution:
-      integrity: sha512-6F2xHxBiFXWNSGb7vyCUTBF8RCLY66rS0zEPcP8t/nQyXjha5EuK4z7H5o7fWG8B4M7y6mqVWq1J+1PuwRhecQ==
-  /@babel/helper-function-name/7.12.13:
-    dependencies:
-      '@babel/helper-get-function-arity': 7.12.13
-      '@babel/template': 7.12.13
-      '@babel/types': 7.12.13
-    dev: true
-    resolution:
-      integrity: sha512-TZvmPn0UOqmvi5G4vvw0qZTpVptGkB1GL61R6lKvrSdIxGm5Pky7Q3fpKiIkQCAtRCBUwB0PaThlx9vebCDSwA==
-  /@babel/helper-get-function-arity/7.12.13:
-    dependencies:
-      '@babel/types': 7.12.13
-    dev: true
-    resolution:
-      integrity: sha512-DjEVzQNz5LICkzN0REdpD5prGoidvbdYk1BVgRUOINaWJP2t6avB27X1guXK1kXNrX0WMfsrm1A/ZBthYuIMQg==
-  /@babel/helper-split-export-declaration/7.12.13:
-    dependencies:
-      '@babel/types': 7.12.13
-    dev: true
-    resolution:
-      integrity: sha512-tCJDltF83htUtXx5NLcaDqRmknv652ZWCHyoTETf1CXYJdPC7nohZohjUgieXhv0hTJdRf2FjDueFehdNucpzg==
+      integrity: sha512-NZHtJr2pLRYcQjvo/GVU3kFxIGEHveswoWfY5Wm2tJ7pb3AoqoQ+PP17rRTDh+POFWM15VvH+23x2/9Od0CYxQ==
   /@babel/helper-validator-identifier/7.12.11:
     resolution:
       integrity: sha512-np/lG3uARFybkoHokJUmf1QfEvRVCPbmQeUQpKow5cQ3xWrV9i3rUHodKDJPQfTVX61qKi+UdYk8kik84n7XOw==
@@ -227,28 +213,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-c/+u9cqV6F0+4Hpq01jnJO+GLp2DdT63ppz9Xa+6cHaajM9VFzK/iDXiKK65YtpeVwu+ctfS6iqlMqRgQRzeCw==
-  /@babel/template/7.12.13:
-    dependencies:
-      '@babel/code-frame': 7.12.13
-      '@babel/parser': 7.12.16
-      '@babel/types': 7.12.13
-    dev: true
-    resolution:
-      integrity: sha512-/7xxiGA57xMo/P2GVvdEumr8ONhFOhfgq2ihK3h1e6THqzTAkHbkXgB0xI9yeTfIUoH3+oAeHhqm/I43OTbbjA==
-  /@babel/traverse/7.12.13:
-    dependencies:
-      '@babel/code-frame': 7.12.13
-      '@babel/generator': 7.12.15
-      '@babel/helper-function-name': 7.12.13
-      '@babel/helper-split-export-declaration': 7.12.13
-      '@babel/parser': 7.12.16
-      '@babel/types': 7.12.13
-      debug: 4.3.2
-      globals: 11.12.0
-      lodash: 4.17.20
-    dev: true
-    resolution:
-      integrity: sha512-3Zb4w7eE/OslI0fTp8c7b286/cQps3+vdLW3UcwC8VSJC6GbKn55aeVVu2QJNuCDoeKyptLOFrPq8WqZZBodyA==
   /@babel/types/7.12.13:
     dependencies:
       '@babel/helper-validator-identifier': 7.12.11
@@ -843,23 +807,6 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-XWX3OX8Onv97LMk/ftVyBibpGwY5a8SmuxZPzeOxqmuEqUCOM9ZE+uIaD1VNJ5QnvU2UQusvmKbuM1FR8QWGfQ==
-  /babel-eslint/10.1.0_eslint@7.20.0:
-    dependencies:
-      '@babel/code-frame': 7.12.13
-      '@babel/parser': 7.12.16
-      '@babel/traverse': 7.12.13
-      '@babel/types': 7.12.13
-      eslint: 7.20.0
-      eslint-visitor-keys: 1.3.0
-      resolve: 1.20.0
-    deprecated: babel-eslint is now @babel/eslint-parser. This package will no longer receive updates.
-    dev: true
-    engines:
-      node: '>=6'
-    peerDependencies:
-      eslint: '>= 4.12.1'
-    resolution:
-      integrity: sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg==
   /balanced-match/1.0.0:
     dev: true
     resolution:
@@ -1642,7 +1589,7 @@ packages:
       clean-regexp: 1.0.0
       eslint: 7.20.0
       eslint-ast-utils: 1.1.0
-      eslint-template-visitor: 2.2.2_eslint@7.20.0
+      eslint-template-visitor: 2.3.0_eslint@7.20.0
       eslint-utils: 2.1.0
       import-modules: 2.1.0
       lodash: 4.17.20
@@ -1673,6 +1620,15 @@ packages:
       eslint: ^6.2.0 || ^7.0.0
     resolution:
       integrity: sha512-9dW7kj8/d2IkDdgNpvIhJdJ3XzU3x4PThXYMzWt49taktYnGyrTY6/bXCYZ/VtQKU9kXPntPrZ41+8Pw0Nxblg==
+  /eslint-scope/5.1.0:
+    dependencies:
+      esrecurse: 4.3.0
+      estraverse: 4.3.0
+    dev: true
+    engines:
+      node: '>=8.0.0'
+    resolution:
+      integrity: sha512-iiGRvtxWqgtx5m8EyQUJihBloE4EnYeGE/bz1wSPwJE6tZuJUtHlhqDM4Xj2ukE8Dyy1+HCZ4hE0fzIVMzb58w==
   /eslint-scope/5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -1682,9 +1638,9 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==
-  /eslint-template-visitor/2.2.2_eslint@7.20.0:
+  /eslint-template-visitor/2.3.0_eslint@7.20.0:
     dependencies:
-      babel-eslint: 10.1.0_eslint@7.20.0
+      '@babel/eslint-parser': 7.12.16_eslint@7.20.0
       eslint: 7.20.0
       eslint-visitor-keys: 2.0.0
       esquery: 1.4.0
@@ -1693,7 +1649,7 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
     resolution:
-      integrity: sha512-SkcLjzKw3JjKTWHacRDeLBa2gxb600zbCKTkXj/V97QnZ9yxkknoPL8vc8PFueqbFXP7mYNTQzjCjcMpTRdRaA==
+      integrity: sha512-TDR6OCUMrWQUDfxgjQzyuiK3/X5rCDmxA54MZ0BBa924CAj9uxBJ8/y1ai+/0OH3AhDjpbV4KwHjb1sRKs0+CQ==
   /eslint-utils/2.1.0:
     dependencies:
       eslint-visitor-keys: 1.3.0
@@ -2068,12 +2024,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-MG6kdOUh/xBnyo9cJFeIKkLEc1AyFq42QTU4XiX51i2NEdxLxLWXIjEjmqKeSuKR7pAZjTqUVoT2b2huxVLgYQ==
-  /globals/11.12.0:
-    dev: true
-    engines:
-      node: '>=4'
-    resolution:
-      integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
   /globals/12.4.0:
     dependencies:
       type-fest: 0.8.1
@@ -2537,13 +2487,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
-  /jsesc/2.5.2:
-    dev: true
-    engines:
-      node: '>=4'
-    hasBin: true
-    resolution:
-      integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
   /json-buffer/3.0.0:
     dev: true
     resolution:
@@ -3659,12 +3602,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
-  /source-map/0.5.7:
-    dev: true
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
   /source-map/0.6.1:
     engines:
       node: '>=0.10.0'
@@ -4080,6 +4017,20 @@ packages:
       vite: ^2.0.0-beta.1
     resolution:
       integrity: sha512-gAmtGCiPj0ESdWJikKTg4h0ADqybezRVOh1a51KtWqYk4WgwrvFRpTeVq9fVqLXLFhuU0iUIKJ04V3KeXAeWdQ==
+  /vite/2.0.0:
+    dependencies:
+      esbuild: 0.8.46
+      postcss: 8.2.6
+      resolve: 1.20.0
+      rollup: 2.39.0
+    dev: true
+    engines:
+      node: '>=12.0.0'
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    resolution:
+      integrity: sha512-rNli5g0DaQ6+btlRqkmaR06neWaJGApmt40gocqrYDNi2XoEXYQgKiHSWzMeUgc1Cdva2HduqazaE+RaKjBpdQ==
   /vite/2.0.0-beta.70:
     dependencies:
       esbuild: 0.8.46
