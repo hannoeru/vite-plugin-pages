@@ -21,7 +21,7 @@
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
-    "release": "npx bumpp --commit --tag --push && npm publish",
+    "release": "npx git-ensure -a && npx bumpp --commit --tag --push",
     "example:dev": "npm -C examples/spa run dev",
     "example:build": "npm -C examples/spa run build",
     "example:serve": "npm -C examples/spa run serve"
