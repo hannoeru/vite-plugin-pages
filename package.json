@@ -27,7 +27,7 @@
     "example:serve": "npm -C examples/spa run serve"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/compiler-sfc": "^3.0.6",
     "chalk": "^4.1.0",
     "debug": "^4.3.2",
     "deep-equal": "^2.0.5",
@@ -50,9 +50,9 @@
     "@types/node": "^14.14.31",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "eslint": "^7.20.0",
-    "rollup": "^2.39.1",
+    "rollup": "^2.40.0",
     "tsup": "^3.12.1",
-    "typescript": "^4.1.5",
-    "vite": "^2.0.2"
+    "typescript": "^4.2.2",
+    "vite": "^2.0.4"
   }
 }
