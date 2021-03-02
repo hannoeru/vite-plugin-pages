@@ -114,6 +114,16 @@ Default SFC route block parser.
 
 **Default:** `'json5'`
 
+### replaceSquareBrackets
+
+***experimental**
+
+Check: [#16](https://github.com/hannoeru/vite-plugin-pages/issues/16)
+
+Replace '[]' to '_' in bundle filename
+
+**Default:** `false`
+
 ### extendRoute
 
 A function that takes a route and optionally returns a modified route. This is useful for augmenting your routes with extra data (e.g. route metadata).
