@@ -57,11 +57,6 @@ interface Options {
    */
   routeBlockLang: 'json5' | 'json' | 'yaml'
   /**
-   * Replace '[]' to '_' in bundle chunk filename
-   * @default true
-   */
-  replaceSquareBrackets: boolean
-  /**
    * Extend route records
    */
   extendRoute?: (route: Route, parent: Route | undefined) => Route | void

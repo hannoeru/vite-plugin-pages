@@ -16,7 +16,6 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
     routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
-    replaceSquareBrackets = true,
   } = userOptions
 
   const root = process.cwd()
@@ -46,7 +45,6 @@ function resolveOptions(userOptions: UserOptions): ResolvedOptions {
       importMode,
       exclude,
       syncIndex,
-      replaceSquareBrackets,
     },
     userOptions,
   )
@@ -115,14 +113,6 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
       return {
         code,
         map: null,
-      }
-    },
-    generateBundle(_options, bundle) {
-      if (options.replaceSquareBrackets) {
-        for (const name in bundle) {
-          const chunk = bundle[name]
-          chunk.fileName = chunk.fileName.replace(/(\[|\])/g, '_')
-        }
       }
     },
     async handleHotUpdate({ file, server, read }) {
