@@ -7,9 +7,10 @@
  */
 
 import * as fs from 'fs'
+import { join } from 'path'
 import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions, PageDirOptions } from './types'
-import { debug, isDynamicRoute } from './utils'
+import { debug, isDynamicRoute, normalizePath } from './utils'
 import { stringifyRoutes } from './stringify'
 import { tryParseCustomBlock, parseSFC } from './parseSfc'
 
@@ -44,6 +45,13 @@ function prepareRoutes(
       delete route.name
       route.children = prepareRoutes(route.children, options, pagesDirOptions, route)
     }
+    const filePath = normalizePath(join(options.root, route.component))
+    const content = fs.readFileSync(filePath, 'utf8')
+    const parsed = parseSFC(content)
+    const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
+
+    if (routeBlock)
+      Object.assign(route, tryParseCustomBlock(routeBlock, filePath, options))
 
     if (typeof options.extendRoute === 'function')
       Object.assign(route, options.extendRoute(route, parent) || {})
@@ -62,7 +70,7 @@ function findRouteByFilename(routes: Route[], filename: string): Route | undefin
   return result
 }
 
-export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOptions, pagesDirPath: string, options: ResolvedOptions): Route[] {
+export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOptions, options: ResolvedOptions): Route[] {
   const { dir: pagesDir } = pagesDirOptions
   const {
     extensions,
@@ -120,13 +128,6 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
         }
       }
     }
-
-    const content = fs.readFileSync(`${pagesDirPath}/${filePath}`, 'utf8')
-    const parsed = parseSFC(content)
-    const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
-
-    if (routeBlock)
-      Object.assign(route, tryParseCustomBlock(routeBlock, filePath, options))
 
     parentRoutes.push(route)
   }

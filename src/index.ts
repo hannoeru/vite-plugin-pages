@@ -8,7 +8,7 @@ import { parseVueRequest } from './query'
 
 const ID = 'pages-generated'
 
-function resolveOptions(userOptions: UserOptions): ResolvedOptions {
+export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   const {
     pagesDir = ['src/pages'],
     extensions = ['vue', 'js'],
@@ -89,7 +89,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
             filesPath = filesPath.concat(files.map(f => `${pageDirPath}/${f}`))
             debug('FilesPath: %O', files)
 
-            const routes = generateRoutes(files, pageDir, pageDirPath, options)
+            const routes = generateRoutes(files, pageDir, options)
             generatedRoutes = generatedRoutes.concat(routes)
             // debug('Routes: %O', generatedRoutes)
           }

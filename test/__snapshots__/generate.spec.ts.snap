@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports['Generate Client Code 1'] = `
+"import _test_pages_index_vue from '/test/pages/index.vue'
+
+const routes = [
+  {
+    \\"name\\": \\"home\\",
+    \\"path\\": \\"/home\\",
+    \\"component\\": () => import('/test/pages/home.vue'),
+    \\"props\\": true
+  },
+  {
+    \\"name\\": \\"index\\",
+    \\"path\\": \\"/\\",
+    \\"component\\": _test_pages_index_vue,
+    \\"props\\": true
+  },
+  {
+    \\"path\\": \\"/user\\",
+    \\"component\\": () => import('/test/pages/user.vue'),
+    \\"children\\": [
+      {
+        \\"name\\": \\"name-override\\",
+        \\"path\\": \\":id\\",
+        \\"component\\": () => import('/test/pages/user/[id].vue'),
+        \\"props\\": true,
+        \\"meta\\": {
+          \\"requiresAuth\\": false
+        }
+      }
+    ],
+    \\"props\\": true
+  }
+]
+
+export default routes"
+`

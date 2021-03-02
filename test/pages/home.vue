@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-defineProps({
-  id: String,
-})
+defineProps({})
+
 </script>
 
 <template>
-  About: {{ id }}
+  home
 </template>
