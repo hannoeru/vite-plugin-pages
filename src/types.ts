@@ -58,6 +58,7 @@ interface Options {
   routeBlockLang: 'json5' | 'json' | 'yaml'
   /**
    * Replace '[]' to '_' in bundle chunk filename
+   * Experimental feature
    * @default true
    */
   replaceSquareBrackets: boolean

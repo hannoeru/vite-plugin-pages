@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, basename } from 'path'
 import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
 import { Route, ResolvedOptions, UserOptions, PageDirOptions } from './types'
 import { getFilesFromPath } from './files'
@@ -119,9 +119,14 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     },
     generateBundle(_options, bundle) {
       if (options.replaceSquareBrackets) {
+        const files = Object.keys(bundle).map(i => basename(i))
         for (const name in bundle) {
           const chunk = bundle[name]
           chunk.fileName = chunk.fileName.replace(/(\[|\])/g, '_')
+          if (chunk.type === 'chunk') {
+            for (const file of files)
+              chunk.code = chunk.code.replace(file, file.replace(/(\[|\])/g, '_'))
+          }
         }
       }
     },

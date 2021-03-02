@@ -16,6 +16,7 @@ const config = defineConfig({
       ],
       extensions: ['vue', 'md'],
       syncIndex: false,
+      replaceSquareBrackets: true,
     }),
     Markdown(),
   ],
