@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm @antfu/ni
+          nci
+      - name: Run test
+        run: nr test --if-present
+      - name: Run build
+        run: nr build
