@@ -1,4 +1,3 @@
-import { resolve } from 'path'
 import { generateRoutes, generateClientCode } from '../src/generate'
 import { resolveOptions } from '../src/index'
 import { Route } from '../src/types'

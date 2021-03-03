@@ -6,7 +6,7 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
-import * as fs from 'fs'
+import fs from 'fs'
 import { join } from 'path'
 import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions, PageDirOptions } from './types'
