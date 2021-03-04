@@ -46,7 +46,7 @@ describe('Generate', () => {
     expect(routes).toStrictEqual(expectRoutes)
   })
   test('Client Code', () => {
-    const code = generateClientCode(routes, options)
+    const code = generateClientCode(expectRoutes, options)
     expect(code).toMatchSnapshot()
   })
 })
