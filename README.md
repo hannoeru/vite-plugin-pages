@@ -225,4 +225,4 @@ pagesDir: [
 
 ## License
 
-MIT License © 2021 [Hannoeru](https://github.com/hannoeru)
+MIT License © 2021 [hannoeru](https://github.com/hannoeru)
