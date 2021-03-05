@@ -1,11 +1,12 @@
 # vite-plugin-pages
 
 
-[![npm version](https://img.shields.io/npm/v/vite-plugin-pages)](https://www.npmjs.com/package/vite-plugin-pages)
+[![npm version](https://badgen.net/npm/v/vite-plugin-pages)](https://www.npmjs.com/package/vite-plugin-pages)
+[![monthly downloads](https://badgen.net/npm/dm/vite-plugin-pages)](https://www.npmjs.com/package/vite-plugin-pages)
+[![types](https://badgen.net/npm/types/vite-plugin-pages)](https://github.com/hannoeru/vite-plugin-pages/blob/main/src/types.ts)
+[![license](https://badgen.net/npm/license/vite-plugin-pages)](https://github.com/hannoeru/vite-plugin-pages/blob/main/LICENSE)
 
 > File system based routing for Vue 3 applications using [Vite](https://github.com/vitejs/vite)
-
-### **⚠️ Virtual Module name is changed to `pages-generated` since v0.2.0**
 
 ## Getting Started
 
@@ -220,4 +221,8 @@ pagesDir: [
 ],
 ```
 
-### **See more details: [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
+**See more details: [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
+
+## License
+
+MIT License © 2021 [Hannoeru](https://github.com/hannoeru)
