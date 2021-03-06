@@ -19,7 +19,6 @@ importers:
       '@types/jest': 26.0.20
       '@types/node': 14.14.31
       '@typescript-eslint/eslint-plugin': 4.16.1_eslint@7.21.0+typescript@4.2.2
-      esbuild: 0.8.55
       eslint: 7.21.0
       jest: 26.6.3
       rollup: 2.40.0
@@ -40,7 +39,6 @@ importers:
       debug: ^4.3.2
       deep-equal: ^2.0.5
       directory-tree: ^2.2.7
-      esbuild: ^0.8.55
       eslint: ^7.21.0
       fast-glob: ^3.2.5
       glob-to-regexp: ^0.4.1
@@ -116,6 +114,8 @@ importers:
       vue: ^3.0.7
       vue-router: ^4.0.4
 lockfileVersion: 5.2
+overrides:
+  esbuild: latest
 packages:
   /@antfu/eslint-config-basic/0.4.3_eslint@7.21.0:
     dependencies:
@@ -2471,20 +2471,20 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
-  /esbuild-register/2.1.0_esbuild@0.8.55:
+  /esbuild-register/2.1.0_esbuild@0.8.56:
     dependencies:
-      esbuild: 0.8.55
+      esbuild: 0.8.56
     dev: true
     peerDependencies:
       esbuild: '>=0.8.31'
     resolution:
       integrity: sha512-NS/ptwYqFfmRT50SwRuxlwuKDwraijsqhDjngX4QyYj5VxSlbujbglQbXTz1qrRQhZRhx4Ap9369W7t+aJtdmQ==
-  /esbuild/0.8.55:
+  /esbuild/0.8.56:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-mM/s7hjYe5mQR+zAWOM5JVrCtYCke182E9l1Bbs6rG5EDP3b1gZF9sHZka53PD/iNt6OccymVZRWkTtBfcKW4w==
+      integrity: sha512-PTMdAWK3JI2MNW811znGssGP5GR44tQPr++VQ1rPP0n8Z1cTKbCPD3S/kXPLr3ZZDIwAaVm08fuFym6Rp8l/0A==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -2795,8 +2795,8 @@ packages:
       integrity: sha512-W2aJbXpMNofUp0ztQaF40fveSsJBjlSCSWpy//gzfTvwC+USs/nceBrKmlJOiM8r1bLwP2EuYkCqArn/6QTIgg==
   /esno/0.4.5:
     dependencies:
-      esbuild: 0.8.55
-      esbuild-register: 2.1.0_esbuild@0.8.55
+      esbuild: 0.8.56
+      esbuild-register: 2.1.0_esbuild@0.8.56
     dev: true
     hasBin: true
     resolution:
@@ -6627,7 +6627,7 @@ packages:
       cac: 6.7.2
       chalk: 4.1.0
       chokidar: 3.5.1
-      esbuild: 0.8.55
+      esbuild: 0.8.56
       globby: 11.0.2
       joycon: 2.2.5
       postcss-load-config: 3.0.1
@@ -6898,7 +6898,7 @@ packages:
       integrity: sha512-JAYDQAqmh+HPcEFea/DnNul6+5xQIsZ+eGB69BuBdqf0IluunBRDhILRGRonqn9Tq11ZZEVpMv6Weyl7BcjUnw==
   /vite/2.0.5:
     dependencies:
-      esbuild: 0.8.55
+      esbuild: 0.8.56
       postcss: 8.2.7
       resolve: 1.20.0
       rollup: 2.40.0
