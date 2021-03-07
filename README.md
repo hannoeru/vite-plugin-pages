@@ -172,9 +172,9 @@ export default {
 
 ### SFC custom block for Route Data
 
-Add per-route information to the route by adding a `<route>` block to the SFC.  Information here is directly added to the route after it is generated, and will override it.
+Add route meta to the route by adding a `<route>` block to the SFC. This will directly added to the route after it is generated, and will override it.
 
-You can specific a parser to use using `<route lang="yaml">`.
+You can specific a parser to use using `<route lang="yaml">`, or set a default parser using `routeBlockLang` option.
 
 **Supported parser:** JSON, JSON5, YAML
 
@@ -194,7 +194,7 @@ JSON/JSON5:
 ```
 YAML:
 ```html
-<route>
+<route lang="yaml">
 name: name-override
 meta:
   requiresAuth: true
@@ -209,11 +209,13 @@ Specifying an array of `pagesDir` allow you to use multiple pages folder, and sp
 
 folder structure:
 ```
-src/features/
-  └── admin/
-     ├── pages/
-     ├── components/
-     └── code/
+src/
+  ├── features/
+  │  └── admin/
+  │     ├── pages/
+  │     ├── components/
+  │     └── code/
+  └── pages/
 ```
 vite.config.js:
 ```js
