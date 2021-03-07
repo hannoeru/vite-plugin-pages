@@ -201,27 +201,115 @@ meta:
 </route>
 ```
 
-### Feature Routes
+### Multiple Pages Folder
 
-Specifying an array of `PageDirOptions`  for `pagesDir` allow you to store pages anywhere in the source you'd like, and specify the base route to append to the path and the route name.  This allows you to store your pages in feature areas.
+Specifying an array of `pagesDir` allow you to use multiple pages folder, and specify the base route to append to the path and the route name.
 
-Source structure:
+**Example:**
+
+folder structure:
 ```
 src/features/
-    -admin/
-       -pages
-       -components
-       -code
+  └── admin/
+     ├── pages/
+     ├── components/
+     └── code/
 ```
-In vite.config.js:
+vite.config.js:
 ```js
+// pages options
 pagesDir: [
   { dir: 'src/pages', baseRoute: '' },
   { dir: 'src/features/admin/pages', baseRoute: 'admin' },
 ],
 ```
 
-**See more details: [vite-plugin-voie](https://github.com/brattonross/vite-plugin-voie)**
+## File System Routing
+
+Inspired by the routing from [NuxtJS](https://nuxtjs.org/guides/features/file-system-routing) 💚
+
+Pages automatically generates an array of routes for you to plug-in to your instance of Vue Router. These routes are determined by the structure of the files in your pages directory. Simply create `.vue` files in your pages directory and routes will automatically be created for you, no additional configuration required!
+
+For more advanced use cases, you can tailor Pages to fit the needs of your app through [configuration](https://github.com/brattonross/vite-plugin-pages#configuration).
+
+- [Basic Routing](https://github.com/brattonross/vite-plugin-pages#basic-routing)
+- [Index Routes](https://github.com/brattonross/vite-plugin-pages#index-routes)
+- [Dynamic Routes](https://github.com/brattonross/vite-plugin-pages#dynamic-routes)
+- [Nested Routes](https://github.com/brattonross/vite-plugin-pages#nested-routes)
+- [Catch-all Routes](https://github.com/brattonross/vite-plugin-pages#catch-all-routes)
+
+### Basic Routing
+
+Pages will automatically map files from your pages directory to a route with the same name:
+
+- `src/pages/users.vue` -> `/users`
+- `src/pages/users/profile.vue` -> `/users/profile`
+- `src/pages/settings.vue` -> `/settings`
+
+### Index Routes
+
+Files with the name `index` are treated as the index page of a route:
+
+- `src/pages/index.vue` -> `/`
+- `src/pages/users/index.vue` -> `/users`
+
+### Dynamic Routes
+
+Dynamic routes are denoted using square brackets. Both directories and pages can be dynamic:
+
+- `src/pages/users/[id].vue` -> `/users/:id` (`/users/one`)
+- `src/[user]/settings.vue` -> `/:user/settings` (`/one/settings`)
+
+Any dynamic parameters will be passed to the page as props. For example, given the file `src/pages/users/[id].vue`, the route `/users/abc` will be passed the following props:
+
+```json
+{ "id": "abc" }
+```
+
+### Nested Routes
+
+We can make use of Vue Routers child routes to create nested layouts. The parent component can be defined by giving it the same name as the directory that contains your child routes.
+
+For example, this directory structure:
+
+```
+src/pages/
+  ├── users/
+  │  ├── [id].vue
+  │  └── index.vue
+  └── users.vue
+```
+
+will result in this routes configuration:
+
+```json
+[
+  {
+    path: '/users',
+    component: '/src/pages/users.vue',
+    children: [
+      {
+        path: '',
+        component: '/src/pages/users/index.vue',
+        name: 'users'
+      },
+      {
+        path: ':id',
+        component: '/src/pages/users/[id].vue',
+        name: 'users-id'
+      }
+    ]
+  }
+]
+```
+
+### Catch-all Routes
+
+Catch-all routes are denoted with square brackets containing an ellipsis:
+
+- `src/pages/[...all].vue` -> `/*` (`/non-existent-page`)
+
+The text after the ellipsis will be used both to name the route, and as the name of the prop in which the route parameters are passed.
 
 ## License
 
