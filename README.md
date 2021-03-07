@@ -208,13 +208,13 @@ Specifying an array of `pagesDir` allow you to use multiple pages folder, and sp
 **Example:**
 
 folder structure:
-```
+```bash
 src/
   ├── features/
   │  └── admin/
-  │     ├── pages/
+  │     ├── code/
   │     ├── components/
-  │     └── code/
+  │     └── pages/
   └── pages/
 ```
 vite.config.js:
@@ -284,7 +284,7 @@ src/pages/
 
 will result in this routes configuration:
 
-```json
+```json5
 [
   {
     path: '/users',
