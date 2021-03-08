@@ -4,7 +4,7 @@
   "version": "0.5.1",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "license": "MIT",
   "author": "hannoeru <me@hanlee.co>",
   "repository": {
@@ -15,7 +15,8 @@
   "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "files": [
     "dist",
-    "client.d.ts"
+    "client.d.ts",
+    "index.d.ts"
   ],
   "scripts": {
     "dev": "npm run build -- --watch",
