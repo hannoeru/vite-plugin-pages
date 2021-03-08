@@ -42,16 +42,6 @@ const router = createRouter({
 });
 ```
 
-## Client Types
-If you want type definition of `pages-generated`, add `vite-plugin-pages/client` to `compilerOptions.types` of your `tsconfig`:
-```json
-{
-  "compilerOptions": {
-    "types": ["vite-plugin-pages/client"]
-  }
-}
-```
-
 ## Configuration
 
 ```ts
