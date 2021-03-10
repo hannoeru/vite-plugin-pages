@@ -7,6 +7,8 @@ import { debug, normalizePath } from './utils'
 import { parseVueRequest } from './query'
 
 const ID = 'pages-generated'
+const MODULE_IDS = ['pages-generated', 'virtual:generated-pages']
+const MODULE_ID_VIRTUAL = '/@vite-plugin-pages/generated-pages'
 
 export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   const {
@@ -68,11 +70,12 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
       options.root = config.root
     },
     resolveId(id) {
-      if (id === ID)
-        return ID
+      return MODULE_IDS.includes(id) || MODULE_IDS.some(i => id.startsWith(i))
+        ? MODULE_ID_VIRTUAL
+        : null
     },
     async load(id) {
-      if (id === ID) {
+      if (id === MODULE_ID_VIRTUAL) {
         debug('Loading...')
         debug('Loading Gen Routes: %O', generatedRoutes)
 
@@ -150,11 +153,13 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
 
         if (needReload) {
           const { moduleGraph } = server
-          const module = moduleGraph.getModuleById(ID)
+          const module = moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
+          if (module)
+            server.moduleGraph.invalidateModule(module)
 
           debug('Reload for file: %s', file.replace(options.root, ''))
 
-          return [module] as ModuleNode[]
+          return [module!]
         }
       }
     },
