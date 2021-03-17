@@ -61,8 +61,8 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.7
       typescript: 4.2.3
-      vite: 2.1.0
-      vite-plugin-md: 0.6.1_bc628ee9a9518a85fd605c5d26e36077
+      vite: 2.1.1
+      vite-plugin-md: 0.6.1_b156df5404ad0e05752b26fcedfafb4b
       vite-plugin-pages: link:../..
     specifiers:
       '@vitejs/plugin-vue': ^1.1.5
@@ -70,7 +70,7 @@ importers:
       cross-env: ^7.0.3
       nodemon: ^2.0.7
       typescript: ^4.2.3
-      vite: ^2.1.0
+      vite: ^2.1.1
       vite-plugin-md: ^0.6.1
       vite-plugin-pages: workspace:*
       vue: ^3.0.7
@@ -82,7 +82,7 @@ importers:
     devDependencies:
       '@types/compression': 1.7.0
       '@types/express': 4.17.11
-      '@types/node': 14.14.34
+      '@types/node': 14.14.35
       '@vitejs/plugin-vue': 1.1.5_@vue+compiler-sfc@3.0.7
       '@vue/compiler-sfc': 3.0.7_vue@3.0.7
       '@vue/server-renderer': 3.0.7_vue@3.0.7
@@ -93,12 +93,12 @@ importers:
       fast-glob: 3.2.5
       serve-static: 1.14.1
       typescript: 4.2.3
-      vite: 2.1.0
+      vite: 2.1.1
       vite-plugin-pages: link:../..
     specifiers:
       '@types/compression': ^1.7.0
       '@types/express': ^4.17.11
-      '@types/node': ^14.14.34
+      '@types/node': ^14.14.35
       '@vitejs/plugin-vue': ^1.1.5
       '@vue/compiler-sfc': ^3.0.7
       '@vue/server-renderer': ^3.0.7
@@ -109,7 +109,7 @@ importers:
       fast-glob: ^3.2.5
       serve-static: ^1.14.1
       typescript: ^4.2.3
-      vite: ^2.1.0
+      vite: ^2.1.1
       vite-plugin-pages: workspace:*
       vue: ^3.0.7
       vue-router: ^4.0.5
@@ -802,7 +802,7 @@ packages:
   /@types/body-parser/1.19.0:
     dependencies:
       '@types/connect': 3.4.34
-      '@types/node': 14.14.34
+      '@types/node': 14.14.35
     dev: true
     resolution:
       integrity: sha512-W98JrE0j2K78swW4ukqMleo8R7h/pFETjM2DQ90MF6XK2i4LO4W3gQ71Lt4w3bfm2EvVSyWHplECvB5sK22yFQ==
@@ -814,7 +814,7 @@ packages:
       integrity: sha512-3LzWUM+3k3XdWOUk/RO+uSjv7YWOatYq2QADJntK1pjkk4DfVP0KrIEPDnXRJxAAGKe0VpIPRmlINLDuCedZWw==
   /@types/connect/3.4.34:
     dependencies:
-      '@types/node': 14.14.34
+      '@types/node': 14.14.35
     dev: true
     resolution:
       integrity: sha512-ePPA/JuI+X0vb+gSWlPKOY0NdNAie/rPUqX2GUPpbZwiKTkSPhjXWuee47E4MtE54QVzGCQMQkAL6JhV2E1+cQ==
@@ -826,18 +826,18 @@ packages:
     dev: true
     resolution:
       integrity: sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
-  /@types/express-serve-static-core/4.17.18:
+  /@types/express-serve-static-core/4.17.19:
     dependencies:
-      '@types/node': 14.14.34
+      '@types/node': 14.14.35
       '@types/qs': 6.9.6
       '@types/range-parser': 1.2.3
     dev: true
     resolution:
-      integrity: sha512-m4JTwx5RUBNZvky/JJ8swEJPKFd8si08pPF2PfizYjGZOKr/svUWPcoUmLow6MmPzhasphB7gSTINY67xn3JNA==
+      integrity: sha512-DJOSHzX7pCiSElWaGR8kCprwibCB/3yW6vcT8VG3P0SJjnv19gnWG/AZMfM60Xj/YJIp/YCaDHyvzsFVeniARA==
   /@types/express/4.17.11:
     dependencies:
       '@types/body-parser': 1.19.0
-      '@types/express-serve-static-core': 4.17.18
+      '@types/express-serve-static-core': 4.17.19
       '@types/qs': 6.9.6
       '@types/serve-static': 1.13.9
     dev: true
@@ -888,10 +888,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
-  /@types/node/14.14.34:
-    dev: true
-    resolution:
-      integrity: sha512-dBPaxocOK6UVyvhbnpFIj2W+S+1cBTkHQbFQfeeJhoKFbzYcVUGHvddeWPSucKATb3F0+pgDq0i6ghEaZjsugA==
   /@types/node/14.14.35:
     dev: true
     resolution:
@@ -919,7 +915,7 @@ packages:
   /@types/serve-static/1.13.9:
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 14.14.34
+      '@types/node': 14.14.35
     dev: true
     resolution:
       integrity: sha512-ZFqF6qa48XsPdjXV5Gsz0Zqmux2PerNd3a/ktL45mHpa19cuMi/cL8tcxdAx497yRh+QtYPuofjT9oWw9P7nkA==
@@ -2425,15 +2421,13 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
-  /esbuild-register/2.2.0_esbuild@0.8.57:
+  /esbuild-register/2.3.0:
     dependencies:
       esbuild: 0.8.57
       jsonc-parser: 3.0.0
     dev: true
-    peerDependencies:
-      esbuild: '>=0.8.31'
     resolution:
-      integrity: sha512-27039YMtpC3lI8yYGGm78SAQBtBo/4IPMReWVsNh4++VtvozmasBd1a2HiTdk0297iuA2pMzrzvL5cZJqQCKxQ==
+      integrity: sha512-uT3WXEQGAqzrI0SLy1Jz39BzIBiLWd5La9zFZ+FUSCPGqJbE+ZJHUTE8yHP1GVfyHKrrAFCZqLieaHkSprIRDQ==
   /esbuild/0.8.57:
     dev: true
     hasBin: true
@@ -2767,7 +2761,7 @@ packages:
   /esno/0.5.0:
     dependencies:
       esbuild: 0.8.57
-      esbuild-register: 2.2.0_esbuild@0.8.57
+      esbuild-register: 2.3.0
     dev: true
     hasBin: true
     resolution:
@@ -5898,15 +5892,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
-  /rollup/2.41.2:
-    dev: true
-    engines:
-      node: '>=10.0.0'
-    hasBin: true
-    optionalDependencies:
-      fsevents: 2.3.2
-    resolution:
-      integrity: sha512-6u8fJJXJx6fmvKrAC9DHYZgONvSkz8S9b/VFBjoQ6dkKdHyPpPbpqiNl2Bao9XBzDHpq672X6sGZ9G1ZBqAHMg==
   /rollup/2.41.4:
     dev: true
     engines:
@@ -6877,32 +6862,18 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
-  /vite-plugin-md/0.6.1_bc628ee9a9518a85fd605c5d26e36077:
+  /vite-plugin-md/0.6.1_b156df5404ad0e05752b26fcedfafb4b:
     dependencies:
       '@vue/compiler-sfc': 3.0.7_vue@3.0.7
       gray-matter: 4.0.2
       markdown-it: 12.0.4
-      vite: 2.1.0
+      vite: 2.1.1
     dev: true
     peerDependencies:
       '@vue/compiler-sfc': ^3.0.5
       vite: ^2.0.0-beta.1
     resolution:
       integrity: sha512-dJ06wlic1Gprb+PLpTpwkoufm+/5wtBUwSIMvMa9mql34eqY+DZpOdz7s2FpdRAe/6XSRFH4oHVp0xfUnZp52Q==
-  /vite/2.1.0:
-    dependencies:
-      esbuild: 0.8.57
-      postcss: 8.2.8
-      resolve: 1.20.0
-      rollup: 2.41.2
-    dev: true
-    engines:
-      node: '>=12.0.0'
-    hasBin: true
-    optionalDependencies:
-      fsevents: 2.3.2
-    resolution:
-      integrity: sha512-qWYmX8slkv91C3hWA2iu0o0ZvFbO2dSfWIN4dbMfSeMdNn+XeirkGWU3dy5/W1Nv13cQZvVoMTl8zyC13VFRZQ==
   /vite/2.1.1:
     dependencies:
       esbuild: 0.8.57
