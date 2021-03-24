@@ -4,7 +4,7 @@ import { parseSFC, tryParseCustomBlock } from '../src/parseSfc'
 import { resolveOptions } from '../src/index'
 
 const options = resolveOptions({})
-const path = resolve('./test/pages/user/[id].vue')
+const path = resolve('./test/assets/pages/user/[id].vue')
 const VueFile = fs.readFileSync(path, 'utf-8')
 
 const expectCustomBlock = {

@@ -3,8 +3,8 @@ import { resolveOptions } from '../src/index'
 import { getFilesFromPath } from '../src/files'
 
 const options = resolveOptions({})
-const testPagesDir = resolve('test/pages')
-const expectFiles = ['home.vue', 'index.vue', 'user.vue', 'user/[id].vue']
+const testPagesDir = resolve('test/assets/pages')
+const expectFiles = ['[...all].vue', 'home.vue', 'index.vue', 'user.vue', 'user/[id].vue']
 
 describe('Get files', () => {
   test('Pages file', async() => {

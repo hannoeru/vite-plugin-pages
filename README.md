@@ -114,6 +114,14 @@ Replace '[]' to '_' in bundle filename
 
 **Default:** `false`
 
+### nuxtStyle
+
+Use Nuxt.js style dynamic routing
+
+More details: [File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
+
+**Default:** `false`
+
 ### extendRoute
 
 A function that takes a route and optionally returns a modified route. This is useful for augmenting your routes with extra data (e.g. route metadata).

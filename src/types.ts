@@ -52,6 +52,11 @@ interface Options {
    */
   syncIndex: boolean
   /**
+   * Use Nuxt.js style dynamic routing
+   * @default false
+   */
+  nuxtStyle: boolean
+  /**
    * Set default route block parser, or use `<route lang=xxx>` in SFC route block
    * @default 'json5'
    */

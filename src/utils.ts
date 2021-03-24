@@ -12,9 +12,18 @@ export function normalizePath(str: string): string {
 export const debug = Debug('vite-plugin-pages')
 
 const dynamicRouteRE = /^\[.+\]$/
+export const nuxtDynamicRouteRE = /^_[\s\S]*$/
 
-export function isDynamicRoute(routePath: string) {
-  return dynamicRouteRE.test(routePath)
+export function isDynamicRoute(routePath: string, nuxtStyle: Boolean = false) {
+  return nuxtStyle
+    ? nuxtDynamicRouteRE.test(routePath)
+    : dynamicRouteRE.test(routePath)
+}
+
+export function isCatchAllRoute(routePath: string, nuxtStyle: Boolean = false) {
+  return nuxtStyle
+    ? /^_$/.test(routePath)
+    : /^\[\.{3}/.test(routePath)
 }
 
 export function resolveImportMode(

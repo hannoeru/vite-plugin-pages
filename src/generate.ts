@@ -10,7 +10,7 @@ import fs from 'fs'
 import { join } from 'path'
 import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions, PageDirOptions } from './types'
-import { debug, isDynamicRoute, normalizePath } from './utils'
+import { debug, isDynamicRoute, isCatchAllRoute, normalizePath } from './utils'
 import { stringifyRoutes } from './stringify'
 import { tryParseCustomBlock, parseSFC } from './parseSfc'
 
@@ -74,6 +74,7 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
   const { dir: pagesDir } = pagesDirOptions
   const {
     extensions,
+    nuxtStyle,
   } = options
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
@@ -94,11 +95,15 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
-      const isDynamic = isDynamicRoute(node)
+      const isDynamic = isDynamicRoute(node, nuxtStyle)
+      const isCatchAll = isCatchAllRoute(node, nuxtStyle)
       const isLastOne = i === pathNodes.length - 1
-      const normalizedPart = (isDynamic
-        ? node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
-        : node
+      const normalizedPart = (
+        isDynamic
+          ? nuxtStyle
+            ? isCatchAll ? 'all' : node.replace(/^_/, '')
+            : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
+          : node
       ).toLowerCase()
 
       route.name += route.name ? `-${normalizedPart}` : normalizedPart
@@ -118,7 +123,7 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
         if (isDynamic) {
           route.path += `/:${normalizedPart}`
           // Catch-all route
-          if (/^\[\.{3}/.test(node))
+          if (isCatchAll)
             route.path += '(.*)'
           else if (isLastOne)
             route.path += '?'

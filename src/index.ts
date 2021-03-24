@@ -6,7 +6,6 @@ import { generateRoutes, generateClientCode, updateRouteFromHMR } from './genera
 import { debug, normalizePath } from './utils'
 import { parseVueRequest } from './query'
 
-const ID = 'pages-generated'
 const MODULE_IDS = ['pages-generated', 'virtual:generated-pages']
 const MODULE_ID_VIRTUAL = '/@vite-plugin-pages/generated-pages'
 
@@ -19,6 +18,7 @@ export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
     exclude = [],
     syncIndex = true,
     replaceSquareBrackets = false,
+    nuxtStyle = false,
   } = userOptions
 
   const root = process.cwd()
@@ -49,6 +49,7 @@ export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
       exclude,
       syncIndex,
       replaceSquareBrackets,
+      nuxtStyle,
     },
     userOptions,
   )

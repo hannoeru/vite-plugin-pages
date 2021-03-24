@@ -7,6 +7,7 @@ const resolvedOptions = {
   pagesDirOptions: [{ dir: 'src/pages', baseRoute: '' }],
   extensions: ['vue', 'js'],
   importMode: 'async',
+  nuxtStyle: false,
   exclude: [],
   syncIndex: true,
   replaceSquareBrackets: false,
