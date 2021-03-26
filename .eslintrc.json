@@ -4,5 +4,5 @@
     "@typescript-eslint/no-unused-vars": "off",
     "no-restricted-syntax": "off"
   },
-  "ignorePatterns": ["dist"]
+  "ignorePatterns": ["dist", "**/__*__/**"]
 }

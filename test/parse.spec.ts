@@ -1,10 +1,10 @@
 import fs from 'fs'
 import { resolve } from 'path'
-import { parseSFC, tryParseCustomBlock } from '../src/parseSfc'
-import { resolveOptions } from '../src/index'
+import { parseSFC, parseCustomBlock } from '../src/parseSfc'
+import { resolveOptions } from '../src/options'
 
 const options = resolveOptions({})
-const path = resolve('./test/assets/pages/user/[id].vue')
+const path = resolve('./test/assets/pages/blog/[id].vue')
 const VueFile = fs.readFileSync(path, 'utf-8')
 
 const expectCustomBlock = {
@@ -21,7 +21,7 @@ describe('Parser', () => {
     expect(parsed).toMatchSnapshot()
   })
   test('custom block', () => {
-    const parsedCustomBlock = tryParseCustomBlock(customBlock, path, options)
+    const parsedCustomBlock = parseCustomBlock(customBlock, path, options)
     expect(parsedCustomBlock).toStrictEqual(expectCustomBlock)
   })
 })

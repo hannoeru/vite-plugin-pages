@@ -6,5 +6,5 @@ defineProps({})
 </script>
 
 <template>
-  home
+  about/index.vue
 </template>

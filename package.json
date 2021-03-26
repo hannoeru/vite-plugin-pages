@@ -19,7 +19,7 @@
     "index.d.ts"
   ],
   "scripts": {
-    "dev": "npm run build -- --watch",
+    "dev": "npm run build -- --watch --ignore-watch examples",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
     "release": "npx git-ensure -a && npx bumpp --commit --tag --push",

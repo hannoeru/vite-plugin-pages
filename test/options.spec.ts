@@ -1,4 +1,4 @@
-import { resolveOptions } from '../src/index'
+import { resolveOptions } from '../src/options'
 
 const resolvedOptions = {
   routeBlockLang: 'json5',
@@ -6,6 +6,7 @@ const resolvedOptions = {
   pagesDir: ['src/pages'],
   pagesDirOptions: [{ dir: 'src/pages', baseRoute: '' }],
   extensions: ['vue', 'js'],
+  extensionsRE: /\.(vue|js)$/,
   importMode: 'async',
   nuxtStyle: false,
   exclude: [],

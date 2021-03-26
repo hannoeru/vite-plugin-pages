@@ -6,5 +6,5 @@ defineProps({})
 </script>
 
 <template>
-  <router-view />
+  blog/today/index.vue
 </template>

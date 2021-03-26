@@ -24,7 +24,7 @@ export function parseSFC(code: string): ParseResult {
   }
 }
 
-export function tryParseCustomBlock(block: CustomBlock, filePath: string, options: ResolvedOptions): any {
+export function parseCustomBlock(block: CustomBlock, filePath: string, options: ResolvedOptions): any {
   const lang = block.lang ?? options.routeBlockLang
 
   if (lang === 'json5') {

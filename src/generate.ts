@@ -10,9 +10,9 @@ import fs from 'fs'
 import { join } from 'path'
 import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions, PageDirOptions } from './types'
-import { debug, isDynamicRoute, isCatchAllRoute, normalizePath } from './utils'
+import { debug, isDynamicRoute, isCatchAllRoute, normalizePath, findRouteByFilename } from './utils'
 import { stringifyRoutes } from './stringify'
-import { tryParseCustomBlock, parseSFC } from './parseSfc'
+import { parseCustomBlock, parseSFC } from './parseSfc'
 
 function prepareRoutes(
   routes: Route[],
@@ -28,7 +28,7 @@ function prepareRoutes(
     }
 
     if (parent) {
-      route.path = route.path.replace(/^\//, '').replace(/\?$/, '')
+      route.path = route.path.replace(/^\//, '')
     }
     else {
       if (pagesDirOptions.baseRoute) {
@@ -51,7 +51,7 @@ function prepareRoutes(
     const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
 
     if (routeBlock)
-      Object.assign(route, tryParseCustomBlock(routeBlock, filePath, options))
+      Object.assign(route, parseCustomBlock(routeBlock, filePath, options))
 
     if (typeof options.extendRoute === 'function')
       Object.assign(route, options.extendRoute(route, parent) || {})
@@ -59,24 +59,12 @@ function prepareRoutes(
   return routes
 }
 
-function findRouteByFilename(routes: Route[], filename: string): Route | undefined {
-  let result = routes.find(x => filename.endsWith(x.component))
-  if (result === undefined) {
-    for (const route of routes) {
-      if (route.children !== undefined) result = findRouteByFilename(route.children, filename)
-      if (result) break
-    }
-  }
-  return result
-}
-
 export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOptions, options: ResolvedOptions): Route[] {
   const { dir: pagesDir } = pagesDirOptions
   const {
-    extensions,
     nuxtStyle,
+    extensionsRE,
   } = options
-  const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
   const routes: Route[] = []
 
@@ -97,7 +85,6 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
       const node = pathNodes[i]
       const isDynamic = isDynamicRoute(node, nuxtStyle)
       const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-      const isLastOne = i === pathNodes.length - 1
       const normalizedPart = (
         isDynamic
           ? nuxtStyle
@@ -125,8 +112,6 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
           // Catch-all route
           if (isCatchAll)
             route.path += '(.*)'
-          else if (isLastOne)
-            route.path += '?'
         }
         else {
           route.path += `/${normalizedPart}`
@@ -156,8 +141,8 @@ export function updateRouteFromHMR(content: string, filename: string, routes: Ro
 
     if (route) {
       const before = Object.assign({}, route)
-      const customBlockContent = tryParseCustomBlock(routeBlock, filename, options)
-      debug('Custom Block: %O', customBlockContent)
+      const customBlockContent = parseCustomBlock(routeBlock, filename, options)
+      debug.hmr('custom block: %O', customBlockContent)
       Object.assign(route, customBlockContent)
       return !deepEqual(before, route)
     }

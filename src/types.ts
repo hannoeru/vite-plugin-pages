@@ -85,4 +85,8 @@ export interface ResolvedOptions extends Options {
    * Page Dir as a normalized array of PageDirOptions
    */
   pagesDirOptions: PageDirOptions[]
+  /**
+   * RegExp to match extensions
+   */
+  extensionsRE: RegExp
 }

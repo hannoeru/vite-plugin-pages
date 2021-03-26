@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-defineProps({})
+defineProps({
+  id: String,
+})
 
 </script>
 
 <template>
-  home
+  blog/[id].vue: {{ id }}
 </template>

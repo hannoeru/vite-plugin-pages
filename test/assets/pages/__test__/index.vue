@@ -1,3 +1,3 @@
 <template>
-  <p>/[id].vue</p>
+  test default exclude
 </template>

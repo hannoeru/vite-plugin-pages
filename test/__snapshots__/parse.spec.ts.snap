@@ -9,45 +9,47 @@ Object {
       "content": "                        
                                  
 
-                           
+             
+             
+  
 
          
 
           
-                
+                         
            
 
        
-  {
-    name: \\"name-override\\",
-    meta: {
-      requiresAuth: false
-    }
-  }
+{
+  meta: {
+    requiresAuth: false,
+  },
+  name: 'name-override',
+}
 ",
       "loc": Object {
         "end": Object {
           "column": 1,
-          "line": 19,
-          "offset": 228,
+          "line": 21,
+          "offset": 230,
         },
         "source": "
-  {
-    name: \\"name-override\\",
-    meta: {
-      requiresAuth: false
-    }
-  }
+{
+  meta: {
+    requiresAuth: false,
+  },
+  name: 'name-override',
+}
 ",
         "start": Object {
           "column": 8,
-          "line": 12,
-          "offset": 148,
+          "line": 14,
+          "offset": 160,
         },
       },
       "map": Object {
         "file": "anonymous.vue",
-        "mappings": ";;;;;;;;;;;;EAYE;IACE,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;IACrB,CAAC,CAAC,CAAC,CAAC,EAAE;MACJ,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC;IACpB;EACF",
+        "mappings": ";;;;;;;;;;;;;;AAcA;EACE,CAAC,CAAC,CAAC,CAAC,EAAE;IACJ,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC;EACrB,CAAC;EACD,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACvB",
         "names": Array [],
         "sourceRoot": "",
         "sources": Array [
@@ -57,21 +59,23 @@ Object {
           "<script setup lang=\\"ts\\">
 import { defineProps } from 'vue'
 
-defineProps({ id: String })
+defineProps({
+  id: String,
+})
 
 </script>
 
 <template>
-  User: {{ id }}
+  blog/[id].vue: {{ id }}
 </template>
 
 <route>
-  {
-    name: \\"name-override\\",
-    meta: {
-      requiresAuth: false
-    }
-  }
+{
+  meta: {
+    requiresAuth: false,
+  },
+  name: 'name-override',
+}
 </route>
 ",
         ],
@@ -90,20 +94,24 @@ defineProps({ id: String })
     "content": "                        
 import { defineProps } from 'vue'
 
-defineProps({ id: String })
+defineProps({
+  id: String,
+})
 
 ",
     "lang": "ts",
     "loc": Object {
       "end": Object {
         "column": 1,
-        "line": 6,
-        "offset": 89,
+        "line": 8,
+        "offset": 92,
       },
       "source": "
 import { defineProps } from 'vue'
 
-defineProps({ id: String })
+defineProps({
+  id: String,
+})
 
 ",
       "start": Object {
@@ -118,21 +126,23 @@ defineProps({ id: String })
   "source": "<script setup lang=\\"ts\\">
 import { defineProps } from 'vue'
 
-defineProps({ id: String })
+defineProps({
+  id: String,
+})
 
 </script>
 
 <template>
-  User: {{ id }}
+  blog/[id].vue: {{ id }}
 </template>
 
 <route>
-  {
-    name: \\"name-override\\",
-    meta: {
-      requiresAuth: false
-    }
-  }
+{
+  meta: {
+    requiresAuth: false,
+  },
+  name: 'name-override',
+}
 </route>
 ",
   "styles": Array [],
@@ -140,19 +150,19 @@ defineProps({ id: String })
     "ast": Object {
       "children": Array [
         Object {
-          "content": "  User: ",
+          "content": "  blog/[id].vue: ",
           "loc": Object {
             "end": Object {
-              "column": 9,
-              "line": 9,
-              "offset": 119,
+              "column": 18,
+              "line": 11,
+              "offset": 131,
             },
             "source": "
-  User: ",
+  blog/[id].vue: ",
             "start": Object {
               "column": 11,
-              "line": 8,
-              "offset": 110,
+              "line": 10,
+              "offset": 113,
             },
           },
           "type": 2,
@@ -164,30 +174,30 @@ defineProps({ id: String })
             "isStatic": false,
             "loc": Object {
               "end": Object {
-                "column": 14,
-                "line": 9,
-                "offset": 124,
+                "column": 23,
+                "line": 11,
+                "offset": 136,
               },
               "source": "id",
               "start": Object {
-                "column": 12,
-                "line": 9,
-                "offset": 122,
+                "column": 21,
+                "line": 11,
+                "offset": 134,
               },
             },
             "type": 4,
           },
           "loc": Object {
             "end": Object {
-              "column": 17,
-              "line": 9,
-              "offset": 127,
+              "column": 26,
+              "line": 11,
+              "offset": 139,
             },
             "source": "{{ id }}",
             "start": Object {
-              "column": 9,
-              "line": 9,
-              "offset": 119,
+              "column": 18,
+              "line": 11,
+              "offset": 131,
             },
           },
           "type": 5,
@@ -198,15 +208,15 @@ defineProps({ id: String })
           "loc": Object {
             "end": Object {
               "column": 1,
-              "line": 10,
-              "offset": 128,
+              "line": 12,
+              "offset": 140,
             },
             "source": "
 ",
             "start": Object {
-              "column": 17,
-              "line": 9,
-              "offset": 127,
+              "column": 26,
+              "line": 11,
+              "offset": 139,
             },
           },
           "type": 2,
@@ -217,16 +227,16 @@ defineProps({ id: String })
       "loc": Object {
         "end": Object {
           "column": 12,
-          "line": 10,
-          "offset": 139,
+          "line": 12,
+          "offset": 151,
         },
         "source": "<template>
-  User: {{ id }}
+  blog/[id].vue: {{ id }}
 </template>",
         "start": Object {
           "column": 1,
-          "line": 8,
-          "offset": 100,
+          "line": 10,
+          "offset": 103,
         },
       },
       "ns": 0,
@@ -237,26 +247,26 @@ defineProps({ id: String })
     },
     "attrs": Object {},
     "content": "
-  User: {{ id }}
+  blog/[id].vue: {{ id }}
 ",
     "loc": Object {
       "end": Object {
         "column": 1,
-        "line": 10,
-        "offset": 128,
+        "line": 12,
+        "offset": 140,
       },
       "source": "
-  User: {{ id }}
+  blog/[id].vue: {{ id }}
 ",
       "start": Object {
         "column": 11,
-        "line": 8,
-        "offset": 110,
+        "line": 10,
+        "offset": 113,
       },
     },
     "map": Object {
       "file": "anonymous.vue",
-      "mappings": ";EAQE,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,EAAE,CAAC,EAAE,CAAC",
+      "mappings": ";EAUE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,EAAE,CAAC,EAAE,CAAC",
       "names": Array [],
       "sourceRoot": "",
       "sources": Array [
@@ -266,21 +276,23 @@ defineProps({ id: String })
         "<script setup lang=\\"ts\\">
 import { defineProps } from 'vue'
 
-defineProps({ id: String })
+defineProps({
+  id: String,
+})
 
 </script>
 
 <template>
-  User: {{ id }}
+  blog/[id].vue: {{ id }}
 </template>
 
 <route>
-  {
-    name: \\"name-override\\",
-    meta: {
-      requiresAuth: false
-    }
-  }
+{
+  meta: {
+    requiresAuth: false,
+  },
+  name: 'name-override',
+}
 </route>
 ",
       ],

@@ -5,55 +5,10 @@ import { getFilesFromPath } from './files'
 import { generateRoutes, generateClientCode, updateRouteFromHMR } from './generate'
 import { debug, normalizePath } from './utils'
 import { parseVueRequest } from './query'
+import { resolveOptions } from './options'
 
 const MODULE_IDS = ['pages-generated', 'virtual:generated-pages']
 const MODULE_ID_VIRTUAL = '/@vite-plugin-pages/generated-pages'
-
-export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
-  const {
-    pagesDir = ['src/pages'],
-    extensions = ['vue', 'js'],
-    importMode = 'async',
-    routeBlockLang = 'json5',
-    exclude = [],
-    syncIndex = true,
-    replaceSquareBrackets = false,
-    nuxtStyle = false,
-  } = userOptions
-
-  const root = process.cwd()
-
-  let pagesDirOptions: PageDirOptions[] = []
-
-  if (typeof pagesDir === 'string') {
-    pagesDirOptions = pagesDirOptions.concat({ dir: pagesDir, baseRoute: '' })
-  }
-  else {
-    for (const dir of pagesDir) {
-      if (typeof dir === 'string')
-        pagesDirOptions = pagesDirOptions.concat({ dir, baseRoute: '' })
-      else if (dir as PageDirOptions)
-        pagesDirOptions = pagesDirOptions.concat(dir)
-    }
-  }
-
-  return Object.assign(
-    {},
-    {
-      routeBlockLang,
-      root,
-      pagesDir,
-      pagesDirOptions,
-      extensions,
-      importMode,
-      exclude,
-      syncIndex,
-      replaceSquareBrackets,
-      nuxtStyle,
-    },
-    userOptions,
-  )
-}
 
 function routePlugin(userOptions: UserOptions = {}): Plugin {
   let config: ResolvedConfig | undefined
@@ -77,9 +32,6 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     },
     async load(id) {
       if (id === MODULE_ID_VIRTUAL) {
-        debug('Loading...')
-        debug('Loading Gen Routes: %O', generatedRoutes)
-
         if (!generatedRoutes) {
           generatedRoutes = []
           filesPath = []
@@ -87,21 +39,20 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
           for (const pageDir of options.pagesDirOptions) {
             const pageDirPath = normalizePath(resolve(options.root, pageDir.dir))
             pagesDirPaths = pagesDirPaths.concat(pageDirPath)
-            debug('Loading PageDir: %O', pageDirPath)
+            debug.gen('dir: %O', pageDirPath)
 
             const files = await getFilesFromPath(pageDirPath, options)
             filesPath = filesPath.concat(files.map(f => `${pageDirPath}/${f}`))
-            debug('FilesPath: %O', files)
+            debug.gen('files: %O', files)
 
             const routes = generateRoutes(files, pageDir, options)
             generatedRoutes = generatedRoutes.concat(routes)
-            // debug('Routes: %O', generatedRoutes)
           }
         }
+        debug.gen('routes: %O', generatedRoutes)
 
         const clientCode = generateClientCode(generatedRoutes, options)
-
-        // debug('Client code: %O', clientCode)
+        // debug.gen('client code: %O', clientCode)
 
         return clientCode
       }
@@ -135,14 +86,12 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
       }
     },
     async handleHotUpdate({ file, server, read }) {
-      const extensionsRE = new RegExp(`\\.(${options.extensions.join('|')})$`)
-      const matchedPath = (pagesDirPaths).find(p => file.startsWith(`${p}/`))
+      const isPagesDir = pagesDirPaths.find(p => file.startsWith(`${p}/`))
       // Handle pages HMR
-      if (matchedPath && extensionsRE.test(file)) {
+      if (isPagesDir && options.extensionsRE.test(file)) {
         let needReload = false
 
-        // HMR on new file created
-        // Otherwise, handle HMR from custom block
+        // Handle new file
         if (!filesPath.includes(file)) {
           generatedRoutes = null
           needReload = true
@@ -158,7 +107,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
           if (module)
             server.moduleGraph.invalidateModule(module)
 
-          debug('Reload for file: %s', file.replace(options.root, ''))
+          debug.hmr('hmr update: %s', file.replace(options.root, ''))
 
           return [module!]
         }

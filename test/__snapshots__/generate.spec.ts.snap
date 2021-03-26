@@ -5,37 +5,64 @@ exports[`Generate Client Code: client code 1`] = `
 
 const routes = [
   {
-    \\"component\\": () => import('/test/assets/pages/[...all].vue'),
     \\"name\\": \\"all\\",
     \\"path\\": \\"/:all(.*)\\",
+    \\"component\\": () => import('/test/assets/pages/[...all].vue'),
     \\"props\\": true
   },
   {
-    \\"name\\": \\"home\\",
-    \\"path\\": \\"/home\\",
-    \\"component\\": () => import('/test/assets/pages/home.vue'),
-    \\"props\\": true
-  },
-  {
-    \\"name\\": \\"index\\",
-    \\"path\\": \\"/\\",
-    \\"component\\": _test_assets_pages_index_vue,
-    \\"props\\": true
-  },
-  {
-    \\"path\\": \\"/user\\",
-    \\"component\\": () => import('/test/assets/pages/user.vue'),
+    \\"path\\": \\"/about\\",
+    \\"component\\": () => import('/test/assets/pages/about.vue'),
     \\"children\\": [
       {
-        \\"name\\": \\"name-override\\",
-        \\"path\\": \\":id\\",
-        \\"component\\": () => import('/test/assets/pages/user/[id].vue'),
-        \\"props\\": true,
-        \\"meta\\": {
-          \\"requiresAuth\\": false
-        }
+        \\"name\\": \\"about\\",
+        \\"path\\": \\"\\",
+        \\"component\\": () => import('/test/assets/pages/about/index.vue'),
+        \\"props\\": true
       }
     ],
+    \\"props\\": true
+  },
+  {
+    \\"name\\": \\"components\\",
+    \\"path\\": \\"/components\\",
+    \\"component\\": () => import('/test/assets/pages/components.vue'),
+    \\"props\\": true
+  },
+  {
+    \\"name\\": \\"name-override\\",
+    \\"path\\": \\"/\\",
+    \\"component\\": _test_assets_pages_index_vue,
+    \\"props\\": true,
+    \\"meta\\": {
+      \\"requiresAuth\\": false
+    }
+  },
+  {
+    \\"name\\": \\"sensor-current\\",
+    \\"path\\": \\"/:sensor/current\\",
+    \\"component\\": () => import('/test/assets/pages/[sensor]/current.vue'),
+    \\"props\\": true
+  },
+  {
+    \\"name\\": \\"name-override\\",
+    \\"path\\": \\"/blog/:id\\",
+    \\"component\\": () => import('/test/assets/pages/blog/[id].vue'),
+    \\"props\\": true,
+    \\"meta\\": {
+      \\"requiresAuth\\": false
+    }
+  },
+  {
+    \\"name\\": \\"blog\\",
+    \\"path\\": \\"/blog\\",
+    \\"component\\": () => import('/test/assets/pages/blog/index.vue'),
+    \\"props\\": true
+  },
+  {
+    \\"name\\": \\"blog-today\\",
+    \\"path\\": \\"/blog/today\\",
+    \\"component\\": () => import('/test/assets/pages/blog/today/index.vue'),
     \\"props\\": true
   }
 ]
@@ -52,31 +79,55 @@ Array [
     "props": true,
   },
   Object {
-    "component": "/test/assets/nuxt-pages/home.vue",
-    "name": "home",
-    "path": "/home",
+    "children": Array [
+      Object {
+        "component": "/test/assets/nuxt-pages/about/index.vue",
+        "name": "about",
+        "path": "",
+        "props": true,
+      },
+    ],
+    "component": "/test/assets/nuxt-pages/about.vue",
+    "path": "/about",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/nuxt-pages/components.vue",
+    "name": "components",
+    "path": "/components",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt-pages/index.vue",
-    "name": "index",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "name-override",
     "path": "/",
     "props": true,
   },
   Object {
-    "children": Array [
-      Object {
-        "component": "/test/assets/nuxt-pages/user/_id.vue",
-        "meta": Object {
-          "requiresAuth": false,
-        },
-        "name": "name-override",
-        "path": ":id",
-        "props": true,
-      },
-    ],
-    "component": "/test/assets/nuxt-pages/user.vue",
-    "path": "/user",
+    "component": "/test/assets/nuxt-pages/_sensor/current.vue",
+    "name": "sensor-current",
+    "path": "/:sensor/current",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/nuxt-pages/blog/_id.vue",
+    "name": "blog-id",
+    "path": "/blog/:id",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/nuxt-pages/blog/index.vue",
+    "name": "blog",
+    "path": "/blog",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/nuxt-pages/blog/today/index.vue",
+    "name": "blog-today",
+    "path": "/blog/today",
     "props": true,
   },
 ]
@@ -91,31 +142,58 @@ Array [
     "props": true,
   },
   Object {
-    "component": "/test/assets/pages/home.vue",
-    "name": "home",
-    "path": "/home",
+    "children": Array [
+      Object {
+        "component": "/test/assets/pages/about/index.vue",
+        "name": "about",
+        "path": "",
+        "props": true,
+      },
+    ],
+    "component": "/test/assets/pages/about.vue",
+    "path": "/about",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/components.vue",
+    "name": "components",
+    "path": "/components",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/index.vue",
-    "name": "index",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "name-override",
     "path": "/",
     "props": true,
   },
   Object {
-    "children": Array [
-      Object {
-        "component": "/test/assets/pages/user/[id].vue",
-        "meta": Object {
-          "requiresAuth": false,
-        },
-        "name": "name-override",
-        "path": ":id",
-        "props": true,
-      },
-    ],
-    "component": "/test/assets/pages/user.vue",
-    "path": "/user",
+    "component": "/test/assets/pages/[sensor]/current.vue",
+    "name": "sensor-current",
+    "path": "/:sensor/current",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/blog/[id].vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "name-override",
+    "path": "/blog/:id",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/blog/index.vue",
+    "name": "blog",
+    "path": "/blog",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/blog/today/index.vue",
+    "name": "blog-today",
+    "path": "/blog/today",
     "props": true,
   },
 ]

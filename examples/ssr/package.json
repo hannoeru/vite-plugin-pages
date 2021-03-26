@@ -7,7 +7,7 @@
     "build": "pnpm build:client && pnpm build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server",
-    "generate": "cross-env DEBUG=vite-plugin-pages vite build --ssrManifest --outDir dist/static && yarn build:server && esno prerender",
+    "generate": "cross-env DEBUG=vite-plugin-pages:* vite build --ssrManifest --outDir dist/static && yarn build:server && esno prerender",
     "serve": "cross-env NODE_ENV=production esno server"
   },
   "dependencies": {
