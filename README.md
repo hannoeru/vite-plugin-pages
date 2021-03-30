@@ -73,6 +73,34 @@ Array of valid file extensions for pages.
 
 **Default:** `['vue', 'js']`
 
+### exclude
+
+An array of glob patterns to exclude matches.
+
+**Default:** `[]`
+
+```js
+src/pages/
+  ├── users/
+	│  ├── components
+	│  │  	├── form.vue
+  │  ├── [id].vue
+  │  └── index.vue
+  └── home.vue
+```
+
+```js
+// vite.config.js
+export default {
+  // ...
+  plugins: [
+    Pages({
+      exclude: ['**/components/*.vue']
+    }),
+  ],
+};
+```
+
 ### importMode
 
 Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
