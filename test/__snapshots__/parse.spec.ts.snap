@@ -123,6 +123,7 @@ defineProps({
     "setup": true,
     "type": "script",
   },
+  "slotted": false,
   "source": "<script setup lang=\\"ts\\">
 import { defineProps } from 'vue'
 

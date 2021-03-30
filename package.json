@@ -30,7 +30,7 @@
     "lint": "eslint --fix --ext .js,.ts,.vue ./"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^3.0.7",
+    "@vue/compiler-sfc": "^3.0.9",
     "chalk": "^4.1.0",
     "debug": "^4.3.2",
     "deep-equal": "^2.0.5",
@@ -50,15 +50,16 @@
     "@types/debug": "^4.1.5",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.0",
-    "@types/jest": "^26.0.21",
-    "@types/node": "^14.14.35",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "eslint": "^7.22.0",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "eslint": "^7.23.0",
     "jest": "^26.6.3",
     "jest-esbuild": "^0.1.5",
-    "rollup": "^2.42.3",
-    "tsup": "^4.8.19",
+    "rollup": "^2.44.0",
+    "ts-node": "^9.1.1",
+    "tsup": "^4.8.21",
     "typescript": "^4.2.3",
-    "vite": "^2.1.2"
+    "vite": "^2.1.4"
   }
 }
