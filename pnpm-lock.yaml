@@ -57,22 +57,22 @@ importers:
       '@vue/compiler-sfc': ^3.0.11
       cross-env: ^7.0.3
       nodemon: ^2.0.7
-      typescript: ^4.2.3
+      typescript: ^4.2.4
       vite: ^2.1.5
       vite-plugin-md: ^0.6.3
       vite-plugin-pages: workspace:*
       vite-plugin-restart: ^0.0.1
       vue: ^3.0.11
-      vue-router: 4.0.5
+      vue-router: 4.0.6
     dependencies:
       vue: 3.0.11
-      vue-router: 4.0.5_vue@3.0.11
+      vue-router: 4.0.6_vue@3.0.11
     devDependencies:
       '@vitejs/plugin-vue': 1.2.1_@vue+compiler-sfc@3.0.11
       '@vue/compiler-sfc': 3.0.11_vue@3.0.11
       cross-env: 7.0.3
       nodemon: 2.0.7
-      typescript: 4.2.3
+      typescript: 4.2.4
       vite: 2.1.5
       vite-plugin-md: 0.6.3_vite@2.1.5
       vite-plugin-pages: link:../..
@@ -84,22 +84,22 @@ importers:
       '@vue/compiler-sfc': ^3.0.11
       cross-env: ^7.0.3
       nodemon: ^2.0.7
-      typescript: ^4.2.3
+      typescript: ^4.2.4
       vite: ^2.1.5
       vite-plugin-md: ^0.6.3
       vite-plugin-pages: workspace:*
       vite-plugin-restart: ^0.0.1
       vue: ^3.0.11
-      vue-router: 4.0.5
+      vue-router: 4.0.6
     dependencies:
       vue: 3.0.11
-      vue-router: 4.0.5_vue@3.0.11
+      vue-router: 4.0.6_vue@3.0.11
     devDependencies:
       '@vitejs/plugin-vue': 1.2.1_@vue+compiler-sfc@3.0.11
       '@vue/compiler-sfc': 3.0.11_vue@3.0.11
       cross-env: 7.0.3
       nodemon: 2.0.7
-      typescript: 4.2.3
+      typescript: 4.2.4
       vite: 2.1.5
       vite-plugin-md: 0.6.3_vite@2.1.5
       vite-plugin-pages: link:../..
@@ -120,15 +120,15 @@ importers:
       fast-glob: ^3.2.5
       nodemon: ^2.0.7
       serve-static: ^1.14.1
-      typescript: ^4.2.3
+      typescript: ^4.2.4
       vite: ^2.1.5
       vite-plugin-pages: workspace:*
       vite-plugin-restart: ^0.0.1
       vue: ^3.0.11
-      vue-router: ^4.0.5
+      vue-router: ^4.0.6
     dependencies:
       vue: 3.0.11
-      vue-router: 4.0.5_vue@3.0.11
+      vue-router: 4.0.6_vue@3.0.11
     devDependencies:
       '@types/compression': 1.7.0
       '@types/express': 4.17.11
@@ -143,7 +143,7 @@ importers:
       fast-glob: 3.2.5
       nodemon: 2.0.7
       serve-static: 1.14.1
-      typescript: 4.2.3
+      typescript: 4.2.4
       vite: 2.1.5
       vite-plugin-pages: link:../..
       vite-plugin-restart: 0.0.1_vite@2.1.5
@@ -395,12 +395,6 @@ packages:
       '@babel/helper-validator-identifier': 7.12.11
       chalk: 2.4.2
       js-tokens: 4.0.0
-    dev: true
-
-  /@babel/parser/7.13.13:
-    resolution: {integrity: sha512-OhsyMrqygfk5v8HmWwOzlYjJrtLaFhF34MrfG/Z73DgYCI6ojNUTUp2TYbtnjo8PegeJp12eamsNettCQjKjVw==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
     dev: true
 
   /@babel/parser/7.13.15:
@@ -1167,7 +1161,7 @@ packages:
     peerDependencies:
       vue: 3.0.11
     dependencies:
-      '@babel/parser': 7.13.13
+      '@babel/parser': 7.13.15
       '@babel/types': 7.13.14
       '@vue/compiler-core': 3.0.11
       '@vue/compiler-dom': 3.0.11
@@ -2379,15 +2373,21 @@ packages:
       is-date-object: 1.0.2
       is-symbol: 1.0.3
 
-  /esbuild-register/2.3.0:
-    resolution: {integrity: sha512-uT3WXEQGAqzrI0SLy1Jz39BzIBiLWd5La9zFZ+FUSCPGqJbE+ZJHUTE8yHP1GVfyHKrrAFCZqLieaHkSprIRDQ==}
+  /esbuild-register/2.4.0:
+    resolution: {integrity: sha512-1mWroad5Mz8fqMxd0GfmEWoAuRBSsBObLVp5rpFOQSavUNgyhR5NoVlECrDcE2iineekoTsBeNS9QxKvqKvNjw==}
     dependencies:
-      esbuild: 0.9.7
+      esbuild: 0.11.6
       jsonc-parser: 3.0.0
     dev: true
 
   /esbuild/0.10.2:
     resolution: {integrity: sha512-/5vsZD7wTJJHC3yNXLUjXNvUDwqwNoIMvFvLd9tcDQ9el5l13pspYm3yufavjIeYvNtAbo+6N/6uoWx9dGA6ug==}
+    hasBin: true
+    requiresBuild: true
+    dev: true
+
+  /esbuild/0.11.6:
+    resolution: {integrity: sha512-L+nKW9ftVS/N2CVJMR9YmXHbkm+vHzlNYuo09rzipQhF7dYNvRLfWoEPSDRTl10and4owFBV9rJ2CTFNtLIOiw==}
     hasBin: true
     requiresBuild: true
     dev: true
@@ -2710,7 +2710,7 @@ packages:
     hasBin: true
     dependencies:
       esbuild: 0.9.7
-      esbuild-register: 2.3.0
+      esbuild-register: 2.4.0
     dev: true
 
   /espree/6.2.1:
@@ -6373,12 +6373,6 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typescript/4.2.3:
-    resolution: {integrity: sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-    dev: true
-
   /typescript/4.2.4:
     resolution: {integrity: sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==}
     engines: {node: '>=4.2.0'}
@@ -6586,8 +6580,8 @@ packages:
       - supports-color
     dev: true
 
-  /vue-router/4.0.5_vue@3.0.11:
-    resolution: {integrity: sha512-AQq+pllb6FCc7rS6vh4PPcce3XA1jgK3hKNkQ4hXHwoVN7jOeAOMKCnX7XAX3etV9rmN7iNW8iIwgPk95ckBjw==}
+  /vue-router/4.0.6_vue@3.0.11:
+    resolution: {integrity: sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
