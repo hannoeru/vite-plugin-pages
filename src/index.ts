@@ -1,6 +1,6 @@
 import { resolve, basename } from 'path'
-import type { Plugin, ResolvedConfig, ModuleNode } from 'vite'
-import { Route, ResolvedOptions, UserOptions, PageDirOptions } from './types'
+import type { Plugin, ResolvedConfig } from 'vite'
+import { Route, ResolvedOptions, UserOptions } from './types'
 import { getFilesFromPath } from './files'
 import { generateRoutes, generateClientCode, updateRouteFromHMR } from './generate'
 import { debug, normalizePath } from './utils'
@@ -75,8 +75,7 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
     generateBundle(_options, bundle) {
       if (options.replaceSquareBrackets) {
         const files = Object.keys(bundle).map(i => basename(i))
-        for (const name in bundle) {
-          const chunk = bundle[name]
+        for (const chunk of Object.values(bundle)) {
           chunk.fileName = chunk.fileName.replace(/(\[|\])/g, '_')
           if (chunk.type === 'chunk') {
             for (const file of files)
@@ -117,4 +116,5 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
 }
 
 export * from './types'
+export { generateRoutes }
 export default routePlugin
