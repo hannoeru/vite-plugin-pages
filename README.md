@@ -82,8 +82,8 @@ An array of glob patterns to exclude matches.
 ```js
 src/pages/
   ├── users/
-	│  ├── components
-	│  │  	├── form.vue
+  │  ├── components
+  │  │  └── form.vue
   │  ├── [id].vue
   │  └── index.vue
   └── home.vue
