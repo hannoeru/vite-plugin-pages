@@ -6,5 +6,5 @@ defineProps({})
 </script>
 
 <template>
-  ...all route
+  <div>...all route</div>
 </template>
