@@ -71,6 +71,14 @@ interface Options {
    * Extend route records
    */
   extendRoute?: (route: Route, parent: Route | undefined) => Route | void
+  /**
+   * Custom generated routes
+   */
+  onRoutesGenerated?: (routes: Route[]) => Route[] | void | Promise<Route[] | void>
+  /**
+   * Custom generated client code
+   */
+  onClientGenerated?: (clientCode: string) => string | void | Promise<string | void>
 }
 
 export type UserOptions = Partial<Options>

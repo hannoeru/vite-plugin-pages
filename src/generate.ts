@@ -53,8 +53,7 @@ function prepareRoutes(
     if (routeBlock)
       Object.assign(route, parseCustomBlock(routeBlock, filePath, options))
 
-    if (typeof options.extendRoute === 'function')
-      Object.assign(route, options.extendRoute(route, parent) || {})
+    Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
   return routes
 }

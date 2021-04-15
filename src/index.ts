@@ -51,8 +51,12 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
         }
         debug.gen('routes: %O', generatedRoutes)
 
-        const clientCode = generateClientCode(generatedRoutes, options)
+        generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes
+
+        let clientCode = generateClientCode(generatedRoutes, options)
         // debug.gen('client code: %O', clientCode)
+
+        clientCode = (await options.onClientGenerated?.(clientCode)) || clientCode
 
         return clientCode
       }
