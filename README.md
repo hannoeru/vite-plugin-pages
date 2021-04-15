@@ -267,13 +267,13 @@ Inspired by the routing from [NuxtJS](https://nuxtjs.org/guides/features/file-sy
 
 Pages automatically generates an array of routes for you to plug-in to your instance of Vue Router. These routes are determined by the structure of the files in your pages directory. Simply create `.vue` files in your pages directory and routes will automatically be created for you, no additional configuration required!
 
-For more advanced use cases, you can tailor Pages to fit the needs of your app through [configuration](https://github.com/brattonross/vite-plugin-pages#configuration).
+For more advanced use cases, you can tailor Pages to fit the needs of your app through [configuration](#configuration).
 
-- [Basic Routing](https://github.com/brattonross/vite-plugin-pages#basic-routing)
-- [Index Routes](https://github.com/brattonross/vite-plugin-pages#index-routes)
-- [Dynamic Routes](https://github.com/brattonross/vite-plugin-pages#dynamic-routes)
-- [Nested Routes](https://github.com/brattonross/vite-plugin-pages#nested-routes)
-- [Catch-all Routes](https://github.com/brattonross/vite-plugin-pages#catch-all-routes)
+- [Basic Routing](#basic-routing)
+- [Index Routes](#index-routes)
+- [Dynamic Routes](#dynamic-routes)
+- [Nested Routes](#nested-routes)
+- [Catch-all Routes](#catch-all-routes)
 
 ### Basic Routing
 
