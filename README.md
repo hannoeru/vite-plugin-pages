@@ -44,42 +44,79 @@ const router = createRouter({
 
 ## Configuration
 
-```ts
-interface UserOptions {
-  pagesDir?: string | string[] | PageDirOptions[]
-  extensions?: string[]
-  exclude: string[]
-  importMode?: ImportMode | ImportModeResolveFn
-  syncIndex?: boolean
-  routeBlockLang: 'json5' | 'json' | 'yaml'
-  extendRoute?: (route: Route, parent: Route | undefined) => Route | void
-}
+To use custom configuration, pass your options to Pages when instantiating the plugin:
+
+```js
+// vite.config.js
+import Pages from 'vite-plugin-pages';
+
+export default {
+  plugins: [
+    Pages({
+      pagesDir: 'src/views',
+      extensions: ['vue', 'ts'],
+    }),
+  ],
+};
 ```
 
 ### pagesDir
+
+- **Type:** `string | string[] | PageDirOptions[]`
+- **Default:** `'src/pages'`
 
 Relative path to the pages directory. Supports globs.
 
 Can be:
 - single path: routes point to `/`
 - array of paths: all routes in the paths point to `/`
-- array of `PageDirOptions` allowing you to specify base routes instead of `/`.  See [Feature Areas](#feature-areas) for more details
+- array of `PageDirOptions`, Check below 👇
 
-**Default:** `'src/pages'`
+Specifying an array of `PageDirOptions` allow you to use multiple pages folder, and specify the base route to append to the path and the route name.
+
+**Example:**
+
+```bash
+# folder structure
+src/
+  ├── features/
+  │  └── admin/
+  │     ├── code/
+  │     ├── components/
+  │     └── pages/
+  └── pages/
+```
+
+```js
+// vite.config.js
+export default {
+  plugins: [
+    Pages({
+      pagesDir: [
+        { dir: 'src/pages', baseRoute: '' },
+        { dir: 'src/features/admin/pages', baseRoute: 'admin' },
+      ],
+    }),
+  ],
+};
+```
 
 ### extensions
 
-Array of valid file extensions for pages.
+- **Type:** `string[]`
+- **Default:** `['vue', 'js']`
 
-**Default:** `['vue', 'js']`
+An array of valid file extensions for pages.
 
 ### exclude
 
+- **Type:** `string[]`
+- **Default:** `[]`
+
 An array of glob patterns to exclude matches.
 
-**Default:** `[]`
-
-```js
+```bash
+# folder structure
 src/pages/
   ├── users/
   │  ├── components
@@ -92,7 +129,6 @@ src/pages/
 ```js
 // vite.config.js
 export default {
-  // ...
   plugins: [
     Pages({
       exclude: ['**/components/*.vue']
@@ -103,18 +139,18 @@ export default {
 
 ### importMode
 
-Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
+- **Type:** `'sync' | 'async' | (filepath: string) => 'sync' | 'async')`
+- **Default:**
+  - Top level index file: `'sync'`, can turn off by option `syncIndex`.
+  - Others: `'async'`
 
-**Default:**
-- Top level index file: `'sync'`, can turn off by option `syncIndex`.
-- Others: `'async'`
+Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
 
 To get more fine-grained control over which routes are loaded sync/async, you can use a function to resolve the value based on the route path. For example:
 
 ```js
 // vite.config.js
 export default {
-  // ...
   plugins: [
     Pages({
       importMode(path) {
@@ -128,29 +164,34 @@ export default {
 
 ### routeBlockLang
 
+- **Type:** `string`
+- **Default:** `'json5'`
+
 Default SFC route block parser.
 
-**Default:** `'json5'`
+### replaceSquareBrackets(experimental)
 
-### replaceSquareBrackets
-
-***experimental**
+- **Type:** `boolean`
+- **Default:** `false`
 
 Check: [#16](https://github.com/hannoeru/vite-plugin-pages/issues/16)
 
 Replace '[]' to '_' in bundle filename
 
-**Default:** `false`
+
 
 ### nuxtStyle
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 Use Nuxt.js style dynamic routing
 
 More details: [File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
 
-**Default:** `false`
-
 ### extendRoute
+
+- **Type:** `(route: Route, parent: Route | undefined) => Route | void | Promise<Route | void>`
 
 A function that takes a route and optionally returns a modified route. This is useful for augmenting your routes with extra data (e.g. route metadata).
 
@@ -177,23 +218,18 @@ export default {
 };
 ```
 
-### Using configuration
+### onRoutesGenerated
 
-To use custom configuration, pass your options to Pages when instantiating the plugin:
+- **Type:** `(routes: Route[]) => Route[] | void | Promise<Route[] | void>`
 
-```js
-// vite.config.js
-import Pages from 'vite-plugin-pages';
+A function that takes a generated routes and optionally returns a modified generated routes.
 
-export default {
-  plugins: [
-    Pages({
-      pagesDir: 'src/views',
-      extensions: ['vue', 'ts'],
-    }),
-  ],
-};
-```
+### onClientGenerated
+
+- **Type:** `(clientCode: string) => string | void | Promise<string | void>`
+
+A function that takes a generated client code and optionally returns a modified generated client code.
+
 
 ### SFC custom block for Route Data
 
@@ -201,9 +237,8 @@ Add route meta to the route by adding a `<route>` block to the SFC. This will di
 
 You can specific a parser to use using `<route lang="yaml">`, or set a default parser using `routeBlockLang` option.
 
-**Supported parser:** JSON, JSON5, YAML
-
-**Default:** JSON5
+- **Supported parser:** JSON, JSON5, YAML
+- **Default:** JSON5
 
 JSON/JSON5:
 
@@ -224,31 +259,6 @@ name: name-override
 meta:
   requiresAuth: true
 </route>
-```
-
-### Multiple Pages Folder
-
-Specifying an array of `pagesDir` allow you to use multiple pages folder, and specify the base route to append to the path and the route name.
-
-**Example:**
-
-folder structure:
-```bash
-src/
-  ├── features/
-  │  └── admin/
-  │     ├── code/
-  │     ├── components/
-  │     └── pages/
-  └── pages/
-```
-vite.config.js:
-```js
-// pages options
-pagesDir: [
-  { dir: 'src/pages', baseRoute: '' },
-  { dir: 'src/features/admin/pages', baseRoute: 'admin' },
-],
 ```
 
 ## File System Routing
