@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-pages",
   "description": "File system base vue-router plugin for Vite",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "index.d.ts",
