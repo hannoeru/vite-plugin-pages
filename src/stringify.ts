@@ -27,7 +27,11 @@ export function stringifyRoutes(
         const mode = resolveImportMode(path, options)
         if (mode === 'sync') {
           const importName = pathToName(path)
-          imports.push(`import ${importName} from '${path}'`)
+          // Only add import to array if it hasn't beed added before.
+          const importStr = `import ${importName} from '${path}'`
+          if (!imports.includes(importStr)) {
+            imports.push(importStr)
+          }
           return str.replace(replaceStr, importName)
         }
         else {
