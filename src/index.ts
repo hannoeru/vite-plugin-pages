@@ -48,10 +48,10 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
             const routes = generateRoutes(files, pageDir, options)
             generatedRoutes = generatedRoutes.concat(routes)
           }
+          // only execute onRoutesGenerated once
+          generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes
         }
         debug.gen('routes: %O', generatedRoutes)
-
-        generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes
 
         let clientCode = generateClientCode(generatedRoutes, options)
         // debug.gen('client code: %O', clientCode)
