@@ -9,6 +9,6 @@ const expectFiles = ['[...all].vue', 'about.vue', 'components.vue', 'index.vue',
 describe('Get files', () => {
   test('Pages file', async() => {
     const files = await getFilesFromPath(testPagesDir, options)
-    expect(files).toStrictEqual(expectFiles)
+    expect(files).toEqual(expectFiles)
   })
 })
