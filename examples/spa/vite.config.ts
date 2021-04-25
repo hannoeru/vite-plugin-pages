@@ -18,6 +18,10 @@ const config = defineConfig({
       extensions: ['vue', 'md'],
       syncIndex: false,
       replaceSquareBrackets: true,
+      extendRoute(route) {
+        if (route.name === 'about')
+          route.props = route => ({ query: route.query.q })
+      },
     }),
     Markdown(),
     Restart({

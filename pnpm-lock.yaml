@@ -18,13 +18,14 @@ importers:
       eslint: ^7.24.0
       fast-glob: ^3.2.5
       jest: ^26.6.3
-      jest-esbuild: ^0.1.5
+      jest-esbuild: ^0.1.6
       json5: ^2.2.0
       rollup: ^2.45.2
       ts-node: ^9.1.1
       tsup: ^4.9.1
       typescript: ^4.2.4
       vite: ^2.2.1
+      vue-router: ^4.0.6
       yaml: ^2.0.0-5
     dependencies:
       '@vue/compiler-sfc': 3.0.11
@@ -44,12 +45,13 @@ importers:
       '@typescript-eslint/eslint-plugin': 4.22.0_eslint@7.24.0+typescript@4.2.4
       eslint: 7.24.0
       jest: 26.6.3_ts-node@9.1.1
-      jest-esbuild: 0.1.5
+      jest-esbuild: 0.1.6
       rollup: 2.45.2
       ts-node: 9.1.1_typescript@4.2.4
       tsup: 4.9.1_typescript@4.2.4
       typescript: 4.2.4
       vite: 2.2.1
+      vue-router: 4.0.6
 
   examples/nuxt-style:
     specifiers:
@@ -294,7 +296,7 @@ packages:
       '@babel/compat-data': 7.13.15
       '@babel/core': 7.13.16
       '@babel/helper-validator-option': 7.12.17
-      browserslist: 4.16.4
+      browserslist: 4.16.5
       semver: 6.3.0
     dev: true
 
@@ -1638,8 +1640,8 @@ packages:
     resolution: {integrity: sha512-9o5UecI3GhkpM6DrXr69PblIuWxPKk9Y0jHBRhdocZ2y7YECBFCsHm79Pr3OyR2AvjhDkabFJaDJMYRazHgsow==}
     dev: true
 
-  /browserslist/4.16.4:
-    resolution: {integrity: sha512-d7rCxYV8I9kj41RH8UKYnvDYCRENUlHRgyXy/Rhr/1BaeLGfiCptEdFE8MIrvGfWbBFNjVYx76SQWvNX1j+/cQ==}
+  /browserslist/4.16.5:
+    resolution: {integrity: sha512-C2HAjrM1AI/djrpAUU/tr4pml1DqLIzJKSLDBXBrNErl9ZCCTXdhwxdJjYc16953+mBWf7Lw+uUJgpgb8cN71A==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
@@ -3949,12 +3951,12 @@ packages:
       jest-util: 26.6.2
     dev: true
 
-  /jest-esbuild/0.1.5:
-    resolution: {integrity: sha512-qXtAu/PcC4ZxSG0m7N+mjgxOLA48/eTmUQwSWUMEOLshVeh9quud/sNcJFgJoO0H45cVE48iI1IB8qSSbwMOyw==}
+  /jest-esbuild/0.1.6:
+    resolution: {integrity: sha512-1Z3KV600bGk0NJxXbXQ4p1Oxo+F86jQ8cX6KNc6b/1BKPtje/+4eSn7zwgTS014IeP+1gXBx0QMPZbghGP3dFw==}
     dependencies:
       '@jest/transform': 26.6.2
       debug: 4.3.2
-      esbuild: 0.9.7
+      esbuild: 0.11.12
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6570,6 +6572,12 @@ packages:
       lodash: 4.17.21
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /vue-router/4.0.6:
+    resolution: {integrity: sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==}
+    peerDependencies:
+      vue: ^3.0.0
     dev: true
 
   /vue-router/4.0.6_vue@3.0.11:

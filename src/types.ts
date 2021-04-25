@@ -6,13 +6,15 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
+import { RouteLocationNormalized } from 'vue-router'
+
 export type ImportMode = 'sync' | 'async'
 export type ImportModeResolveFn = (filepath: string) => ImportMode
 
 export interface Route {
   name?: string
   path: string
-  props?: boolean
+  props?: boolean | Record<string, any> | ((to: RouteLocationNormalized) => Record<string, any>)
   component: string
   children?: Route[]
   meta?: Record<string, unknown>

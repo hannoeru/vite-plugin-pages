@@ -18,7 +18,7 @@ const routes = [
         \\"name\\": \\"about\\",
         \\"path\\": \\"\\",
         \\"component\\": () => import('/test/assets/pages/about/index.vue'),
-        \\"props\\": true
+        \\"props\\": (route2) => ({query: route2.query.q})
       }
     ],
     \\"props\\": true
@@ -147,7 +147,7 @@ Array [
         "component": "/test/assets/pages/about/index.vue",
         "name": "about",
         "path": "",
-        "props": true,
+        "props": [Function],
       },
     ],
     "component": "/test/assets/pages/about.vue",

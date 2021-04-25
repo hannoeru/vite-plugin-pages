@@ -4,6 +4,10 @@ import { Route } from '../src/types'
 
 const options = resolveOptions({
   pagesDir: 'test/assets/pages',
+  extendRoute(route) {
+    if (route.name === 'about')
+      route.props = route => ({ query: route.query.q })
+  },
 })
 const nuxtOptions = resolveOptions({
   pagesDir: 'test/assets/nuxt-pages',
