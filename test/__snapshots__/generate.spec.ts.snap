@@ -68,7 +68,7 @@ const routes = [
   {
     \\"name\\": \\"userId\\",
     \\"path\\": \\"/:userId\\",
-    \\"component\\": () => import('/test/assets/pages/[userId].tsx'),
+    \\"component\\": () => import('/test/assets/pages/[userId].vue'),
     \\"props\\": true
   }
 ]
@@ -137,9 +137,9 @@ Array [
     "props": true,
   },
   Object {
-    "component": "/test/assets/nuxt-pages/[userId].tsx",
-    "name": "[userId].tsx",
-    "path": "/[userId].tsx",
+    "component": "/test/assets/nuxt-pages/_userId.vue",
+    "name": "userId",
+    "path": "/:userId",
     "props": true,
   },
 ]
@@ -209,7 +209,7 @@ Array [
     "props": true,
   },
   Object {
-    "component": "/test/assets/pages/[userId].tsx",
+    "component": "/test/assets/pages/[userId].vue",
     "name": "userId",
     "path": "/:userId",
     "props": true,
