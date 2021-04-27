@@ -1,5 +1,7 @@
+import fs from 'fs'
 import Debug from 'debug'
 import { ResolvedOptions, Route } from './types'
+import { parseSFC, parseCustomBlock } from './parser'
 
 export function extensionsToGlob(extensions: string[]) {
   return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
@@ -58,4 +60,15 @@ export function findRouteByFilename(routes: Route[], filename: string): Route | 
     if (result) return result
   }
   return null
+}
+
+export function getRouteBlock(path: string, options: ResolvedOptions, content?: string) {
+  if (!content)
+    content = fs.readFileSync(path, 'utf8')
+
+  const parsed = parseSFC(content)
+  const blockStr = parsed.customBlocks.find(b => b.type === 'route')
+  if (!blockStr) return null
+  const result: Record<string, any> = parseCustomBlock(blockStr, path, options)
+  return result
 }

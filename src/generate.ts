@@ -6,13 +6,18 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
-import fs from 'fs'
 import { join } from 'path'
 import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions, PageDirOptions } from './types'
-import { debug, isDynamicRoute, isCatchAllRoute, normalizePath, findRouteByFilename } from './utils'
+import {
+  debug,
+  normalizePath,
+  getRouteBlock,
+  isDynamicRoute,
+  isCatchAllRoute,
+  findRouteByFilename,
+} from './utils'
 import { stringifyRoutes } from './stringify'
-import { parseCustomBlock, parseSFC } from './parseSfc'
 
 function prepareRoutes(
   routes: Route[],
@@ -45,13 +50,11 @@ function prepareRoutes(
       delete route.name
       route.children = prepareRoutes(route.children, options, pagesDirOptions, route)
     }
-    const filePath = normalizePath(join(options.root, route.component))
-    const content = fs.readFileSync(filePath, 'utf8')
-    const parsed = parseSFC(content)
-    const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
 
-    if (routeBlock)
-      Object.assign(route, parseCustomBlock(routeBlock, filePath, options))
+    const filePath = normalizePath(join(options.root, route.component))
+
+    const routeBlock = getRouteBlock(filePath, options)
+    Object.assign(route, routeBlock || {})
 
     Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
@@ -132,17 +135,15 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
 }
 
-export function updateRouteFromHMR(content: string, filename: string, routes: Route[], options: ResolvedOptions): boolean {
-  const parsed = parseSFC(content)
-  const routeBlock = parsed.customBlocks.find(b => b.type === 'route')
+export function updateRouteFromHMR(content: string, filePath: string, routes: Route[], options: ResolvedOptions): boolean {
+  const routeBlock = getRouteBlock(filePath, options, content)
   if (routeBlock) {
-    const route = findRouteByFilename(routes, filename)
+    const route = findRouteByFilename(routes, filePath)
 
     if (route) {
       const before = Object.assign({}, route)
-      const customBlockContent = parseCustomBlock(routeBlock, filename, options)
-      debug.hmr('custom block: %O', customBlockContent)
-      Object.assign(route, customBlockContent)
+      debug.hmr('custom block: %O', routeBlock)
+      Object.assign(route, routeBlock)
       return !deepEqual(before, route)
     }
   }
