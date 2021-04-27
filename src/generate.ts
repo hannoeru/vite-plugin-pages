@@ -87,15 +87,14 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
       const node = pathNodes[i]
       const isDynamic = isDynamicRoute(node, nuxtStyle)
       const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-      const normalizedPart = (
-        isDynamic
-          ? nuxtStyle
-            ? isCatchAll ? 'all' : node.replace(/^_/, '')
-            : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
-          : node
-      ).toLowerCase()
+      const normalizedName = isDynamic
+        ? nuxtStyle
+          ? isCatchAll ? 'all' : node.replace(/^_/, '')
+          : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
+        : node
+      const normalizedPath = normalizedName.toLowerCase()
 
-      route.name += route.name ? `-${normalizedPart}` : normalizedPart
+      route.name += route.name ? `-${normalizedName}` : normalizedName
 
       // Check nested route
       const parent = parentRoutes.find(node => node.name === route.name)
@@ -105,18 +104,18 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
         parentRoutes = parent.children
         route.path = ''
       }
-      else if (normalizedPart === 'index' && !route.path) {
+      else if (normalizedName === 'index' && !route.path) {
         route.path += '/'
       }
-      else if (normalizedPart !== 'index') {
+      else if (normalizedName !== 'index') {
         if (isDynamic) {
-          route.path += `/:${normalizedPart}`
+          route.path += `/:${normalizedName}`
           // Catch-all route
           if (isCatchAll)
             route.path += '(.*)'
         }
         else {
-          route.path += `/${normalizedPart}`
+          route.path += `/${normalizedPath}`
         }
       }
     }

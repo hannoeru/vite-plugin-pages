@@ -64,6 +64,12 @@ const routes = [
     \\"path\\": \\"/blog/today\\",
     \\"component\\": () => import('/test/assets/pages/blog/today/index.vue'),
     \\"props\\": true
+  },
+  {
+    \\"name\\": \\"userId\\",
+    \\"path\\": \\"/:userId\\",
+    \\"component\\": () => import('/test/assets/pages/[userId].tsx'),
+    \\"props\\": true
   }
 ]
 
@@ -130,6 +136,12 @@ Array [
     "path": "/blog/today",
     "props": true,
   },
+  Object {
+    "component": "/test/assets/nuxt-pages/[userId].tsx",
+    "name": "[userId].tsx",
+    "path": "/[userId].tsx",
+    "props": true,
+  },
 ]
 `;
 
@@ -194,6 +206,12 @@ Array [
     "component": "/test/assets/pages/blog/today/index.vue",
     "name": "blog-today",
     "path": "/blog/today",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/[userId].tsx",
+    "name": "userId",
+    "path": "/:userId",
     "props": true,
   },
 ]
