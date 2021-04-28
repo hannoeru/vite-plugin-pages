@@ -11,7 +11,7 @@ import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions, PageDirOptions } from './types'
 import {
   debug,
-  normalizePath,
+  slash,
   getRouteBlock,
   isDynamicRoute,
   isCatchAllRoute,
@@ -51,7 +51,7 @@ function prepareRoutes(
       route.children = prepareRoutes(route.children, options, pagesDirOptions, route)
     }
 
-    const filePath = normalizePath(join(options.root, route.component))
+    const filePath = slash(join(options.root, route.component))
 
     const routeBlock = getRouteBlock(filePath, options)
     Object.assign(route, routeBlock || {})
@@ -134,8 +134,8 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
 }
 
-export function updateRouteFromHMR(content: string, filePath: string, routes: Route[], options: ResolvedOptions): boolean {
-  const routeBlock = getRouteBlock(filePath, options, content)
+export function updateRouteFromHMR(filePath: string, routes: Route[], options: ResolvedOptions): boolean {
+  const routeBlock = getRouteBlock(filePath, options)
   if (routeBlock) {
     const route = findRouteByFilename(routes, filePath)
 

@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { resolveOptions } from '../src/options'
-import { getFilesFromPath } from '../src/files'
+import { getPageFiles } from '../src/files'
 
 const options = resolveOptions({})
 const testPagesDir = resolve('test/assets/pages')
@@ -8,7 +8,7 @@ const expectFiles = ['[...all].vue', 'about.vue', 'components.vue', 'index.vue',
 
 describe('Get files', () => {
   test('Pages file', async() => {
-    const files = await getFilesFromPath(testPagesDir, options)
+    const files = await getPageFiles(testPagesDir, options)
     expect(files.sort()).toEqual(expectFiles.sort())
   })
 })

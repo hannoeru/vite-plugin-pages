@@ -1,11 +1,11 @@
-import { extensionsToGlob, normalizePath, isDynamicRoute, isCatchAllRoute, pathToName } from '../src/utils'
+import { extensionsToGlob, slash, isDynamicRoute, isCatchAllRoute, pathToName } from '../src/utils'
 
 describe('Utils', () => {
   test('Extensions to glob', () => {
     expect(extensionsToGlob(['vue', 'ts', 'js'])).toBe('{vue,ts,js}')
   })
   test('Normalize path', () => {
-    expect(normalizePath('C:\\project\\from\\someone')).toBe('C:/project/from/someone')
+    expect(slash('C:\\project\\from\\someone')).toBe('C:/project/from/someone')
   })
   test('Dynamic route', () => {
     expect(isDynamicRoute('[id]')).toBe(true)

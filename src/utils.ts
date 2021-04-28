@@ -1,13 +1,29 @@
 import fs from 'fs'
+import { resolve, basename } from 'path'
 import Debug from 'debug'
+import { ViteDevServer } from 'vite'
+import { OutputBundle } from 'rollup'
 import { ResolvedOptions, Route } from './types'
 import { parseSFC, parseCustomBlock } from './parser'
+import { MODULE_ID_VIRTUAL } from './constants'
 
 export function extensionsToGlob(extensions: string[]) {
   return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
 }
 
-export function normalizePath(str: string): string {
+function isPagesDir(file: string, options: ResolvedOptions) {
+  for (const page of options.pagesDirOptions) {
+    const dirPath = slash(resolve(options.root, page.dir))
+    if (file.startsWith(dirPath)) return true
+  }
+  return false
+}
+
+export function isTarget(file: string, options: ResolvedOptions) {
+  return isPagesDir(file, options) && options.extensionsRE.test(file)
+}
+
+export function slash(str: string): string {
   return str.replace(/\\/g, '/')
 }
 
@@ -62,13 +78,32 @@ export function findRouteByFilename(routes: Route[], filename: string): Route | 
   return null
 }
 
-export function getRouteBlock(path: string, options: ResolvedOptions, content?: string) {
-  if (!content)
-    content = fs.readFileSync(path, 'utf8')
-
+export function getRouteBlock(path: string, options: ResolvedOptions) {
+  const content = fs.readFileSync(path, 'utf8')
   const parsed = parseSFC(content)
   const blockStr = parsed.customBlocks.find(b => b.type === 'route')
   if (!blockStr) return null
   const result: Record<string, any> = parseCustomBlock(blockStr, path, options)
   return result
+}
+
+export function getPagesVirtualModule(server: ViteDevServer) {
+  const { moduleGraph } = server
+  const module = moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
+  if (module) {
+    moduleGraph.invalidateModule(module)
+    return module
+  }
+  return null
+}
+
+export function replaceSquareBrackets(bundle: OutputBundle) {
+  const files = Object.keys(bundle).map(i => basename(i))
+  for (const chunk of Object.values(bundle)) {
+    chunk.fileName = chunk.fileName.replace(/(\[|\])/g, '_')
+    if (chunk.type === 'chunk') {
+      for (const file of files)
+        chunk.code = chunk.code.replace(file, file.replace(/(\[|\])/g, '_'))
+    }
+  }
 }
