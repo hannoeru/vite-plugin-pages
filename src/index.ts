@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import type { Plugin, ResolvedConfig } from 'vite'
+import type { Plugin } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPageFiles } from './files'
 import { generateRoutes, generateClientCode, updateRouteFromHMR } from './generate'
@@ -8,8 +8,7 @@ import { parseVueRequest } from './query'
 import { resolveOptions } from './options'
 import { MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
 
-function routePlugin(userOptions: UserOptions = {}): Plugin {
-  let config: ResolvedConfig | undefined
+function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let generatedRoutes: Route[] | null = null
 
   const options: ResolvedOptions = resolveOptions(userOptions)
@@ -17,9 +16,8 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
   return {
     name: 'vite-plugin-pages',
     enforce: 'pre',
-    configResolved(_config) {
-      config = _config
-      options.root = config.root
+    configResolved({ root }) {
+      options.root = root
     },
     configureServer(server) {
       const { ws, watcher } = server
@@ -107,4 +105,4 @@ function routePlugin(userOptions: UserOptions = {}): Plugin {
 
 export * from './types'
 export { generateRoutes }
-export default routePlugin
+export default pagesPlugin
