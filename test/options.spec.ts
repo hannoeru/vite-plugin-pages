@@ -11,6 +11,7 @@ const resolvedOptions = {
   nuxtStyle: false,
   exclude: [],
   syncIndex: true,
+  react: false,
   replaceSquareBrackets: false,
 }
 
