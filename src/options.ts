@@ -4,7 +4,6 @@ export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
   const {
     pagesDir = ['src/pages'],
     extensions = ['vue', 'js'],
-    importMode = 'async',
     routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
@@ -12,6 +11,8 @@ export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
     nuxtStyle = false,
     react = false,
   } = userOptions
+
+  const importMode = react ? 'sync' : 'async'
 
   const root = process.cwd()
 
