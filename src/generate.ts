@@ -44,7 +44,15 @@ function prepareRoutes(
       }
     }
 
-    route.props = true
+    if (!options.react)
+      route.props = true
+
+    if (options.react) {
+      delete route.name
+      route.routes = route.children
+      delete route.children
+      route.exact = true
+    }
 
     if (route.children) {
       delete route.name

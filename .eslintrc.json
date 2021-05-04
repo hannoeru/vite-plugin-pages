@@ -1,4 +1,7 @@
 {
   "extends": "@antfu/eslint-config",
-  "ignorePatterns": ["dist", "**/__*__/**"]
+  "ignorePatterns": ["dist", "**/__*__/**"],
+  "rules": {
+    "no-use-before-define": "off"
+  }
 }

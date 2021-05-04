@@ -10,6 +10,7 @@ export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
     syncIndex = true,
     replaceSquareBrackets = false,
     nuxtStyle = false,
+    react = true,
   } = userOptions
 
   const root = process.cwd()
@@ -43,6 +44,7 @@ export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
       syncIndex,
       replaceSquareBrackets,
       nuxtStyle,
+      react,
       extensionsRE,
     },
     userOptions,

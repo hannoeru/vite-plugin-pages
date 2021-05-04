@@ -3,7 +3,7 @@ import type { Plugin } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPageFiles } from './files'
 import { generateRoutes, generateClientCode, updateRouteFromHMR } from './generate'
-import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets } from './utils'
+import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets, isDynamicRoute, isCatchAllRoute } from './utils'
 import { parseVueRequest } from './query'
 import { resolveOptions } from './options'
 import { MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
@@ -75,6 +75,13 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
           const routes = generateRoutes(files, pageDir, options)
           generatedRoutes.push(...routes)
         }
+        generatedRoutes = generatedRoutes.sort(i => isDynamicRoute(i.path) ? 1 : -1)
+        const allRoute = generatedRoutes.find(i => isCatchAllRoute(i.path))
+        if (allRoute) {
+          generatedRoutes = generatedRoutes.filter(i => isCatchAllRoute(i.path))
+          generatedRoutes.push(allRoute)
+        }
+
         // only execute onRoutesGenerated once
         generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes
       }

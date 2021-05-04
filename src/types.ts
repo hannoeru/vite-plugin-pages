@@ -17,9 +17,10 @@ export interface Route {
   props?: boolean | Record<string, any> | ((to: RouteLocationNormalized) => Record<string, any>)
   component: string
   children?: Route[]
+  routes?: Route[]
+  exact?: boolean
   meta?: Record<string, unknown>
 }
-
 export interface PageDirOptions {
   dir: string
   baseRoute: string
@@ -69,6 +70,11 @@ interface Options {
    * @default true
    */
   replaceSquareBrackets: boolean
+  /**
+   * Generate React Route
+   * @default false
+   */
+  react: boolean
   /**
    * Extend route records
    */
