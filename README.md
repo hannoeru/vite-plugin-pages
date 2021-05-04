@@ -17,12 +17,34 @@ $ npm install -D vite-plugin-pages
 
 Add to your `vite.config.js`:
 
+Vue:
+
 ```js
 import Vue from '@vitejs/plugin-vue';
 import Pages from 'vite-plugin-pages';
 
 export default {
-  plugins: [Vue(), Pages()],
+  plugins: [
+    Vue(),
+    Pages()
+  ]
+};
+```
+
+React(experimental):
+
+```js
+import Vue from '@vitejs/plugin-vue';
+import Pages from 'vite-plugin-pages';
+
+export default {
+  plugins: [
+    Vue(),
+    Pages({
+      extensions: ['tsx', 'jsx'],
+      react: true
+    })
+  ]
 };
 ```
 
@@ -142,7 +164,8 @@ export default {
 - **Type:** `'sync' | 'async' | (filepath: string) => 'sync' | 'async')`
 - **Default:**
   - Top level index file: `'sync'`, can turn off by option `syncIndex`.
-  - Others: `'async'`
+  - Others(Vue): `'async'`
+  - Others(React): `'sync'`
 
 Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
 
