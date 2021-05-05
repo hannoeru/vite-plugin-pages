@@ -36,13 +36,11 @@
     "deep-equal": "^2.0.5",
     "fast-glob": "^3.2.5",
     "json5": "^2.2.0",
-    "react-router-dom": "^5.2.0",
     "yaml": "^2.0.0-5"
   },
   "peerDependencies": {
     "vite": "^2.0.0",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.6.4",
@@ -50,9 +48,8 @@
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.0",
     "@types/jest": "^26.0.23",
-    "@types/node": "^14.14.43",
-    "@types/react-router-dom": "^5.1.7",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@types/node": "^15.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
     "eslint": "^7.25.0",
     "jest": "^26.6.3",
     "jest-esbuild": "^0.1.6",
