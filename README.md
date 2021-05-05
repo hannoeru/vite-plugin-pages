@@ -9,15 +9,16 @@
 
 ## Getting Started
 
-Install Pages:
+### Vue
+
+Install:
 
 ```bash
 $ npm install -D vite-plugin-pages
+$ npm install vue-router@next
 ```
 
 Add to your `vite.config.js`:
-
-Vue:
 
 ```js
 import Vue from '@vitejs/plugin-vue';
@@ -31,7 +32,16 @@ export default {
 };
 ```
 
-React(experimental):
+### React(experimental)
+
+Install:
+
+```bash
+$ npm install -D vite-plugin-pages
+$ npm install react-router react-router-dom react-router-config
+```
+
+Add to your `vite.config.js`:
 
 ```js
 import Vue from '@vitejs/plugin-vue';
