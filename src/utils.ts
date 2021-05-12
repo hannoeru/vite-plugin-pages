@@ -11,16 +11,17 @@ export function extensionsToGlob(extensions: string[]) {
   return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
 }
 
-function isPagesDir(file: string, options: ResolvedOptions) {
+function isPagesDir(path: string, options: ResolvedOptions) {
   for (const page of options.pagesDirOptions) {
     const dirPath = slash(resolve(options.root, page.dir))
-    if (file.startsWith(dirPath)) return true
+    if (path.startsWith(dirPath)) return true
   }
   return false
 }
 
-export function isTarget(file: string, options: ResolvedOptions) {
-  return isPagesDir(file, options) && options.extensionsRE.test(file)
+export function isTarget(filePath: string, options: ResolvedOptions) {
+  const path = slash(filePath)
+  return isPagesDir(path, options) && options.extensionsRE.test(path)
 }
 
 export function slash(str: string): string {
