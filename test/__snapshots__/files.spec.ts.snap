@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get files Pages file: page files 1`] = `
+Array [
+  "[...all].vue",
+  "[sensor]/current.vue",
+  "[userId].vue",
+  "about.vue",
+  "about/index.vue",
+  "blog/[id].vue",
+  "blog/index.vue",
+  "blog/today/index.vue",
+  "components.vue",
+  "index.vue",
+]
+`;

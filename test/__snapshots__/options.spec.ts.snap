@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Options resolve: resolved options 1`] = `
+Object {
+  "exclude": Array [],
+  "extensions": Array [
+    "vue",
+    "js",
+  ],
+  "extensionsRE": /\\\\\\.\\(vue\\|js\\)\\$/,
+  "importMode": "async",
+  "nuxtStyle": false,
+  "pagesDir": Array [
+    "src/pages",
+  ],
+  "pagesDirOptions": Array [
+    Object {
+      "baseRoute": "",
+      "dir": "src/pages",
+    },
+  ],
+  "react": false,
+  "replaceSquareBrackets": false,
+  "routeBlockLang": "json5",
+  "syncIndex": true,
+}
+`;

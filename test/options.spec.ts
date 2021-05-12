@@ -1,23 +1,9 @@
 import { resolveOptions } from '../src/options'
 
-const resolvedOptions = {
-  routeBlockLang: 'json5',
-  root: process.cwd(),
-  pagesDir: ['src/pages'],
-  pagesDirOptions: [{ dir: 'src/pages', baseRoute: '' }],
-  extensions: ['vue', 'js'],
-  extensionsRE: /\.(vue|js)$/,
-  importMode: 'async',
-  nuxtStyle: false,
-  exclude: [],
-  syncIndex: true,
-  react: false,
-  replaceSquareBrackets: false,
-}
-
 describe('Options', () => {
   test('resolve', () => {
     const options = resolveOptions({})
-    expect(options).toStrictEqual(resolvedOptions)
+    delete options.root
+    expect(options).toMatchSnapshot('resolved options')
   })
 })
