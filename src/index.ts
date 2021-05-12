@@ -31,24 +31,27 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       }
 
       watcher.on('add', (file) => {
-        if (isTarget(file, options)) {
-          debug.hmr('add', file)
+        const path = slash(file)
+        if (isTarget(path, options)) {
+          debug.hmr('add', path)
           generatedRoutes = null
           fullReload()
         }
       })
       watcher.on('unlink', (file) => {
-        if (isTarget(file, options)) {
-          debug.hmr('remove', file)
+        const path = slash(file)
+        if (isTarget(path, options)) {
+          debug.hmr('remove', path)
           generatedRoutes = null
           fullReload()
         }
       })
       watcher.on('change', (file) => {
-        if (isTarget(file, options) && generatedRoutes) {
-          const needReload = updateRouteFromHMR(file, generatedRoutes, options)
+        const path = slash(file)
+        if (isTarget(path, options) && generatedRoutes) {
+          const needReload = updateRouteFromHMR(path, generatedRoutes, options)
           if (needReload) {
-            debug.hmr('change', file)
+            debug.hmr('change', path)
             fullReload()
           }
         }

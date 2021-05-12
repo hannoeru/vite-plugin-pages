@@ -19,8 +19,7 @@ function isPagesDir(path: string, options: ResolvedOptions) {
   return false
 }
 
-export function isTarget(filePath: string, options: ResolvedOptions) {
-  const path = slash(filePath)
+export function isTarget(path: string, options: ResolvedOptions) {
   return isPagesDir(path, options) && options.extensionsRE.test(path)
 }
 
