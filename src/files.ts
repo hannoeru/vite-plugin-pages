@@ -12,12 +12,19 @@ export async function getPageFiles(path: string, options: ResolvedOptions): Prom
   } = options
 
   const ext = extensionsToGlob(extensions)
-
-  const files = await fg(`**/*.${ext}`, {
-    ignore: ['node_modules', '.git', '**/__*__/**', ...exclude],
-    onlyFiles: true,
-    cwd: path,
+  const ignore = ['node_modules', '.git', '**/__*__/**', ...exclude]
+  const cwds = await fg(path, {
+    ignore,
+    onlyDirectories: true,
+    dot: true,
+    unique: true,
   })
 
-  return files
+  const nestedFiles = await Promise.all(cwds.map(cwd => fg(`**/*.${ext}`, {
+    ignore,
+    onlyFiles: true,
+    cwd,
+  })))
+
+  return nestedFiles.flat(1)
 }

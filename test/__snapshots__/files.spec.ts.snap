@@ -14,3 +14,10 @@ Array [
   "index.vue",
 ]
 `;
+
+exports[`Get files Pages files with glob pagesDir: pages files with glob pagesDir 1`] = `
+Array [
+  "bar.vue",
+  "foo.vue",
+]
+`;
