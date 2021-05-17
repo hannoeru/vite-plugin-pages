@@ -142,7 +142,7 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
 }
 
-export function updateRouteFromHMR(filePath: string, routes: Route[], options: ResolvedOptions): boolean {
+export function isRouteBlockChanged(filePath: string, routes: Route[], options: ResolvedOptions): boolean {
   const routeBlock = getRouteBlock(filePath, options)
   if (routeBlock) {
     const route = findRouteByFilename(routes, filePath)

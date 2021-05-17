@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import type { Plugin } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPageFiles } from './files'
-import { generateRoutes, generateClientCode, updateRouteFromHMR } from './generate'
+import { generateRoutes, generateClientCode, isRouteBlockChanged } from './generate'
 import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets, isDynamicRoute, isCatchAllRoute } from './utils'
 import { parseVueRequest } from './query'
 import { resolveOptions } from './options'
@@ -49,9 +49,10 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       watcher.on('change', (file) => {
         const path = slash(file)
         if (isTarget(path, options) && generatedRoutes) {
-          const needReload = updateRouteFromHMR(path, generatedRoutes, options)
+          const needReload = isRouteBlockChanged(path, generatedRoutes, options)
           if (needReload) {
             debug.hmr('change', path)
+            generatedRoutes = null
             fullReload()
           }
         }
