@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { resolveOptions } from '../src/options'
-import { getPageFiles } from '../src/files'
+import { getPageFiles, getPageDirs } from '../src/files'
 
 const options = resolveOptions({})
 const testPagesDir = resolve('test/assets/pages')
@@ -11,9 +11,15 @@ describe('Get files', () => {
     const files = await getPageFiles(testPagesDir, options)
     expect(files.sort()).toMatchSnapshot('page files')
   })
+})
 
-  test('Pages files with glob pagesDir', async() => {
-    const files = await getPageFiles(testGlobPagesDir, options)
-    expect(files.sort()).toMatchSnapshot('pages files with glob pagesDir')
+describe('Get page dirs', () => {
+  test('Page dirs with glob pagesDir', async() => {
+    const pageDirOptions = {
+      dir: testGlobPagesDir,
+      baseRoute: '/',
+    }
+    const dirs = await getPageDirs(pageDirOptions, options)
+    expect(dirs.sort()).toMatchSnapshot('pages dirs with glob pagesDir')
   })
 })

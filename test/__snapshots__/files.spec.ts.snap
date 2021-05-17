@@ -15,9 +15,15 @@ Array [
 ]
 `;
 
-exports[`Get files Pages files with glob pagesDir: pages files with glob pagesDir 1`] = `
+exports[`Get page dirs Page dirs with glob pagesDir: pages dirs with glob pagesDir 1`] = `
 Array [
-  "bar.vue",
-  "foo.vue",
+  Object {
+    "baseRoute": "/",
+    "dir": "/home/klarkc/Sources/vite-plugin-pages/test/assets/deep-pages/bar/pages",
+  },
+  Object {
+    "baseRoute": "/",
+    "dir": "/home/klarkc/Sources/vite-plugin-pages/test/assets/deep-pages/foo/pages",
+  },
 ]
 `;

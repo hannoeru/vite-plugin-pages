@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import type { Plugin } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
-import { getPageFiles } from './files'
+import { getPageFiles, getPageDirs } from './files'
 import { generateRoutes, generateClientCode, isRouteBlockChanged } from './generate'
 import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets, isDynamicRoute, isCatchAllRoute } from './utils'
 import { parseVueRequest } from './query'
@@ -69,15 +69,19 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
 
       if (!generatedRoutes) {
         generatedRoutes = []
-        for (const pageDir of options.pagesDirOptions) {
-          const pageDirPath = slash(resolve(options.root, pageDir.dir))
-          debug.gen('dir: %O', pageDirPath)
 
-          const files = await getPageFiles(pageDirPath, options)
-          debug.gen('files: %O', files)
+        for (const pageDirGlob of options.pagesDirOptions) {
+          const pageDirs = await getPageDirs(pageDirGlob, options)
+          for (const pageDir of pageDirs) {
+            const pageDirPath = slash(resolve(options.root, pageDir.dir))
+            debug.gen('dir: %O', pageDirPath)
 
-          const routes = generateRoutes(files, pageDir, options)
-          generatedRoutes.push(...routes)
+            const files = await getPageFiles(pageDirPath, options)
+            debug.gen('files: %O', files)
+
+            const routes = generateRoutes(files, pageDir, options)
+            generatedRoutes.push(...routes)
+          }
         }
         generatedRoutes = generatedRoutes.sort(i => isDynamicRoute(i.path) ? 1 : -1)
         const allRoute = generatedRoutes.find(i => isCatchAllRoute(i.path))
