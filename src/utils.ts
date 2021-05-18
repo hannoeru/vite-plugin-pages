@@ -29,6 +29,7 @@ export function slash(str: string): string {
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
+  sfc: Debug('vite-plugin-pages:sfc'),
   gen: Debug('vite-plugin-pages:gen'),
 }
 

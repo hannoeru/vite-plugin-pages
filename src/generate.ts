@@ -149,7 +149,7 @@ export function isRouteBlockChanged(filePath: string, routes: Route[], options: 
 
     if (route) {
       const before = Object.assign({}, route)
-      debug.hmr('custom block: %O', routeBlock)
+      debug.sfc('route: %O', routeBlock)
       Object.assign(route, routeBlock)
       return !deepEqual(before, route)
     }
