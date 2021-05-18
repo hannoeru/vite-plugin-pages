@@ -14,7 +14,7 @@ const config = defineConfig({
       pagesDir: [
         { dir: 'src/pages', baseRoute: '' },
         { dir: 'src/features/**/pages', baseRoute: 'features' },
-        { dir: 'src/features/admin/pages', baseRoute: 'admin' },
+        { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
       extensions: ['vue', 'md'],
       syncIndex: false,
