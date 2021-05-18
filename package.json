@@ -23,9 +23,9 @@
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
     "release": "npx git-ensure -a && npx bumpp --commit --tag --push",
-    "example:dev": "npm -C examples/spa run dev",
-    "example:build": "npm -C examples/spa run build",
-    "example:serve": "npm -C examples/spa run serve",
+    "example:dev": "npm -C examples/vue run dev",
+    "example:build": "npm -C examples/vue run build",
+    "example:serve": "npm -C examples/vue run serve",
     "test": "jest",
     "lint": "eslint --fix --ext .js,.ts,.vue ./"
   },
