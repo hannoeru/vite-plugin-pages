@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import type { Plugin } from 'vite'
-import { Route, ResolvedOptions, UserOptions } from './types'
-import { getPageFiles } from './files'
+import { Route, ResolvedOptions, UserOptions, PageDirOptions } from './types'
+import { getPageFiles, getPageDirs } from './files'
 import { generateRoutes, generateClientCode, isRouteBlockChanged } from './generate'
 import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets, isDynamicRoute, isCatchAllRoute } from './utils'
 import { parseVueRequest } from './query'
@@ -16,8 +16,17 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   return {
     name: 'vite-plugin-pages',
     enforce: 'pre',
-    configResolved({ root }) {
+    async configResolved({ root }) {
       options.root = root
+      // transform pagesDirOptions globs into array items
+      let pageDirOptions: PageDirOptions[] = []
+      for (const pageDirGlob of options.pagesDirOptions) {
+        pageDirOptions = [
+          ...pageDirOptions,
+          ...await getPageDirs(pageDirGlob, options),
+        ]
+      }
+      options.pagesDirOptions = pageDirOptions
     },
     configureServer(server) {
       const { ws, watcher } = server
@@ -69,6 +78,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
 
       if (!generatedRoutes) {
         generatedRoutes = []
+
         for (const pageDir of options.pagesDirOptions) {
           const pageDirPath = slash(resolve(options.root, pageDir.dir))
           debug.gen('dir: %O', pageDirPath)

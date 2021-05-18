@@ -104,7 +104,7 @@ Can be:
 - array of paths: all routes in the paths point to `/`
 - array of `PageDirOptions`, Check below 👇
 
-Specifying an array of `PageDirOptions` allow you to use multiple pages folder, and specify the base route to append to the path and the route name.
+Specifying a glob or an array of `PageDirOptions` allow you to use multiple pages folder, and specify the base route to append to the path and the route name.
 
 **Example:**
 
@@ -112,10 +112,14 @@ Specifying an array of `PageDirOptions` allow you to use multiple pages folder, 
 # folder structure
 src/
   ├── features/
-  │  └── admin/
+  │  └── dashboard/
   │     ├── code/
   │     ├── components/
   │     └── pages/
+  ├── admin/
+  │   ├── code/
+  │   ├── components/
+  │   └── pages/
   └── pages/
 ```
 
@@ -126,7 +130,8 @@ export default {
     Pages({
       pagesDir: [
         { dir: 'src/pages', baseRoute: '' },
-        { dir: 'src/features/admin/pages', baseRoute: 'admin' },
+        { dir: 'src/features/**/pages', baseRoute: 'features' },
+        { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
     }),
   ],

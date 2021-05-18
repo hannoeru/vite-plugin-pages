@@ -15,6 +15,12 @@
     </router-link> |
     <router-link to="/xxx">
       not exits
+    </router-link> |
+    <router-link to="/features/dashboard">
+      dashboard
+    </router-link> |
+    <router-link to="/admin">
+      admin
     </router-link>
   </div>
 </template>
