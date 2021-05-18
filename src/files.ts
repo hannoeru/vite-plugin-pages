@@ -9,12 +9,13 @@ function getIgnore(exclude: string[]) {
 /**
  * Resolves the page dirs for its for its given globs
  */
-export function getPageDirs(pageDirOptions: PageDirOptions, exclude: string[]): PageDirOptions[] {
+export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclude: string[]): PageDirOptions[] {
   const dirs = fg.sync(pageDirOptions.dir, {
     ignore: getIgnore(exclude),
     onlyDirectories: true,
     dot: true,
     unique: true,
+    cwd: root,
   })
 
   const pageDirs = dirs.map(dir => ({

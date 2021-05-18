@@ -11,13 +11,13 @@ import { MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let generatedRoutes: Route[] | null = null
 
-  const options: ResolvedOptions = resolveOptions(userOptions)
+  let options: ResolvedOptions
 
   return {
     name: 'vite-plugin-pages',
     enforce: 'pre',
     configResolved({ root }) {
-      options.root = root
+      options = resolveOptions(userOptions, root)
       debug.options(options)
     },
     configureServer(server) {

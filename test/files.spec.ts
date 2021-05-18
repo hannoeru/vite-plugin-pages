@@ -19,7 +19,7 @@ describe('Get page dirs', () => {
       dir: resolve(testDeepPagesDir, '**', 'pages'),
       baseRoute: '/',
     }
-    const dirs = getPageDirs(pageDirOptions, options.exclude)
+    const dirs = getPageDirs(pageDirOptions, options.root, options.exclude)
     const sortedDirs = dirs.sort()
     expect(sortedDirs).toHaveLength(2)
     expect(sortedDirs[0].baseRoute).toBe('/')

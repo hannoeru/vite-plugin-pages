@@ -1,7 +1,7 @@
 import { UserOptions, ResolvedOptions, PageDirOptions } from './types'
 import { getPageDirs } from './files'
 
-function resolvePagesDirs(pagesDirs: string | (string | PageDirOptions)[], exclude: string[]) {
+function resolvePagesDirs(pagesDirs: string | (string | PageDirOptions)[], root: string, exclude: string[]) {
   if (!Array.isArray(pagesDirs))
     pagesDirs = [pagesDirs]
 
@@ -10,11 +10,11 @@ function resolvePagesDirs(pagesDirs: string | (string | PageDirOptions)[], exclu
       ? { dir: pagesDir, baseRoute: '' }
       : pagesDir
 
-    return getPageDirs(option, exclude)
+    return getPageDirs(option, root, exclude)
   })
 }
 
-export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
+export function resolveOptions(userOptions: UserOptions, root: string = process.cwd()): ResolvedOptions {
   const {
     pagesDir = ['src/pages'],
     extensions = ['vue', 'js'],
@@ -26,9 +26,8 @@ export function resolveOptions(userOptions: UserOptions): ResolvedOptions {
     react = false,
   } = userOptions
 
-  const root = process.cwd()
   const importMode = react ? 'sync' : 'async'
-  const pagesDirOptions = resolvePagesDirs(pagesDir, exclude)
+  const pagesDirOptions = resolvePagesDirs(pagesDir, root, exclude)
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
   return Object.assign(
