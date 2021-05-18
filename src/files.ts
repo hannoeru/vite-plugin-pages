@@ -7,7 +7,7 @@ function getIgnore(exclude: Array<string>) {
 }
 
 /**
- * Resolves the pages that for the given pageDir globs.
+ * Resolves the page dirs for its for its given globs
  */
 export async function getPageDirs(pageDirOptions: PageDirOptions, options: ResolvedOptions): Promise<PageDirOptions[]> {
   const { exclude } = options
