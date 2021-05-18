@@ -21,15 +21,6 @@ describe('Get page dirs', () => {
       baseRoute: '',
     }
     const dirs = getPageDirs(pageDirOptions, options.root, options.exclude)
-    const sortedDirs = dirs.sort()
-    expect(sortedDirs).toHaveLength(2)
-    expect(sortedDirs[0].baseRoute).toBe('')
-    expect(sortedDirs[0].dir).toBe(
-      slash(join(testDeepPagesDir, 'bar', 'pages')),
-    )
-    expect(sortedDirs[1].baseRoute).toBe('')
-    expect(sortedDirs[1].dir).toBe(
-      slash(join(testDeepPagesDir, 'foo', 'pages')),
-    )
+    expect(dirs.sort()).toMatchSnapshot('glob dirs')
   })
 })

@@ -14,3 +14,16 @@ Array [
   "index.vue",
 ]
 `;
+
+exports[`Get page dirs With glob: glob dirs 1`] = `
+Array [
+  Object {
+    "baseRoute": "",
+    "dir": "test/assets/deep-pages/bar/pages",
+  },
+  Object {
+    "baseRoute": "",
+    "dir": "test/assets/deep-pages/foo/pages",
+  },
+]
+`;
