@@ -94,7 +94,7 @@ export default {
 
 ### pagesDir
 
-- **Type:** `string | string[] | PageDirOptions[]`
+- **Type:** `string | (string | PageDirOptions)[]`
 - **Default:** `'src/pages'`
 
 Relative path to the pages directory. Supports globs.
