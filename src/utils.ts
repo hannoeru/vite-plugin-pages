@@ -31,6 +31,7 @@ export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
   sfc: Debug('vite-plugin-pages:sfc'),
   gen: Debug('vite-plugin-pages:gen'),
+  options: Debug('vite-plugin-pages:options'),
 }
 
 const dynamicRouteRE = /^\[.+\]$/

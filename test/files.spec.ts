@@ -14,12 +14,12 @@ describe('Get files', () => {
 })
 
 describe('Get page dirs', () => {
-  test('Page dirs with glob pagesDir', async() => {
+  test('With glob', async() => {
     const pageDirOptions = {
       dir: resolve(testDeepPagesDir, '**', 'pages'),
       baseRoute: '/',
     }
-    const dirs = await getPageDirs(pageDirOptions, options)
+    const dirs = getPageDirs(pageDirOptions, options.exclude)
     const sortedDirs = dirs.sort()
     expect(sortedDirs).toHaveLength(2)
     expect(sortedDirs[0].baseRoute).toBe('/')

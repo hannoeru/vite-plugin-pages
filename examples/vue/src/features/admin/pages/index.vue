@@ -1,21 +1,12 @@
 <template>
-  <p>/admin/index.vue</p>
-  <p>located in features /admin/pages folder</p>
+  <p>features/admin/pages/index.vue</p>
+  <p>located in features/admin/pages folder</p>
 </template>
 
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
 <route>
 {
-meta: {
-  requiresAuth: false
-}
+  meta: {
+    requiresAuth: false
+  }
 }
 </route>

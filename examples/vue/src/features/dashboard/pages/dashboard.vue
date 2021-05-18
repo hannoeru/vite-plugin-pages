@@ -1,21 +1,12 @@
 <template>
-  <p>/features/dashboard/dashboard.vue</p>
-  <p>located in features /features/dashboard/pages folder</p>
+  <p>features/dashboard/pages/dashboard.vue</p>
+  <p>located in features/dashboard/pages folder</p>
 </template>
 
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
 <route>
 {
-meta: {
-  requiresAuth: true
-}
+  meta: {
+    requiresAuth: true
+  }
 }
 </route>

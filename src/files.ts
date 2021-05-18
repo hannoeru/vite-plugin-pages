@@ -2,17 +2,15 @@ import fg from 'fast-glob'
 import { PageDirOptions, ResolvedOptions } from './types'
 import { extensionsToGlob } from './utils'
 
-function getIgnore(exclude: Array<string>) {
+function getIgnore(exclude: string[]) {
   return ['node_modules', '.git', '**/__*__/**', ...exclude]
 }
 
 /**
  * Resolves the page dirs for its for its given globs
  */
-export async function getPageDirs(pageDirOptions: PageDirOptions, options: ResolvedOptions): Promise<PageDirOptions[]> {
-  const { exclude } = options
-
-  const dirs = await fg(pageDirOptions.dir, {
+export function getPageDirs(pageDirOptions: PageDirOptions, exclude: string[]): PageDirOptions[] {
+  const dirs = fg.sync(pageDirOptions.dir, {
     ignore: getIgnore(exclude),
     onlyDirectories: true,
     dot: true,

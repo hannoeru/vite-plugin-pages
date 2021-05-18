@@ -10,13 +10,11 @@ Object {
   "extensionsRE": /\\\\\\.\\(vue\\|js\\)\\$/,
   "importMode": "async",
   "nuxtStyle": false,
-  "pagesDir": Array [
-    "src/pages",
-  ],
+  "pagesDir": "test/assets/pages",
   "pagesDirOptions": Array [
     Object {
       "baseRoute": "",
-      "dir": "src/pages",
+      "dir": "test/assets/pages",
     },
   ],
   "react": false,
