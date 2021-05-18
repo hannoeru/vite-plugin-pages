@@ -1,11 +1,14 @@
 import fs from 'fs'
 import { resolve, basename } from 'path'
 import Debug from 'debug'
+import deepEqual from 'deep-equal'
 import { ViteDevServer } from 'vite'
 import { OutputBundle } from 'rollup'
 import { ResolvedOptions, Route } from './types'
 import { parseSFC, parseCustomBlock } from './parser'
 import { MODULE_ID_VIRTUAL } from './constants'
+
+export const routeBlockCache = new Map<string, Record<string, any>>()
 
 export function extensionsToGlob(extensions: string[]) {
   return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
@@ -29,9 +32,10 @@ export function slash(str: string): string {
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
-  sfc: Debug('vite-plugin-pages:sfc'),
+  parser: Debug('vite-plugin-pages:parser'),
   gen: Debug('vite-plugin-pages:gen'),
   options: Debug('vite-plugin-pages:options'),
+  cache: Debug('vite-plugin-pages:cache'),
 }
 
 const dynamicRouteRE = /^\[.+\]$/
@@ -83,9 +87,14 @@ export function findRouteByFilename(routes: Route[], filename: string): Route | 
 export function getRouteBlock(path: string, options: ResolvedOptions) {
   const content = fs.readFileSync(path, 'utf8')
   const parsed = parseSFC(content)
+
   const blockStr = parsed.customBlocks.find(b => b.type === 'route')
   if (!blockStr) return null
+
   const result: Record<string, any> = parseCustomBlock(blockStr, path, options)
+  debug.parser('%s: %O', path, result)
+  routeBlockCache.set(slash(path), result)
+
   return result
 }
 
@@ -108,4 +117,15 @@ export function replaceSquareBrackets(bundle: OutputBundle) {
         chunk.code = chunk.code.replace(file, file.replace(/(\[|\])/g, '_'))
     }
   }
+}
+
+export function isRouteBlockChanged(filePath: string, options: ResolvedOptions): boolean {
+  debug.cache(routeBlockCache)
+  const oldRouteBlock = routeBlockCache.get(filePath)
+  const routeBlock = getRouteBlock(filePath, options)
+
+  debug.hmr('%s old: %O', filePath, oldRouteBlock)
+  debug.hmr('%s new: %O', filePath, routeBlock)
+
+  return !deepEqual(oldRouteBlock, routeBlock)
 }

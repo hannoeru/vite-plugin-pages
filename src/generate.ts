@@ -7,15 +7,12 @@
  */
 
 import { join } from 'path'
-import deepEqual from 'deep-equal'
 import { Route, ResolvedOptions, PageDirOptions } from './types'
 import {
-  debug,
   slash,
   getRouteBlock,
   isDynamicRoute,
   isCatchAllRoute,
-  findRouteByFilename,
 } from './utils'
 import { stringifyRoutes } from './stringify'
 
@@ -140,19 +137,4 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
   return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
-}
-
-export function isRouteBlockChanged(filePath: string, routes: Route[], options: ResolvedOptions): boolean {
-  const routeBlock = getRouteBlock(filePath, options)
-  if (routeBlock) {
-    const route = findRouteByFilename(routes, filePath)
-
-    if (route) {
-      const before = Object.assign({}, route)
-      debug.sfc('route: %O', routeBlock)
-      Object.assign(route, routeBlock)
-      return !deepEqual(before, route)
-    }
-  }
-  return false
 }

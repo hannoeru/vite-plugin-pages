@@ -2,8 +2,8 @@ import { resolve } from 'path'
 import type { Plugin } from 'vite'
 import { Route, ResolvedOptions, UserOptions } from './types'
 import { getPageFiles } from './files'
-import { generateRoutes, generateClientCode, isRouteBlockChanged } from './generate'
-import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets, isDynamicRoute, isCatchAllRoute } from './utils'
+import { generateRoutes, generateClientCode } from './generate'
+import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets, isDynamicRoute, isCatchAllRoute, isRouteBlockChanged, routeBlockCache } from './utils'
 import { parseVueRequest } from './query'
 import { resolveOptions } from './options'
 import { MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
@@ -24,8 +24,12 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       const { ws, watcher } = server
 
       function fullReload() {
-        // invalidateModule
+        // invalidate module
         getPagesVirtualModule(server)
+        // Clear cache when generate new routes
+        routeBlockCache.clear()
+        // reset generated routes
+        generatedRoutes = null
         ws.send({
           type: 'full-reload',
         })
@@ -35,7 +39,6 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
         const path = slash(file)
         if (isTarget(path, options)) {
           debug.hmr('add', path)
-          generatedRoutes = null
           fullReload()
         }
       })
@@ -43,17 +46,15 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
         const path = slash(file)
         if (isTarget(path, options)) {
           debug.hmr('remove', path)
-          generatedRoutes = null
           fullReload()
         }
       })
       watcher.on('change', (file) => {
         const path = slash(file)
         if (isTarget(path, options) && generatedRoutes) {
-          const needReload = isRouteBlockChanged(path, generatedRoutes, options)
+          const needReload = isRouteBlockChanged(path, options)
           if (needReload) {
             debug.hmr('change', path)
-            generatedRoutes = null
             fullReload()
           }
         }
