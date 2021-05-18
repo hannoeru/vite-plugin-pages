@@ -17,7 +17,10 @@
       not exits
     </router-link> |
     <router-link to="/features/dashboard">
-      dashboard
+      features:dashboard
+    </router-link> |
+    <router-link to="/features/admin">
+      features:admin
     </router-link> |
     <router-link to="/admin">
       admin
