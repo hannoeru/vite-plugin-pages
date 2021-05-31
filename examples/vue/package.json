@@ -14,8 +14,8 @@
     "@vue/compiler-sfc": "^3.0.11",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.7",
-    "typescript": "^4.2.4",
-    "vite": "^2.3.3",
+    "typescript": "^4.3.2",
+    "vite": "^2.3.4",
     "vite-plugin-md": "^0.6.7",
     "vite-plugin-pages": "workspace:*",
     "vite-plugin-restart": "^0.0.2"
