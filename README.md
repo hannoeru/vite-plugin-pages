@@ -5,7 +5,8 @@
 [![types](https://badgen.net/npm/types/vite-plugin-pages)](https://github.com/hannoeru/vite-plugin-pages/blob/main/src/types.ts)
 [![license](https://badgen.net/npm/license/vite-plugin-pages)](https://github.com/hannoeru/vite-plugin-pages/blob/main/LICENSE)
 
-> File system based routing for Vue 3 applications using [Vite](https://github.com/vitejs/vite)
+> File system based routing for Vue 3 applications using
+> [Vite](https://github.com/vitejs/vite)
 
 ## Getting Started
 
@@ -21,14 +22,14 @@ $ npm install vue-router@next
 Add to your `vite.config.js`:
 
 ```js
-import Vue from '@vitejs/plugin-vue';
-import Pages from 'vite-plugin-pages';
+import Vue from "@vitejs/plugin-vue";
+import Pages from "vite-plugin-pages";
 
 export default {
   plugins: [
     Vue(),
-    Pages()
-  ]
+    Pages(),
+  ],
 };
 ```
 
@@ -44,29 +45,33 @@ $ npm install react-router react-router-dom react-router-config
 Add to your `vite.config.js`:
 
 ```js
-import Vue from '@vitejs/plugin-vue';
-import Pages from 'vite-plugin-pages';
+import Vue from "@vitejs/plugin-vue";
+import Pages from "vite-plugin-pages";
 
 export default {
   plugins: [
     Vue(),
     Pages({
-      extensions: ['tsx', 'jsx'],
-      react: true
-    })
-  ]
+      extensions: ["tsx", "jsx"],
+      react: true,
+    }),
+  ],
 };
 ```
 
 ## Overview
 
-By default a page is a Vue component exported from a `.vue` or `.js` file in the `src/pages` directory.
+By default a page is a Vue component exported from a `.vue` or `.js` file in the
+`src/pages` directory.
 
-You can access the generated routes by importing the `virtual:generated-pages` module in your application.
+You can access the generated routes by importing the `virtual:generated-pages`
+module in your application.
+
+### Vue
 
 ```js
-import { createRouter } from 'vue-router';
-import routes from 'virtual:generated-pages';
+import { createRouter } from "vue-router";
+import routes from "virtual:generated-pages";
 
 const router = createRouter({
   // ...
@@ -74,19 +79,35 @@ const router = createRouter({
 });
 ```
 
+### React
+
+```js
+import { BrowserRouter } from "react-router-dom";
+import { renderRoutes } from "react-router-config";
+import routes from "virtual:generated-pages-react";
+
+ReactDOM.render(
+  <BrowserRouter>
+    {renderRoutes(routes)}
+  </BrowserRouter>,
+  document.getElementById("root"),
+);
+```
+
 ## Configuration
 
-To use custom configuration, pass your options to Pages when instantiating the plugin:
+To use custom configuration, pass your options to Pages when instantiating the
+plugin:
 
 ```js
 // vite.config.js
-import Pages from 'vite-plugin-pages';
+import Pages from "vite-plugin-pages";
 
 export default {
   plugins: [
     Pages({
-      pagesDir: 'src/views',
-      extensions: ['vue', 'ts'],
+      pagesDir: "src/views",
+      extensions: ["vue", "ts"],
     }),
   ],
 };
@@ -100,11 +121,14 @@ export default {
 Relative path to the pages directory. Supports globs.
 
 Can be:
+
 - single path: routes point to `/`
 - array of paths: all routes in the paths point to `/`
 - array of `PageDirOptions`, Check below 👇
 
-Specifying a glob or an array of `PageDirOptions` allow you to use multiple pages folder, and specify the base route to append to the path and the route name.
+Specifying a glob or an array of `PageDirOptions` allow you to use multiple
+pages folder, and specify the base route to append to the path and the route
+name.
 
 **Example:**
 
@@ -129,9 +153,9 @@ export default {
   plugins: [
     Pages({
       pagesDir: [
-        { dir: 'src/pages', baseRoute: '' },
-        { dir: 'src/features/**/pages', baseRoute: 'features' },
-        { dir: 'src/admin/pages', baseRoute: 'admin' },
+        { dir: "src/pages", baseRoute: "" },
+        { dir: "src/features/**/pages", baseRoute: "features" },
+        { dir: "src/admin/pages", baseRoute: "admin" },
       ],
     }),
   ],
@@ -168,7 +192,7 @@ src/pages/
 export default {
   plugins: [
     Pages({
-      exclude: ['**/components/*.vue']
+      exclude: ["**/components/*.vue"],
     }),
   ],
 };
@@ -182,9 +206,11 @@ export default {
   - Others(Vue): `'async'`
   - Others(React): `'sync'`
 
-Import mode can be set to either `async`, `sync`, or a function which returns one of those values.
+Import mode can be set to either `async`, `sync`, or a function which returns
+one of those values.
 
-To get more fine-grained control over which routes are loaded sync/async, you can use a function to resolve the value based on the route path. For example:
+To get more fine-grained control over which routes are loaded sync/async, you
+can use a function to resolve the value based on the route path. For example:
 
 ```js
 // vite.config.js
@@ -193,7 +219,7 @@ export default {
     Pages({
       importMode(path) {
         // Load about page synchronously, all other pages are async.
-        return path.includes('about') ? 'sync' : 'async';
+        return path.includes("about") ? "sync" : "async";
       },
     }),
   ],
@@ -216,8 +242,6 @@ Check: [#16](https://github.com/hannoeru/vite-plugin-pages/issues/16)
 
 Replace '[]' to '_' in bundle filename
 
-
-
 ### nuxtStyle
 
 - **Type:** `boolean`
@@ -225,13 +249,16 @@ Replace '[]' to '_' in bundle filename
 
 Use Nuxt.js style dynamic routing
 
-More details: [File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
+More details:
+[File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
 
 ### extendRoute
 
-- **Type:** `(route: Route, parent: Route | undefined) => Route | void | Promise<Route | void>`
+- **Type:**
+  `(route: Route, parent: Route | undefined) => Route | void | Promise<Route | void>`
 
-A function that takes a route and optionally returns a modified route. This is useful for augmenting your routes with extra data (e.g. route metadata).
+A function that takes a route and optionally returns a modified route. This is
+useful for augmenting your routes with extra data (e.g. route metadata).
 
 ```js
 // vite.config.js
@@ -240,7 +267,7 @@ export default {
   plugins: [
     Pages({
       extendRoute(route, parent) {
-        if (route.path === '/') {
+        if (route.path === "/") {
           // Index is unauthenticated.
           return route;
         }
@@ -260,20 +287,23 @@ export default {
 
 - **Type:** `(routes: Route[]) => Route[] | void | Promise<Route[] | void>`
 
-A function that takes a generated routes and optionally returns a modified generated routes.
+A function that takes a generated routes and optionally returns a modified
+generated routes.
 
 ### onClientGenerated
 
 - **Type:** `(clientCode: string) => string | void | Promise<string | void>`
 
-A function that takes a generated client code and optionally returns a modified generated client code.
-
+A function that takes a generated client code and optionally returns a modified
+generated client code.
 
 ### SFC custom block for Route Data
 
-Add route meta to the route by adding a `<route>` block to the SFC. This will directly added to the route after it is generated, and will override it.
+Add route meta to the route by adding a `<route>` block to the SFC. This will
+directly added to the route after it is generated, and will override it.
 
-You can specific a parser to use using `<route lang="yaml">`, or set a default parser using `routeBlockLang` option.
+You can specific a parser to use using `<route lang="yaml">`, or set a default
+parser using `routeBlockLang` option.
 
 - **Supported parser:** JSON, JSON5, YAML
 - **Default:** JSON5
@@ -290,7 +320,9 @@ JSON/JSON5:
 }
 </route>
 ```
+
 YAML:
+
 ```html
 <route lang="yaml">
 name: name-override
@@ -301,11 +333,17 @@ meta:
 
 ## File System Routing
 
-Inspired by the routing from [NuxtJS](https://nuxtjs.org/guides/features/file-system-routing) 💚
+Inspired by the routing from
+[NuxtJS](https://nuxtjs.org/guides/features/file-system-routing) 💚
 
-Pages automatically generates an array of routes for you to plug-in to your instance of Vue Router. These routes are determined by the structure of the files in your pages directory. Simply create `.vue` files in your pages directory and routes will automatically be created for you, no additional configuration required!
+Pages automatically generates an array of routes for you to plug-in to your
+instance of Vue Router. These routes are determined by the structure of the
+files in your pages directory. Simply create `.vue` files in your pages
+directory and routes will automatically be created for you, no additional
+configuration required!
 
-For more advanced use cases, you can tailor Pages to fit the needs of your app through [configuration](#configuration).
+For more advanced use cases, you can tailor Pages to fit the needs of your app
+through [configuration](#configuration).
 
 - [Basic Routing](#basic-routing)
 - [Index Routes](#index-routes)
@@ -315,7 +353,8 @@ For more advanced use cases, you can tailor Pages to fit the needs of your app t
 
 ### Basic Routing
 
-Pages will automatically map files from your pages directory to a route with the same name:
+Pages will automatically map files from your pages directory to a route with the
+same name:
 
 - `src/pages/users.vue` -> `/users`
 - `src/pages/users/profile.vue` -> `/users/profile`
@@ -330,12 +369,15 @@ Files with the name `index` are treated as the index page of a route:
 
 ### Dynamic Routes
 
-Dynamic routes are denoted using square brackets. Both directories and pages can be dynamic:
+Dynamic routes are denoted using square brackets. Both directories and pages can
+be dynamic:
 
 - `src/pages/users/[id].vue` -> `/users/:id` (`/users/one`)
 - `src/[user]/settings.vue` -> `/:user/settings` (`/one/settings`)
 
-Any dynamic parameters will be passed to the page as props. For example, given the file `src/pages/users/[id].vue`, the route `/users/abc` will be passed the following props:
+Any dynamic parameters will be passed to the page as props. For example, given
+the file `src/pages/users/[id].vue`, the route `/users/abc` will be passed the
+following props:
 
 ```json
 { "id": "abc" }
@@ -343,7 +385,9 @@ Any dynamic parameters will be passed to the page as props. For example, given t
 
 ### Nested Routes
 
-We can make use of Vue Routers child routes to create nested layouts. The parent component can be defined by giving it the same name as the directory that contains your child routes.
+We can make use of Vue Routers child routes to create nested layouts. The parent
+component can be defined by giving it the same name as the directory that
+contains your child routes.
 
 For example, this directory structure:
 
@@ -384,7 +428,8 @@ Catch-all routes are denoted with square brackets containing an ellipsis:
 
 - `src/pages/[...all].vue` -> `/*` (`/non-existent-page`)
 
-The text after the ellipsis will be used both to name the route, and as the name of the prop in which the route parameters are passed.
+The text after the ellipsis will be used both to name the route, and as the name
+of the prop in which the route parameters are passed.
 
 ## License
 

@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import './index.css'
-import routes from 'virtual:generated-pages'
+import routes from 'virtual:generated-pages-react'
 
 console.log(routes)
 

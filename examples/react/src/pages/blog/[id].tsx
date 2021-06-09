@@ -1,6 +1,6 @@
 import React from 'react'
 import { matchRoutes, RouteConfigComponentProps } from 'react-router-config'
-import routes from 'virtual:generated-pages'
+import routes from 'virtual:generated-pages-react'
 
 const components: React.FC<RouteConfigComponentProps> = ({ location }) => {
   return (
