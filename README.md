@@ -79,6 +79,13 @@ const router = createRouter({
 });
 ```
 
+**Type**
+
+```ts
+// vite-env.d.ts
+/// <reference types="vite-plugin-pages/client" />
+```
+
 ### React
 
 ```js
@@ -92,6 +99,13 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root"),
 );
+```
+
+**Type**
+
+```ts
+// vite-env.d.ts
+/// <reference types="vite-plugin-pages/client-react" />
 ```
 
 ## Configuration
