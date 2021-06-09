@@ -16,6 +16,7 @@
   "files": [
     "dist",
     "client.d.ts",
+    "client-react.d.ts",
     "index.d.ts"
   ],
   "scripts": {
