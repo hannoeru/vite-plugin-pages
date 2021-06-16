@@ -18,8 +18,7 @@ export function parseSFC(code: string): ParseResult {
     return parse(code, {
       pad: 'space',
     }).descriptor
-  }
-  catch {
+  } catch {
     throw new Error('[vue-route-generator] Vue3\'s "@vue/compiler-sfc" is required.')
   }
 }
@@ -30,25 +29,19 @@ export function parseCustomBlock(block: CustomBlock, filePath: string, options: 
   if (lang === 'json5') {
     try {
       return JSON5.parse(block.content)
-    }
-    catch (err) {
+    } catch (err) {
       throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
-  }
-  else if (lang === 'json') {
+  } else if (lang === 'json') {
     try {
       return JSON.parse(block.content)
-    }
-    catch (err) {
+    } catch (err) {
       throw new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
-  }
-
-  else if (lang === 'yaml') {
+  } else if (lang === 'yaml') {
     try {
       return YAML.parse(block.content)
-    }
-    catch (err) {
+    } catch (err) {
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
   }

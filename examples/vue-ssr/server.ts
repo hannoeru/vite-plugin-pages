@@ -32,8 +32,7 @@ async function createServer(
     }))
     // use vite's connect instance as middleware
     app.use(vite.middlewares)
-  }
-  else {
+  } else {
     app.use(await import('compression').then(i => i.default()))
     app.use(await import('serve-static')
       .then(i => i.default(resolve('dist/client'), {
@@ -53,8 +52,7 @@ async function createServer(
         template = await vite.transformIndexHtml(url, template)
         // @ts-ignore
         render = (await vite.ssrLoadModule('/src/entry-server.ts')).render
-      }
-      else {
+      } else {
         template = indexProd
         // @ts-ignore
         render = await import('./dist/server/entry-server.js').then(i => i.render)
@@ -67,10 +65,10 @@ async function createServer(
         .replace('<!--app-html-->', appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
-    }
-    catch (e) {
+    } catch (e) {
       // @ts-ignore
       vite && vite.ssrFixStacktrace(e)
+      // eslint-disable-next-line no-console
       console.log(e.stack)
       res.status(500).end(e.stack)
     }
@@ -83,6 +81,7 @@ async function createServer(
 if (!isTest) {
   createServer().then(({ app }) =>
     app.listen(3000, () => {
+      // eslint-disable-next-line no-console
       console.log('🚀  Server listening on http://localhost:3000')
     }),
   )

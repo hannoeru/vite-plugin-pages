@@ -11,10 +11,14 @@
     "skipLibCheck": true,
     "noUnusedParameters": true
   },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "*.d.ts"
+  ],
   "exclude": [
-    "**/dist",
-    "**/node_modules",
-    "**/test",
-    "examples"
+    "node_modules",
+    "examples",
+    "dist"
   ]
 }

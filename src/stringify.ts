@@ -48,8 +48,7 @@ export function stringifyRoutes(
             imports.push(importStr)
 
           return str.replace(replaceStr, importName)
-        }
-        else {
+        } else {
           return str.replace(replaceStr, `() => import('${path}')`)
         }
       }

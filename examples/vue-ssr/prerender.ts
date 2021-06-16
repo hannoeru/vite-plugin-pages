@@ -42,6 +42,7 @@ export async function build() {
       return name === 'index' ? '/' : `/${name}`
     })
 
+  // eslint-disable-next-line no-console
   console.log(routesToPrerender)
 
   // pre-render each route...
@@ -57,6 +58,7 @@ export async function build() {
     const filePath = `dist/static${url === '/' ? '/index' : url}.html`
     ensureDirExist(filePath)
     fs.writeFileSync(toAbsolute(filePath), html)
+    // eslint-disable-next-line no-console
     console.log('pre-rendered:', filePath)
   }
 

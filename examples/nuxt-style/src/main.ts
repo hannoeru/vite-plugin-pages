@@ -4,6 +4,7 @@ import routes from 'virtual:generated-pages'
 import App from './App.vue'
 import './index.css'
 
+// eslint-disable-next-line no-console
 console.log(routes)
 
 const router = createRouter({

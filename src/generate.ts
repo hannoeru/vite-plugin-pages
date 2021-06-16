@@ -31,8 +31,7 @@ function prepareRoutes(
 
     if (parent) {
       route.path = route.path.replace(/^\//, '')
-    }
-    else {
+    } else {
       if (pagesDirOptions.baseRoute) {
         const baseRoute = `/${pagesDirOptions.baseRoute}`
         route.path = route.path === '/'
@@ -108,18 +107,15 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
         parent.children = parent.children || []
         parentRoutes = parent.children
         route.path = ''
-      }
-      else if (normalizedName === 'index' && !route.path) {
+      } else if (normalizedName === 'index' && !route.path) {
         route.path += '/'
-      }
-      else if (normalizedName !== 'index') {
+      } else if (normalizedName !== 'index') {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
           // Catch-all route
           if (isCatchAll)
             route.path += '(.*)'
-        }
-        else {
+        } else {
           route.path += `/${normalizedPath}`
         }
       }
