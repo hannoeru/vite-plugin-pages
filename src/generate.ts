@@ -57,8 +57,10 @@ function prepareRoutes(
 
     const filePath = slash(join(options.root, route.component))
 
-    const routeBlock = getRouteBlock(filePath, options)
-    Object.assign(route, routeBlock || {})
+    if (!options.react) {
+      const routeBlock = getRouteBlock(filePath, options)
+      Object.assign(route, routeBlock || {})
+    }
 
     Object.assign(route, options.extendRoute?.(route, parent) || {})
   }

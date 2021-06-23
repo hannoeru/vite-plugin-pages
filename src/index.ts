@@ -51,7 +51,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       })
       watcher.on('change', (file) => {
         const path = slash(file)
-        if (isTarget(path, options) && generatedRoutes) {
+        if (isTarget(path, options) && generatedRoutes && !options.react) {
           const needReload = isRouteBlockChanged(path, options)
           if (needReload) {
             debug.hmr('change', path)
