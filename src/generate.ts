@@ -49,17 +49,7 @@ function prepareRoutes(
     Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
 
-  // order dynamic routes
-  let finalRoutes = routes.sort(i => i.path.includes(':') ? 1 : -1)
-
-  // replace duplicated cache all route
-  const allRoute = finalRoutes.find(i => isCatchAllRoute(basename(i.component)))
-  if (allRoute) {
-    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(basename(i.component)))
-    finalRoutes.push(allRoute)
-  }
-
-  return finalRoutes
+  return routes
 }
 
 export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): Route[] {
@@ -121,7 +111,16 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
 
   const preparedRoutes = prepareRoutes(routes, options)
 
-  return preparedRoutes
+  let finalRoutes = preparedRoutes.sort(i => i.path.includes(':') ? 1 : -1)
+
+  // replace duplicated cache all route
+  const allRoute = finalRoutes.find(i => isCatchAllRoute(basename(i.component)))
+  if (allRoute) {
+    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(basename(i.component)))
+    finalRoutes.push(allRoute)
+  }
+
+  return finalRoutes
 }
 
 export function generateClientCode(routes: Route[], options: ResolvedOptions) {
