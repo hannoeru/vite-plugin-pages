@@ -34,20 +34,9 @@ describe('Generate', () => {
   const pages = resolvePages(options)
   const nuxtPages = resolvePages(nuxtOptions)
 
-  test('Pages', () => {
-    expect(pages.values().next().value).toMatchSnapshot({
-      filepath: expect.any(String),
-    }, 'pages')
-  })
   test('Routes', () => {
     routes = generateRoutes(pages, options)
     expect(routes.sort(sortRoutes)).toMatchSnapshot('routes')
-  })
-
-  test('Nuxt Style Pages', () => {
-    expect(nuxtPages.values().next().value).toMatchSnapshot({
-      filepath: expect.any(String),
-    }, 'nuxt style pages')
   })
   test('Nuxt Style Routes', () => {
     nuxtRoutes = generateRoutes(nuxtPages, nuxtOptions)

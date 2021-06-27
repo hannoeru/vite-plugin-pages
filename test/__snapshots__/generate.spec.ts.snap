@@ -76,17 +76,6 @@ const routes = [
 export default routes"
 `;
 
-exports[`Generate Nuxt Style Pages: nuxt style pages 1`] = `
-Object {
-  "component": "test/assets/nuxt-pages/_.vue",
-  "customBlock": null,
-  "dir": "test/assets/nuxt-pages",
-  "extension": "vue",
-  "filepath": Any<String>,
-  "route": "_",
-}
-`;
-
 exports[`Generate Nuxt Style Routes: nuxt style routes 1`] = `
 Array [
   Object {
@@ -154,17 +143,6 @@ Array [
     "props": true,
   },
 ]
-`;
-
-exports[`Generate Pages: pages 1`] = `
-Object {
-  "component": "test/assets/pages/[...all].vue",
-  "customBlock": null,
-  "dir": "test/assets/pages",
-  "extension": "vue",
-  "filepath": Any<String>,
-  "route": "[...all]",
-}
 `;
 
 exports[`Generate Routes: routes 1`] = `
