@@ -71,7 +71,7 @@ function setPage(
   file: string,
   options: ResolvedOptions,
 ) {
-  const component = join(pageDir.dir, file)
+  const component = slash(join(pageDir.dir, file))
   const filepath = slash(resolve(options.root, component))
   const extension = extname(file).slice(1)
   const customBlock = ['vue', 'md'].includes(extension)
@@ -80,7 +80,7 @@ function setPage(
 
   pages.set(filepath, {
     dir: pageDir.dir,
-    route: join(pageDir.baseRoute, file.replace(options.extensionsRE, '')),
+    route: slash(join(pageDir.baseRoute, file.replace(options.extensionsRE, ''))),
     extension,
     filepath,
     component,

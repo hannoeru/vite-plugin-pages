@@ -21,6 +21,7 @@ Object {
   ],
   "react": true,
   "replaceSquareBrackets": false,
+  "root": Any<String>,
   "routeBlockLang": "json5",
   "syncIndex": true,
 }
@@ -48,6 +49,7 @@ Object {
   ],
   "react": false,
   "replaceSquareBrackets": false,
+  "root": Any<String>,
   "routeBlockLang": "json5",
   "syncIndex": true,
 }

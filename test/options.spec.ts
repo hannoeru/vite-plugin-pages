@@ -9,9 +9,11 @@ describe('Options', () => {
       pagesDir: 'test/assets/pages',
       react: true,
     })
-    delete options.root
-    delete reactOptions.root
-    expect(options).toMatchSnapshot('resolved options')
-    expect(reactOptions).toMatchSnapshot('resolved options - react')
+    expect(options).toMatchSnapshot({
+      root: expect.any(String),
+    }, 'resolved options')
+    expect(reactOptions).toMatchSnapshot({
+      root: expect.any(String),
+    }, 'resolved options - react')
   })
 })

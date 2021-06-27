@@ -15,19 +15,43 @@ const nuxtOptions = resolveOptions({
   nuxtStyle: true,
 })
 
+function sortRoutes(a: any, b: any) {
+  const fa = a.name
+  const fb = b.name
+
+  if (fa < fb)
+    return -1
+
+  if (fa > fb)
+    return 1
+
+  return 0
+}
+
 describe('Generate', () => {
   let routes: Route[] = []
   let nuxtRoutes: Route[] = []
   const pages = resolvePages(options)
   const nuxtPages = resolvePages(nuxtOptions)
 
+  test('Pages', () => {
+    expect(pages.values().next().value).toMatchSnapshot({
+      filepath: expect.any(String),
+    }, 'pages')
+  })
   test('Routes', () => {
     routes = generateRoutes(pages, options)
-    expect(routes).toMatchSnapshot('routes')
+    expect(routes.sort(sortRoutes)).toMatchSnapshot('routes')
+  })
+
+  test('Nuxt Style Pages', () => {
+    expect(nuxtPages.values().next().value).toMatchSnapshot({
+      filepath: expect.any(String),
+    }, 'nuxt style pages')
   })
   test('Nuxt Style Routes', () => {
     nuxtRoutes = generateRoutes(nuxtPages, nuxtOptions)
-    expect(nuxtRoutes).toMatchSnapshot('nuxt style routes')
+    expect(nuxtRoutes.sort(sortRoutes)).toMatchSnapshot('nuxt style routes')
   })
 
   test('Client Code', () => {
