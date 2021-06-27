@@ -59,7 +59,7 @@ export function resolvePages(options: ResolvedOptions) {
     if (!routes.includes(page.route))
       routes.push(page.route)
     else
-      throw new Error('[vite-plugin-pages] duplicate routes')
+      throw new Error(`[vite-plugin-pages] duplicate route in ${page.filepath}`)
   }
 
   return pages
