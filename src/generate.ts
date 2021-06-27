@@ -6,11 +6,9 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
-import { join } from 'path'
-import { Route, ResolvedOptions, PageDirOptions } from './types'
+import { basename } from 'path'
+import { Route, ResolvedOptions, ResolvedPages } from './types'
 import {
-  slash,
-  getRouteBlock,
   isDynamicRoute,
   isCatchAllRoute,
 } from './utils'
@@ -19,26 +17,14 @@ import { stringifyRoutes } from './stringify'
 function prepareRoutes(
   routes: Route[],
   options: ResolvedOptions,
-  pagesDirOptions: PageDirOptions,
   parent?: Route,
 ) {
   for (const route of routes) {
-    if (route.name) {
+    if (route.name)
       route.name = route.name.replace(/-index$/, '')
-      if (pagesDirOptions.baseRoute)
-        route.name = `${pagesDirOptions.baseRoute}-${route.name}`
-    }
 
-    if (parent) {
+    if (parent)
       route.path = route.path.replace(/^\//, '')
-    } else {
-      if (pagesDirOptions.baseRoute) {
-        const baseRoute = `/${pagesDirOptions.baseRoute}`
-        route.path = route.path === '/'
-          ? baseRoute
-          : baseRoute + route.path
-      }
-    }
 
     if (!options.react)
       route.props = true
@@ -52,39 +38,46 @@ function prepareRoutes(
 
     if (route.children) {
       delete route.name
-      route.children = prepareRoutes(route.children, options, pagesDirOptions, route)
+      route.children = prepareRoutes(route.children, options, route)
     }
 
-    const filePath = slash(join(options.root, route.component))
+    if (!options.react)
+      Object.assign(route, route.customBlock || {})
 
-    if (!options.react) {
-      const routeBlock = getRouteBlock(filePath, options)
-      Object.assign(route, routeBlock || {})
-    }
+    delete route.customBlock
 
     Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
-  return routes
+
+  // order dynamic routes
+  let finalRoutes = routes.sort(i => i.path.includes(':') ? 1 : -1)
+
+  // replace duplicated cache all route
+  const allRoute = finalRoutes.find(i => isCatchAllRoute(basename(i.component)))
+  if (allRoute) {
+    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(basename(i.component)))
+    finalRoutes.push(allRoute)
+  }
+
+  return finalRoutes
 }
 
-export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOptions, options: ResolvedOptions): Route[] {
-  const { dir: pagesDir } = pagesDirOptions
+export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): Route[] {
   const {
     nuxtStyle,
-    extensionsRE,
   } = options
 
   const routes: Route[] = []
 
-  for (const filePath of filesPath) {
-    const resolvedPath = filePath.replace(extensionsRE, '')
-    const pathNodes = resolvedPath.split('/')
+  pages.forEach((page) => {
+    const pathNodes = page.route.split('/')
 
-    const component = `/${pagesDir}/${filePath}`
+    const component = `/${page.component}`
     const route: Route = {
       name: '',
       path: '',
       component,
+      customBlock: page.customBlock,
     }
 
     let parentRoutes = routes
@@ -124,9 +117,9 @@ export function generateRoutes(filesPath: string[], pagesDirOptions: PageDirOpti
     }
 
     parentRoutes.push(route)
-  }
+  })
 
-  const preparedRoutes = prepareRoutes(routes, options, pagesDirOptions)
+  const preparedRoutes = prepareRoutes(routes, options)
 
   return preparedRoutes
 }

@@ -29,7 +29,7 @@ export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclud
 /**
  * Resolves the files that are valid pages for the given context.
  */
-export async function getPageFiles(path: string, options: ResolvedOptions): Promise<string[]> {
+export function getPageFiles(path: string, options: ResolvedOptions): string[] {
   const {
     extensions,
     exclude,
@@ -37,7 +37,7 @@ export async function getPageFiles(path: string, options: ResolvedOptions): Prom
 
   const ext = extensionsToGlob(extensions)
 
-  const files = await fg(`**/*.${ext}`, {
+  const files = fg.sync(`**/*.${ext}`, {
     ignore: getIgnore(exclude),
     onlyFiles: true,
     cwd: path,

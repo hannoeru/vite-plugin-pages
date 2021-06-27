@@ -52,7 +52,6 @@ export default {
   plugins: [
     Vue(),
     Pages({
-      extensions: ["tsx", "jsx"],
       react: true,
     }),
   ],
@@ -120,8 +119,7 @@ import Pages from "vite-plugin-pages";
 export default {
   plugins: [
     Pages({
-      pagesDir: "src/views",
-      extensions: ["vue", "ts"],
+      pagesDir: "src/views"
     }),
   ],
 };
@@ -179,7 +177,9 @@ export default {
 ### extensions
 
 - **Type:** `string[]`
-- **Default:** `['vue', 'js']`
+- **Default:**
+  - Vue: `['vue', 'ts', 'js']`
+  - React: `['tsx', 'jsx']`
 
 An array of valid file extensions for pages.
 

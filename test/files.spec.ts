@@ -9,7 +9,7 @@ const testDeepPagesDir = 'test/assets/deep-pages'
 
 describe('Get files', () => {
   test('Pages file', async() => {
-    const files = await getPageFiles(testPagesDir, options)
+    const files = getPageFiles(testPagesDir, options)
     expect(files.sort()).toMatchSnapshot('page files')
   })
 })

@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@antfu/utils': ^0.2.4
       '@hannoeru/eslint-config': ^0.1.5
       '@types/debug': ^4.1.5
       '@types/deep-equal': ^1.0.1
@@ -27,6 +28,7 @@ importers:
       vue-router: ^4.0.10
       yaml: ^2.0.0-6
     dependencies:
+      '@antfu/utils': 0.2.4
       debug: 4.3.2
       deep-equal: 2.0.5
       fast-glob: 3.2.5
@@ -184,6 +186,12 @@ importers:
       vite-plugin-restart: 0.0.2_vite@2.3.8
 
 packages:
+
+  /@antfu/utils/0.2.4:
+    resolution: {integrity: sha512-2bZNkVfL9IZESmvE26UKi8SzyvSoaIsGXDcnbHFMtmGMqUiB1fXpAJ1ijGf+tSqKRQ5yagck2U1Qk0p+705/kw==}
+    dependencies:
+      '@types/throttle-debounce': 2.1.0
+    dev: false
 
   /@babel/code-frame/7.12.11:
     resolution: {integrity: sha512-Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==}
@@ -1144,6 +1152,10 @@ packages:
   /@types/stack-utils/2.0.0:
     resolution: {integrity: sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==}
     dev: true
+
+  /@types/throttle-debounce/2.1.0:
+    resolution: {integrity: sha512-5eQEtSCoESnh2FsiLTxE121IiE60hnMqcb435fShf4bpLRjEu1Eoekht23y6zXS9Ts3l+Szu3TARnTsA0GkOkQ==}
+    dev: false
 
   /@types/yargs-parser/20.2.0:
     resolution: {integrity: sha512-37RSHht+gzzgYeobbG+KWryeAW8J33Nhr69cjTqSYymXVZEN9NbRYWoYlRtDhHKPVT1FyNKwaTPC1NynKZpzRA==}

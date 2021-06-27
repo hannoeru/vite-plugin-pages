@@ -5,9 +5,30 @@ exports[`Generate Client Code: client code 1`] = `
 
 const routes = [
   {
-    \\"name\\": \\"all\\",
-    \\"path\\": \\"/:all(.*)\\",
-    \\"component\\": () => import('/test/assets/pages/[...all].vue'),
+    \\"name\\": \\"blog-today\\",
+    \\"path\\": \\"/blog/today\\",
+    \\"component\\": () => import('/test/assets/pages/blog/today/index.vue'),
+    \\"props\\": true
+  },
+  {
+    \\"name\\": \\"blog\\",
+    \\"path\\": \\"/blog\\",
+    \\"component\\": () => import('/test/assets/pages/blog/index.vue'),
+    \\"props\\": true
+  },
+  {
+    \\"name\\": \\"name-override\\",
+    \\"path\\": \\"/\\",
+    \\"component\\": _test_assets_pages_index_vue,
+    \\"props\\": true,
+    \\"meta\\": {
+      \\"requiresAuth\\": false
+    }
+  },
+  {
+    \\"name\\": \\"components\\",
+    \\"path\\": \\"/components\\",
+    \\"component\\": () => import('/test/assets/pages/components.vue'),
     \\"props\\": true
   },
   {
@@ -24,19 +45,10 @@ const routes = [
     \\"props\\": true
   },
   {
-    \\"name\\": \\"components\\",
-    \\"path\\": \\"/components\\",
-    \\"component\\": () => import('/test/assets/pages/components.vue'),
+    \\"name\\": \\"userId\\",
+    \\"path\\": \\"/:userId\\",
+    \\"component\\": () => import('/test/assets/pages/[userId].vue'),
     \\"props\\": true
-  },
-  {
-    \\"name\\": \\"name-override\\",
-    \\"path\\": \\"/\\",
-    \\"component\\": _test_assets_pages_index_vue,
-    \\"props\\": true,
-    \\"meta\\": {
-      \\"requiresAuth\\": false
-    }
   },
   {
     \\"name\\": \\"sensor-current\\",
@@ -54,21 +66,9 @@ const routes = [
     }
   },
   {
-    \\"name\\": \\"blog\\",
-    \\"path\\": \\"/blog\\",
-    \\"component\\": () => import('/test/assets/pages/blog/index.vue'),
-    \\"props\\": true
-  },
-  {
-    \\"name\\": \\"blog-today\\",
-    \\"path\\": \\"/blog/today\\",
-    \\"component\\": () => import('/test/assets/pages/blog/today/index.vue'),
-    \\"props\\": true
-  },
-  {
-    \\"name\\": \\"userId\\",
-    \\"path\\": \\"/:userId\\",
-    \\"component\\": () => import('/test/assets/pages/[userId].vue'),
+    \\"name\\": \\"all\\",
+    \\"path\\": \\"/:all(.*)\\",
+    \\"component\\": () => import('/test/assets/pages/[...all].vue'),
     \\"props\\": true
   }
 ]
@@ -79,9 +79,30 @@ export default routes"
 exports[`Generate Nuxt Style Routes: nuxt style routes 1`] = `
 Array [
   Object {
-    "component": "/test/assets/nuxt-pages/_.vue",
-    "name": "all",
-    "path": "/:all(.*)",
+    "component": "/test/assets/nuxt-pages/blog/today/index.vue",
+    "name": "blog-today",
+    "path": "/blog/today",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/nuxt-pages/blog/index.vue",
+    "name": "blog",
+    "path": "/blog",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/nuxt-pages/index.vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "name-override",
+    "path": "/",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/nuxt-pages/components.vue",
+    "name": "components",
+    "path": "/components",
     "props": true,
   },
   Object {
@@ -98,18 +119,15 @@ Array [
     "props": true,
   },
   Object {
-    "component": "/test/assets/nuxt-pages/components.vue",
-    "name": "components",
-    "path": "/components",
+    "component": "/test/assets/nuxt-pages/_.vue",
+    "name": "all",
+    "path": "/:all(.*)",
     "props": true,
   },
   Object {
-    "component": "/test/assets/nuxt-pages/index.vue",
-    "meta": Object {
-      "requiresAuth": false,
-    },
-    "name": "name-override",
-    "path": "/",
+    "component": "/test/assets/nuxt-pages/_userId.vue",
+    "name": "userId",
+    "path": "/:userId",
     "props": true,
   },
   Object {
@@ -124,33 +142,36 @@ Array [
     "path": "/blog/:id",
     "props": true,
   },
-  Object {
-    "component": "/test/assets/nuxt-pages/blog/index.vue",
-    "name": "blog",
-    "path": "/blog",
-    "props": true,
-  },
-  Object {
-    "component": "/test/assets/nuxt-pages/blog/today/index.vue",
-    "name": "blog-today",
-    "path": "/blog/today",
-    "props": true,
-  },
-  Object {
-    "component": "/test/assets/nuxt-pages/_userId.vue",
-    "name": "userId",
-    "path": "/:userId",
-    "props": true,
-  },
 ]
 `;
 
 exports[`Generate Routes: routes 1`] = `
 Array [
   Object {
-    "component": "/test/assets/pages/[...all].vue",
-    "name": "all",
-    "path": "/:all(.*)",
+    "component": "/test/assets/pages/blog/today/index.vue",
+    "name": "blog-today",
+    "path": "/blog/today",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/blog/index.vue",
+    "name": "blog",
+    "path": "/blog",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/index.vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "name-override",
+    "path": "/",
+    "props": true,
+  },
+  Object {
+    "component": "/test/assets/pages/components.vue",
+    "name": "components",
+    "path": "/components",
     "props": true,
   },
   Object {
@@ -167,18 +188,9 @@ Array [
     "props": true,
   },
   Object {
-    "component": "/test/assets/pages/components.vue",
-    "name": "components",
-    "path": "/components",
-    "props": true,
-  },
-  Object {
-    "component": "/test/assets/pages/index.vue",
-    "meta": Object {
-      "requiresAuth": false,
-    },
-    "name": "name-override",
-    "path": "/",
+    "component": "/test/assets/pages/[userId].vue",
+    "name": "userId",
+    "path": "/:userId",
     "props": true,
   },
   Object {
@@ -197,21 +209,9 @@ Array [
     "props": true,
   },
   Object {
-    "component": "/test/assets/pages/blog/index.vue",
-    "name": "blog",
-    "path": "/blog",
-    "props": true,
-  },
-  Object {
-    "component": "/test/assets/pages/blog/today/index.vue",
-    "name": "blog-today",
-    "path": "/blog/today",
-    "props": true,
-  },
-  Object {
-    "component": "/test/assets/pages/[userId].vue",
-    "name": "userId",
-    "path": "/:userId",
+    "component": "/test/assets/pages/[...all].vue",
+    "name": "all",
+    "path": "/:all(.*)",
     "props": true,
   },
 ]

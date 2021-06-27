@@ -19,7 +19,7 @@ export function parseSFC(code: string): ParseResult {
       pad: 'space',
     }).descriptor
   } catch {
-    throw new Error('[vue-route-generator] Vue3\'s "@vue/compiler-sfc" is required.')
+    throw new Error('[vite-plugin-pages] Vue3\'s "@vue/compiler-sfc" is required.')
   }
 }
 

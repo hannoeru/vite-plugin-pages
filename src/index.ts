@@ -1,63 +1,29 @@
-import { resolve } from 'path'
 import type { Plugin } from 'vite'
-import { Route, ResolvedOptions, UserOptions } from './types'
-import { getPageFiles } from './files'
+import { Route, ResolvedOptions, UserOptions, ResolvedPage } from './types'
 import { generateRoutes, generateClientCode } from './generate'
-import { debug, getPagesVirtualModule, isTarget, slash, replaceSquareBrackets, isDynamicRoute, isCatchAllRoute, isRouteBlockChanged, routeBlockCache } from './utils'
-import { parseVueRequest } from './query'
+import { debug, replaceSquareBrackets } from './utils'
 import { resolveOptions } from './options'
 import { MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
+import { resolvePages } from './pages'
+import { handleHMR } from './hmr'
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let generatedRoutes: Route[] | null = null
-
   let options: ResolvedOptions
+  let pages: Map<string, ResolvedPage>
 
   return {
     name: 'vite-plugin-pages',
     enforce: 'pre',
     configResolved({ root }) {
       options = resolveOptions(userOptions, root)
+      pages = resolvePages(options)
       debug.options(options)
+      debug.pages(pages)
     },
     configureServer(server) {
-      const { ws, watcher } = server
-
-      function fullReload() {
-        // invalidate module
-        getPagesVirtualModule(server)
-        // Clear cache when generate new routes
-        routeBlockCache.clear()
-        // reset generated routes
+      handleHMR(server, pages, options, () => {
         generatedRoutes = null
-        ws.send({
-          type: 'full-reload',
-        })
-      }
-
-      watcher.on('add', (file) => {
-        const path = slash(file)
-        if (isTarget(path, options)) {
-          debug.hmr('add', path)
-          fullReload()
-        }
-      })
-      watcher.on('unlink', (file) => {
-        const path = slash(file)
-        if (isTarget(path, options)) {
-          debug.hmr('remove', path)
-          fullReload()
-        }
-      })
-      watcher.on('change', (file) => {
-        const path = slash(file)
-        if (isTarget(path, options) && generatedRoutes && !options.react) {
-          const needReload = isRouteBlockChanged(path, options)
-          if (needReload) {
-            debug.hmr('change', path)
-            fullReload()
-          }
-        }
       })
     },
     resolveId(id) {
@@ -71,25 +37,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
 
       if (!generatedRoutes) {
         generatedRoutes = []
-
-        for (const pageDir of options.pagesDirOptions) {
-          const pageDirPath = slash(resolve(options.root, pageDir.dir))
-          debug.gen('dir: %O', pageDirPath)
-
-          const files = await getPageFiles(pageDirPath, options)
-          debug.gen('files: %O', files)
-
-          const routes = generateRoutes(files, pageDir, options)
-          generatedRoutes.push(...routes)
-        }
-        generatedRoutes = generatedRoutes.sort(i => isDynamicRoute(i.path) ? 1 : -1)
-        const allRoute = generatedRoutes.find(i => isCatchAllRoute(i.path))
-        if (allRoute) {
-          generatedRoutes = generatedRoutes.filter(i => isCatchAllRoute(i.path))
-          generatedRoutes.push(allRoute)
-        }
-
-        // only execute onRoutesGenerated once
+        generatedRoutes = generateRoutes(pages, options)
         generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes
       }
       debug.gen('routes: %O', generatedRoutes)
@@ -100,14 +48,11 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
 
       return clientCode
     },
-    async transform(_code: string, id: string) {
-      const { query } = parseVueRequest(id)
-
-      if (query && query.vue && query.type === 'route') {
-        return {
-          code: 'export default {}',
-          map: null,
-        }
+    async transform(_code, id) {
+      if (!/vue&type=route/.test(id)) return
+      return {
+        code: 'export default {}',
+        map: null,
       }
     },
     generateBundle(_options, bundle) {

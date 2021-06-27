@@ -1,12 +1,11 @@
-import { UserOptions, ResolvedOptions, PageDirOptions } from './types'
+import { UserOptions, ResolvedOptions } from './types'
 import { getPageDirs } from './files'
+import { toArray } from './utils'
 
-function resolvePagesDirs(pagesDirs: string | (string | PageDirOptions)[], root: string, exclude: string[]) {
-  if (!Array.isArray(pagesDirs))
-    pagesDirs = [pagesDirs]
-
-  return pagesDirs.flatMap((pagesDir) => {
-    const option: PageDirOptions = typeof pagesDir === 'string'
+function resolvePageDirs(pagesDir: UserOptions['pagesDir'], root: string, exclude: string[]) {
+  pagesDir = toArray(pagesDir)
+  return pagesDir.flatMap((pagesDir) => {
+    const option = typeof pagesDir === 'string'
       ? { dir: pagesDir, baseRoute: '' }
       : pagesDir
 
@@ -17,35 +16,41 @@ function resolvePagesDirs(pagesDirs: string | (string | PageDirOptions)[], root:
 export function resolveOptions(userOptions: UserOptions, root: string = process.cwd()): ResolvedOptions {
   const {
     pagesDir = ['src/pages'],
-    extensions = ['vue', 'js'],
     routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
     replaceSquareBrackets = false,
     nuxtStyle = false,
     react = false,
+    extendRoute,
+    onRoutesGenerated,
+    onClientGenerated,
   } = userOptions
 
-  const importMode = react ? 'sync' : 'async'
-  const pagesDirOptions = resolvePagesDirs(pagesDir, root, exclude)
+  const importMode = userOptions.importMode || (react ? 'sync' : 'async')
+
+  const extensions = userOptions.extensions || (react ? ['tsx', 'jsx'] : ['vue', 'ts', 'js'])
+
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
-  return Object.assign(
-    {},
-    {
-      routeBlockLang,
-      root,
-      pagesDir,
-      pagesDirOptions,
-      extensions,
-      importMode,
-      exclude,
-      syncIndex,
-      replaceSquareBrackets,
-      nuxtStyle,
-      react,
-      extensionsRE,
-    },
-    userOptions,
-  )
+  const resolvedPagesDir = resolvePageDirs(pagesDir, root, exclude)
+
+  const resolvedOptions: ResolvedOptions = {
+    pagesDir: resolvedPagesDir,
+    routeBlockLang,
+    root,
+    extensions,
+    importMode,
+    exclude,
+    syncIndex,
+    replaceSquareBrackets,
+    nuxtStyle,
+    react,
+    extensionsRE,
+    extendRoute,
+    onRoutesGenerated,
+    onClientGenerated,
+  }
+
+  return resolvedOptions
 }

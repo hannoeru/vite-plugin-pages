@@ -20,6 +20,7 @@ export interface Route {
   routes?: Route[]
   exact?: boolean
   meta?: Record<string, unknown>
+  customBlock?: Record<string, any> | null
 }
 export interface PageDirOptions {
   dir: string
@@ -91,6 +92,17 @@ interface Options {
 
 export type UserOptions = Partial<Options>
 
+export interface ResolvedPage {
+  dir: string
+  route: string
+  extension: string
+  filepath: string
+  component: string
+  customBlock: Record<string, any> | null
+}
+
+export type ResolvedPages = Map<string, ResolvedPage>
+
 export interface ResolvedOptions extends Options {
   /**
    * Resolves to the `root` value from Vite config.
@@ -98,11 +110,8 @@ export interface ResolvedOptions extends Options {
    */
   root: string
   /**
-   * Page Dir as a normalized array of PageDirOptions
-   */
-  pagesDirOptions: PageDirOptions[]
-  /**
    * RegExp to match extensions
    */
   extensionsRE: RegExp
+  pagesDir: PageDirOptions[]
 }

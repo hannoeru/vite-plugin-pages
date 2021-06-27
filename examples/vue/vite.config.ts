@@ -17,7 +17,7 @@ const config = defineConfig({
         { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
       extensions: ['vue', 'md'],
-      syncIndex: false,
+      syncIndex: true,
       replaceSquareBrackets: true,
       extendRoute(route) {
         if (route.name === 'about')

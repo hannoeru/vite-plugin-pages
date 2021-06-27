@@ -1,17 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Options resolve: resolved options - react 1`] = `
+Object {
+  "exclude": Array [],
+  "extendRoute": undefined,
+  "extensions": Array [
+    "tsx",
+    "jsx",
+  ],
+  "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\)\\$/,
+  "importMode": "sync",
+  "nuxtStyle": false,
+  "onClientGenerated": undefined,
+  "onRoutesGenerated": undefined,
+  "pagesDir": Array [
+    Object {
+      "baseRoute": "",
+      "dir": "test/assets/pages",
+    },
+  ],
+  "react": true,
+  "replaceSquareBrackets": false,
+  "routeBlockLang": "json5",
+  "syncIndex": true,
+}
+`;
+
 exports[`Options resolve: resolved options 1`] = `
 Object {
   "exclude": Array [],
+  "extendRoute": undefined,
   "extensions": Array [
     "vue",
+    "ts",
     "js",
   ],
-  "extensionsRE": /\\\\\\.\\(vue\\|js\\)\\$/,
+  "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
   "importMode": "async",
   "nuxtStyle": false,
-  "pagesDir": "test/assets/pages",
-  "pagesDirOptions": Array [
+  "onClientGenerated": undefined,
+  "onRoutesGenerated": undefined,
+  "pagesDir": Array [
     Object {
       "baseRoute": "",
       "dir": "test/assets/pages",

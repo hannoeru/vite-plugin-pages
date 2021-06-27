@@ -4,9 +4,12 @@ import Debug from 'debug'
 import deepEqual from 'deep-equal'
 import { ViteDevServer } from 'vite'
 import { OutputBundle } from 'rollup'
+import { toArray, slash } from '@antfu/utils'
 import { ResolvedOptions, Route } from './types'
 import { parseSFC, parseCustomBlock } from './parser'
 import { MODULE_ID_VIRTUAL } from './constants'
+
+export { toArray, slash }
 
 export const routeBlockCache = new Map<string, Record<string, any>>()
 
@@ -15,7 +18,7 @@ export function extensionsToGlob(extensions: string[]) {
 }
 
 function isPagesDir(path: string, options: ResolvedOptions) {
-  for (const page of options.pagesDirOptions) {
+  for (const page of options.pagesDir) {
     const dirPath = slash(resolve(options.root, page.dir))
     if (path.startsWith(dirPath)) return true
   }
@@ -26,16 +29,13 @@ export function isTarget(path: string, options: ResolvedOptions) {
   return isPagesDir(path, options) && options.extensionsRE.test(path)
 }
 
-export function slash(str: string): string {
-  return str.replace(/\\/g, '/')
-}
-
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
   parser: Debug('vite-plugin-pages:parser'),
   gen: Debug('vite-plugin-pages:gen'),
   options: Debug('vite-plugin-pages:options'),
   cache: Debug('vite-plugin-pages:cache'),
+  pages: Debug('vite-plugin-pages:pages'),
 }
 
 const dynamicRouteRE = /^\[.+\]$/
@@ -60,10 +60,12 @@ export function resolveImportMode(
   const mode = options.importMode
   if (typeof mode === 'function')
     return mode(filepath)
-  if (options.syncIndex && filepath === `/${options.pagesDir}/index.vue`)
-    return 'sync'
-  else
-    return mode
+
+  for (const pageDir of options.pagesDir) {
+    if (options.syncIndex && filepath === `/${pageDir.dir}/index.vue`)
+      return 'sync'
+  }
+  return mode
 }
 
 export function pathToName(filepath: string) {
