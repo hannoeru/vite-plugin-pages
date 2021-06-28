@@ -38,7 +38,7 @@ export function parseCustomBlock(block: CustomBlock, filePath: string, options: 
     } catch (err) {
       throw new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
-  } else if (lang === 'yaml') {
+  } else if (lang === 'yaml' || lang === 'yml') {
     try {
       return YAML.parse(block.content)
     } catch (err) {
