@@ -17,7 +17,7 @@ function resolvePageDirs(pagesDir: UserOptions['pagesDir'], root: string, exclud
   })
 }
 
-export function resolveOptions(userOptions: UserOptions, root: string = process.cwd()): ResolvedOptions {
+export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
     pagesDir = ['src/pages'],
     routeBlockLang = 'json5',
@@ -30,6 +30,8 @@ export function resolveOptions(userOptions: UserOptions, root: string = process.
     onRoutesGenerated,
     onClientGenerated,
   } = userOptions
+
+  const root = viteRoot || slash(process.cwd())
 
   const importMode = userOptions.importMode || (react ? 'sync' : 'async')
 
