@@ -10,7 +10,7 @@ function resolvePageDirs(pagesDir: UserOptions['pagesDir'], root: string, exclud
       ? { dir: pagesDir, baseRoute: '' }
       : pagesDir
 
-    option.dir = slash(resolve(root, option.dir).replace(`${root}/`, ''))
+    option.dir = slash(resolve(root, option.dir)).replace(`${root}/`, '')
     option.baseRoute = option.baseRoute.replace(/^\//, '').replace(/\/$/, '')
 
     return getPageDirs(option, root, exclude)
