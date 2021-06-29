@@ -4,9 +4,12 @@ import {
 } from './utils'
 import { ResolvedOptions, Route } from './types'
 
-function replacer(_: any, value: any) {
+const componentRE = /"component":("(.*?)")/g
+const hasFunctionRE = /"(?:props|beforeEnter)":("(.*?)")/g
+
+function replaceFunction(_: any, value: any) {
   if (value instanceof Function || typeof value === 'function') {
-    const fnBody = value.toString()
+    const fnBody = value.toString().replace(/(\t|\n|\r|\s)/g, '')
 
     // ES6 Arrow Function
     if (fnBody.length < 8 || fnBody.substring(0, 8) !== 'function')
@@ -27,46 +30,35 @@ export function stringifyRoutes(
 ) {
   const imports: string[] = []
 
+  function componentReplacer(str: string, replaceStr: string, path: string) {
+    const mode = resolveImportMode(path, options)
+    if (mode === 'sync') {
+      const importName = pathToName(path)
+      const importStr = `import ${importName} from '${path}'`
+
+      // Only add import to array if it hasn't beed added before.
+      if (!imports.includes(importStr))
+        imports.push(importStr)
+      return str.replace(replaceStr, importName)
+    } else {
+      return str.replace(replaceStr, `() => import('${path}')`)
+    }
+  }
+
+  function functionReplacer(str: string, replaceStr: string, content: string) {
+    if (content.startsWith('function'))
+      return str.replace(replaceStr, content)
+
+    if (content.startsWith('_NuFrRa_'))
+      return str.replace(replaceStr, content.slice(8))
+
+    return str
+  }
+
   const stringRoutes = JSON
-    .stringify(preparedRoutes, replacer, 2)
-    .split('\n')
-    .map((str) => {
-      if (/"component":\s"\S+"/.test(str)) {
-        const start = '"component": "'
-        const startIndex = str.indexOf(start) + start.length
-        const endIndex = str.endsWith('",') ? str.length - 2 : str.length - 1
-        const path = str.slice(startIndex, endIndex)
-        const replaceStr = str.slice(startIndex - 1, endIndex + 1)
-
-        const mode = resolveImportMode(path, options)
-        if (mode === 'sync') {
-          const importName = pathToName(path)
-          const importStr = `import ${importName} from '${path}'`
-
-          // Only add import to array if it hasn't beed added before.
-          if (!imports.includes(importStr))
-            imports.push(importStr)
-
-          return str.replace(replaceStr, importName)
-        } else {
-          return str.replace(replaceStr, `() => import('${path}')`)
-        }
-      }
-      if (/"props":\s"[^"]+"/.test(str)) {
-        const start = '"props": "'
-        const startIndex = str.indexOf(start) + start.length
-        const endIndex = str.endsWith('",') ? str.length - 2 : str.length - 1
-        const content = str.slice(startIndex, endIndex)
-        const replaceStr = str.slice(startIndex - 1, endIndex + 1)
-
-        if (content.startsWith('function'))
-          return str.replace(replaceStr, content)
-
-        if (content.startsWith('_NuFrRa_'))
-          return str.replace(replaceStr, content.slice(8))
-      }
-      return str
-    }).join('\n')
+    .stringify(preparedRoutes, replaceFunction)
+    .replace(componentRE, componentReplacer)
+    .replace(hasFunctionRE, functionReplacer)
 
   return {
     imports,

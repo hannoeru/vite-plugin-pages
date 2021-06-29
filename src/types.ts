@@ -6,7 +6,7 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
-import { RouteLocationNormalized } from 'vue-router'
+import type { RouteLocationNormalized, _RouteRecordBase } from 'vue-router'
 
 export type ImportMode = 'sync' | 'async'
 export type ImportModeResolveFn = (filepath: string) => ImportMode
@@ -21,6 +21,7 @@ export interface Route {
   exact?: boolean
   meta?: Record<string, unknown>
   customBlock?: Record<string, any> | null
+  beforeEnter?: _RouteRecordBase['beforeEnter']
 }
 export interface PageDirOptions {
   dir: string

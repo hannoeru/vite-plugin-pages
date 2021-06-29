@@ -62,7 +62,7 @@ export function resolveImportMode(
     return mode(filepath)
 
   for (const pageDir of options.pagesDir) {
-    if (options.syncIndex && filepath === `/${pageDir.dir}/index.vue`)
+    if (options.syncIndex && pageDir.baseRoute === '' && filepath === `/${pageDir.dir}/index.vue`)
       return 'sync'
   }
   return mode
