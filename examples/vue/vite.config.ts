@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
@@ -12,7 +13,8 @@ const config = defineConfig({
     Pages({
       // pagesDir: ['src/pages', 'src/pages2'],
       pagesDir: [
-        { dir: 'src/pages', baseRoute: '' },
+        // issue #68
+        { dir: resolve(__dirname, './src/pages'), baseRoute: '' },
         { dir: 'src/features/**/pages', baseRoute: 'features' },
         { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
