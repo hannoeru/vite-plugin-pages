@@ -41,9 +41,10 @@ export function resolvePages(options: ResolvedOptions) {
   const pages = new Map<string, ResolvedPage>()
 
   const pageDirFiles = dirs.map((pageDir) => {
+    const pagePath = slash(resolve(options.root, pageDir.dir))
     return {
       ...pageDir,
-      files: getPageFiles(pageDir.dir, options),
+      files: getPageFiles(pagePath, options),
     }
   })
 

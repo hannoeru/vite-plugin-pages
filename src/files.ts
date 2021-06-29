@@ -31,8 +31,8 @@ export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclud
  */
 export function getPageFiles(path: string, options: ResolvedOptions): string[] {
   const {
-    extensions,
     exclude,
+    extensions,
   } = options
 
   const ext = extensionsToGlob(extensions)
