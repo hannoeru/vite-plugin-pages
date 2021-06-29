@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { UserOptions, ResolvedOptions } from './types'
 import { getPageDirs } from './files'
-import { toArray } from './utils'
+import { toArray, slash } from './utils'
 
 function resolvePageDirs(pagesDir: UserOptions['pagesDir'], root: string, exclude: string[]) {
   pagesDir = toArray(pagesDir)
@@ -10,7 +10,7 @@ function resolvePageDirs(pagesDir: UserOptions['pagesDir'], root: string, exclud
       ? { dir: pagesDir, baseRoute: '' }
       : pagesDir
 
-    option.dir = resolve(root, option.dir).replace(`${root}/`, '')
+    option.dir = slash(resolve(root, option.dir).replace(`${root}/`, ''))
     option.baseRoute = option.baseRoute.replace(/^\//, '').replace(/\/$/, '')
 
     return getPageDirs(option, root, exclude)
