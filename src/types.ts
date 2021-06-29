@@ -64,7 +64,7 @@ interface Options {
    * Set default route block parser, or use `<route lang=xxx>` in SFC route block
    * @default 'json5'
    */
-  routeBlockLang: 'json5' | 'json' | 'yaml'
+  routeBlockLang: 'json5' | 'json' | 'yaml' | 'yml'
   /**
    * Replace '[]' to '_' in bundle chunk filename
    * Experimental feature
