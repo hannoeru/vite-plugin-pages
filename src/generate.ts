@@ -99,7 +99,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
           route.path += `/:${normalizedName}`
           // Catch-all route
           if (isCatchAll)
-            route.path += '(.*)'
+            route.path += '(.*)*'
         } else {
           route.path += `/${normalizedPath}`
         }
