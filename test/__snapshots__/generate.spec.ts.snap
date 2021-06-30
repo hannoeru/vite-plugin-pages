@@ -3,7 +3,7 @@
 exports[`Generate Client Code: client code 1`] = `
 "import _test_assets_pages_index_vue from '/test/assets/pages/index.vue'
 
-const routes = [{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/test/assets/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/test/assets/pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/test/assets/pages/components.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":_test_assets_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"path\\":\\"/about\\",\\"component\\":() => import('/test/assets/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/test/assets/pages/about/index.vue'),\\"props\\":(route2)=>({query:route2.query.q})}],\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)\\",\\"component\\":() => import('/test/assets/pages/[...all].vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/test/assets/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/test/assets/pages/[sensor]/current.vue'),\\"props\\":true},{\\"name\\":\\"userId\\",\\"path\\":\\"/:userId\\",\\"component\\":() => import('/test/assets/pages/[userId].vue'),\\"props\\":true}]
+const routes = [{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/test/assets/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/test/assets/pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/test/assets/pages/components.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":_test_assets_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"path\\":\\"/about\\",\\"component\\":() => import('/test/assets/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/test/assets/pages/about/index.vue'),\\"props\\":(route2)=>({query:route2.query.q})}],\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/test/assets/pages/[...all].vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/test/assets/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/test/assets/pages/[sensor]/current.vue'),\\"props\\":true},{\\"name\\":\\"userId\\",\\"path\\":\\"/:userId\\",\\"component\\":() => import('/test/assets/pages/[userId].vue'),\\"props\\":true}]
 
 export default routes"
 `;
@@ -13,7 +13,7 @@ Array [
   Object {
     "component": "/test/assets/nuxt-pages/_.vue",
     "name": "all",
-    "path": "/:all(.*)",
+    "path": "/:all(.*)*",
     "props": true,
   },
   Object {
@@ -122,7 +122,7 @@ Array [
   Object {
     "component": "/test/assets/pages/[...all].vue",
     "name": "all",
-    "path": "/:all(.*)",
+    "path": "/:all(.*)*",
     "props": true,
   },
   Object {
