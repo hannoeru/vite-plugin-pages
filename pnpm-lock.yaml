@@ -24,12 +24,11 @@ importers:
       ts-node: ^10.0.0
       tsup: ^4.12.2
       typescript: ^4.3.5
-      vite: ^2.4.0
+      vite: ^2.4.1
       vue-router: ^4.0.10
       yaml: ^2.0.0-6
     dependencies:
       '@antfu/utils': 0.2.4
-      debug: 4.3.2
       deep-equal: 2.0.5
       fast-glob: 3.2.6
       json5: 2.2.0
@@ -43,6 +42,7 @@ importers:
       '@types/node': 16.0.0
       '@typescript-eslint/eslint-plugin': 4.28.2_eslint@7.30.0+typescript@4.3.5
       '@vue/compiler-sfc': 3.1.4
+      debug: 4.3.2
       eslint: 7.30.0
       jest: 27.0.6_ts-node@10.0.0
       jest-esbuild: 0.2.0_jest@27.0.6
@@ -50,7 +50,7 @@ importers:
       ts-node: 10.0.0_488376d43314e2606bceb2872a37d0ef
       tsup: 4.12.2_ts-node@10.0.0+typescript@4.3.5
       typescript: 4.3.5
-      vite: 2.4.0
+      vite: 2.4.1
       vue-router: 4.0.10
 
   examples/nuxt-style:
@@ -60,7 +60,7 @@ importers:
       cross-env: ^7.0.3
       nodemon: ^2.0.9
       typescript: ^4.3.5
-      vite: ^2.4.0
+      vite: ^2.4.1
       vite-plugin-md: ^0.6.7
       vite-plugin-pages: workspace:*
       vite-plugin-restart: ^0.0.2
@@ -75,10 +75,10 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.9
       typescript: 4.3.5
-      vite: 2.4.0
-      vite-plugin-md: 0.6.7_vite@2.4.0
+      vite: 2.4.1
+      vite-plugin-md: 0.6.7_vite@2.4.1
       vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.0.2_vite@2.4.0
+      vite-plugin-restart: 0.0.2_vite@2.4.1
 
   examples/react:
     specifiers:
@@ -95,7 +95,7 @@ importers:
       react-router-config: ^5.1.1
       react-router-dom: ^5.2.0
       typescript: ^4.3.5
-      vite: ^2.4.0
+      vite: ^2.4.1
       vite-plugin-pages: workspace:*
     dependencies:
       react: 17.0.2
@@ -112,7 +112,7 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.9
       typescript: 4.3.5
-      vite: 2.4.0
+      vite: 2.4.1
       vite-plugin-pages: link:../..
 
   examples/vue:
@@ -122,7 +122,7 @@ importers:
       cross-env: ^7.0.3
       nodemon: ^2.0.9
       typescript: ^4.3.5
-      vite: ^2.4.0
+      vite: ^2.4.1
       vite-plugin-md: ^0.6.7
       vite-plugin-pages: workspace:*
       vite-plugin-restart: ^0.0.2
@@ -137,10 +137,10 @@ importers:
       cross-env: 7.0.3
       nodemon: 2.0.9
       typescript: 4.3.5
-      vite: 2.4.0
-      vite-plugin-md: 0.6.7_vite@2.4.0
+      vite: 2.4.1
+      vite-plugin-md: 0.6.7_vite@2.4.1
       vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.0.2_vite@2.4.0
+      vite-plugin-restart: 0.0.2_vite@2.4.1
 
   examples/vue-ssr:
     specifiers:
@@ -158,7 +158,7 @@ importers:
       nodemon: ^2.0.9
       serve-static: ^1.14.1
       typescript: ^4.3.5
-      vite: ^2.4.0
+      vite: ^2.4.1
       vite-plugin-pages: workspace:*
       vite-plugin-restart: ^0.0.2
       vue: ^3.1.4
@@ -181,9 +181,9 @@ importers:
       nodemon: 2.0.9
       serve-static: 1.14.1
       typescript: 4.3.5
-      vite: 2.4.0
+      vite: 2.4.1
       vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.0.2_vite@2.4.0
+      vite-plugin-restart: 0.0.2_vite@2.4.1
 
 packages:
 
@@ -2162,6 +2162,7 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+    dev: true
 
   /decimal.js/10.3.1:
     resolution: {integrity: sha512-V0pfhfr8suzyPGOx3nmq4aHqabehUZn6Ch9kyFpV79TGDTWFmHqUqXdabR7QHqxzrYolF4+tVmJhUG4OURg5dQ==}
@@ -2653,7 +2654,7 @@ packages:
       eslint-utils: 2.1.0
       natural-compare: 1.4.0
       semver: 7.3.5
-      vue-eslint-parser: 7.7.2_eslint@7.30.0
+      vue-eslint-parser: 7.8.0_eslint@7.30.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4565,6 +4566,7 @@ packages:
 
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+    dev: true
 
   /ms/2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -6109,28 +6111,28 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vite-plugin-md/0.6.7_vite@2.4.0:
+  /vite-plugin-md/0.6.7_vite@2.4.1:
     resolution: {integrity: sha512-R9i61r1y6gfelJKtHiHkw6NOkucFzGRgy7VL7bqMufiSh1UNyYKZrpiQtagzavpBlJSVk34lfEyfyKpQyeuocQ==}
     peerDependencies:
       vite: ^2.0.0
     dependencies:
       gray-matter: 4.0.3
       markdown-it: 12.1.0
-      vite: 2.4.0
+      vite: 2.4.1
     dev: true
 
-  /vite-plugin-restart/0.0.2_vite@2.4.0:
+  /vite-plugin-restart/0.0.2_vite@2.4.1:
     resolution: {integrity: sha512-WZ2Qp8Jo83wqBcZFQo481JchQcNgEYLIjd3NbhwPXr/mbg1mUC7hCMCrvafF5WcEQPChd7agx6fBm8RYrRR46A==}
     peerDependencies:
       vite: ^2.0.0-beta.69
     dependencies:
       chalk: 4.1.1
       micromatch: 4.0.4
-      vite: 2.4.0
+      vite: 2.4.1
     dev: true
 
-  /vite/2.4.0:
-    resolution: {integrity: sha512-FR+1hCyGt8i+ijMe9z4tIfUQ7BQThxGevp3IlmdXDBSJEPjbeDznbuJa/QVzXw2Mpxh7KCmveVI082h8nzcCNw==}
+  /vite/2.4.1:
+    resolution: {integrity: sha512-4BpKRis9uxIqPfIEcJ18LTBsamqnDFxTx45CXwagHjNltHa6PFEvf8Pe6OpgIHb0OyWT30OXOSSQvdOaX4OBiQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -6142,8 +6144,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vue-eslint-parser/7.7.2_eslint@7.30.0:
-    resolution: {integrity: sha512-zkfxSttpwBW9SQEa+rLR+j6sFHGGhanVH3VuzHQwybCQWJsg/Yi1W619gXOW01U/zekN4D+J4/S4Zufd1sClZg==}
+  /vue-eslint-parser/7.8.0_eslint@7.30.0:
+    resolution: {integrity: sha512-ehmmrLZNYLUoKayvVW8l8HyPQIfuYZHiJoQLRP3dapDlTU7bGs4tqIKVGdAEpMuXS/b4R/PImCt7Tkj4UhX1SQ==}
     engines: {node: '>=8.10'}
     peerDependencies:
       eslint: '>=5.0.0'
