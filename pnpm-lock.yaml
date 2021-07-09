@@ -20,6 +20,7 @@ importers:
       jest: ^27.0.6
       jest-esbuild: ^0.2.0
       json5: ^2.2.0
+      react-router-config: ^5.1.1
       rollup: ^2.52.7
       ts-node: ^10.0.0
       tsup: ^4.12.2
@@ -46,6 +47,7 @@ importers:
       eslint: 7.30.0
       jest: 27.0.6_ts-node@10.0.0
       jest-esbuild: 0.2.0_jest@27.0.6
+      react-router-config: 5.1.1
       rollup: 2.52.7
       ts-node: 10.0.0_488376d43314e2606bceb2872a37d0ef
       tsup: 4.12.2_ts-node@10.0.0+typescript@4.3.5
@@ -539,7 +541,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.7
-    dev: false
 
   /@babel/template/7.14.5:
     resolution: {integrity: sha512-6Z3Po85sfxRGachLULUhOmvAaOo7xCvqGQtxINai2mEGPFm6pQ4z5QInFnUrRpfoSV60BnjyF5F3c+15fxFV1g==}
@@ -5191,6 +5192,15 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /react-router-config/5.1.1:
+    resolution: {integrity: sha512-DuanZjaD8mQp1ppHjgnnUnyOlqYXZVjnov/JzFhjLEwd3Z4dYjMSnqrEzzGThH47vpCOqPPwJM2FtthLeJ8Pbg==}
+    peerDependencies:
+      react: '>=15'
+      react-router: '>=5'
+    dependencies:
+      '@babel/runtime': 7.14.6
+    dev: true
+
   /react-router-config/5.1.1_react-router@5.2.0+react@17.0.2:
     resolution: {integrity: sha512-DuanZjaD8mQp1ppHjgnnUnyOlqYXZVjnov/JzFhjLEwd3Z4dYjMSnqrEzzGThH47vpCOqPPwJM2FtthLeJ8Pbg==}
     peerDependencies:
@@ -5288,7 +5298,6 @@ packages:
 
   /regenerator-runtime/0.13.7:
     resolution: {integrity: sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==}
-    dev: false
 
   /regexp-tree/0.1.23:
     resolution: {integrity: sha512-+7HWfb4Bvu8Rs2eQTUIpX9I/PlQkYOuTNbRpKLJlQpSgwSkzFYh+pUj0gtvglnOZLKB6YgnIgRuJ2/IlpL48qw==}

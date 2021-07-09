@@ -20,7 +20,7 @@
   "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "scripts": {
     "dev": "npm run build -- --watch --ignore-watch examples",
-    "build": "tsup src/index.ts --dts --format cjs,esm --external @vue/compiler-sfc",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
     "release": "npx git-ensure -a && npx bumpp --commit --tag --push",
     "example:dev": "npm -C examples/vue run dev",
@@ -31,7 +31,13 @@
     "lint:fix": "eslint --fix --ext .js,.ts,.vue,.json ."
   },
   "peerDependencies": {
-    "vite": "^2.0.0"
+    "@vue/compiler-sfc": ">=3",
+    "vite": ">=2"
+  },
+  "peerDependenciesMeta": {
+    "@vue/compiler-sfc": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@antfu/utils": "^0.2.4",
@@ -53,6 +59,7 @@
     "eslint": "^7.30.0",
     "jest": "^27.0.6",
     "jest-esbuild": "^0.2.0",
+    "react-router-config": "^5.1.1",
     "rollup": "^2.52.7",
     "ts-node": "^10.0.0",
     "tsup": "^4.12.2",
