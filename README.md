@@ -344,7 +344,8 @@ meta:
   requiresAuth: true
 </route>
 ```
-### Syntax Highlighting `<route>`
+
+#### Syntax Highlighting `<route>`
 
 To enable syntax highlighting `<route>` in VS Code using [Vetur's Custom Code Blocks](https://vuejs.github.io/vetur/highlighting.html#custom-block) add the following snippet to your preferences...
 
