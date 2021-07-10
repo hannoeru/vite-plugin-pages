@@ -347,6 +347,25 @@ meta:
 </route>
 ```
 
+#### Syntax Highlighting `<route>`
+
+To enable syntax highlighting `<route>` in VS Code using [Vetur's Custom Code Blocks](https://vuejs.github.io/vetur/highlighting.html#custom-block) add the following snippet to your preferences...
+
+ 1. update setting
+ 
+ ```
+ "vetur.grammar.customBlocks": {
+    "route": "json"
+  }
+```
+ 
+ 2. Run the command in vscode
+ 
+ `Vetur: Generate grammar from vetur.grammar.customBlocks`
+ 
+ 3. Restart VS Code to get syntax highlighting for custom blocks.
+
+
 ## File System Routing
 
 Inspired by the routing from
