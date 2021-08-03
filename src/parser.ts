@@ -1,6 +1,3 @@
-import { parse } from '@vue/compiler-sfc'
-import JSON5 from 'json5'
-import YAML from 'yaml'
 import { ResolvedOptions } from './types'
 
 export interface CustomBlock {
@@ -15,6 +12,8 @@ export interface ParseResult {
 
 export function parseSFC(code: string): ParseResult {
   try {
+    // eslint-disable-next-line no-eval
+    const parse = eval('require')('@vue/compiler-sfc').parse as typeof import('@vue/compiler-sfc').parse
     return parse(code, {
       pad: 'space',
     }).descriptor
@@ -25,9 +24,13 @@ export function parseSFC(code: string): ParseResult {
 
 export function parseCustomBlock(block: CustomBlock, filePath: string, options: ResolvedOptions): any {
   const lang = block.lang ?? options.routeBlockLang
+  let JSON5: typeof import('json5')
+  let YAML: typeof import('yaml')
 
   if (lang === 'json5') {
     try {
+      // eslint-disable-next-line no-eval
+      JSON5 = eval('require')('json5')
       return JSON5.parse(block.content)
     } catch (err) {
       throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)
@@ -40,6 +43,8 @@ export function parseCustomBlock(block: CustomBlock, filePath: string, options: 
     }
   } else if (lang === 'yaml' || lang === 'yml') {
     try {
+      // eslint-disable-next-line no-eval
+      YAML = eval('require')('yaml')
       return YAML.parse(block.content)
     } catch (err) {
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
