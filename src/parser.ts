@@ -22,15 +22,19 @@ export function parseSFC(code: string): ParseResult {
   }
 }
 
+let JSON5: typeof import('json5')
+let YAML: typeof import('yaml')
+
 export function parseCustomBlock(block: CustomBlock, filePath: string, options: ResolvedOptions): any {
   const lang = block.lang ?? options.routeBlockLang
-  let JSON5: typeof import('json5')
-  let YAML: typeof import('yaml')
 
   if (lang === 'json5') {
     try {
-      // eslint-disable-next-line no-eval
-      JSON5 = eval('require')('json5')
+      if (!JSON5) {
+        // eslint-disable-next-line no-eval
+        JSON5 = eval('require')('json5')
+      }
+
       return JSON5.parse(block.content)
     } catch (err) {
       throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)
@@ -43,8 +47,10 @@ export function parseCustomBlock(block: CustomBlock, filePath: string, options: 
     }
   } else if (lang === 'yaml' || lang === 'yml') {
     try {
-      // eslint-disable-next-line no-eval
-      YAML = eval('require')('yaml')
+      if (!YAML) {
+        // eslint-disable-next-line no-eval
+        YAML = eval('require')('yaml')
+      }
       return YAML.parse(block.content)
     } catch (err) {
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
