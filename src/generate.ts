@@ -92,9 +92,9 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
         parent.children = parent.children || []
         parentRoutes = parent.children
         route.path = ''
-      } else if (normalizedName === 'index' && !route.path) {
+      } else if (normalizedName.toLowerCase() === 'index' && !route.path) {
         route.path += '/'
-      } else if (normalizedName !== 'index') {
+      } else if (normalizedName.toLowerCase() !== 'index') {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
           // Catch-all route
