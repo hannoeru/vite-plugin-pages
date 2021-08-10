@@ -81,7 +81,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
           ? isCatchAll ? 'all' : node.replace(/^_/, '')
           : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
         : node
-      const normalizedPath = normalizedName.toLowerCase()
+      const normalizedPath = encodeURIComponent(normalizedName.toLowerCase())
 
       route.name += route.name ? `-${normalizedName}` : normalizedName
 
