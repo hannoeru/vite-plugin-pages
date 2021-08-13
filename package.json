@@ -31,6 +31,7 @@
     "lint:fix": "eslint --fix --ext .js,.ts,.vue,.json ."
   },
   "peerDependencies": {
+    "vue-router": ">=4",
     "@vue/compiler-sfc": ">=3",
     "vite": ">=2"
   },
