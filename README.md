@@ -315,7 +315,7 @@ generated client code.
 
 ### SFC custom block for Route Data
 
-Add route meta to the route by adding a `<route>` block to the SFC. This will
+Add route meta to the route by adding a `<route>` block to the SFC. This will be
 directly added to the route after it is generated, and will override it.
 
 You can specific a parser to use using `<route lang="yaml">`, or set a default
