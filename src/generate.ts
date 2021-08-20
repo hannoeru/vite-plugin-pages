@@ -13,6 +13,7 @@ import {
   isCatchAllRoute,
 } from './utils'
 import { stringifyRoutes } from './stringify'
+import { sortPages } from './pages'
 
 function prepareRoutes(
   routes: Route[],
@@ -59,7 +60,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
 
   const routes: Route[] = []
 
-  pages.forEach((page) => {
+  sortPages(pages).forEach((page) => {
     const pathNodes = page.route.split('/')
 
     const component = `/${page.component}`

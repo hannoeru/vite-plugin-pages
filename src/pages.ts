@@ -1,30 +1,29 @@
 import { join, extname, resolve } from 'path'
-import { PageDirOptions, ResolvedOptions, ResolvedPage } from './types'
+import { PageDirOptions, ResolvedOptions, ResolvedPages, ResolvedPage } from './types'
 import { getPageFiles } from './files'
 import { getRouteBlock, routeBlockCache, toArray, slash } from './utils'
 
 export function removePage(
-  pages: Map<string, ResolvedPage>,
+  pages: ResolvedPages,
   file: string,
 ) {
   pages.delete(file)
 }
 
 export function updatePage(
-  pages: Map<string, ResolvedPage>,
+  pages: ResolvedPages,
   file: string,
 ) {
   const page = pages.get(file)
   if (page) {
     const customBlock = routeBlockCache.get(file) || null
     page.customBlock = customBlock
-    pages.delete(file)
     pages.set(file, page)
   }
 }
 
 export function addPage(
-  pages: Map<string, ResolvedPage>,
+  pages: ResolvedPages,
   file: string,
   options: ResolvedOptions,
 ) {
@@ -67,7 +66,7 @@ export function resolvePages(options: ResolvedOptions) {
 }
 
 function setPage(
-  pages: Map<string, ResolvedPage>,
+  pages: ResolvedPages,
   pageDir: PageDirOptions,
   file: string,
   options: ResolvedOptions,
@@ -87,4 +86,17 @@ function setPage(
     component,
     customBlock,
   })
+}
+
+function countSlash(value: string) {
+  return (value.match(/\//g) || []).length
+}
+
+export function sortPages(pages: ResolvedPages) {
+  return [...pages]
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(([_, value]) => value)
+    .sort((a, b) => {
+      return countSlash(a.route) - countSlash(b.route)
+    })
 }

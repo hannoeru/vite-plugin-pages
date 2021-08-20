@@ -1,9 +1,9 @@
 import { ViteDevServer } from 'vite'
 import { getPagesVirtualModule, isRouteBlockChanged, isTarget, debug, slash } from './utils'
 import { removePage, addPage, updatePage } from './pages'
-import { ResolvedOptions, ResolvedPage } from './types'
+import { ResolvedOptions, ResolvedPages } from './types'
 
-export function handleHMR(server: ViteDevServer, pages: Map<string, ResolvedPage>, options: ResolvedOptions, clearRoutes: () => void) {
+export function handleHMR(server: ViteDevServer, pages: ResolvedPages, options: ResolvedOptions, clearRoutes: () => void) {
   const { ws, watcher } = server
 
   function fullReload() {

@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite'
-import { Route, ResolvedOptions, UserOptions, ResolvedPage } from './types'
+import { Route, ResolvedOptions, UserOptions, ResolvedPages } from './types'
 import { generateRoutes, generateClientCode } from './generate'
 import { debug, replaceSquareBrackets } from './utils'
 import { resolveOptions } from './options'
@@ -10,7 +10,7 @@ import { handleHMR } from './hmr'
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let generatedRoutes: Route[] | null = null
   let options: ResolvedOptions
-  let pages: Map<string, ResolvedPage>
+  let pages: ResolvedPages
 
   return {
     name: 'vite-plugin-pages',
