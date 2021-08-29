@@ -408,7 +408,7 @@ Dynamic routes are denoted using square brackets. Both directories and pages can
 be dynamic:
 
 - `src/pages/users/[id].vue` -> `/users/:id` (`/users/one`)
-- `src/[user]/settings.vue` -> `/:user/settings` (`/one/settings`)
+- `src/pages/[user]/settings.vue` -> `/:user/settings` (`/one/settings`)
 
 Any dynamic parameters will be passed to the page as props. For example, given
 the file `src/pages/users/[id].vue`, the route `/users/abc` will be passed the
