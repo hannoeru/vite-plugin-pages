@@ -112,7 +112,14 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
 
   const preparedRoutes = prepareRoutes(routes, options)
 
-  let finalRoutes = preparedRoutes.sort(i => i.path.includes(':') ? 1 : -1)
+  let finalRoutes = preparedRoutes.sort((a, b) => {
+    if (a.path.includes(':') && b.path.includes(':'))
+      return b.path > a.path ? 1 : -1
+    else if (a.path.includes(':') || b.path.includes(':'))
+      return a.path.includes(':') ? 1 : -1
+    else
+      return b.path > a.path ? 1 : -1
+  })
 
   // replace duplicated cache all route
   const allRoute = finalRoutes.find((i) => {
