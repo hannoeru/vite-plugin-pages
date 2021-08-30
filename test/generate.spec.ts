@@ -15,16 +15,7 @@ const nuxtOptions = resolveOptions({
 })
 
 function sortRoutes(a: any, b: any) {
-  const fa = a.name
-  const fb = b.name
-
-  if (fa < fb)
-    return -1
-
-  if (fa > fb)
-    return 1
-
-  return 0
+  return b.component - a.component
 }
 
 describe('Generate', () => {
