@@ -17,7 +17,6 @@ importers:
       eslint: ^7.32.0
       fast-glob: ^3.2.7
       jest: ^27.0.6
-      jest-esbuild: ^0.2.0
       json5: ^2.2.0
       react-router-config: ^5.1.1
       rollup: ^2.56.1
@@ -45,7 +44,6 @@ importers:
       '@vue/compiler-sfc': 3.1.5
       eslint: 7.32.0
       jest: 27.0.6_ts-node@10.1.0
-      jest-esbuild: 0.2.0_jest@27.0.6
       react-router-config: 5.1.1
       rollup: 2.56.1
       ts-jest: 27.0.5_52cc4273aa16028085013af47e479e10
@@ -118,33 +116,6 @@ importers:
       vite-plugin-pages: link:../..
 
   examples/vue:
-    specifiers:
-      '@vitejs/plugin-vue': ^1.4.0
-      '@vue/compiler-sfc': ^3.1.5
-      cross-env: ^7.0.3
-      nodemon: ^2.0.12
-      typescript: ^4.3.5
-      vite: ^2.4.4
-      vite-plugin-md: ^0.10.0
-      vite-plugin-pages: workspace:*
-      vite-plugin-restart: ^0.0.2
-      vue: ^3.1.5
-      vue-router: 4.0.10
-    dependencies:
-      vue: 3.1.5
-      vue-router: 4.0.10_vue@3.1.5
-    devDependencies:
-      '@vitejs/plugin-vue': 1.4.0_@vue+compiler-sfc@3.1.5
-      '@vue/compiler-sfc': 3.1.5_vue@3.1.5
-      cross-env: 7.0.3
-      nodemon: 2.0.12
-      typescript: 4.3.5
-      vite: 2.4.4
-      vite-plugin-md: 0.10.0_vite@2.4.4
-      vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.0.2_vite@2.4.4
-
-  examples/vue-module:
     specifiers:
       '@vitejs/plugin-vue': ^1.4.0
       '@vue/compiler-sfc': ^3.1.5
@@ -3861,18 +3832,6 @@ packages:
       '@types/node': 16.4.13
       jest-mock: 27.0.6
       jest-util: 27.0.6
-    dev: true
-
-  /jest-esbuild/0.2.0_jest@27.0.6:
-    resolution: {integrity: sha512-isWvmvKjHc0aot+rBZ64Epcdjh5aKX4Xe/g64evjM8CWYijO1DP14m/McyNzw3+FCp/5kRAWoPOwJ5lumTjZYQ==}
-    peerDependencies:
-      jest: ^27.0.3
-    dependencies:
-      debug: 4.3.2
-      esbuild: 0.12.19
-      jest: 27.0.6_ts-node@10.1.0
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /jest-get-type/26.3.0:
