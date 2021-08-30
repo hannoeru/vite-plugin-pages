@@ -14,17 +14,13 @@ const nuxtOptions = resolveOptions({
   nuxtStyle: true,
 })
 
-function sortRoutes(a: any, b: any) {
-  return b.component - a.component
-}
-
 describe('Generate', () => {
   test('Routes', async() => {
     const pages = await resolvePages(options)
     const routes = generateRoutes(pages, options)
     const code = generateClientCode(routes, options)
 
-    expect(routes.sort(sortRoutes)).toMatchSnapshot('routes')
+    expect(routes).toMatchSnapshot('routes')
     expect(code).toMatchSnapshot('client code')
   })
 
@@ -33,7 +29,7 @@ describe('Generate', () => {
     const routes = generateRoutes(pages, nuxtOptions)
     const code = generateClientCode(routes, options)
 
-    expect(routes.sort(sortRoutes)).toMatchSnapshot('nuxt style routes')
+    expect(routes).toMatchSnapshot('nuxt style routes')
     expect(code).toMatchSnapshot('nuxt style client code')
   })
 })

@@ -6,7 +6,7 @@
  * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
  */
 
-import { basename } from 'path'
+import { parse } from 'path'
 import { Route, ResolvedOptions, ResolvedPages } from './types'
 import {
   isDynamicRoute,
@@ -115,9 +115,11 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
   let finalRoutes = preparedRoutes.sort(i => i.path.includes(':') ? 1 : -1)
 
   // replace duplicated cache all route
-  const allRoute = finalRoutes.find(i => isCatchAllRoute(basename(i.component)))
+  const allRoute = finalRoutes.find((i) => {
+    return isCatchAllRoute(parse(i.component).name, nuxtStyle)
+  })
   if (allRoute) {
-    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(basename(i.component)))
+    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(parse(i.component).name, nuxtStyle))
     finalRoutes.push(allRoute)
   }
 
