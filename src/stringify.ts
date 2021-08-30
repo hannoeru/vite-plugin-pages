@@ -7,9 +7,15 @@ import { ResolvedOptions, Route } from './types'
 const componentRE = /"component":("(.*?)")/g
 const hasFunctionRE = /"(?:props|beforeEnter)":("(.*?)")/g
 
+const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//gm
+const singlelineCommentsRE = /\/\/.*/g
+
 function replaceFunction(_: any, value: any) {
   if (value instanceof Function || typeof value === 'function') {
-    const fnBody = value.toString().replace(/(\t|\n|\r|\s)/g, '')
+    const fnBody = value.toString()
+      .replace(multilineCommentsRE, '')
+      .replace(singlelineCommentsRE, '')
+      .replace(/(\t|\n|\r|\s)/g, '')
 
     // ES6 Arrow Function
     if (fnBody.length < 8 || fnBody.substring(0, 8) !== 'function')

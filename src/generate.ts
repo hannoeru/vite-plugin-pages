@@ -127,5 +127,5 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
 export function generateClientCode(routes: Route[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
-  return `${imports.join('\n')}\n\nconst routes = ${stringRoutes}\n\nexport default routes`
+  return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
 }

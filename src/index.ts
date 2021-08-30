@@ -15,9 +15,9 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   return {
     name: 'vite-plugin-pages',
     enforce: 'pre',
-    configResolved({ root }) {
+    async configResolved({ root }) {
       options = resolveOptions(userOptions, root)
-      pages = resolvePages(options)
+      pages = await resolvePages(options)
       debug.options(options)
       debug.pages(pages)
     },
@@ -51,7 +51,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     async transform(_code, id) {
       if (!/vue&type=route/.test(id)) return
       return {
-        code: 'export default {}',
+        code: 'export default {};',
         map: null,
       }
     },

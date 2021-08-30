@@ -21,6 +21,7 @@ importers:
       json5: ^2.2.0
       react-router-config: ^5.1.1
       rollup: ^2.56.1
+      ts-jest: ^27.0.5
       ts-node: ^10.1.0
       tsup: ^4.13.1
       typescript: ^4.3.5
@@ -29,6 +30,7 @@ importers:
       yaml: ^2.0.0-7
     dependencies:
       '@antfu/utils': 0.2.4
+      debug: 4.3.2
       deep-equal: 2.0.5
       fast-glob: 3.2.7
       json5: 2.2.0
@@ -41,12 +43,12 @@ importers:
       '@types/jest': 26.0.24
       '@types/node': 16.4.13
       '@vue/compiler-sfc': 3.1.5
-      debug: 4.3.2
       eslint: 7.32.0
       jest: 27.0.6_ts-node@10.1.0
       jest-esbuild: 0.2.0_jest@27.0.6
       react-router-config: 5.1.1
       rollup: 2.56.1
+      ts-jest: 27.0.5_52cc4273aa16028085013af47e479e10
       ts-node: 10.1.0_dea0625f6d31b223e93dc3dc354b8b43
       tsup: 4.13.1_ts-node@10.1.0+typescript@4.3.5
       typescript: 4.3.5
@@ -116,6 +118,33 @@ importers:
       vite-plugin-pages: link:../..
 
   examples/vue:
+    specifiers:
+      '@vitejs/plugin-vue': ^1.4.0
+      '@vue/compiler-sfc': ^3.1.5
+      cross-env: ^7.0.3
+      nodemon: ^2.0.12
+      typescript: ^4.3.5
+      vite: ^2.4.4
+      vite-plugin-md: ^0.10.0
+      vite-plugin-pages: workspace:*
+      vite-plugin-restart: ^0.0.2
+      vue: ^3.1.5
+      vue-router: 4.0.10
+    dependencies:
+      vue: 3.1.5
+      vue-router: 4.0.10_vue@3.1.5
+    devDependencies:
+      '@vitejs/plugin-vue': 1.4.0_@vue+compiler-sfc@3.1.5
+      '@vue/compiler-sfc': 3.1.5_vue@3.1.5
+      cross-env: 7.0.3
+      nodemon: 2.0.12
+      typescript: 4.3.5
+      vite: 2.4.4
+      vite-plugin-md: 0.10.0_vite@2.4.4
+      vite-plugin-pages: link:../..
+      vite-plugin-restart: 0.0.2_vite@2.4.4
+
+  examples/vue-module:
     specifiers:
       '@vitejs/plugin-vue': ^1.4.0
       '@vue/compiler-sfc': ^3.1.5
@@ -1782,6 +1811,13 @@ packages:
       node-releases: 1.1.73
     dev: true
 
+  /bs-logger/0.2.6:
+    resolution: {integrity: sha512-pd8DCoxmbgc7hyPKOvxtqNcjYoOsABPQdcCUjGp3d42VR2CX1ORhk2A87oqqu5R1kk+76nsxZupkmyd+MVtCog==}
+    engines: {node: '>= 6'}
+    dependencies:
+      fast-json-stable-stringify: 2.1.0
+    dev: true
+
   /bser/2.1.1:
     resolution: {integrity: sha512-gQxTNE/GAfIIrmHLUE3oJyp5FO6HRBfhjnw4/wMmA63ZGDJnWBmgY/lyQBpnDUkGmAhbSe39tx2d/iTOAfglwQ==}
     dependencies:
@@ -2135,7 +2171,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
-    dev: true
 
   /decimal.js/10.3.1:
     resolution: {integrity: sha512-V0pfhfr8suzyPGOx3nmq4aHqabehUZn6Ch9kyFpV79TGDTWFmHqUqXdabR7QHqxzrYolF4+tVmJhUG4OURg5dQ==}
@@ -4553,7 +4588,6 @@ packages:
 
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
-    dev: true
 
   /ms/2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -5860,6 +5894,37 @@ packages:
 
   /ts-interface-checker/0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+    dev: true
+
+  /ts-jest/27.0.5_52cc4273aa16028085013af47e479e10:
+    resolution: {integrity: sha512-lIJApzfTaSSbtlksfFNHkWOzLJuuSm4faFAfo5kvzOiRAuoN4/eKxVJ2zEAho8aecE04qX6K1pAzfH5QHL1/8w==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    hasBin: true
+    peerDependencies:
+      '@babel/core': '>=7.0.0-beta.0 <8'
+      '@types/jest': ^27.0.0
+      babel-jest: '>=27.0.0 <28'
+      jest: ^27.0.0
+      typescript: '>=3.8 <5.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@types/jest':
+        optional: true
+      babel-jest:
+        optional: true
+    dependencies:
+      '@types/jest': 26.0.24
+      bs-logger: 0.2.6
+      fast-json-stable-stringify: 2.1.0
+      jest: 27.0.6_ts-node@10.1.0
+      jest-util: 27.0.6
+      json5: 2.2.0
+      lodash: 4.17.21
+      make-error: 1.3.6
+      semver: 7.3.5
+      typescript: 4.3.5
+      yargs-parser: 20.2.9
     dev: true
 
   /ts-node/10.1.0_dea0625f6d31b223e93dc3dc354b8b43:

@@ -90,9 +90,9 @@ export function findRouteByFilename(routes: Route[], filename: string): Route | 
   return null
 }
 
-export function getRouteBlock(path: string, options: ResolvedOptions) {
+export async function getRouteBlock(path: string, options: ResolvedOptions) {
   const content = fs.readFileSync(path, 'utf8')
-  const parsed = parseSFC(content)
+  const parsed = await parseSFC(content)
 
   const blockStr = parsed.customBlocks.find(b => b.type === 'route')
   if (!blockStr) return null
@@ -125,10 +125,10 @@ export function replaceSquareBrackets(bundle: OutputBundle) {
   }
 }
 
-export function isRouteBlockChanged(filePath: string, options: ResolvedOptions): boolean {
+export async function isRouteBlockChanged(filePath: string, options: ResolvedOptions) {
   debug.cache(routeBlockCache)
   const oldRouteBlock = routeBlockCache.get(filePath)
-  const routeBlock = getRouteBlock(filePath, options)
+  const routeBlock = await getRouteBlock(filePath, options)
 
   debug.hmr('%s old: %O', filePath, oldRouteBlock)
   debug.hmr('%s new: %O', filePath, routeBlock)

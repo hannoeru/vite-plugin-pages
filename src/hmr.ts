@@ -15,10 +15,10 @@ export function handleHMR(server: ViteDevServer, pages: ResolvedPages, options: 
     })
   }
 
-  watcher.on('add', (file) => {
+  watcher.on('add', async(file) => {
     const path = slash(file)
     if (isTarget(path, options)) {
-      addPage(pages, path, options)
+      await addPage(pages, path, options)
       debug.hmr('add', path)
       fullReload()
     }
@@ -31,10 +31,10 @@ export function handleHMR(server: ViteDevServer, pages: ResolvedPages, options: 
       fullReload()
     }
   })
-  watcher.on('change', (file) => {
+  watcher.on('change', async(file) => {
     const path = slash(file)
     if (isTarget(path, options) && !options.react) {
-      const needReload = isRouteBlockChanged(path, options)
+      const needReload = await isRouteBlockChanged(path, options)
       if (needReload) {
         updatePage(pages, path)
         debug.hmr('change', path)

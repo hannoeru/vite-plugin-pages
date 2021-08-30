@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Generate Client Code: client code 1`] = `
-"import _test_assets_pages_index_vue from '/test/assets/pages/index.vue'
+exports[`Generate Nuxt Style Routes: nuxt style client code 1`] = `
+";
 
-const routes = [{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/test/assets/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/test/assets/pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/test/assets/pages/components.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":_test_assets_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"path\\":\\"/about\\",\\"component\\":() => import('/test/assets/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/test/assets/pages/about/index.vue'),\\"props\\":(route2)=>({query:route2.query.q})}],\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/test/assets/pages/[...all].vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/test/assets/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/test/assets/pages/[sensor]/current.vue'),\\"props\\":true},{\\"name\\":\\"userId\\",\\"path\\":\\"/:userId\\",\\"component\\":() => import('/test/assets/pages/[userId].vue'),\\"props\\":true}]
+const routes = [{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/test/assets/nuxt-pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/test/assets/nuxt-pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":() => import('/test/assets/nuxt-pages/index.vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/test/assets/nuxt-pages/components.vue'),\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":() => import('/test/assets/nuxt-pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/test/assets/nuxt-pages/about/index.vue'),\\"props\\":true}],\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/test/assets/nuxt-pages/_.vue'),\\"props\\":true},{\\"name\\":\\"userId\\",\\"path\\":\\"/:userId\\",\\"component\\":() => import('/test/assets/nuxt-pages/_userId.vue'),\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/test/assets/nuxt-pages/_sensor/current.vue'),\\"props\\":true},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/test/assets/nuxt-pages/blog/_id.vue'),\\"props\\":true}];
 
-export default routes"
+export default routes;"
 `;
 
 exports[`Generate Nuxt Style Routes: nuxt style routes 1`] = `
@@ -75,6 +75,14 @@ Array [
     "props": true,
   },
 ]
+`;
+
+exports[`Generate Routes: client code 1`] = `
+"import _test_assets_pages_index_vue from '/test/assets/pages/index.vue';
+
+const routes = [{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/test/assets/pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/test/assets/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":_test_assets_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/test/assets/pages/components.vue'),\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":() => import('/test/assets/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/test/assets/pages/about/index.vue'),\\"props\\":route=>({query:route.query.q})}],\\"props\\":true},{\\"name\\":\\"userId\\",\\"path\\":\\"/:userId\\",\\"component\\":() => import('/test/assets/pages/[userId].vue'),\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/test/assets/pages/[sensor]/current.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/test/assets/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/test/assets/pages/[...all].vue'),\\"props\\":true}];
+
+export default routes;"
 `;
 
 exports[`Generate Routes: routes 1`] = `

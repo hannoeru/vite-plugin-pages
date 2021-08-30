@@ -22,7 +22,7 @@ export function updatePage(
   }
 }
 
-export function addPage(
+export async function addPage(
   pages: ResolvedPages,
   file: string,
   options: ResolvedOptions,
@@ -31,10 +31,10 @@ export function addPage(
   const pageDir = options.pagesDir.find(i => file.startsWith(`/${i.dir}`))
   if (!pageDir) return
 
-  setPage(pages, pageDir, file.replace(`/${pageDir.dir}/`, ''), options)
+  await setPage(pages, pageDir, file.replace(`/${pageDir.dir}/`, ''), options)
 }
 
-export function resolvePages(options: ResolvedOptions) {
+export async function resolvePages(options: ResolvedOptions) {
   const dirs = toArray(options.pagesDir)
 
   const pages = new Map<string, ResolvedPage>()
@@ -48,9 +48,8 @@ export function resolvePages(options: ResolvedOptions) {
   })
 
   for (const pageDir of pageDirFiles) {
-    pageDir.files.forEach((file) => {
-      setPage(pages, pageDir, file, options)
-    })
+    for (const file of pageDir.files)
+      await setPage(pages, pageDir, file, options)
   }
 
   const routes: string[] = []
@@ -65,7 +64,7 @@ export function resolvePages(options: ResolvedOptions) {
   return pages
 }
 
-function setPage(
+async function setPage(
   pages: ResolvedPages,
   pageDir: PageDirOptions,
   file: string,
@@ -75,7 +74,7 @@ function setPage(
   const filepath = slash(resolve(options.root, component))
   const extension = extname(file).slice(1)
   const customBlock = ['vue', 'md'].includes(extension)
-    ? getRouteBlock(filepath, options)
+    ? await getRouteBlock(filepath, options)
     : null
 
   pages.set(filepath, {
