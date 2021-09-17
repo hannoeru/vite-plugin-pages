@@ -3,11 +3,11 @@ import { resolve, basename } from 'path'
 import Debug from 'debug'
 import deepEqual from 'deep-equal'
 import { ViteDevServer } from 'vite'
-import { OutputBundle } from 'rollup'
 import { toArray, slash } from '@antfu/utils'
 import { ResolvedOptions, Route } from './types'
 import { parseSFC, parseCustomBlock } from './parser'
 import { MODULE_ID_VIRTUAL } from './constants'
+import type { OutputBundle } from 'rollup'
 
 export { toArray, slash }
 

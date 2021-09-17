@@ -7,18 +7,18 @@
     "type": "git",
     "url": "https://github.com/hannoeru/vite-plugin-pages"
   },
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    }
-  },
   "author": "hannoeru <me@hanlee.co>",
   "files": [
     "dist",
     "client.d.ts",
     "client-react.d.ts"
   ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
