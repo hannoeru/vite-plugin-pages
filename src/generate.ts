@@ -63,7 +63,9 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
   sortPages(pages).forEach((page) => {
     const pathNodes = page.route.split('/')
 
-    const component = `/${page.component}`
+    // add leading slash to component path if not already there
+    const component = page.component.startsWith('/') ? page.component : `/${page.component}`
+
     const route: Route = {
       name: '',
       path: '',
