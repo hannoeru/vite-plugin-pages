@@ -9,7 +9,7 @@
     "serve": "cross-env NODE_ENV=production esno server"
   },
   "dependencies": {
-    "vue": "^3.2.20",
+    "vue": "^3.2.21",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
@@ -17,11 +17,11 @@
     "@types/express": "^4.17.13",
     "@types/node": "^16.11.6",
     "@vitejs/plugin-vue": "^1.9.4",
-    "@vue/compiler-sfc": "^3.2.20",
-    "@vue/server-renderer": "^3.2.20",
+    "@vue/compiler-sfc": "^3.2.21",
+    "@vue/server-renderer": "^3.2.21",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
-    "esno": "^0.10.1",
+    "esno": "^0.11.0",
     "express": "^4.17.1",
     "fast-glob": "^3.2.7",
     "nodemon": "^2.0.14",
