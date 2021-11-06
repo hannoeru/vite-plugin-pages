@@ -89,7 +89,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
       route.name += route.name ? `-${normalizedName}` : normalizedName
 
       // Check nested route
-      const parent = parentRoutes.find(node => node.name === route.name)
+      const parent = parentRoutes.find(node => !node.name?.localeCompare(route.name!, undefined, { sensitivity: 'accent' }))
 
       if (parent) {
         parent.children = parent.children || []
