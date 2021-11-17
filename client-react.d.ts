@@ -1,6 +1,6 @@
-declare module 'virtual:generated-pages-react' {
+declare module '~pages.tsx' {
   // eslint-disable-next-line import/no-duplicates
-  import type { RouteConfig } from 'react-router-config'
-  const routes: RouteConfig[]
+  import type { RouteObject } from 'react-router'
+  const routes: RouteObject[]
   export default routes
 }

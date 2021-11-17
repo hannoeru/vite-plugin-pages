@@ -13,7 +13,7 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pagesDir": Array [
+  "pages": Array [
     Object {
       "baseRoute": "",
       "dir": "test/assets/pages",
@@ -41,7 +41,7 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pagesDir": Array [
+  "pages": Array [
     Object {
       "baseRoute": "",
       "dir": "test/assets/pages",

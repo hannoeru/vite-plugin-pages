@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { resolve } from 'path'
-import { parseSFC, parseCustomBlock } from '../src/parser'
+import { parseSFC, parseCustomBlock } from '../src/customBlock'
 import { resolveOptions } from '../src/options'
 
 const options = resolveOptions({})

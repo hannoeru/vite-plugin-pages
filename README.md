@@ -90,16 +90,23 @@ const router = createRouter({
 ### React
 
 ```js
-import { BrowserRouter } from "react-router-dom";
-import { renderRoutes } from "react-router-config";
-import routes from "virtual:generated-pages-react";
+import {
+  useRoutes,
+  BrowserRouter as Router,
+} from 'react-router-dom'
+
+import routes from '~pages.tsx'
+
+function App() {
+  return useRoutes(routes)
+}
 
 ReactDOM.render(
-  <BrowserRouter>
-    {renderRoutes(routes)}
-  </BrowserRouter>,
-  document.getElementById("root"),
-);
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('root'),
+)
 ```
 
 **Type**
@@ -121,15 +128,15 @@ import Pages from "vite-plugin-pages";
 export default {
   plugins: [
     Pages({
-      pagesDir: "src/views"
+      pages: "src/views"
     }),
   ],
 };
 ```
 
-### pagesDir
+### pages
 
-- **Type:** `string | (string | PageDirOptions)[]`
+- **Type:** `string | (string | PageOptions)[]`
 - **Default:** `'src/pages'`
 
 Relative path to the pages directory. Supports globs.
@@ -138,9 +145,9 @@ Can be:
 
 - single path: routes point to `/`
 - array of paths: all routes in the paths point to `/`
-- array of `PageDirOptions`, Check below 👇
+- array of `PageOptions`, Check below 👇
 
-Specifying a glob or an array of `PageDirOptions` allow you to use multiple
+Specifying a glob or an array of `PageOptions` allow you to use multiple
 pages folder, and specify the base route to append to the path and the route
 name.
 
@@ -166,7 +173,7 @@ src/
 export default {
   plugins: [
     Pages({
-      pagesDir: [
+      pages: [
         { dir: "src/pages", baseRoute: "" },
         { dir: "src/features/**/pages", baseRoute: "features" },
         { dir: "src/admin/pages", baseRoute: "admin" },

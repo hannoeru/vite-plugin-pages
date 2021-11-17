@@ -1,13 +1,12 @@
 import React from 'react'
-import { renderRoutes, RouteConfigComponentProps } from 'react-router-config'
+import { Outlet } from 'react-router'
 
-const component: React.FC<RouteConfigComponentProps> = ({ route }) => {
+const component: React.FC = () => {
   return (
-    <>
+    <div>
       <p>nested about view:</p>
-      {renderRoutes(route?.routes)}
-      {console.log(route)}
-    </>
+      <Outlet />
+    </div>
   )
 }
 

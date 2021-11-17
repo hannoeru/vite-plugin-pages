@@ -27,9 +27,7 @@
   "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "scripts": {
     "dev": "npm run build -- --watch --ignore-watch examples",
-    "build": "pnpm build-cjs && pnpm build-esm",
-    "build-cjs": "tsup src/index.ts --dts --format cjs --no-splitting",
-    "build-esm": "tsup src/index.ts --format esm --no-splitting --target node13.2",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --tag --push",
     "example:dev": "npm -C examples/vue run dev",
@@ -54,7 +52,8 @@
     "deep-equal": "^2.0.5",
     "fast-glob": "^3.2.7",
     "json5": "^2.2.0",
-    "yaml": "^2.0.0-8"
+    "local-pkg": "^0.4.0",
+    "yaml": "^2.0.0-9"
   },
   "devDependencies": {
     "@hannoeru/eslint-config": "^0.3.0",
@@ -62,18 +61,18 @@
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
     "@types/jest": "^27.0.2",
-    "@types/node": "^16.11.6",
-    "@vue/compiler-sfc": "^3.2.21",
+    "@types/node": "^16.11.7",
+    "@vue/compiler-sfc": "^3.2.22",
     "bumpp": "^7.1.1",
     "eslint": "^8.2.0",
     "jest": "^27.3.1",
-    "react-router-config": "^5.1.1",
-    "rollup": "^2.59.0",
+    "react-router": "^6.0.2",
+    "rollup": "^2.60.0",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
-    "tsup": "^5.6.0",
+    "tsup": "^5.7.0",
     "typescript": "^4.4.4",
-    "vite": "^2.6.13",
+    "vite": "^2.6.14",
     "vue-router": "^4.0.12"
   }
 }

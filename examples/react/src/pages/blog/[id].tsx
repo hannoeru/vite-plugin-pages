@@ -1,11 +1,11 @@
 import React from 'react'
-import { matchRoutes, RouteConfigComponentProps } from 'react-router-config'
-import routes from 'virtual:generated-pages-react'
+import { useParams } from 'react-router'
 
-const components: React.FC<RouteConfigComponentProps> = ({ location }) => {
+const components: React.FC = () => {
+  const { id } = useParams<'id'>()
   return (
     <>
-      <p>blog/[id].vue: { matchRoutes<{ id: string }>(routes, location.pathname)[0].match.params.id }</p>
+      <p>blog/[id].vue: { id }</p>
     </>
   )
 }

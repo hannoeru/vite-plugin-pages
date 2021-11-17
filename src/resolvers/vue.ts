@@ -1,19 +1,22 @@
-/**
- * https://github.com/brattonross/vite-plugin-voie/blob/main/packages/vite-plugin-voie/src/routes.ts
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file at
- * https://github.com/brattonross/vite-plugin-voie/blob/main/LICENSE
- */
-
-import { parse } from 'path'
-import { Route, ResolvedOptions, ResolvedPages } from './types'
+import { dirname, extname, parse } from 'path'
+import { PageContext } from '../context'
+import { ResolvedOptions } from '../types'
 import {
+  countSlash,
   isDynamicRoute,
   isCatchAllRoute,
-} from './utils'
-import { stringifyRoutes } from './stringify'
-import { sortPages } from './pages'
+  sortByDynamicRoute,
+} from '../utils'
+import { generateClientCode } from '../stringify'
+
+interface Route {
+  name?: string
+  path: string
+  props?: boolean
+  component: string
+  children?: Route[]
+  customBlock?: Record<string, any> | null
+}
 
 function prepareRoutes(
   routes: Route[],
@@ -27,23 +30,14 @@ function prepareRoutes(
     if (parent)
       route.path = route.path.replace(/^\//, '')
 
-    if (!options.react)
-      route.props = true
-
-    if (options.react) {
-      delete route.name
-      route.routes = route.children
-      delete route.children
-      route.exact = true
-    }
-
     if (route.children) {
       delete route.name
       route.children = prepareRoutes(route.children, options, route)
     }
 
-    if (!options.react)
-      Object.assign(route, route.customBlock || {})
+    route.props = true
+
+    Object.assign(route, route.customBlock || {})
 
     delete route.customBlock
 
@@ -53,24 +47,26 @@ function prepareRoutes(
   return routes
 }
 
-export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): Route[] {
-  const {
-    nuxtStyle,
-  } = options
+export async function resolveVueRoutes(ctx: PageContext) {
+  const pageRoutes = [...ctx.pageRouteMap.values()].sort((a, b) => {
+    return countSlash(a.route) - countSlash(b.route)
+  })
+  const { nuxtStyle } = ctx.options
 
   const routes: Route[] = []
 
-  sortPages(pages).forEach((page) => {
+  pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
 
     // add leading slash to component path if not already there
-    const component = page.component.startsWith('/') ? page.component : `/${page.component}`
+    const component = page.path.replace(ctx.root, '')
+    const customBlock = ctx.customBlockMap.get(page.path)
 
     const route: Route = {
       name: '',
       path: '',
       component,
-      customBlock: page.customBlock,
+      customBlock,
     }
 
     let parentRoutes = routes
@@ -88,15 +84,16 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
 
       route.name += route.name ? `-${normalizedName}` : normalizedName
 
-      // Check nested route
-      const parent = parentRoutes.find(node => !node.name?.localeCompare(route.name!, undefined, { sensitivity: 'accent' }))
+      // Check parent exits
+      const parent = parentRoutes.find(node => node.component.replace(extname(node.component), '') === dirname(route.component))
 
       if (parent) {
+        // Make sure children exits in parent
         parent.children = parent.children || []
+        // Append to parent's children
         parentRoutes = parent.children
+        // Reset path
         route.path = ''
-      } else if (normalizedName.toLowerCase() === 'index' && !route.path) {
-        route.path += '/'
       } else if (normalizedName.toLowerCase() !== 'index') {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
@@ -112,16 +109,8 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     parentRoutes.push(route)
   })
 
-  const preparedRoutes = prepareRoutes(routes, options)
-
-  let finalRoutes = preparedRoutes.sort((a, b) => {
-    if (a.path.includes(':') && b.path.includes(':'))
-      return b.path > a.path ? 1 : -1
-    else if (a.path.includes(':') || b.path.includes(':'))
-      return a.path.includes(':') ? 1 : -1
-    else
-      return b.path > a.path ? 1 : -1
-  })
+  // sort by dynamic routes
+  let finalRoutes = sortByDynamicRoute(prepareRoutes(routes, ctx.options))
 
   // replace duplicated cache all route
   const allRoute = finalRoutes.find((i) => {
@@ -132,11 +121,9 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     finalRoutes.push(allRoute)
   }
 
-  return finalRoutes
-}
+  finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
-export function generateClientCode(routes: Route[], options: ResolvedOptions) {
-  const { imports, stringRoutes } = stringifyRoutes(routes, options)
-
-  return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
+  let client = generateClientCode(finalRoutes, ctx.options)
+  client = (await ctx.options.onClientGenerated?.(client)) || client
+  return client
 }

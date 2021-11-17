@@ -1,19 +1,13 @@
 export type ImportMode = 'sync' | 'async'
 export type ImportModeResolveFn = (filepath: string) => ImportMode
 
-export interface Route {
-  name?: string
-  path: string
-  props?: boolean | Record<string, any> | ((to: any) => Record<string, any>)
-  component: string
-  children?: Route[]
-  routes?: Route[]
-  exact?: boolean
-  meta?: Record<string, unknown>
-  customBlock?: Record<string, any> | null
-  beforeEnter?: any
-}
-export interface PageDirOptions {
+export type CustomBlock = Record<string, any>
+
+export type PagesResolver = (pagePaths: Set<string>, routeBlocks: Map<string, CustomBlock>) => any
+
+export type SupportedPagesResolver = 'vue' | 'react'
+
+export interface PageOptions {
   dir: string
   baseRoute: string
 }
@@ -26,7 +20,7 @@ interface Options {
    * Relative path to the directory to search for page components.
    * @default 'src/pages'
    */
-  pagesDir: string | (string | PageDirOptions)[]
+  pages: string | (string | PageOptions)[]
   /**
    * Valid file extensions for page components.
    * @default ['vue', 'js']
@@ -47,12 +41,12 @@ interface Options {
    */
   syncIndex: boolean
   /**
-   * Use Nuxt.js style dynamic routing
+   * Use Nuxt.js style route naming
    * @default false
    */
   nuxtStyle: boolean
   /**
-   * Set default route block parser, or use `<route lang=xxx>` in SFC route block
+   * Set the default route block parser, or use `<route lang=xxx>` in SFC route block
    * @default 'json5'
    */
   routeBlockLang: 'json5' | 'json' | 'yaml' | 'yml'
@@ -70,11 +64,11 @@ interface Options {
   /**
    * Extend route records
    */
-  extendRoute?: (route: Route, parent: Route | undefined) => Route | void
+  extendRoute?: (route: any, parent: any | undefined) => any | void
   /**
    * Custom generated routes
    */
-  onRoutesGenerated?: (routes: Route[]) => Route[] | void | Promise<Route[] | void>
+  onRoutesGenerated?: (routes: any[]) => any[] | void | Promise<any[] | void>
   /**
    * Custom generated client code
    */
@@ -104,5 +98,5 @@ export interface ResolvedOptions extends Options {
    * RegExp to match extensions
    */
   extensionsRE: RegExp
-  pagesDir: PageDirOptions[]
+  pages: PageOptions[]
 }

@@ -9,8 +9,8 @@ const config = defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     Pages({
-      // pagesDir: ['src/pages', 'src/pages2'],
-      pagesDir: [
+      // pages: ['src/pages', 'src/pages2'],
+      pages: [
         // issue #68
         { dir: resolve(__dirname, './src/pages'), baseRoute: '' },
         { dir: 'src/features/**/pages', baseRoute: 'features' },

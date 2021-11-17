@@ -2,16 +2,16 @@
 
 exports[`Get files Pages file: page files 1`] = `
 Array [
-  "[...all].vue",
-  "[sensor]/current.vue",
-  "[userId].vue",
-  "about.vue",
-  "about/index.vue",
-  "blog/[id].vue",
-  "blog/index.vue",
-  "blog/today/index.vue",
-  "components.vue",
-  "index.vue",
+  "test/assets/pages/[...all].vue",
+  "test/assets/pages/[sensor]/current.vue",
+  "test/assets/pages/[userId].vue",
+  "test/assets/pages/about.vue",
+  "test/assets/pages/about/index.vue",
+  "test/assets/pages/blog/[id].vue",
+  "test/assets/pages/blog/index.vue",
+  "test/assets/pages/blog/today/index.vue",
+  "test/assets/pages/components.vue",
+  "test/assets/pages/index.vue",
 ]
 `;
 
