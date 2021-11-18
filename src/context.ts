@@ -147,19 +147,17 @@ export class PageContext {
 
   async searchGlob() {
     const pageDirFiles = this.options.pages.map((pageDir) => {
-      const pagePath = slash(resolve(this.options.root, pageDir.dir))
-      const files = getPageFiles(pagePath, this.options)
+      const pagesDirPath = slash(resolve(this.options.root, pageDir.dir))
+      const files = getPageFiles(pagesDirPath, this.options)
       debug.search(pageDir.dir, files)
       return {
         ...pageDir,
-        files,
+        files: files.map(file => slash(file)),
       }
     })
 
-    for (const pageDir of pageDirFiles) {
-      for (const file of pageDir.files)
-        await this.addPage(file, pageDir)
-    }
+    for (const pageDir of pageDirFiles)
+      await this.addPage(pageDir.files, pageDir)
   }
 
   get pageRouteMap() {
