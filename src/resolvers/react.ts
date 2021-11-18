@@ -1,4 +1,4 @@
-import { dirname, parse } from 'path'
+import { parse } from 'path'
 import { PageContext } from '../context'
 import { ResolvedOptions } from '../types'
 import {
@@ -110,18 +110,14 @@ export async function resolveReactRoutes(ctx: PageContext) {
         // Append to parent's children
         parentRoutes = parent.children
       }
-      
+
       const exits = parentRoutes.some((parent) => {
         return pathNodes.slice(0, i + 1).join('/') === parent.rawRoute
       })
-      if (!exits) {
+      if (!exits)
         parentRoutes.push(route)
-      }
-
     }
   })
-
-  console.log(routes);
 
   // sort by dynamic routes
   let finalRoutes = prepareRoutes(routes, ctx.options)
