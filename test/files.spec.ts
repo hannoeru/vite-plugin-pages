@@ -1,4 +1,5 @@
 import { join } from 'path'
+import { slash } from '@antfu/utils'
 import { resolveOptions } from '../src/options'
 import { getPageFiles, getPageDirs } from '../src/files'
 
@@ -16,7 +17,7 @@ describe('Get files', () => {
 describe('Get page dirs', () => {
   test('With glob', async() => {
     const PageOptions = {
-      dir: join(testDeeppages, '**', 'pages'),
+      dir: slash(join(testDeeppages, '**', 'pages')),
       baseRoute: '',
     }
     const dirs = getPageDirs(PageOptions, options.root, options.exclude)
