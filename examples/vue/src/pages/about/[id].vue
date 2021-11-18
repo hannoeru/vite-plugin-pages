@@ -6,15 +6,15 @@ defineProps({
 
 <template>
   <div>
-    blog/[id].vue: {{ id }}
+    about/[id].vue: {{ id }}
   </div>
 </template>
 
 <route>
 {
-  name: 'blog-id',
+  name: 'about-user-id',
   meta: {
-    requiresAuth: false,
+    requiresAuth: true,
   },
 }
 </route>

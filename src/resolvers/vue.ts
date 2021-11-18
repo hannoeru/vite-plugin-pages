@@ -1,4 +1,4 @@
-import { dirname, extname, parse } from 'path'
+import { parse } from 'path'
 import { PageContext } from '../context'
 import { CustomBlock } from '../types'
 import {
@@ -16,12 +16,13 @@ interface Route {
   component: string
   children?: Route[]
   customBlock?: CustomBlock
+  rawRoute: string
 }
 
 function prepareRoutes(
   ctx: PageContext,
-  routes: Route[],
-  parent?: Route,
+  routes: any[],
+  parent?: any,
 ) {
   for (const route of routes) {
     if (route.name)
@@ -36,6 +37,8 @@ function prepareRoutes(
     }
 
     route.props = true
+
+    delete route.rawRoute
 
     if (route.customBlock) {
       Object.assign(route, route.customBlock || {})
@@ -68,6 +71,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
       path: '',
       component,
       customBlock,
+      rawRoute: page.route,
     }
 
     let parentRoutes = routes
@@ -86,7 +90,9 @@ export async function resolveVueRoutes(ctx: PageContext) {
       route.name += route.name ? `-${normalizedName}` : normalizedName
 
       // Check parent exits
-      const parent = parentRoutes.find(node => node.component.replace(extname(node.component), '') === dirname(route.component))
+      const parent = parentRoutes.find((parent) => {
+        return route.rawRoute.startsWith(parent.rawRoute)
+      })
 
       if (parent) {
         // Make sure children exits in parent
