@@ -46,7 +46,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
         const aDynamic = a.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
         const bDynamic = b.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
         if (aDynamic && bDynamic)
-          return 0
+          return Number(a.route) - Number(b.route)
         else if (aDynamic)
           return 1
         else
