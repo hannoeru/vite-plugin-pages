@@ -21,10 +21,10 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       ctx.setupViteServer(server)
     },
     resolveId(id) {
-      return MODULE_IDS.includes(id) ? id.endsWith('.tsx') ? id : MODULE_ID_VIRTUAL : null
+      return MODULE_IDS.includes(id) ? MODULE_ID_VIRTUAL : null
     },
     async load(id) {
-      if (!MODULE_IDS.includes(id))
+      if (id !== MODULE_ID_VIRTUAL)
         return
 
       return ctx.resolveRoutes()

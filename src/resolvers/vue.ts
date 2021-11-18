@@ -58,12 +58,10 @@ export async function resolveVueRoutes(ctx: PageContext) {
       if (countSlash(a.route) === countSlash(b.route)) {
         const aDynamic = a.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
         const bDynamic = b.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
-        if (aDynamic && bDynamic)
+        if (aDynamic === bDynamic)
           return a.route.localeCompare(b.route)
-        else if (aDynamic)
-          return 1
         else
-          return -1
+          return aDynamic ? 1 : -1
       } else {
         return countSlash(a.route) - countSlash(b.route)
       }

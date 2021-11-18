@@ -47,7 +47,7 @@ export function stringifyRoutes(
         imports.push(importStr)
 
       if (options.react)
-        return str.replace(replaceStr, `<${importName} />`)
+        return str.replace(replaceStr, `React.createElement(${importName})`)
       else
         return str.replace(replaceStr, importName)
     } else {
@@ -82,7 +82,7 @@ export function stringifyRoutes(
 export function generateClientCode(routes: any[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
-  if (options.react && options.importMode === 'async')
+  if (options.react)
     imports.push('import React from \"react\"')
 
   return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`

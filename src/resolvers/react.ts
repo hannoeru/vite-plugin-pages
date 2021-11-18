@@ -1,4 +1,4 @@
-import { dirname, extname, parse } from 'path'
+import { dirname, parse } from 'path'
 import { PageContext } from '../context'
 import { ResolvedOptions } from '../types'
 import {
@@ -11,9 +11,10 @@ import { generateClientCode } from '../stringify'
 interface Route {
   caseSensitive?: boolean
   children?: Route[]
-  element: string
+  element?: string
   index?: boolean
   path: string
+  rawRoute: string
 }
 
 function prepareRoutes(
@@ -27,6 +28,8 @@ function prepareRoutes(
 
     if (route.children)
       route.children = prepareRoutes(route.children, options, route)
+
+    delete route.rawRoute
 
     if (route.index)
       delete route.path
@@ -45,12 +48,10 @@ export async function resolveReactRoutes(ctx: PageContext) {
       if (countSlash(a.route) === countSlash(b.route)) {
         const aDynamic = a.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
         const bDynamic = b.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
-        if (aDynamic && bDynamic)
+        if (aDynamic === bDynamic)
           return a.route.localeCompare(b.route)
-        else if (aDynamic)
-          return 1
         else
-          return -1
+          return aDynamic ? 1 : -1
       } else {
         return countSlash(a.route) - countSlash(b.route)
       }
@@ -63,11 +64,6 @@ export async function resolveReactRoutes(ctx: PageContext) {
 
     // add leading slash to component path if not already there
     const element = page.path.startsWith('/') ? page.path : `/${page.path}`
-
-    const route: Route = {
-      path: '',
-      element,
-    }
 
     let parentRoutes = routes
 
@@ -82,32 +78,50 @@ export async function resolveReactRoutes(ctx: PageContext) {
         : node
       const normalizedPath = normalizedName.toLowerCase()
 
+      const route: Route = {
+        path: '',
+        rawRoute: pathNodes.slice(0, i + 1).join('/'),
+      }
+
+      if (i === pathNodes.length - 1)
+        route.element = element
+
+      if (!route.path && normalizedPath === 'index') {
+        route.index = true
+      } else if (normalizedPath !== 'index') {
+        if (isDynamic) {
+          route.path = `:${normalizedName}`
+          // Catch-all route
+          if (isCatchAll)
+            route.path = '*'
+        } else {
+          route.path = `${normalizedPath}`
+        }
+      }
+
       // Check parent exits
-      const parent = parentRoutes.find(node => node.element.replace(extname(node.element), '') === dirname(route.element))
+      const parent = parentRoutes.find((parent) => {
+        return pathNodes.slice(0, i).join('/') === parent.rawRoute
+      })
 
       if (parent) {
         // Make sure children exits in parent
         parent.children = parent.children || []
         // Append to parent's children
         parentRoutes = parent.children
-        // Reset path
-        route.path = ''
-      } else if (!route.path && normalizedPath === 'index') {
-        route.index = true
-      } else if (normalizedPath !== 'index') {
-        if (isDynamic) {
-          route.path += `/:${normalizedName}`
-          // Catch-all route
-          if (isCatchAll)
-            route.path = '*'
-        } else {
-          route.path += `/${normalizedPath}`
-        }
       }
-    }
+      
+      const exits = parentRoutes.some((parent) => {
+        return pathNodes.slice(0, i + 1).join('/') === parent.rawRoute
+      })
+      if (!exits) {
+        parentRoutes.push(route)
+      }
 
-    parentRoutes.push(route)
+    }
   })
+
+  console.log(routes);
 
   // sort by dynamic routes
   let finalRoutes = prepareRoutes(routes, ctx.options)
@@ -117,7 +131,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
     return isCatchAllRoute(parse(i.element).name, nuxtStyle)
   })
   if (allRoute) {
-    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(parse(i.element).name, nuxtStyle))
+    finalRoutes = finalRoutes.filter(i => !i.element || !isCatchAllRoute(parse(i.element).name, nuxtStyle))
     finalRoutes.push(allRoute)
   }
 

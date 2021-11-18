@@ -7,7 +7,7 @@ import {
 
 import './index.css'
 
-import routes from '~pages.tsx'
+import routes from '~react-pages'
 
 // eslint-disable-next-line no-console
 console.log(routes)
@@ -17,12 +17,10 @@ function App() {
 }
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <React.StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>,
   document.getElementById('root'),
 )
-
-export {
-  routes,
-}
