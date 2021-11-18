@@ -1,4 +1,5 @@
 import { join } from 'path'
+import { slash } from '@antfu/utils'
 import { sync as fg } from 'fast-glob'
 import { PageOptions, ResolvedOptions } from './types'
 import { extsToGlob } from './utils'
@@ -11,7 +12,7 @@ function getIgnore(exclude: string[]) {
  * Resolves the page dirs for its for its given globs
  */
 export function getPageDirs(PageOptions: PageOptions, root: string, exclude: string[]): PageOptions[] {
-  const dirs = fg(PageOptions.dir, {
+  const dirs = fg(slash(PageOptions.dir), {
     ignore: getIgnore(exclude),
     onlyDirectories: true,
     dot: true,
@@ -38,7 +39,7 @@ export function getPageFiles(path: string, options: ResolvedOptions): string[] {
 
   const ext = extsToGlob(extensions)
 
-  const files = fg(join(path, `**/*.${ext}`), {
+  const files = fg(slash(join(path, `**/*.${ext}`)), {
     ignore: getIgnore(exclude),
     onlyFiles: true,
   })
