@@ -17,7 +17,7 @@ describe('Get files', () => {
 describe('Get page dirs', () => {
   test('With glob', async() => {
     const PageOptions = {
-      dir: slash(join(testDeeppages, '**', 'pages')),
+      dir: join(testDeeppages, '**', 'pages'),
       baseRoute: '',
     }
     const dirs = getPageDirs(PageOptions, options.root, options.exclude)
