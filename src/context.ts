@@ -23,7 +23,7 @@ export class PageContext {
   private _customBlockMap: Map<string, CustomBlock> = new Map()
 
   rawOptions: UserOptions
-  root = process.cwd()
+  root = slash(process.cwd())
   options: ResolvedOptions
   resolver: SupportedPagesResolver
 
