@@ -94,14 +94,3 @@ export function replaceSquareBrackets(bundle: OutputBundle) {
     }
   }
 }
-
-export function sortByDynamicRoute(routes: any[]) {
-  return routes.sort((a, b) => {
-    if (a.path?.includes(':') && b.path?.includes(':'))
-      return b.path > a.path ? 1 : -1
-    else if (a.path?.includes(':') || b.path?.includes(':'))
-      return a.path?.includes(':') ? 1 : -1
-    else
-      return b.path > a.path ? 1 : -1
-  })
-}

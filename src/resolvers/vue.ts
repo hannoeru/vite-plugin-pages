@@ -5,7 +5,6 @@ import {
   countSlash,
   isDynamicRoute,
   isCatchAllRoute,
-  sortByDynamicRoute,
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
@@ -52,10 +51,23 @@ function prepareRoutes(
 }
 
 export async function resolveVueRoutes(ctx: PageContext) {
-  const pageRoutes = [...ctx.pageRouteMap.values()].sort((a, b) => {
-    return countSlash(a.route) - countSlash(b.route)
-  })
   const { nuxtStyle } = ctx.options
+
+  const pageRoutes = [...ctx.pageRouteMap.values()]
+    .sort((a, b) => {
+      if (countSlash(a.route) === countSlash(b.route)) {
+        const aDynamic = a.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
+        const bDynamic = b.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
+        if (aDynamic && bDynamic)
+          return 0
+        else if (aDynamic)
+          return 1
+        else
+          return -1
+      } else {
+        return countSlash(a.route) - countSlash(b.route)
+      }
+    })
 
   const routes: Route[] = []
 
@@ -117,7 +129,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
   })
 
   // sort by dynamic routes
-  let finalRoutes = sortByDynamicRoute(prepareRoutes(ctx, routes))
+  let finalRoutes = prepareRoutes(ctx, routes)
 
   // replace duplicated cache all route
   const allRoute = finalRoutes.find((i) => {
