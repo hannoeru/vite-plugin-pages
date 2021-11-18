@@ -31,7 +31,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     onClientGenerated,
   } = userOptions
 
-  const root = viteRoot || process.cwd()
+  const root = viteRoot || slash(process.cwd())
 
   const importMode = userOptions.importMode || (react ? 'sync' : 'async')
 

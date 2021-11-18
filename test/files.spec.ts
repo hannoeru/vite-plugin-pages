@@ -1,5 +1,4 @@
 import { join } from 'path'
-import { slash } from '@antfu/utils'
 import { resolveOptions } from '../src/options'
 import { getPageFiles, getPageDirs } from '../src/files'
 
