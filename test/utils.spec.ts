@@ -1,11 +1,8 @@
-import { extsToGlob, slash, isDynamicRoute, isCatchAllRoute, pathToName } from '../src/utils'
+import { extsToGlob, isDynamicRoute, isCatchAllRoute, pathToName, countSlash } from '../src/utils'
 
 describe('Utils', () => {
   test('Extensions to glob', () => {
     expect(extsToGlob(['vue', 'ts', 'js'])).toBe('{vue,ts,js}')
-  })
-  test('Normalize path', () => {
-    expect(slash('C:\\project\\from\\someone')).toBe('C:/project/from/someone')
   })
   test('Dynamic route', () => {
     expect(isDynamicRoute('[id]')).toBe(true)
@@ -20,5 +17,9 @@ describe('Utils', () => {
   })
   test('Path to name', () => {
     expect(pathToName('user-[route]-current')).toBe('user_$route$_current')
+  })
+  test('Count slash', () => {
+    expect(countSlash('route')).toBe(0)
+    expect(countSlash('user/route/current')).toBe(2)
   })
 })

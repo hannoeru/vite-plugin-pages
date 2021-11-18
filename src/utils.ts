@@ -1,34 +1,10 @@
 import { resolve, basename } from 'path'
 import Debug from 'debug'
 import { ViteDevServer } from 'vite'
-import { toArray, slash } from '@antfu/utils'
+import { slash } from '@antfu/utils'
 import { ResolvedOptions } from './types'
 import { MODULE_ID_VIRTUAL } from './constants'
 import type { OutputBundle } from 'rollup'
-
-export { toArray, slash }
-
-export const routeBlockCache = new Map<string, Record<string, any>>()
-
-export function extsToGlob(extensions: string[]) {
-  return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
-}
-
-export function countSlash(value: string) {
-  return (value.match(/\//g) || []).length
-}
-
-function ispages(path: string, options: ResolvedOptions) {
-  for (const page of options.pages) {
-    const dirPath = slash(resolve(options.root, page.dir))
-    if (path.startsWith(dirPath)) return true
-  }
-  return false
-}
-
-export function isTarget(path: string, options: ResolvedOptions) {
-  return ispages(path, options) && options.extensionsRE.test(path)
-}
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
@@ -39,6 +15,26 @@ export const debug = {
   env: Debug('vite-plugin-pages:env'),
   cache: Debug('vite-plugin-pages:cache'),
   resolver: Debug('vite-plugin-pages:resolver'),
+}
+
+export function extsToGlob(extensions: string[]) {
+  return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
+}
+
+export function countSlash(value: string) {
+  return (value.match(/\//g) || []).length
+}
+
+function isPagesDir(path: string, options: ResolvedOptions) {
+  for (const page of options.pages) {
+    const dirPath = slash(resolve(options.root, page.dir))
+    if (path.startsWith(dirPath)) return true
+  }
+  return false
+}
+
+export function isTarget(path: string, options: ResolvedOptions) {
+  return isPagesDir(path, options) && options.extensionsRE.test(path)
 }
 
 const dynamicRouteRE = /^\[.+\]$/
