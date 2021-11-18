@@ -2,16 +2,15 @@
 
 exports[`Get files Pages file: page files 1`] = `
 Array [
-  "test/assets/pages/[...all].vue",
-  "test/assets/pages/[sensor]/current.vue",
-  "test/assets/pages/[userId].vue",
-  "test/assets/pages/about.vue",
-  "test/assets/pages/about/index.vue",
-  "test/assets/pages/blog/[id].vue",
-  "test/assets/pages/blog/index.vue",
-  "test/assets/pages/blog/today/index.vue",
-  "test/assets/pages/components.vue",
-  "test/assets/pages/index.vue",
+  "examples/vue/src/pages/[...all].vue",
+  "examples/vue/src/pages/[sensor]/current.vue",
+  "examples/vue/src/pages/about.vue",
+  "examples/vue/src/pages/about/index.vue",
+  "examples/vue/src/pages/blog/[id].vue",
+  "examples/vue/src/pages/blog/index.vue",
+  "examples/vue/src/pages/blog/today/index.vue",
+  "examples/vue/src/pages/components.vue",
+  "examples/vue/src/pages/index.vue",
 ]
 `;
 
@@ -19,11 +18,11 @@ exports[`Get page dirs With glob: glob dirs 1`] = `
 Array [
   Object {
     "baseRoute": "",
-    "dir": "test/assets/deep-pages/bar/pages",
+    "dir": "examples/vue/src/features/admin/pages",
   },
   Object {
     "baseRoute": "",
-    "dir": "test/assets/deep-pages/foo/pages",
+    "dir": "examples/vue/src/features/dashboard/pages",
   },
 ]
 `;

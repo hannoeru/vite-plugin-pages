@@ -16,7 +16,7 @@ Object {
   "pages": Array [
     Object {
       "baseRoute": "",
-      "dir": "test/assets/pages",
+      "dir": "examples/react/src/pages",
     },
   ],
   "react": true,
@@ -44,7 +44,7 @@ Object {
   "pages": Array [
     Object {
       "baseRoute": "",
-      "dir": "test/assets/pages",
+      "dir": "examples/vue/src/pages",
     },
   ],
   "react": false,

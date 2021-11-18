@@ -1,3 +1,0 @@
-<template>
-  ...all route
-</template>
