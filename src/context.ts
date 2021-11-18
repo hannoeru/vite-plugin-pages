@@ -44,6 +44,7 @@ export class PageContext {
   }
 
   setResolver(resolver: SupportedPagesResolver) {
+    debug.resolver(resolver)
     this.resolver = resolver
   }
 
@@ -94,7 +95,7 @@ export class PageContext {
         path: p,
         route,
       })
-      this.checkCustomBlockChange(p)
+      await this.checkCustomBlockChange(p)
     }
   }
 
@@ -162,6 +163,10 @@ export class PageContext {
 
     debug.cache(this.pageRouteMap)
     debug.cache(this.customBlockMap)
+  }
+
+  get debug() {
+    return debug
   }
 
   get pageRouteMap() {

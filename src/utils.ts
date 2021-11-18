@@ -38,6 +38,7 @@ export const debug = {
   search: Debug('vite-plugin-pages:search'),
   env: Debug('vite-plugin-pages:env'),
   cache: Debug('vite-plugin-pages:cache'),
+  resolver: Debug('vite-plugin-pages:resolver'),
 }
 
 const dynamicRouteRE = /^\[.+\]$/
