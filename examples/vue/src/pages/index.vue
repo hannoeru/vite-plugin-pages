@@ -30,7 +30,7 @@
 
 <route>
 {
-  name: "name-override",
+  name: "homepage",
   meta: {requiresAuth: false}
 }
 </route>

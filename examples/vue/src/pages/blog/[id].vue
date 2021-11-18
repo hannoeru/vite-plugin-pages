@@ -11,9 +11,9 @@ defineProps({
 
 <route>
 {
+  name: 'blog-id',
   meta: {
     requiresAuth: false,
   },
-  name: 'name-overrid',
 }
 </route>

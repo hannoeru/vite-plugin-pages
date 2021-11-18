@@ -1,6 +1,6 @@
 import { dirname, extname, parse } from 'path'
 import { PageContext } from '../context'
-import { ResolvedOptions } from '../types'
+import { CustomBlock } from '../types'
 import {
   countSlash,
   isDynamicRoute,
@@ -15,12 +15,12 @@ interface Route {
   props?: boolean
   component: string
   children?: Route[]
-  customBlock?: Record<string, any> | null
+  customBlock?: CustomBlock
 }
 
 function prepareRoutes(
+  ctx: PageContext,
   routes: Route[],
-  options: ResolvedOptions,
   parent?: Route,
 ) {
   for (const route of routes) {
@@ -32,16 +32,17 @@ function prepareRoutes(
 
     if (route.children) {
       delete route.name
-      route.children = prepareRoutes(route.children, options, route)
+      route.children = prepareRoutes(ctx, route.children, route)
     }
 
     route.props = true
 
-    Object.assign(route, route.customBlock || {})
+    if (route.customBlock) {
+      Object.assign(route, route.customBlock || {})
+      delete route.customBlock
+    }
 
-    delete route.customBlock
-
-    Object.assign(route, options.extendRoute?.(route, parent) || {})
+    Object.assign(route, ctx.options.extendRoute?.(route, parent) || {})
   }
 
   return routes
@@ -110,7 +111,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
   })
 
   // sort by dynamic routes
-  let finalRoutes = sortByDynamicRoute(prepareRoutes(routes, ctx.options))
+  let finalRoutes = sortByDynamicRoute(prepareRoutes(ctx, routes))
 
   // replace duplicated cache all route
   const allRoute = finalRoutes.find((i) => {

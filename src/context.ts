@@ -88,11 +88,12 @@ export class PageContext {
   async addPage(path: string | string[], pageDir: PageOptions) {
     debug.pages('add', path)
     for (const p of toArray(path)) {
+      const pageDirPath = slash(resolve(this.root, pageDir.dir))
+      const route = slash(join(pageDir.baseRoute, p.replace(`${pageDirPath}/`, '').replace(extname(p), '')))
       this._pageRouteMap.set(p, {
         path: p,
-        route: slash(join(pageDir.baseRoute, p.replace(`${join(this.root, pageDir.dir)}/`, '').replace(extname(p), ''))),
+        route,
       })
-
       this.checkCustomBlockChange(p)
     }
   }
@@ -158,6 +159,9 @@ export class PageContext {
 
     for (const pageDir of pageDirFiles)
       await this.addPage(pageDir.files, pageDir)
+
+    debug.cache(this.pageRouteMap)
+    debug.cache(this.customBlockMap)
   }
 
   get pageRouteMap() {

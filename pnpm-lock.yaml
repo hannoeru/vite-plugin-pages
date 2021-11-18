@@ -13,6 +13,7 @@ importers:
       '@types/node': ^16.11.7
       '@vue/compiler-sfc': ^3.2.22
       bumpp: ^7.1.1
+      cross-env: ^7.0.3
       debug: ^4.3.2
       deep-equal: ^2.0.5
       eslint: ^8.2.0
@@ -46,6 +47,7 @@ importers:
       '@types/node': 16.11.7
       '@vue/compiler-sfc': 3.2.22
       bumpp: 7.1.1
+      cross-env: 7.0.3
       eslint: 8.2.0
       jest: 27.3.1_ts-node@10.4.0
       react-router: 6.0.2
