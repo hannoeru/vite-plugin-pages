@@ -60,8 +60,8 @@
     "@types/debug": "^4.1.7",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
-    "@types/jest": "^27.0.2",
-    "@types/node": "^16.11.7",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.8",
     "@vue/compiler-sfc": "^3.2.22",
     "bumpp": "^7.1.1",
     "cross-env": "^7.0.3",
@@ -71,8 +71,8 @@
     "rollup": "^2.60.0",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
-    "tsup": "^5.7.0",
-    "typescript": "^4.4.4",
+    "tsup": "^5.7.2",
+    "typescript": "^4.5.2",
     "vite": "^2.6.14",
     "vue-router": "^4.0.12"
   }
