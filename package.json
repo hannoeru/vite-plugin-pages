@@ -18,6 +18,12 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
+    },
+    "./client": {
+      "types": "./client.d.ts"
+    },
+    "./client-react": {
+      "types": "./client-react.d.ts"
     }
   },
   "main": "dist/index.js",
