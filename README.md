@@ -21,23 +21,7 @@ $ npm install -D vite-plugin-pages
 $ npm install vue-router@next
 ```
 
-Add to your `vite.config.js`:
-
-```js
-import Vue from "@vitejs/plugin-vue";
-import Pages from "vite-plugin-pages";
-
-export default {
-  plugins: [
-    Vue(),
-    Pages(),
-  ],
-};
-```
-
 ### React
-
-**experimental**
 
 Install:
 
@@ -46,18 +30,17 @@ $ npm install -D vite-plugin-pages
 $ npm install react-router react-router-dom react-router-config
 ```
 
+### Vite config
+
 Add to your `vite.config.js`:
 
 ```js
-import Vue from "@vitejs/plugin-vue";
 import Pages from "vite-plugin-pages";
 
 export default {
   plugins: [
-    Vue(),
-    Pages({
-      react: true,
-    }),
+    // ...
+    Pages(),
   ],
 };
 ```

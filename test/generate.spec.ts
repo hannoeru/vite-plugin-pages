@@ -40,7 +40,7 @@ describe('Generate', () => {
   test('React routes', async() => {
     const ctx = new PageContext({
       pages: 'examples/react/src/pages',
-      react: true,
+      resolver: 'react',
     })
     await ctx.searchGlob()
     const routes = await ctx.resolveRoutes()

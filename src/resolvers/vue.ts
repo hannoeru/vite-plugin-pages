@@ -111,6 +111,9 @@ export async function resolveVueRoutes(ctx: PageContext) {
         parentRoutes = parent.children
         // Reset path
         route.path = ''
+      } else if (normalizedName.toLowerCase() === 'index') {
+        if (!route.path)
+          route.path = '/'
       } else if (normalizedName.toLowerCase() !== 'index') {
         if (isDynamic) {
           route.path += `/:${normalizedName}`

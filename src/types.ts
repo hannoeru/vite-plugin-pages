@@ -58,9 +58,9 @@ interface Options {
   replaceSquareBrackets: boolean
   /**
    * Generate React Route
-   * @default false
+   * @default 'auto detect'
    */
-  react: boolean
+  resolver: SupportedPagesResolver
   /**
    * Extend route records
    */

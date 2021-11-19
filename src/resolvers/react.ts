@@ -62,8 +62,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
 
-    // add leading slash to component path if not already there
-    const element = page.path.startsWith('/') ? page.path : `/${page.path}`
+    const element = page.path.replace(ctx.root, '')
 
     let parentRoutes = routes
 

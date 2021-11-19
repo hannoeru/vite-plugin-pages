@@ -7,7 +7,7 @@ describe('Options', () => {
     })
     const reactOptions = resolveOptions({
       pages: 'examples/react/src/pages',
-      react: true,
+      resolver: 'react',
     })
     expect(options).toMatchSnapshot({
       root: expect.any(String),

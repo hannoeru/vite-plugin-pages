@@ -25,14 +25,12 @@ export class PageContext {
   rawOptions: UserOptions
   root = slash(process.cwd())
   options: ResolvedOptions
-  resolver: SupportedPagesResolver
 
   constructor(userOptions: UserOptions = {}) {
     this.rawOptions = userOptions
     this.options = resolveOptions(userOptions, this.root)
-    this.resolver = 'vue'
     debug.options(this.options)
-    this.setResolver('vue')
+    this.setResolver(this.options.resolver)
   }
 
   setRoot(root: string) {
@@ -45,7 +43,7 @@ export class PageContext {
 
   setResolver(resolver: SupportedPagesResolver) {
     debug.resolver(resolver)
-    this.resolver = resolver
+    this.options.resolver = resolver
   }
 
   setupViteServer(server: ViteDevServer) {
@@ -108,7 +106,7 @@ export class PageContext {
   }
 
   async checkCustomBlockChange(path: string) {
-    if (this.resolver !== 'vue')
+    if (this.options.resolver !== 'vue')
       return
 
     const exitsCustomBlock = this._customBlockMap.get(path)
@@ -141,9 +139,9 @@ export class PageContext {
   }
 
   async resolveRoutes() {
-    if (this.resolver === 'vue')
+    if (this.options.resolver === 'vue')
       return await resolveVueRoutes(this)
-    if (this.resolver === 'react')
+    if (this.options.resolver === 'react')
       return await resolveReactRoutes(this)
   }
 

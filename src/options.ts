@@ -25,7 +25,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     syncIndex = true,
     replaceSquareBrackets = false,
     nuxtStyle = false,
-    react = false,
+    resolver = 'vue',
     extendRoute,
     onRoutesGenerated,
     onClientGenerated,
@@ -33,9 +33,9 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const root = viteRoot || slash(process.cwd())
 
-  const importMode = userOptions.importMode || (react ? 'sync' : 'async')
+  const importMode = userOptions.importMode || (resolver === 'react' ? 'sync' : 'async')
 
-  const extensions = userOptions.extensions || (react ? ['tsx', 'jsx'] : ['vue', 'ts', 'js'])
+  const extensions = userOptions.extensions || (resolver === 'react' ? ['tsx', 'jsx'] : ['vue', 'ts', 'js'])
 
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
@@ -51,7 +51,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     syncIndex,
     replaceSquareBrackets,
     nuxtStyle,
-    react,
+    resolver,
     extensionsRE,
     extendRoute,
     onRoutesGenerated,

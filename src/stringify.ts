@@ -46,12 +46,12 @@ export function stringifyRoutes(
       if (!imports.includes(importStr))
         imports.push(importStr)
 
-      if (options.react)
+      if (options.resolver === 'react')
         return str.replace(replaceStr, `React.createElement(${importName})`)
       else
         return str.replace(replaceStr, importName)
     } else {
-      if (options.react)
+      if (options.resolver === 'react')
         return str.replace(replaceStr, `React.lazy(() => import('${path}'))`)
       else
         return str.replace(replaceStr, `() => import('${path}')`)
@@ -82,7 +82,7 @@ export function stringifyRoutes(
 export function generateClientCode(routes: any[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
-  if (options.react)
+  if (options.resolver === 'react')
     imports.push('import React from \"react\"')
 
   return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
