@@ -1,3 +1,5 @@
 <template>
-  blog/today/index.vue
+  <div>
+    blog/today/index.vue
+  </div>
 </template>

@@ -1,6 +1,8 @@
-import fg from 'fast-glob'
-import { PageDirOptions, ResolvedOptions } from './types'
-import { extensionsToGlob } from './utils'
+import { join } from 'path'
+import { slash } from '@antfu/utils'
+import { sync as fg } from 'fast-glob'
+import { PageOptions, ResolvedOptions } from './types'
+import { extsToGlob } from './utils'
 
 function getIgnore(exclude: string[]) {
   return ['node_modules', '.git', '**/__*__/**', ...exclude]
@@ -9,8 +11,8 @@ function getIgnore(exclude: string[]) {
 /**
  * Resolves the page dirs for its for its given globs
  */
-export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclude: string[]): PageDirOptions[] {
-  const dirs = fg.sync(pageDirOptions.dir, {
+export function getPageDirs(PageOptions: PageOptions, root: string, exclude: string[]): PageOptions[] {
+  const dirs = fg(slash(PageOptions.dir), {
     ignore: getIgnore(exclude),
     onlyDirectories: true,
     dot: true,
@@ -19,7 +21,7 @@ export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclud
   })
 
   const pageDirs = dirs.map(dir => ({
-    ...pageDirOptions,
+    ...PageOptions,
     dir,
   }))
 
@@ -35,12 +37,11 @@ export function getPageFiles(path: string, options: ResolvedOptions): string[] {
     extensions,
   } = options
 
-  const ext = extensionsToGlob(extensions)
+  const ext = extsToGlob(extensions)
 
-  const files = fg.sync(`**/*.${ext}`, {
+  const files = fg(slash(join(path, `**/*.${ext}`)), {
     ignore: getIgnore(exclude),
     onlyFiles: true,
-    cwd: path,
   })
 
   return files

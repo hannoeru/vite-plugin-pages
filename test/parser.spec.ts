@@ -1,10 +1,10 @@
 import fs from 'fs'
 import { resolve } from 'path'
-import { parseSFC, parseCustomBlock } from '../src/parser'
+import { parseSFC, parseCustomBlock } from '../src/customBlock'
 import { resolveOptions } from '../src/options'
 
 const options = resolveOptions({})
-const path = resolve('./test/assets/pages/blog/[id].vue')
+const path = resolve('./examples/vue/src/pages/blog/[id].vue')
 const VueFile = fs.readFileSync(path, 'utf-8')
 
 describe('Parser', () => {

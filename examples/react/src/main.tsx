@@ -1,22 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {
+  useRoutes,
   BrowserRouter as Router,
 } from 'react-router-dom'
-import { renderRoutes } from 'react-router-config'
-import './index.css'
-import routes from 'virtual:generated-pages-react'
 
+import './index.css'
+
+import routes from '~react-pages'
+
+// eslint-disable-next-line no-console
 console.log(routes)
 
+function App() {
+  return useRoutes(routes)
+}
+
 ReactDOM.render(
-  <Router>
-    {/* kick it all off with the root route */}
-    {renderRoutes(routes)}
-  </Router>,
+  <React.StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>,
   document.getElementById('root'),
 )
-
-export {
-  routes,
-}

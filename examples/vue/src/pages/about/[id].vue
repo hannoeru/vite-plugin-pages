@@ -2,18 +2,19 @@
 defineProps({
   id: String,
 })
-
 </script>
 
 <template>
-  blog/[id].vue: {{ id }}
+  <div>
+    about/[id].vue: {{ id }}
+  </div>
 </template>
 
 <route>
 {
+  name: 'about-user-id',
   meta: {
-    requiresAuth: false,
+    requiresAuth: true,
   },
-  name: 'name-override',
 }
 </route>

@@ -1,26 +1,25 @@
 import { join } from 'path'
-import { slash } from '../src/utils'
 import { resolveOptions } from '../src/options'
 import { getPageFiles, getPageDirs } from '../src/files'
 
-const options = resolveOptions({})
-const testPagesDir = 'test/assets/pages'
-const testDeepPagesDir = 'test/assets/deep-pages'
+const options = resolveOptions({}, process.cwd())
+const testpages = 'examples/vue/src/pages'
+const testDeeppages = 'examples/vue/src/features'
 
 describe('Get files', () => {
   test('Pages file', async() => {
-    const files = getPageFiles(testPagesDir, options)
+    const files = getPageFiles(testpages, options)
     expect(files.sort()).toMatchSnapshot('page files')
   })
 })
 
 describe('Get page dirs', () => {
   test('With glob', async() => {
-    const pageDirOptions = {
-      dir: slash(join(testDeepPagesDir, '**', 'pages')),
+    const PageOptions = {
+      dir: join(testDeeppages, '**', 'pages'),
       baseRoute: '',
     }
-    const dirs = getPageDirs(pageDirOptions, options.root, options.exclude)
+    const dirs = getPageDirs(PageOptions, options.root, options.exclude)
     expect(dirs.sort()).toMatchSnapshot('glob dirs')
   })
 })

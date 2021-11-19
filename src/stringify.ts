@@ -2,9 +2,9 @@ import {
   resolveImportMode,
   pathToName,
 } from './utils'
-import { ResolvedOptions, Route } from './types'
+import { ResolvedOptions } from './types'
 
-const componentRE = /"component":("(.*?)")/g
+const componentRE = /"(?:component|element)":("(.*?)")/g
 const hasFunctionRE = /"(?:props|beforeEnter)":("(.*?)")/g
 
 const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//gm
@@ -31,7 +31,7 @@ function replaceFunction(_: any, value: any) {
  * Creates a stringified Vue Router route definition.
  */
 export function stringifyRoutes(
-  preparedRoutes: Route[],
+  preparedRoutes: any[],
   options: ResolvedOptions,
 ) {
   const imports: string[] = []
@@ -40,14 +40,21 @@ export function stringifyRoutes(
     const mode = resolveImportMode(path, options)
     if (mode === 'sync') {
       const importName = pathToName(path)
-      const importStr = `import ${importName} from '${path}'`
+      const importStr = `import ${importName} from "${path}"`
 
       // Only add import to array if it hasn't beed added before.
       if (!imports.includes(importStr))
         imports.push(importStr)
-      return str.replace(replaceStr, importName)
+
+      if (options.react)
+        return str.replace(replaceStr, `React.createElement(${importName})`)
+      else
+        return str.replace(replaceStr, importName)
     } else {
-      return str.replace(replaceStr, `() => import('${path}')`)
+      if (options.react)
+        return str.replace(replaceStr, `React.lazy(() => import('${path}'))`)
+      else
+        return str.replace(replaceStr, `() => import('${path}')`)
     }
   }
 
@@ -70,4 +77,13 @@ export function stringifyRoutes(
     imports,
     stringRoutes,
   }
+}
+
+export function generateClientCode(routes: any[], options: ResolvedOptions) {
+  const { imports, stringRoutes } = stringifyRoutes(routes, options)
+
+  if (options.react)
+    imports.push('import React from \"react\"')
+
+  return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
 }

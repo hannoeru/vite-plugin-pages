@@ -1,12 +1,15 @@
+import fs from 'fs'
 import JSON5 from 'json5'
 import YAML from 'yaml'
 
+import { importModule } from 'local-pkg'
+
 import type { SFCDescriptor, SFCBlock } from '@vue/compiler-sfc'
-import type { ResolvedOptions } from './types'
+import type { ResolvedOptions, CustomBlock } from './types'
 
 export async function parseSFC(code: string): Promise<SFCDescriptor> {
   try {
-    const { parse } = await import('@vue/compiler-sfc')
+    const { parse } = await importModule('@vue/compiler-sfc') as typeof import('@vue/compiler-sfc')
     return parse(code, {
       pad: 'space',
     }).descriptor
@@ -37,4 +40,17 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
   }
+}
+
+export async function getRouteBlock(path: string, options: ResolvedOptions) {
+  const content = fs.readFileSync(path, 'utf8')
+  const parsed = await parseSFC(content)
+
+  const blockStr = parsed.customBlocks.find(b => b.type === 'route')
+
+  if (!blockStr)
+    return
+
+  const result = parseCustomBlock(blockStr, path, options) as CustomBlock
+  return result
 }

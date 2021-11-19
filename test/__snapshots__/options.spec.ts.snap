@@ -13,10 +13,10 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pagesDir": Array [
+  "pages": Array [
     Object {
       "baseRoute": "",
-      "dir": "test/assets/pages",
+      "dir": "examples/react/src/pages",
     },
   ],
   "react": true,
@@ -41,10 +41,10 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pagesDir": Array [
+  "pages": Array [
     Object {
       "baseRoute": "",
-      "dir": "test/assets/pages",
+      "dir": "examples/vue/src/pages",
     },
   ],
   "react": false,
