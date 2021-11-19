@@ -35,7 +35,9 @@ export default {
 };
 ```
 
-### React(experimental)
+### React
+
+**experimental**
 
 Install:
 
@@ -65,14 +67,14 @@ export default {
 By default a page is a Vue component exported from a `.vue` or `.js` file in the
 `src/pages` directory.
 
-You can access the generated routes by importing the `virtual:generated-pages`
+You can access the generated routes by importing the `~pages`
 module in your application.
 
 ### Vue
 
 ```js
 import { createRouter } from "vue-router";
-import routes from "virtual:generated-pages";
+import routes from "~pages";
 
 const router = createRouter({
   // ...
@@ -89,13 +91,15 @@ const router = createRouter({
 
 ### React
 
+**experimental**
+
 ```js
 import {
   useRoutes,
   BrowserRouter as Router,
 } from 'react-router-dom'
 
-import routes from '~pages.tsx'
+import routes from '~react-pages'
 
 function App() {
   return useRoutes(routes)
