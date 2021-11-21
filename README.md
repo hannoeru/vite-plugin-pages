@@ -117,18 +117,18 @@ import Pages from "vite-plugin-pages";
 export default {
   plugins: [
     Pages({
-      pages: "src/views"
+      dirs: "src/views"
     }),
   ],
 };
 ```
 
-### pages
+### dirs
 
 - **Type:** `string | (string | PageOptions)[]`
 - **Default:** `'src/pages'`
 
-Relative path to the pages directory. Supports globs.
+Paths to the pages directory. Supports globs.
 
 Can be:
 
@@ -162,7 +162,7 @@ src/
 export default {
   plugins: [
     Pages({
-      pages: [
+      dirs: [
         { dir: "src/pages", baseRoute: "" },
         { dir: "src/features/**/pages", baseRoute: "features" },
         { dir: "src/admin/pages", baseRoute: "admin" },
