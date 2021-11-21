@@ -12,12 +12,14 @@
 
 ## Getting Started
 
+**⚠️ This docs is for v0.19.0 beta, for v0.18.0 stable version: [README](https://github.com/hannoeru/vite-plugin-pages/blob/7a0bd49e30266ac951876c883a03988def12c062/README.md)**
+
 ### Vue
 
 Install:
 
 ```bash
-$ npm install -D vite-plugin-pages
+$ npm install -D vite-plugin-pages@beta
 $ npm install vue-router@next
 ```
 
@@ -26,7 +28,7 @@ $ npm install vue-router@next
 Install:
 
 ```bash
-$ npm install -D vite-plugin-pages
+$ npm install -D vite-plugin-pages@beta
 $ npm install react-router react-router-dom react-router-config
 ```
 
