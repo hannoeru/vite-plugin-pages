@@ -12,8 +12,7 @@
     "noUnusedParameters": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
+    "src/**/*",
     "*.d.ts"
   ],
   "exclude": [

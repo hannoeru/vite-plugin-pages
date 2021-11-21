@@ -10,7 +10,7 @@ const config = defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     Pages({
-      pages: [
+      dirs: [
         { dir: 'src/pages', baseRoute: '' },
         { dir: 'src/features/admin/pages', baseRoute: 'admin' },
       ],

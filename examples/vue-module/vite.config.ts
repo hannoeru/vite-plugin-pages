@@ -9,19 +9,17 @@ const config = defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     Pages({
-      // pages: ['src/pages', 'src/pages2'],
-      pages: [
+      dirs: [
         // issue #68
         { dir: resolve(__dirname, './src/pages'), baseRoute: '' },
         { dir: 'src/features/**/pages', baseRoute: 'features' },
         { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
       extensions: ['vue', 'md'],
-      syncIndex: true,
       replaceSquareBrackets: true,
       extendRoute(route) {
         if (route.name === 'about')
-          route.props = route => ({ query: route.query.q })
+          route.props = (route: any) => ({ query: route.query.q })
 
         if (route.name === 'components') {
           return {

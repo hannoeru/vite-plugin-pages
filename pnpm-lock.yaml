@@ -127,7 +127,6 @@ importers:
       vite: ^2.6.14
       vite-plugin-md: ^0.11.4
       vite-plugin-pages: workspace:*
-      vite-plugin-restart: ^0.0.2
       vue: ^3.2.22
       vue-router: 4.0.12
     dependencies:
@@ -142,7 +141,6 @@ importers:
       vite: 2.6.14
       vite-plugin-md: 0.11.4_vite@2.6.14
       vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.0.2_vite@2.6.14
 
   examples/vue-module:
     specifiers:

@@ -6,7 +6,10 @@ defineProps({
 
 <template>
   <div>
-    blog/[id].vue: {{ id }}
+    <p>blog/[id].vue: {{ id }}</p>
+    <p>
+      {{ $route }}
+    </p>
   </div>
 </template>
 

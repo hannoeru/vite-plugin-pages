@@ -3,10 +3,10 @@ import { resolveOptions } from '../src/options'
 describe('Options', () => {
   test('resolve', () => {
     const options = resolveOptions({
-      pages: 'examples/vue/src/pages',
+      dirs: 'examples/vue/src/pages',
     })
     const reactOptions = resolveOptions({
-      pages: 'examples/react/src/pages',
+      dirs: 'examples/react/src/pages',
       resolver: 'react',
     })
     expect(options).toMatchSnapshot({

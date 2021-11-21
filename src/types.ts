@@ -3,8 +3,6 @@ export type ImportModeResolveFn = (filepath: string) => ImportMode
 
 export type CustomBlock = Record<string, any>
 
-export type PagesResolver = (pagePaths: Set<string>, routeBlocks: Map<string, CustomBlock>) => any
-
 export type SupportedPagesResolver = 'vue' | 'react'
 
 export interface PageOptions {
@@ -17,10 +15,10 @@ export interface PageOptions {
  */
 interface Options {
   /**
-   * Relative path to the directory to search for page components.
+   * Paths to the directory to search for page components.
    * @default 'src/pages'
    */
-  pages: string | (string | PageOptions)[]
+  dirs: string | (string | PageOptions)[]
   /**
    * Valid file extensions for page components.
    * @default ['vue', 'js']
@@ -77,17 +75,6 @@ interface Options {
 
 export type UserOptions = Partial<Options>
 
-export interface ResolvedPage {
-  dir: string
-  route: string
-  extension: string
-  filepath: string
-  component: string
-  customBlock: Record<string, any> | null
-}
-
-export type ResolvedPages = Map<string, ResolvedPage>
-
 export interface ResolvedOptions extends Options {
   /**
    * Resolves to the `root` value from Vite config.
@@ -95,8 +82,11 @@ export interface ResolvedOptions extends Options {
    */
   root: string
   /**
+   * Resolved page dirs
+   */
+  dirs: PageOptions[]
+  /**
    * RegExp to match extensions
    */
   extensionsRE: RegExp
-  pages: PageOptions[]
 }

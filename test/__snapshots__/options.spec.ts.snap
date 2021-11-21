@@ -2,6 +2,12 @@
 
 exports[`Options resolve: resolved options - react 1`] = `
 Object {
+  "dirs": Array [
+    Object {
+      "baseRoute": "",
+      "dir": "examples/react/src/pages",
+    },
+  ],
   "exclude": Array [],
   "extendRoute": undefined,
   "extensions": Array [
@@ -13,12 +19,6 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pages": Array [
-    Object {
-      "baseRoute": "",
-      "dir": "examples/react/src/pages",
-    },
-  ],
   "replaceSquareBrackets": false,
   "resolver": "react",
   "root": Any<String>,
@@ -29,6 +29,12 @@ Object {
 
 exports[`Options resolve: resolved options 1`] = `
 Object {
+  "dirs": Array [
+    Object {
+      "baseRoute": "",
+      "dir": "examples/vue/src/pages",
+    },
+  ],
   "exclude": Array [],
   "extendRoute": undefined,
   "extensions": Array [
@@ -41,12 +47,6 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pages": Array [
-    Object {
-      "baseRoute": "",
-      "dir": "examples/vue/src/pages",
-    },
-  ],
   "replaceSquareBrackets": false,
   "resolver": "vue",
   "root": Any<String>,

@@ -3,7 +3,7 @@ import { PageContext } from '../src/context'
 describe('Generate', () => {
   test('Vue routes - async', async() => {
     const ctx = new PageContext({
-      pages: 'examples/vue/src/pages',
+      dirs: 'examples/vue/src/pages',
       extendRoute(route) {
         if (route.name === 'about')
           route.props = (route: any) => ({ query: route.query.q })
@@ -17,7 +17,7 @@ describe('Generate', () => {
 
   test('Vue routes - sync', async() => {
     const ctx = new PageContext({
-      pages: 'examples/vue/src/pages',
+      dirs: 'examples/vue/src/pages',
       importMode: 'sync',
     })
     await ctx.searchGlob()
@@ -28,7 +28,7 @@ describe('Generate', () => {
 
   test('Nuxt Style Routes', async() => {
     const ctx = new PageContext({
-      pages: 'examples/nuxt-style/src/pages',
+      dirs: 'examples/nuxt-style/src/pages',
       nuxtStyle: true,
     })
     await ctx.searchGlob()
@@ -39,7 +39,7 @@ describe('Generate', () => {
 
   test('React routes', async() => {
     const ctx = new PageContext({
-      pages: 'examples/react/src/pages',
+      dirs: 'examples/react/src/pages',
       resolver: 'react',
     })
     await ctx.searchGlob()

@@ -3,12 +3,12 @@ import { toArray, slash } from '@antfu/utils'
 import { UserOptions, ResolvedOptions } from './types'
 import { getPageDirs } from './files'
 
-function resolvePageDirs(pages: UserOptions['pages'], root: string, exclude: string[]) {
-  pages = toArray(pages)
-  return pages.flatMap((pages) => {
-    const option = typeof pages === 'string'
-      ? { dir: pages, baseRoute: '' }
-      : pages
+function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
+  dirs = toArray(dirs)
+  return dirs.flatMap((dirPath) => {
+    const option = typeof dirPath === 'string'
+      ? { dir: dirPath, baseRoute: '' }
+      : dirPath
 
     option.dir = slash(resolve(root, option.dir)).replace(`${root}/`, '')
     option.baseRoute = option.baseRoute.replace(/^\//, '').replace(/\/$/, '')
@@ -19,7 +19,7 @@ function resolvePageDirs(pages: UserOptions['pages'], root: string, exclude: str
 
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
-    pages = ['src/pages'],
+    dirs = ['src/pages'],
     routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
@@ -39,10 +39,10 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
-  const resolvedpages = resolvePageDirs(pages, root, exclude)
+  const resolvedDirs = resolvePageDirs(dirs, root, exclude)
 
   const resolvedOptions: ResolvedOptions = {
-    pages: resolvedpages,
+    dirs: resolvedDirs,
     routeBlockLang,
     root,
     extensions,

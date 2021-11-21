@@ -26,7 +26,7 @@ export function countSlash(value: string) {
 }
 
 function isPagesDir(path: string, options: ResolvedOptions) {
-  for (const page of options.pages) {
+  for (const page of options.dirs) {
     const dirPath = slash(resolve(options.root, page.dir))
     if (path.startsWith(dirPath)) return true
   }
@@ -60,11 +60,11 @@ export function resolveImportMode(
   if (typeof mode === 'function')
     return mode(filepath)
 
-  for (const pageDir of options.pages) {
+  for (const page of options.dirs) {
     if (
       options.syncIndex
-      && pageDir.baseRoute === ''
-      && filepath === `/${pageDir.dir}/index.vue`
+      && page.baseRoute === ''
+      && filepath === `/${page.dir}/index.vue`
     )
       return 'sync'
   }
