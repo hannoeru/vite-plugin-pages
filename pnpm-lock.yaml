@@ -5,7 +5,7 @@ importers:
   .:
     specifiers:
       '@antfu/utils': ^0.3.0
-      '@hannoeru/eslint-config': ^0.3.2
+      '@hannoeru/eslint-config': ^0.3.3
       '@types/debug': ^4.1.7
       '@types/deep-equal': ^1.0.1
       '@types/glob-to-regexp': ^0.4.1
@@ -38,7 +38,7 @@ importers:
       local-pkg: 0.4.0
       yaml: 2.0.0-9
     devDependencies:
-      '@hannoeru/eslint-config': 0.3.2_eslint@8.3.0+typescript@4.5.2
+      '@hannoeru/eslint-config': 0.3.3_eslint@8.3.0+typescript@4.5.2
       '@types/debug': 4.1.7
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.1
@@ -668,8 +668,8 @@ packages:
       - supports-color
     dev: true
 
-  /@hannoeru/eslint-config-basic/0.3.2_eslint@8.3.0:
-    resolution: {integrity: sha512-WZ9I/F2vBw/UrhlFFdyHgGCAHJpQbU02CVcqft/HGBKrvW5tDQ8Yrn36NCqgrYfTC9DRqiFp7X4Bo8ZuEEs1oQ==}
+  /@hannoeru/eslint-config-basic/0.3.3_eslint@8.3.0:
+    resolution: {integrity: sha512-BxDtizcjtRiu0N5+YAY49ixF2sQW10u4zaqbyrnCeosGiieKoNnHLOVbrr/pcRa7RSP22ckly8zP1s6wkpxO3g==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
@@ -689,12 +689,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hannoeru/eslint-config-react/0.3.2_eslint@8.3.0+typescript@4.5.2:
-    resolution: {integrity: sha512-p48ZebLRuCZld7NLfa7QhvqyHCkk3P9G1ZStnJoVObDYT4LwQ/6egZtWVI3LHX5fQr86EhMcRkPxbzjppwui4A==}
+  /@hannoeru/eslint-config-react/0.3.3_eslint@8.3.0+typescript@4.5.2:
+    resolution: {integrity: sha512-JohIvyY7voX3Z/b5d/zmIRQRt1Cd7h8FxqRWs1Sgc0jAlLdDPbz2nPNRXeKdNBiPZme/C5IxmQg32yQxOPlIgA==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
-      '@hannoeru/eslint-config-ts': 0.3.2_eslint@8.3.0+typescript@4.5.2
+      '@hannoeru/eslint-config-ts': 0.3.3_eslint@8.3.0+typescript@4.5.2
       eslint: 8.3.0
       eslint-plugin-react: 7.27.1_eslint@8.3.0
     transitivePeerDependencies:
@@ -702,13 +702,13 @@ packages:
       - typescript
     dev: true
 
-  /@hannoeru/eslint-config-ts/0.3.2_eslint@8.3.0+typescript@4.5.2:
-    resolution: {integrity: sha512-yap0azWgHeDJ/e0R47kNSAdx/2lxB4Im64QUl2VLOhaYlSr7VnZiUYPL7HzkV2wQKQ6VQOrfHmHxgQ9pMOwutg==}
+  /@hannoeru/eslint-config-ts/0.3.3_eslint@8.3.0+typescript@4.5.2:
+    resolution: {integrity: sha512-xDci52pz0n9RpSbx/ti8iXCA3IQ7Pq9sHOpH6/ZGFhsxjiqZ4vO+7V8UcNynsdvkwgnJRnlYuH7uIT5hNgXhaw==}
     peerDependencies:
       eslint: '>=8.0.0'
       typescript: '>=3.9'
     dependencies:
-      '@hannoeru/eslint-config-basic': 0.3.2_eslint@8.3.0
+      '@hannoeru/eslint-config-basic': 0.3.3_eslint@8.3.0
       '@typescript-eslint/eslint-plugin': 5.4.0_5c8ff4cecd5a55e744866c0654edac32
       '@typescript-eslint/parser': 5.4.0_eslint@8.3.0+typescript@4.5.2
       eslint: 8.3.0
@@ -717,12 +717,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hannoeru/eslint-config-vue/0.3.2_eslint@8.3.0+typescript@4.5.2:
-    resolution: {integrity: sha512-qANbrNNO+oECTQs52r4vHS6sUh5Emdl3XYsMaSSELY/VAD1Hn2p94xgA3PpuFNVnKVnOwjmVbl2nPY2OlmcaYQ==}
+  /@hannoeru/eslint-config-vue/0.3.3_eslint@8.3.0+typescript@4.5.2:
+    resolution: {integrity: sha512-y6zgiUX6DdAuYUlK7JwEUSYp5E7fIqVNS71qFw3ADUP867nnRRBOkzeqQL06HmvthlsjoRKaBPjlLDpRya3ecw==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
-      '@hannoeru/eslint-config-ts': 0.3.2_eslint@8.3.0+typescript@4.5.2
+      '@hannoeru/eslint-config-ts': 0.3.3_eslint@8.3.0+typescript@4.5.2
       eslint: 8.3.0
       eslint-plugin-vue: 8.1.1_eslint@8.3.0
     transitivePeerDependencies:
@@ -730,13 +730,13 @@ packages:
       - typescript
     dev: true
 
-  /@hannoeru/eslint-config/0.3.2_eslint@8.3.0+typescript@4.5.2:
-    resolution: {integrity: sha512-d89h1FIEyPSzytGcxiOr30FBFRt2cVT580TFLuTK6OjzMog0K4ZG+pgDmyaxyzkddk04Y2olXa4OngSW3zjQlQ==}
+  /@hannoeru/eslint-config/0.3.3_eslint@8.3.0+typescript@4.5.2:
+    resolution: {integrity: sha512-rBf2qGKIz80MIZyu0iRLo77ccNzRAZAJmr9GJMrA2K5LP+19xwLfJKP1EqN1uyshyLpiyjj0An5x4UHxCD6Gyg==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
-      '@hannoeru/eslint-config-react': 0.3.2_eslint@8.3.0+typescript@4.5.2
-      '@hannoeru/eslint-config-vue': 0.3.2_eslint@8.3.0+typescript@4.5.2
+      '@hannoeru/eslint-config-react': 0.3.3_eslint@8.3.0+typescript@4.5.2
+      '@hannoeru/eslint-config-vue': 0.3.3_eslint@8.3.0+typescript@4.5.2
       eslint: 8.3.0
     transitivePeerDependencies:
       - supports-color

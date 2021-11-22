@@ -62,7 +62,7 @@
     "yaml": "^2.0.0-9"
   },
   "devDependencies": {
-    "@hannoeru/eslint-config": "^0.3.2",
+    "@hannoeru/eslint-config": "^0.3.3",
     "@types/debug": "^4.1.7",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
