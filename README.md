@@ -245,15 +245,6 @@ export default {
 
 Default SFC route block parser.
 
-### replaceSquareBrackets(experimental)
-
-- **Type:** `boolean`
-- **Default:** `false`
-
-Check: [#16](https://github.com/hannoeru/vite-plugin-pages/issues/16)
-
-Replace '[]' to '_' in bundle filename
-
 ### nuxtStyle
 
 - **Type:** `boolean`

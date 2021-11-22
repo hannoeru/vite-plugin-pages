@@ -6,9 +6,6 @@ import Pages from 'vite-plugin-pages'
 export default defineConfig({
   plugins: [
     react(),
-    Pages({
-      extensions: ['tsx'],
-      react: true,
-    }),
+    Pages(),
   ],
 })

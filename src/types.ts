@@ -49,12 +49,6 @@ interface Options {
    */
   routeBlockLang: 'json5' | 'json' | 'yaml' | 'yml'
   /**
-   * Replace '[]' to '_' in bundle chunk filename
-   * Experimental feature
-   * @default true
-   */
-  replaceSquareBrackets: boolean
-  /**
    * Generate React Route
    * @default 'auto detect'
    */

@@ -1,10 +1,9 @@
-import { resolve, basename } from 'path'
+import { resolve } from 'path'
 import Debug from 'debug'
 import { ViteDevServer } from 'vite'
 import { slash } from '@antfu/utils'
 import { ResolvedOptions } from './types'
 import { MODULE_ID_VIRTUAL } from './constants'
-import type { OutputBundle } from 'rollup'
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
@@ -81,16 +80,5 @@ export function invalidatePagesModule(server: ViteDevServer) {
   if (module) {
     moduleGraph.invalidateModule(module)
     return module
-  }
-}
-
-export function replaceSquareBrackets(bundle: OutputBundle) {
-  const files = Object.keys(bundle).map(i => basename(i))
-  for (const chunk of Object.values(bundle)) {
-    chunk.fileName = chunk.fileName.replace(/(\[|\])/g, '_')
-    if (chunk.type === 'chunk') {
-      for (const file of files)
-        chunk.code = chunk.code.replace(file, file.replace(/(\[|\])/g, '_'))
-    }
   }
 }

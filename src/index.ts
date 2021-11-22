@@ -1,5 +1,4 @@
 import { UserOptions } from './types'
-import { replaceSquareBrackets } from './utils'
 import { MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
 import { PageContext } from './context'
 import type { Plugin } from 'vite'
@@ -35,10 +34,6 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
         code: 'export default {};',
         map: null,
       }
-    },
-    generateBundle(_options, bundle) {
-      if (ctx.options.replaceSquareBrackets)
-        replaceSquareBrackets(bundle)
     },
   }
 }

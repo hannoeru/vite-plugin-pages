@@ -17,7 +17,6 @@ const config = defineConfig({
         { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
       extensions: ['vue', 'md'],
-      replaceSquareBrackets: true,
       extendRoute(route) {
         if (route.name === 'about')
           route.props = (route: any) => ({ query: route.query.q })
