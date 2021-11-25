@@ -39,7 +39,7 @@
     "example:dev": "npm -C examples/vue run dev",
     "example:build": "npm -C examples/vue run build",
     "example:serve": "npm -C examples/vue run serve",
-    "test": "cross-env DEBUG=vite-plugin-pages:* jest --runInBand",
+    "test": "jest --runInBand",
     "lint": "eslint --ext .js,.ts,.vue,.json .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue,.json ."
   },
@@ -73,6 +73,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.3.0",
     "jest": "^27.3.1",
+    "jest-esbuild": "^0.2.4",
     "react-router": "^6.0.2",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
