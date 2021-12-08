@@ -26,7 +26,7 @@ export class PageContext {
   root: string
   options: ResolvedOptions
 
-  constructor(userOptions: UserOptions, viteRoot: string) {
+  constructor(userOptions: UserOptions, viteRoot: string = process.cwd()) {
     this.rawOptions = userOptions
     this.root = slash(viteRoot)
     debug.env('root', this.root)
