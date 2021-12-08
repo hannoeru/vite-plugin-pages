@@ -10,7 +10,7 @@ import { resolveVueRoutes } from './resolvers/vue'
 import { getRouteBlock } from './customBlock'
 
 import type { ViteDevServer } from 'vite'
-import type { CustomBlock, ResolvedOptions, UserOptions, SupportedPagesResolver, PageOptions } from './types'
+import type { CustomBlock, ResolvedOptions, UserOptions, PageOptions } from './types'
 
 export type PageRoute = {
   path: string
@@ -23,27 +23,15 @@ export class PageContext {
   private _customBlockMap: Map<string, CustomBlock> = new Map()
 
   rawOptions: UserOptions
-  root = slash(process.cwd())
+  root: string
   options: ResolvedOptions
 
-  constructor(userOptions: UserOptions = {}) {
+  constructor(userOptions: UserOptions, viteRoot: string) {
     this.rawOptions = userOptions
-    this.options = resolveOptions(userOptions, this.root)
+    this.root = slash(viteRoot)
+    debug.env('root', this.root)
+    this.options = resolveOptions(userOptions, viteRoot)
     debug.options(this.options)
-    this.setResolver(this.options.resolver)
-  }
-
-  setRoot(root: string) {
-    if (this.root === root)
-      return
-    debug.env('root', root)
-    this.root = slash(root)
-    this.options = resolveOptions(this.rawOptions, this.root)
-  }
-
-  setResolver(resolver: SupportedPagesResolver) {
-    debug.resolver(resolver)
-    this.options.resolver = resolver
   }
 
   setupViteServer(server: ViteDevServer) {

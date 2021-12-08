@@ -4,17 +4,18 @@ import { PageContext } from './context'
 import type { Plugin } from 'vite'
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
-  const ctx: PageContext = new PageContext(userOptions)
+  let ctx: PageContext
 
   return {
     name: 'vite-plugin-pages',
     enforce: 'pre',
     async configResolved(config) {
-      ctx.setRoot(config.root)
-      await ctx.searchGlob()
+      // auto set resolver for react project
+      if (config.plugins.find(i => i.name.includes('vite:react')))
+        userOptions.resolver = 'react'
 
-      if (config.plugins.find(i => i.name === 'vite:react-refresh'))
-        ctx.setResolver('react')
+      ctx = new PageContext(userOptions, config.root)
+      await ctx.searchGlob()
     },
     configureServer(server) {
       ctx.setupViteServer(server)
