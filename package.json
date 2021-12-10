@@ -34,7 +34,7 @@
   "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "scripts": {
     "dev": "npm run build -- --watch --ignore-watch examples",
-    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --tag --push",
     "example:dev": "npm -C examples/vue run dev",
