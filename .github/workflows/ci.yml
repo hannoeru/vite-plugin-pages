@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         node: [12, 14, 16]
-        
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -30,15 +30,13 @@ jobs:
           cache: pnpm
 
       - name: Install deps
-        run: |
-          npm i -g pnpm @antfu/ni
-          nci
+        run: pnpm install
 
       - name: Run test
-        run: nr test --if-present
+        run: pnpm test
 
       - name: Run build
-        run: nr build
+        run: pnpm build
 
   lint:
     runs-on: ubuntu-latest
@@ -61,9 +59,7 @@ jobs:
           cache: pnpm
 
       - name: Install deps
-        run: |
-          npm i -g pnpm @antfu/ni
-          nci
+        run: pnpm install
 
       - name: Lint
-        run: nr lint --if-present
+        run: pnpm lint
