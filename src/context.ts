@@ -30,7 +30,7 @@ export class PageContext {
     this.rawOptions = userOptions
     this.root = slash(viteRoot)
     debug.env('root', this.root)
-    this.options = resolveOptions(userOptions, viteRoot)
+    this.options = resolveOptions(userOptions, this.root)
     debug.options(this.options)
   }
 
