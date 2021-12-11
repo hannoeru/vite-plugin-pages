@@ -19,7 +19,7 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: strin
 
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
-    dirs = ['src/pages'],
+    dirs = userOptions.pagesDir || ['src/pages'],
     routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,

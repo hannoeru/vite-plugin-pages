@@ -65,11 +65,22 @@ interface Options {
    * Custom generated client code
    */
   onClientGenerated?: (clientCode: string) => string | void | Promise<string | void>
+
+  /**
+   * Paths to the directory to search for page components.
+   * @deprecated use `dirs` instead
+   */
+  pagesDir: string | (string | PageOptions)[]
+  /**
+   * Replace '[]' to '_' in bundle filename
+   * @deprecated issue #122
+   */
+  replaceSquareBrackets: never
 }
 
 export type UserOptions = Partial<Options>
 
-export interface ResolvedOptions extends Options {
+export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets'> {
   /**
    * Resolves to the `root` value from Vite config.
    * @default config.root
