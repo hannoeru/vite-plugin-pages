@@ -11,7 +11,10 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     enforce: 'pre',
     async configResolved(config) {
       // auto set resolver for react project
-      if (config.plugins.find(i => i.name.includes('vite:react')))
+      if (
+        !userOptions.resolver
+        && config.plugins.find(i => i.name.includes('vite:react'))
+      )
         userOptions.resolver = 'react'
 
       ctx = new PageContext(userOptions, config.root)
