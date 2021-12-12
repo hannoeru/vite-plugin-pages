@@ -23,6 +23,8 @@ $ npm install vue-router@next
 
 ### React
 
+> since v0.19.0 we only support react-router v6, if you are using react-router v5 use v0.18.2.
+
 Install:
 
 ```bash
