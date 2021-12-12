@@ -253,6 +253,13 @@ Use Nuxt.js style dynamic routing
 More details:
 [File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
 
+### resolver
+
+- **Type:** `string`
+- **Default:** `'auto detect'`
+
+Route resolver, support `vue` or `react`.
+
 ### extendRoute
 
 - **Type:**
