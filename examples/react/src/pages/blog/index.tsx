@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const components: React.FC = () => {
+const Component: React.FC = () => {
   return (
     <>
       <p>blog/index.vue</p>
@@ -15,4 +15,4 @@ const components: React.FC = () => {
   )
 }
 
-export default components
+export default Component

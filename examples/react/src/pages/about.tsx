@@ -1,7 +1,7 @@
 import React from 'react'
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router-dom'
 
-const component: React.FC = () => {
+const Component: React.FC = () => {
   return (
     <div>
       <p>nested about view:</p>
@@ -10,4 +10,4 @@ const component: React.FC = () => {
   )
 }
 
-export default component
+export default Component

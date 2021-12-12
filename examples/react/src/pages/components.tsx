@@ -1,9 +1,9 @@
 import React from 'react'
 
-const components: React.FC = () => {
+const Component: React.FC = () => {
   return (
     <h1>Test Components name</h1>
   )
 }
 
-export default components
+export default Component

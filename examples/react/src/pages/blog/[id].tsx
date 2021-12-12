@@ -1,7 +1,7 @@
 import React from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
-const components: React.FC = () => {
+const Component: React.FC = () => {
   const { id } = useParams()
   return (
     <>
@@ -10,4 +10,4 @@ const components: React.FC = () => {
   )
 }
 
-export default components
+export default Component
