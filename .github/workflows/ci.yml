@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
+          registry-url: https://registry.npmjs.org/
           cache: pnpm
 
       - name: Install deps
