@@ -1,4 +1,4 @@
-import { parse } from 'path'
+import { parse, dirname } from 'path'
 import { PageContext } from '../context'
 import { CustomBlock } from '../types'
 import {
@@ -101,7 +101,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
-        return route.rawRoute.startsWith(parent.rawRoute)
+        return dirname(route.rawRoute) === parent.rawRoute
       })
 
       if (parent) {
