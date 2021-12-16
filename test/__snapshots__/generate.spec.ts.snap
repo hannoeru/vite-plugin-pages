@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Generate Nuxt Style Routes: nuxt style routes 1`] = `
+exports[`Generate Nuxt Style Routes: client code 1`] = `
 "import _examples_nuxt_style_src_pages_index_vue from \\"/examples/nuxt-style/src/pages/index.vue\\";
 
 const routes = [{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/index.vue'),\\"props\\":true},{\\"name\\":\\"about-id\\",\\"path\\":\\":id\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/_id.vue'),\\"props\\":true}],\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/components.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":_examples_nuxt_style_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"id\\",\\"path\\":\\"/:id\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/_id.vue'),\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/_sensor/current.vue'),\\"props\\":true},{\\"name\\":\\"who-me-override\\",\\"path\\":\\"/about/who/me\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/who/me.vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/_.vue'),\\"props\\":true}];
@@ -8,7 +8,80 @@ const routes = [{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples
 export default routes;"
 `;
 
-exports[`Generate React routes: react routes 1`] = `
+exports[`Generate Nuxt Style Routes: routes 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "component": "/examples/nuxt-style/src/pages/about/index.vue",
+        "customBlock": undefined,
+        "name": "about",
+        "path": "",
+        "props": true,
+      },
+      Object {
+        "component": "/examples/nuxt-style/src/pages/about/_id.vue",
+        "customBlock": undefined,
+        "name": "about-id",
+        "path": ":id",
+        "props": true,
+      },
+    ],
+    "component": "/examples/nuxt-style/src/pages/about.vue",
+    "customBlock": undefined,
+    "path": "/about",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/nuxt-style/src/pages/components.vue",
+    "customBlock": undefined,
+    "name": "components",
+    "path": "/components",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/nuxt-style/src/pages/index.vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "name-override",
+    "path": "/",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/nuxt-style/src/pages/_id.vue",
+    "customBlock": undefined,
+    "name": "id",
+    "path": "/:id",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/nuxt-style/src/pages/_sensor/current.vue",
+    "customBlock": undefined,
+    "name": "sensor-current",
+    "path": "/:sensor/current",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/nuxt-style/src/pages/about/who/me.vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "who-me-override",
+    "path": "/about/who/me",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/nuxt-style/src/pages/_.vue",
+    "customBlock": undefined,
+    "name": "all",
+    "path": "/:all(.*)*",
+    "props": true,
+  },
+]
+`;
+
+exports[`Generate React routes: client code 1`] = `
 "import _examples_react_src_pages_about_tsx from \\"/examples/react/src/pages/about.tsx\\";
 import _examples_react_src_pages_about_index_tsx from \\"/examples/react/src/pages/about/index.tsx\\";
 import _examples_react_src_pages_components_tsx from \\"/examples/react/src/pages/components.tsx\\";
@@ -24,27 +97,265 @@ const routes = [{\\"path\\":\\"about\\",\\"element\\":React.createElement(_examp
 export default routes;"
 `;
 
-exports[`Generate Vue routes - async: vue routes 1`] = `
+exports[`Generate React routes: routes 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "element": "/examples/react/src/pages/about/index.tsx",
+        "index": true,
+      },
+    ],
+    "element": "/examples/react/src/pages/about.tsx",
+    "path": "about",
+  },
+  Object {
+    "element": "/examples/react/src/pages/components.tsx",
+    "path": "components",
+  },
+  Object {
+    "element": "/examples/react/src/pages/index.tsx",
+    "index": true,
+  },
+  Object {
+    "children": Array [
+      Object {
+        "element": "/examples/react/src/pages/blog/index.tsx",
+        "index": true,
+      },
+      Object {
+        "element": "/examples/react/src/pages/blog/[id].tsx",
+        "path": ":id",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "element": "/examples/react/src/pages/blog/today/index.tsx",
+            "index": true,
+          },
+        ],
+        "path": "today",
+      },
+    ],
+    "path": "blog",
+  },
+  Object {
+    "element": "/examples/react/src/pages/[...all].tsx",
+    "path": "*",
+  },
+]
+`;
+
+exports[`Generate Vue routes - async: client code 1`] = `
 "import _examples_vue_src_pages_index_vue from \\"/examples/vue/src/pages/index.vue\\";
 
-const routes = [{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples/vue/src/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/examples/vue/src/pages/about/index.vue'),\\"props\\":(route2)=>({query:route2.query.q})},{\\"name\\":\\"about-user-id\\",\\"path\\":\\":id\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":true}}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/examples/vue/src/pages/components.vue'),\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/examples/vue/src/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/examples/vue/src/pages/[sensor]/current.vue'),\\"props\\":true},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/examples/vue/src/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/examples/vue/src/pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/examples/vue/src/pages/[...all].vue'),\\"props\\":true}];
+const routes = [{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples/vue/src/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/examples/vue/src/pages/about/index.vue'),\\"props\\":(route2)=>({query:route2.query.q})},{\\"name\\":\\"about-user-id\\",\\"path\\":\\":id\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":true}}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/examples/vue/src/pages/components.vue'),\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"path\\":\\"/:sensor\\",\\"component\\":() => import('/examples/vue/src/pages/[sensor].vue'),\\"children\\":[{\\"name\\":\\"sensor-current\\",\\"path\\":\\"current\\",\\"component\\":() => import('/examples/vue/src/pages/[sensor]/current.vue'),\\"props\\":true}],\\"props\\":true},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/examples/vue/src/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/examples/vue/src/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/examples/vue/src/pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/examples/vue/src/pages/[...all].vue'),\\"props\\":true}];
 
 export default routes;"
 `;
 
-exports[`Generate Vue routes - sync: vue routes - sync 1`] = `
+exports[`Generate Vue routes - async: routes 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "component": "/examples/vue/src/pages/about/index.vue",
+        "customBlock": undefined,
+        "name": "about",
+        "path": "",
+        "props": [Function],
+      },
+      Object {
+        "component": "/examples/vue/src/pages/about/[id].vue",
+        "meta": Object {
+          "requiresAuth": true,
+        },
+        "name": "about-user-id",
+        "path": ":id",
+        "props": true,
+      },
+    ],
+    "component": "/examples/vue/src/pages/about.vue",
+    "meta": Object {
+      "lang": "yml",
+    },
+    "path": "/about",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/components.vue",
+    "meta": Object {
+      "lang": "yaml",
+    },
+    "name": "components",
+    "path": "/components",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/index.vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "homepage",
+    "path": "/",
+    "props": true,
+  },
+  Object {
+    "children": Array [
+      Object {
+        "component": "/examples/vue/src/pages/[sensor]/current.vue",
+        "customBlock": undefined,
+        "name": "sensor-current",
+        "path": "current",
+        "props": true,
+      },
+    ],
+    "component": "/examples/vue/src/pages/[sensor].vue",
+    "customBlock": undefined,
+    "path": "/:sensor",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/blog/index.vue",
+    "customBlock": undefined,
+    "name": "blog",
+    "path": "/blog",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/blog/[id].vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "blog-id",
+    "path": "/blog/:id",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/blog/today/index.vue",
+    "customBlock": undefined,
+    "name": "blog-today",
+    "path": "/blog/today",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/[...all].vue",
+    "customBlock": undefined,
+    "name": "all",
+    "path": "/:all(.*)*",
+    "props": true,
+  },
+]
+`;
+
+exports[`Generate Vue routes - sync: client code 1`] = `
 "import _examples_vue_src_pages_about_vue from \\"/examples/vue/src/pages/about.vue\\";
 import _examples_vue_src_pages_about_index_vue from \\"/examples/vue/src/pages/about/index.vue\\";
 import _examples_vue_src_pages_about_$id$_vue from \\"/examples/vue/src/pages/about/[id].vue\\";
 import _examples_vue_src_pages_components_vue from \\"/examples/vue/src/pages/components.vue\\";
 import _examples_vue_src_pages_index_vue from \\"/examples/vue/src/pages/index.vue\\";
-import _examples_vue_src_pages_blog_index_vue from \\"/examples/vue/src/pages/blog/index.vue\\";
+import _examples_vue_src_pages_$sensor$_vue from \\"/examples/vue/src/pages/[sensor].vue\\";
 import _examples_vue_src_pages_$sensor$_current_vue from \\"/examples/vue/src/pages/[sensor]/current.vue\\";
+import _examples_vue_src_pages_blog_index_vue from \\"/examples/vue/src/pages/blog/index.vue\\";
 import _examples_vue_src_pages_blog_$id$_vue from \\"/examples/vue/src/pages/blog/[id].vue\\";
 import _examples_vue_src_pages_blog_today_index_vue from \\"/examples/vue/src/pages/blog/today/index.vue\\";
 import _examples_vue_src_pages_$___all$_vue from \\"/examples/vue/src/pages/[...all].vue\\";
 
-const routes = [{\\"path\\":\\"/about\\",\\"component\\":_examples_vue_src_pages_about_vue,\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":_examples_vue_src_pages_about_index_vue,\\"props\\":true},{\\"name\\":\\"about-user-id\\",\\"path\\":\\":id\\",\\"component\\":_examples_vue_src_pages_about_$id$_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":true}}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":_examples_vue_src_pages_components_vue,\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":_examples_vue_src_pages_blog_index_vue,\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":_examples_vue_src_pages_$sensor$_current_vue,\\"props\\":true},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":_examples_vue_src_pages_blog_$id$_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":_examples_vue_src_pages_blog_today_index_vue,\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":_examples_vue_src_pages_$___all$_vue,\\"props\\":true}];
+const routes = [{\\"path\\":\\"/about\\",\\"component\\":_examples_vue_src_pages_about_vue,\\"children\\":[{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":_examples_vue_src_pages_about_index_vue,\\"props\\":true},{\\"name\\":\\"about-user-id\\",\\"path\\":\\":id\\",\\"component\\":_examples_vue_src_pages_about_$id$_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":true}}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":_examples_vue_src_pages_components_vue,\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"path\\":\\"/:sensor\\",\\"component\\":_examples_vue_src_pages_$sensor$_vue,\\"children\\":[{\\"name\\":\\"sensor-current\\",\\"path\\":\\"current\\",\\"component\\":_examples_vue_src_pages_$sensor$_current_vue,\\"props\\":true}],\\"props\\":true},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":_examples_vue_src_pages_blog_index_vue,\\"props\\":true},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":_examples_vue_src_pages_blog_$id$_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":_examples_vue_src_pages_blog_today_index_vue,\\"props\\":true},{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":_examples_vue_src_pages_$___all$_vue,\\"props\\":true}];
 
 export default routes;"
+`;
+
+exports[`Generate Vue routes - sync: routes 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "component": "/examples/vue/src/pages/about/index.vue",
+        "customBlock": undefined,
+        "name": "about",
+        "path": "",
+        "props": true,
+      },
+      Object {
+        "component": "/examples/vue/src/pages/about/[id].vue",
+        "meta": Object {
+          "requiresAuth": true,
+        },
+        "name": "about-user-id",
+        "path": ":id",
+        "props": true,
+      },
+    ],
+    "component": "/examples/vue/src/pages/about.vue",
+    "meta": Object {
+      "lang": "yml",
+    },
+    "path": "/about",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/components.vue",
+    "meta": Object {
+      "lang": "yaml",
+    },
+    "name": "components",
+    "path": "/components",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/index.vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "homepage",
+    "path": "/",
+    "props": true,
+  },
+  Object {
+    "children": Array [
+      Object {
+        "component": "/examples/vue/src/pages/[sensor]/current.vue",
+        "customBlock": undefined,
+        "name": "sensor-current",
+        "path": "current",
+        "props": true,
+      },
+    ],
+    "component": "/examples/vue/src/pages/[sensor].vue",
+    "customBlock": undefined,
+    "path": "/:sensor",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/blog/index.vue",
+    "customBlock": undefined,
+    "name": "blog",
+    "path": "/blog",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/blog/[id].vue",
+    "meta": Object {
+      "requiresAuth": false,
+    },
+    "name": "blog-id",
+    "path": "/blog/:id",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/blog/today/index.vue",
+    "customBlock": undefined,
+    "name": "blog-today",
+    "path": "/blog/today",
+    "props": true,
+  },
+  Object {
+    "component": "/examples/vue/src/pages/[...all].vue",
+    "customBlock": undefined,
+    "name": "all",
+    "path": "/:all(.*)*",
+    "props": true,
+  },
+]
 `;

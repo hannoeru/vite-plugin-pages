@@ -3,6 +3,7 @@
 exports[`Get files Pages file: page files 1`] = `
 Array [
   "examples/vue/src/pages/[...all].vue",
+  "examples/vue/src/pages/[sensor].vue",
   "examples/vue/src/pages/[sensor]/current.vue",
   "examples/vue/src/pages/about.vue",
   "examples/vue/src/pages/about/[id].vue",
