@@ -1,6 +1,8 @@
 <template>
-  nested about view:
-  <router-view />
+  <div>
+    nested about view:
+    <router-view />
+  </div>
 </template>
 
 <route lang="yml">

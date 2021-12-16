@@ -6,7 +6,13 @@ defineProps({
 
 <template>
   <div>
-    about/[id].vue: {{ id }}
+    <div>
+      about/[id].vue: {{ id }}
+    </div>
+    <router-link to="/about/1b234bk12b3/more">
+      more deep
+    </router-link>
+    <router-view />
   </div>
 </template>
 

@@ -7,6 +7,8 @@ Array [
   "examples/vue/src/pages/[sensor]/current.vue",
   "examples/vue/src/pages/about.vue",
   "examples/vue/src/pages/about/[id].vue",
+  "examples/vue/src/pages/about/[id]/more.vue",
+  "examples/vue/src/pages/about/[id]/nested.vue",
   "examples/vue/src/pages/about/index.vue",
   "examples/vue/src/pages/blog/[id].vue",
   "examples/vue/src/pages/blog/index.vue",
