@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Get files Pages file: page files 1`] = `
+exports[`Get files > Pages file 1`] = `
 Array [
   "examples/vue/src/pages/[...all].vue",
   "examples/vue/src/pages/[sensor].vue",
@@ -18,7 +18,7 @@ Array [
 ]
 `;
 
-exports[`Get page dirs With glob: glob dirs 1`] = `
+exports[`Get page dirs > With glob 1`] = `
 Array [
   Object {
     "baseRoute": "",

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Parser custom block: custom block 1`] = `
+exports[`Parser > custom block 1`] = `
 Object {
   "meta": Object {
     "requiresAuth": false,

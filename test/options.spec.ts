@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { resolveOptions } from '../src/options'
 
 describe('Options', () => {
@@ -9,11 +10,9 @@ describe('Options', () => {
       dirs: 'examples/react/src/pages',
       resolver: 'react',
     })
-    expect(options).toMatchSnapshot({
-      root: expect.any(String),
-    }, 'resolved options')
-    expect(reactOptions).toMatchSnapshot({
-      root: expect.any(String),
-    }, 'resolved options - react')
+    delete options.root
+    delete reactOptions.root
+    expect(options).toMatchSnapshot('vue')
+    expect(reactOptions).toMatchSnapshot('react')
   })
 })

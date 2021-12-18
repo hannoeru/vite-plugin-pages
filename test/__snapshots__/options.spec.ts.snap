@@ -1,32 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Options resolve: resolved options - react 1`] = `
-Object {
-  "dirs": Array [
-    Object {
-      "baseRoute": "",
-      "dir": "examples/react/src/pages",
-    },
-  ],
-  "exclude": Array [],
-  "extendRoute": undefined,
-  "extensions": Array [
-    "tsx",
-    "jsx",
-  ],
-  "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\)\\$/,
-  "importMode": "sync",
-  "nuxtStyle": false,
-  "onClientGenerated": undefined,
-  "onRoutesGenerated": undefined,
-  "resolver": "react",
-  "root": Any<String>,
-  "routeBlockLang": "json5",
-  "syncIndex": true,
-}
-`;
-
-exports[`Options resolve: resolved options 1`] = `
+exports[`Options > resolve 1`] = `
 Object {
   "dirs": Array [
     Object {
@@ -47,7 +21,31 @@ Object {
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": "vue",
-  "root": Any<String>,
+  "routeBlockLang": "json5",
+  "syncIndex": true,
+}
+`;
+
+exports[`Options > resolve 2`] = `
+Object {
+  "dirs": Array [
+    Object {
+      "baseRoute": "",
+      "dir": "examples/react/src/pages",
+    },
+  ],
+  "exclude": Array [],
+  "extendRoute": undefined,
+  "extensions": Array [
+    "tsx",
+    "jsx",
+  ],
+  "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\)\\$/,
+  "importMode": "sync",
+  "nuxtStyle": false,
+  "onClientGenerated": undefined,
+  "onRoutesGenerated": undefined,
+  "resolver": "react",
   "routeBlockLang": "json5",
   "syncIndex": true,
 }

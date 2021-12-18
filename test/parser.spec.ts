@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { resolve } from 'path'
+import { describe, expect, test } from 'vitest'
 import { parseCustomBlock, parseSFC } from '../src/customBlock'
 import { resolveOptions } from '../src/options'
 
@@ -12,6 +13,6 @@ describe('Parser', () => {
     const parsed = await parseSFC(VueFile)
     const customBlock = parsed.customBlocks.find(b => b.type === 'route')!
     const parsedCustomBlock = parseCustomBlock(customBlock, path, options)
-    expect(parsedCustomBlock).toMatchSnapshot('custom block')
+    expect(parsedCustomBlock).toMatchSnapshot()
   })
 })

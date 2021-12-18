@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, pathToName } from '../src/utils'
 
 describe('Utils', () => {
