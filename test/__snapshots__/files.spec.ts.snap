@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`Get files > Pages file 1`] = `
-Array [
+[
   "examples/vue/src/pages/[...all].vue",
   "examples/vue/src/pages/[sensor].vue",
   "examples/vue/src/pages/[sensor]/current.vue",
@@ -19,12 +19,12 @@ Array [
 `;
 
 exports[`Get page dirs > With glob 1`] = `
-Array [
-  Object {
+[
+  {
     "baseRoute": "",
     "dir": "examples/vue/src/features/admin/pages",
   },
-  Object {
+  {
     "baseRoute": "",
     "dir": "examples/vue/src/features/dashboard/pages",
   },

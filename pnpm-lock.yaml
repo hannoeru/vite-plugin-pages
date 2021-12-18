@@ -23,7 +23,7 @@ importers:
       tsup: ^5.11.6
       typescript: ^4.5.4
       vite: ^2.7.3
-      vitest: ^0.0.96
+      vitest: ^0.0.97
       vue-router: ^4.0.12
       yaml: ^2.0.0-9
     dependencies:
@@ -48,7 +48,7 @@ importers:
       tsup: 5.11.6_typescript@4.5.4
       typescript: 4.5.4
       vite: 2.7.3
-      vitest: 0.0.96_vite@2.7.3
+      vitest: 0.0.97_vite@2.7.3
       vue-router: 4.0.12
 
   examples/nuxt-style:
@@ -4688,8 +4688,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.0.96_vite@2.7.3:
-    resolution: {integrity: sha512-qQiHmthTRfZ/jd729esq0J+tK757PYIWs4kT3RsNwEuk8T+m4eFpu+N5niHbdMyAC/DyziCZ9BwDgCRgwN1YWg==}
+  /vitest/0.0.97_vite@2.7.3:
+    resolution: {integrity: sha512-8gFvjcqBhI78gB5tCEQShQTfmi9R8B4zn+HkOVw2h4e1ojv8fMLBjGCBG0J/RiNdaBXCWcwUy+INgFz3eNNbkA==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     peerDependencies:

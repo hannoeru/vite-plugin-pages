@@ -1,8 +1,8 @@
 // Vitest Snapshot v1
 
 exports[`Parser > custom block 1`] = `
-Object {
-  "meta": Object {
+{
+  "meta": {
     "requiresAuth": false,
   },
   "name": "blog-id",
