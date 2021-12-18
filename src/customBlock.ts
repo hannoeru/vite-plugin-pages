@@ -4,8 +4,8 @@ import YAML from 'yaml'
 
 import { importModule } from 'local-pkg'
 
-import type { SFCDescriptor, SFCBlock } from '@vue/compiler-sfc'
-import type { ResolvedOptions, CustomBlock } from './types'
+import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
+import type { CustomBlock, ResolvedOptions } from './types'
 
 export async function parseSFC(code: string): Promise<SFCDescriptor> {
   try {

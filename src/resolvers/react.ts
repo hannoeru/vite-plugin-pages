@@ -1,12 +1,13 @@
 import { parse } from 'path'
-import { PageContext } from '../context'
-import { ResolvedOptions } from '../types'
 import {
   countSlash,
-  isDynamicRoute,
   isCatchAllRoute,
+  isDynamicRoute,
 } from '../utils'
 import { generateClientCode } from '../stringify'
+
+import type { PageContext } from '../context'
+import type { ResolvedOptions } from '../types'
 
 interface Route {
   caseSensitive?: boolean

@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { resolveOptions } from '../src/options'
-import { getPageFiles, getPageDirs } from '../src/files'
+import { getPageDirs, getPageFiles } from '../src/files'
 
 const options = resolveOptions({}, process.cwd())
 const testpages = 'examples/vue/src/pages'

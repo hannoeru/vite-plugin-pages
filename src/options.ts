@@ -1,7 +1,8 @@
 import { resolve } from 'path'
-import { toArray, slash } from '@antfu/utils'
-import { UserOptions, ResolvedOptions } from './types'
+import { slash, toArray } from '@antfu/utils'
 import { getPageDirs } from './files'
+
+import type { ResolvedOptions, UserOptions } from './types'
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
   dirs = toArray(dirs)

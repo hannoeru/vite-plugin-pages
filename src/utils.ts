@@ -1,9 +1,10 @@
 import { resolve } from 'path'
 import Debug from 'debug'
-import { ViteDevServer } from 'vite'
 import { slash } from '@antfu/utils'
-import { ResolvedOptions } from './types'
 import { MODULE_ID_VIRTUAL } from './constants'
+
+import type { ViteDevServer } from 'vite'
+import type { ResolvedOptions } from './types'
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),

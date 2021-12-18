@@ -1,6 +1,6 @@
 import {
-  createMemoryHistory,
   createRouter as _createRouter,
+  createMemoryHistory,
   createWebHistory,
 } from 'vue-router'
 import routes from 'virtual:generated-pages'

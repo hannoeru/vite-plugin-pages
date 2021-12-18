@@ -1,8 +1,9 @@
 import {
-  resolveImportMode,
   pathToName,
+  resolveImportMode,
 } from './utils'
-import { ResolvedOptions } from './types'
+
+import type { ResolvedOptions } from './types'
 
 const componentRE = /"(?:component|element)":("(.*?)")/g
 const hasFunctionRE = /"(?:props|beforeEnter)":("(.*?)")/g

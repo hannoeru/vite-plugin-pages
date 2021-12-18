@@ -1,16 +1,16 @@
-import fs from 'fs'
-import { resolve, join, extname } from 'path'
+import { extname, join, resolve } from 'path'
 import deepEqual from 'deep-equal'
-import { toArray, slash } from '@antfu/utils'
+import { slash, toArray } from '@antfu/utils'
 import { resolveOptions } from './options'
 import { getPageFiles } from './files'
-import { isTarget, invalidatePagesModule, debug } from './utils'
+import { debug, invalidatePagesModule, isTarget } from './utils'
 import { resolveReactRoutes } from './resolvers/react'
 import { resolveVueRoutes } from './resolvers/vue'
 import { getRouteBlock } from './customBlock'
 
+import type { FSWatcher } from 'fs'
 import type { ViteDevServer } from 'vite'
-import type { CustomBlock, ResolvedOptions, UserOptions, PageOptions } from './types'
+import type { CustomBlock, PageOptions, ResolvedOptions, UserOptions } from './types'
 
 export type PageRoute = {
   path: string
@@ -42,7 +42,7 @@ export class PageContext {
     this.setupWatcher(server.watcher)
   }
 
-  setupWatcher(watcher: fs.FSWatcher) {
+  setupWatcher(watcher: FSWatcher) {
     watcher
       .on('unlink', (path) => {
         path = slash(path)

@@ -1,12 +1,13 @@
 import { parse } from 'path'
-import { PageContext } from '../context'
-import { CustomBlock } from '../types'
 import {
   countSlash,
-  isDynamicRoute,
   isCatchAllRoute,
+  isDynamicRoute,
 } from '../utils'
 import { generateClientCode } from '../stringify'
+
+import type { PageContext } from '../context'
+import type { CustomBlock } from '../types'
 
 interface Route {
   name?: string

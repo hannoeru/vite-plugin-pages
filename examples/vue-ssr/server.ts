@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import express from 'express'
-import { ViteDevServer } from 'vite'
+import type { ViteDevServer } from 'vite'
 
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD
 

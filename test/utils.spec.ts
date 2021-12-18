@@ -1,4 +1,4 @@
-import { extsToGlob, isDynamicRoute, isCatchAllRoute, pathToName, countSlash } from '../src/utils'
+import { countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, pathToName } from '../src/utils'
 
 describe('Utils', () => {
   test('Extensions to glob', () => {

@@ -1,6 +1,7 @@
-import { UserOptions } from './types'
 import { MODULE_IDS, MODULE_ID_VIRTUAL } from './constants'
 import { PageContext } from './context'
+
+import type { UserOptions } from './types'
 import type { Plugin } from 'vite'
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
