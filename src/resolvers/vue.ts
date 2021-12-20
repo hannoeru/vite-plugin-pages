@@ -1,3 +1,4 @@
+import { parse } from 'path'
 import {
   countSlash,
   isCatchAllRoute,
@@ -129,7 +130,17 @@ export async function resolveVueRoutes(ctx: PageContext) {
     parentRoutes.push(route)
   })
 
+  // sort by dynamic routes
   let finalRoutes = prepareRoutes(ctx, routes)
+
+  // replace duplicated cache all route
+  const allRoute = finalRoutes.find((i) => {
+    return isCatchAllRoute(parse(i.component).name, nuxtStyle)
+  })
+  if (allRoute) {
+    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(parse(i.component).name, nuxtStyle))
+    finalRoutes.push(allRoute)
+  }
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 

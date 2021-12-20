@@ -1,3 +1,4 @@
+import { parse } from 'path'
 import {
   countSlash,
   isCatchAllRoute,
@@ -118,7 +119,17 @@ export async function resolveReactRoutes(ctx: PageContext) {
     }
   })
 
+  // sort by dynamic routes
   let finalRoutes = prepareRoutes(routes, ctx.options)
+
+  // replace duplicated cache all route
+  const allRoute = finalRoutes.find((i) => {
+    return isCatchAllRoute(parse(i.element).name, nuxtStyle)
+  })
+  if (allRoute) {
+    finalRoutes = finalRoutes.filter(i => !i.element || !isCatchAllRoute(parse(i.element).name, nuxtStyle))
+    finalRoutes.push(allRoute)
+  }
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
