@@ -4,6 +4,7 @@ import YAML from 'yaml'
 
 import { importModule } from 'local-pkg'
 
+import { debug } from './utils'
 import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import type { CustomBlock, ResolvedOptions } from './types'
 
@@ -20,6 +21,8 @@ export async function parseSFC(code: string): Promise<SFCDescriptor> {
 
 export function parseCustomBlock(block: SFCBlock, filePath: string, options: ResolvedOptions): any {
   const lang = block.lang ?? options.routeBlockLang
+
+  debug.routeBlock(`use ${lang} parser`)
 
   if (lang === 'json5') {
     try {
