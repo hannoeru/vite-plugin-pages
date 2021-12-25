@@ -8,6 +8,7 @@ const path = resolve('./examples/vue/src/pages/blog/[id].vue')
 
 describe('Parser', () => {
   test('custom block', async() => {
+    console.log(options)
     const routeBlock = await getRouteBlock(path, options)
     expect(routeBlock).toMatchSnapshot()
   })
