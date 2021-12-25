@@ -56,7 +56,7 @@ export class PageContext {
         path = slash(path)
         if (!isTarget(path, this.options))
           return
-        const page = this.options.dirs.find(i => path.startsWith(slash(resolve(i.dir))))!
+        const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!
         await this.addPage(path, page)
         this.onUpdate()
       })
