@@ -1,6 +1,6 @@
 import fs from 'fs'
 import JSON5 from 'json5'
-import YAML from 'yaml'
+import { parse as YAMLParser } from 'yaml'
 
 import { importModule } from 'local-pkg'
 
@@ -38,7 +38,7 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
     }
   } else if (lang === 'yaml' || lang === 'yml') {
     try {
-      return YAML.parse(block.content)
+      return YAMLParser(block.content)
     } catch (err: any) {
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
