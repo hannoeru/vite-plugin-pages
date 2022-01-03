@@ -6,8 +6,8 @@ import {
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
+import type { Optional, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
-import type { ResolvedOptions } from '../types'
 
 interface Route {
   caseSensitive?: boolean
@@ -18,14 +18,18 @@ interface Route {
   rawRoute: string
 }
 
+type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'path'>, 'children'> & {
+  children?: PrepareRoutes[]
+}
+
 function prepareRoutes(
-  routes: any[],
+  routes: PrepareRoutes[],
   options: ResolvedOptions,
-  parent?: Route,
+  parent?: PrepareRoutes,
 ) {
   for (const route of routes) {
     if (parent)
-      route.path = route.path.replace(/^\//, '')
+      route.path = route.path?.replace(/^\//, '')
 
     if (route.children)
       route.children = prepareRoutes(route.children, options, route)
@@ -124,7 +128,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
 
   // replace duplicated cache all route
   const allRoute = finalRoutes.find((i) => {
-    return isCatchAllRoute(parse(i.element).name, nuxtStyle)
+    return i.element && isCatchAllRoute(parse(i.element).name, nuxtStyle)
   })
   if (allRoute) {
     finalRoutes = finalRoutes.filter(i => !i.element || !isCatchAllRoute(parse(i.element).name, nuxtStyle))

@@ -6,11 +6,11 @@ import {
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
+import type { CustomBlock, Optional } from '../types'
 import type { PageContext } from '../context'
-import type { CustomBlock } from '../types'
 
 interface Route {
-  name?: string
+  name: string
   path: string
   props?: boolean
   component: string
@@ -19,17 +19,21 @@ interface Route {
   rawRoute: string
 }
 
+type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'name'>, 'children'> & {
+  children?: PrepareRoutes[]
+}
+
 function prepareRoutes(
   ctx: PageContext,
-  routes: any[],
-  parent?: any,
+  routes: PrepareRoutes[],
+  parent?: PrepareRoutes,
 ) {
   for (const route of routes) {
     if (route.name)
       route.name = route.name.replace(/-index$/, '')
 
     if (parent)
-      route.path = route.path.replace(/^\//, '')
+      route.path = route.path?.replace(/^\//, '')
 
     if (route.children) {
       delete route.name
