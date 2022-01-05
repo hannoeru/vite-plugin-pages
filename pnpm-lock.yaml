@@ -16,6 +16,7 @@ importers:
       debug: ^4.3.3
       deep-equal: ^2.0.5
       eslint: ^8.6.0
+      esno: ^0.13.0
       fast-glob: ^3.2.7
       json5: ^2.2.0
       local-pkg: ^0.4.1
@@ -45,6 +46,7 @@ importers:
       bumpp: 7.1.1
       cross-env: 7.0.3
       eslint: 8.6.0
+      esno: 0.13.0_typescript@4.5.4
       playwright: 1.17.1
       react-router: 6.2.1
       tsup: 5.11.10_typescript@4.5.4
