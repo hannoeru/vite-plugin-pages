@@ -1,12 +1,17 @@
 import { describe, expect, test } from 'vitest'
 import { PageContext } from '../src/context'
 
+const sensitivity = process.platform === 'win32' ? 'base' : 'variant'
+
 function deepSortArray(arr: any[], react?: boolean) {
   const key = react ? 'element' : 'component'
+  arr.forEach((i) => {
+    if (i.children)
+      i.children = deepSortArray(i.children, react)
+  })
+  if (arr.length === 1) return arr
   return arr.sort((a, b) => {
-    if (a.children)
-      a.children = deepSortArray(a.children)
-    return a[key] ? a[key].localeCompare(b[key]) : 0
+    return a[key] && b[key] ? a[key].localeCompare(b[key], 'en', { sensitivity }) : !(a[key] && b[key]) ? 0 : a[key] ? 1 : -1
   })
 }
 
