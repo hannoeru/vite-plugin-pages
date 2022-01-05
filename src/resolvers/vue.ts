@@ -7,7 +7,7 @@ import {
 import { generateClientCode } from '../stringify'
 
 import type { CustomBlock, Optional } from '../types'
-import type { PageContext } from '../context'
+import type { PageContext, PageRoute } from '../context'
 
 interface Route {
   name: string
@@ -58,19 +58,7 @@ function prepareRoutes(
 export async function resolveVueRoutes(ctx: PageContext) {
   const { nuxtStyle } = ctx.options
 
-  const pageRoutes = [...ctx.pageRouteMap.values()]
-    .sort((a, b) => {
-      if (countSlash(a.route) === countSlash(b.route)) {
-        const aDynamic = a.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
-        const bDynamic = b.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
-        if (aDynamic === bDynamic)
-          return a.route.localeCompare(b.route)
-        else
-          return aDynamic ? 1 : -1
-      } else {
-        return countSlash(a.route) - countSlash(b.route)
-      }
-    })
+  let pageRoutes = [...ctx.pageRouteMap.values()]
 
   const routes: Route[] = []
 
@@ -123,8 +111,14 @@ export async function resolveVueRoutes(ctx: PageContext) {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
           // Catch-all route
-          if (isCatchAll)
-            route.path += '(.*)*'
+          if (isCatchAll) {
+            if (i === 0)
+              // root cache all route include children
+              route.path += '(.*)*'
+            else
+              // nested cache all route not include children
+              route.path += '(.*)'
+          }
         } else {
           route.path += `/${normalizedPath}`
         }
@@ -134,17 +128,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
     parentRoutes.push(route)
   })
 
-  // sort by dynamic routes
   let finalRoutes = prepareRoutes(ctx, routes)
-
-  // replace duplicated cache all route
-  const allRoute = finalRoutes.find((i) => {
-    return isCatchAllRoute(parse(i.component).name, nuxtStyle)
-  })
-  if (allRoute) {
-    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(parse(i.component).name, nuxtStyle))
-    finalRoutes.push(allRoute)
-  }
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
