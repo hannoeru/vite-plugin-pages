@@ -1,23 +1,35 @@
 // Vitest Snapshot v1
 
 exports[`Generate routes > react - should match snapshot > client code 1`] = `
-"import _examples_react_src_pages_about_tsx from \\"/examples/react/src/pages/about.tsx\\";
-import _examples_react_src_pages_about_index_tsx from \\"/examples/react/src/pages/about/index.tsx\\";
-import _examples_react_src_pages_components_tsx from \\"/examples/react/src/pages/components.tsx\\";
+"import _examples_react_src_pages_$___all$_tsx from \\"/examples/react/src/pages/[...all].tsx\\";
 import _examples_react_src_pages_index_tsx from \\"/examples/react/src/pages/index.tsx\\";
+import _examples_react_src_pages_components_tsx from \\"/examples/react/src/pages/components.tsx\\";
+import _examples_react_src_pages_about_tsx from \\"/examples/react/src/pages/about.tsx\\";
+import _examples_react_src_pages_about_index_tsx from \\"/examples/react/src/pages/about/index.tsx\\";
 import _examples_react_src_pages_blog_index_tsx from \\"/examples/react/src/pages/blog/index.tsx\\";
 import _examples_react_src_pages_blog_$id$_tsx from \\"/examples/react/src/pages/blog/[id].tsx\\";
 import _examples_react_src_pages_blog_today_index_tsx from \\"/examples/react/src/pages/blog/today/index.tsx\\";
-import _examples_react_src_pages_$___all$_tsx from \\"/examples/react/src/pages/[...all].tsx\\";
 import React from \\"react\\";
 
-const routes = [{\\"path\\":\\"about\\",\\"element\\":React.createElement(_examples_react_src_pages_about_tsx),\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_about_index_tsx),\\"index\\":true}]},{\\"path\\":\\"components\\",\\"element\\":React.createElement(_examples_react_src_pages_components_tsx)},{\\"element\\":React.createElement(_examples_react_src_pages_index_tsx),\\"index\\":true},{\\"path\\":\\"blog\\",\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_blog_index_tsx),\\"index\\":true},{\\"path\\":\\":id\\",\\"element\\":React.createElement(_examples_react_src_pages_blog_$id$_tsx)},{\\"path\\":\\"today\\",\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_blog_today_index_tsx),\\"index\\":true}]}]},{\\"path\\":\\"*\\",\\"element\\":React.createElement(_examples_react_src_pages_$___all$_tsx)}];
+const routes = [{\\"path\\":\\"*\\",\\"element\\":React.createElement(_examples_react_src_pages_$___all$_tsx)},{\\"element\\":React.createElement(_examples_react_src_pages_index_tsx),\\"index\\":true},{\\"path\\":\\"components\\",\\"element\\":React.createElement(_examples_react_src_pages_components_tsx)},{\\"path\\":\\"about\\",\\"element\\":React.createElement(_examples_react_src_pages_about_tsx),\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_about_index_tsx),\\"index\\":true}]},{\\"path\\":\\"blog\\",\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_blog_index_tsx),\\"index\\":true},{\\"path\\":\\":id\\",\\"element\\":React.createElement(_examples_react_src_pages_blog_$id$_tsx)},{\\"path\\":\\"today\\",\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_blog_today_index_tsx),\\"index\\":true}]}]}];
 
 export default routes;"
 `;
 
 exports[`Generate routes > react - should match snapshot > routes 1`] = `
 [
+  {
+    "element": "/examples/react/src/pages/[...all].tsx",
+    "path": "*",
+  },
+  {
+    "element": "/examples/react/src/pages/index.tsx",
+    "index": true,
+  },
+  {
+    "element": "/examples/react/src/pages/components.tsx",
+    "path": "components",
+  },
   {
     "children": [
       {
@@ -27,14 +39,6 @@ exports[`Generate routes > react - should match snapshot > routes 1`] = `
     ],
     "element": "/examples/react/src/pages/about.tsx",
     "path": "about",
-  },
-  {
-    "element": "/examples/react/src/pages/components.tsx",
-    "path": "components",
-  },
-  {
-    "element": "/examples/react/src/pages/index.tsx",
-    "index": true,
   },
   {
     "children": [
@@ -58,17 +62,13 @@ exports[`Generate routes > react - should match snapshot > routes 1`] = `
     ],
     "path": "blog",
   },
-  {
-    "element": "/examples/react/src/pages/[...all].tsx",
-    "path": "*",
-  },
 ]
 `;
 
 exports[`Generate routes > vue - async mode should match snapshot > client code 1`] = `
 "import _examples_vue_src_pages_index_vue from \\"/examples/vue/src/pages/index.vue\\";
 
-const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/examples/vue/src/pages/[...all].vue'),\\"props\\":true},{\\"path\\":\\"/:sensor\\",\\"component\\":() => import('/examples/vue/src/pages/[sensor].vue'),\\"children\\":[{\\"name\\":\\"sensor-current\\",\\"path\\":\\"current\\",\\"component\\":() => import('/examples/vue/src/pages/[sensor]/current.vue'),\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples/vue/src/pages/about.vue'),\\"children\\":[{\\"path\\":\\":id\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id].vue'),\\"children\\":[{\\"name\\":\\"about-id-more\\",\\"path\\":\\"more\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id]/more.vue'),\\"props\\":true},{\\"name\\":\\"about-id-nested\\",\\"path\\":\\"nested\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id]/nested.vue'),\\"props\\":true}],\\"props\\":true,\\"name\\":\\"about-user-id\\",\\"meta\\":{\\"requiresAuth\\":true}},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/examples/vue/src/pages/about/index.vue'),\\"props\\":(route2)=>({query:route2.query.q})}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/examples/vue/src/pages/components.vue'),\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/examples/vue/src/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/examples/vue/src/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"blog-today-all\\",\\"path\\":\\"/blog/today/:all(.*)\\",\\"component\\":() => import('/examples/vue/src/pages/blog/today/[...all].vue'),\\"props\\":true},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/examples/vue/src/pages/blog/today/index.vue'),\\"props\\":true}];
+const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/examples/vue/src/pages/[...all].vue'),\\"props\\":true},{\\"path\\":\\"/:sensor\\",\\"component\\":() => import('/examples/vue/src/pages/[sensor].vue'),\\"children\\":[{\\"name\\":\\"sensor-current\\",\\"path\\":\\"current\\",\\"component\\":() => import('/examples/vue/src/pages/[sensor]/current.vue'),\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples/vue/src/pages/about.vue'),\\"children\\":[{\\"path\\":\\":id\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id].vue'),\\"children\\":[{\\"name\\":\\"about-id-more\\",\\"path\\":\\"more\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id]/more.vue'),\\"props\\":true},{\\"name\\":\\"about-id-nested\\",\\"path\\":\\"nested\\",\\"component\\":() => import('/examples/vue/src/pages/about/[id]/nested.vue'),\\"props\\":true}],\\"props\\":true,\\"name\\":\\"about-user-id\\",\\"meta\\":{\\"requiresAuth\\":true}},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/examples/vue/src/pages/about/index.vue'),\\"props\\":(route2)=>({query:route2.query.q})}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":() => import('/examples/vue/src/pages/blog/[id].vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":() => import('/examples/vue/src/pages/blog/index.vue'),\\"props\\":true},{\\"name\\":\\"blog-today-all\\",\\"path\\":\\"/blog/today/:all(.*)\\",\\"component\\":() => import('/examples/vue/src/pages/blog/today/[...all].vue'),\\"props\\":true},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":() => import('/examples/vue/src/pages/blog/today/index.vue'),\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/examples/vue/src/pages/components.vue'),\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}];
 
 export default routes;"
 `;
@@ -140,24 +140,6 @@ exports[`Generate routes > vue - async mode should match snapshot > routes 1`] =
     "props": true,
   },
   {
-    "component": "/examples/vue/src/pages/components.vue",
-    "meta": {
-      "lang": "yaml",
-    },
-    "name": "components",
-    "path": "/components",
-    "props": true,
-  },
-  {
-    "component": "/examples/vue/src/pages/index.vue",
-    "meta": {
-      "requiresAuth": false,
-    },
-    "name": "homepage",
-    "path": "/",
-    "props": true,
-  },
-  {
     "component": "/examples/vue/src/pages/blog/[id].vue",
     "meta": {
       "requiresAuth": false,
@@ -187,13 +169,31 @@ exports[`Generate routes > vue - async mode should match snapshot > routes 1`] =
     "path": "/blog/today",
     "props": true,
   },
+  {
+    "component": "/examples/vue/src/pages/components.vue",
+    "meta": {
+      "lang": "yaml",
+    },
+    "name": "components",
+    "path": "/components",
+    "props": true,
+  },
+  {
+    "component": "/examples/vue/src/pages/index.vue",
+    "meta": {
+      "requiresAuth": false,
+    },
+    "name": "homepage",
+    "path": "/",
+    "props": true,
+  },
 ]
 `;
 
 exports[`Generate routes > vue - nuxt style mode should match snapshot > client code 1`] = `
 "import _examples_nuxt_style_src_pages_index_vue from \\"/examples/nuxt-style/src/pages/index.vue\\";
 
-const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/_.vue'),\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about-id\\",\\"path\\":\\":id\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/_id.vue'),\\"props\\":true},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/index.vue'),\\"props\\":true},{\\"name\\":\\"who-me-override\\",\\"path\\":\\"who/me\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/who/me.vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}],\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/components.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":_examples_nuxt_style_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/_sensor/current.vue'),\\"props\\":true}];
+const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/_.vue'),\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/_sensor/current.vue'),\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about.vue'),\\"children\\":[{\\"name\\":\\"about-id\\",\\"path\\":\\":id\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/_id.vue'),\\"props\\":true},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/index.vue'),\\"props\\":true},{\\"name\\":\\"who-me-override\\",\\"path\\":\\"who/me\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/about/who/me.vue'),\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}],\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":() => import('/examples/nuxt-style/src/pages/components.vue'),\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":_examples_nuxt_style_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}];
 
 export default routes;"
 `;
@@ -205,6 +205,13 @@ exports[`Generate routes > vue - nuxt style mode should match snapshot > routes 
     "customBlock": undefined,
     "name": "all",
     "path": "/:all(.*)*",
+    "props": true,
+  },
+  {
+    "component": "/examples/nuxt-style/src/pages/_sensor/current.vue",
+    "customBlock": undefined,
+    "name": "sensor-current",
+    "path": "/:sensor/current",
     "props": true,
   },
   {
@@ -254,13 +261,6 @@ exports[`Generate routes > vue - nuxt style mode should match snapshot > routes 
     "path": "/",
     "props": true,
   },
-  {
-    "component": "/examples/nuxt-style/src/pages/_sensor/current.vue",
-    "customBlock": undefined,
-    "name": "sensor-current",
-    "path": "/:sensor/current",
-    "props": true,
-  },
 ]
 `;
 
@@ -273,14 +273,14 @@ import _examples_vue_src_pages_about_$id$_vue from \\"/examples/vue/src/pages/ab
 import _examples_vue_src_pages_about_$id$_more_vue from \\"/examples/vue/src/pages/about/[id]/more.vue\\";
 import _examples_vue_src_pages_about_$id$_nested_vue from \\"/examples/vue/src/pages/about/[id]/nested.vue\\";
 import _examples_vue_src_pages_about_index_vue from \\"/examples/vue/src/pages/about/index.vue\\";
-import _examples_vue_src_pages_components_vue from \\"/examples/vue/src/pages/components.vue\\";
-import _examples_vue_src_pages_index_vue from \\"/examples/vue/src/pages/index.vue\\";
 import _examples_vue_src_pages_blog_$id$_vue from \\"/examples/vue/src/pages/blog/[id].vue\\";
 import _examples_vue_src_pages_blog_index_vue from \\"/examples/vue/src/pages/blog/index.vue\\";
 import _examples_vue_src_pages_blog_today_$___all$_vue from \\"/examples/vue/src/pages/blog/today/[...all].vue\\";
 import _examples_vue_src_pages_blog_today_index_vue from \\"/examples/vue/src/pages/blog/today/index.vue\\";
+import _examples_vue_src_pages_components_vue from \\"/examples/vue/src/pages/components.vue\\";
+import _examples_vue_src_pages_index_vue from \\"/examples/vue/src/pages/index.vue\\";
 
-const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":_examples_vue_src_pages_$___all$_vue,\\"props\\":true},{\\"path\\":\\"/:sensor\\",\\"component\\":_examples_vue_src_pages_$sensor$_vue,\\"children\\":[{\\"name\\":\\"sensor-current\\",\\"path\\":\\"current\\",\\"component\\":_examples_vue_src_pages_$sensor$_current_vue,\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":_examples_vue_src_pages_about_vue,\\"children\\":[{\\"path\\":\\":id\\",\\"component\\":_examples_vue_src_pages_about_$id$_vue,\\"children\\":[{\\"name\\":\\"about-id-more\\",\\"path\\":\\"more\\",\\"component\\":_examples_vue_src_pages_about_$id$_more_vue,\\"props\\":true},{\\"name\\":\\"about-id-nested\\",\\"path\\":\\"nested\\",\\"component\\":_examples_vue_src_pages_about_$id$_nested_vue,\\"props\\":true}],\\"props\\":true,\\"name\\":\\"about-user-id\\",\\"meta\\":{\\"requiresAuth\\":true}},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":_examples_vue_src_pages_about_index_vue,\\"props\\":true}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":_examples_vue_src_pages_components_vue,\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":_examples_vue_src_pages_blog_$id$_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":_examples_vue_src_pages_blog_index_vue,\\"props\\":true},{\\"name\\":\\"blog-today-all\\",\\"path\\":\\"/blog/today/:all(.*)\\",\\"component\\":_examples_vue_src_pages_blog_today_$___all$_vue,\\"props\\":true},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":_examples_vue_src_pages_blog_today_index_vue,\\"props\\":true}];
+const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":_examples_vue_src_pages_$___all$_vue,\\"props\\":true},{\\"path\\":\\"/:sensor\\",\\"component\\":_examples_vue_src_pages_$sensor$_vue,\\"children\\":[{\\"name\\":\\"sensor-current\\",\\"path\\":\\"current\\",\\"component\\":_examples_vue_src_pages_$sensor$_current_vue,\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":_examples_vue_src_pages_about_vue,\\"children\\":[{\\"path\\":\\":id\\",\\"component\\":_examples_vue_src_pages_about_$id$_vue,\\"children\\":[{\\"name\\":\\"about-id-more\\",\\"path\\":\\"more\\",\\"component\\":_examples_vue_src_pages_about_$id$_more_vue,\\"props\\":true},{\\"name\\":\\"about-id-nested\\",\\"path\\":\\"nested\\",\\"component\\":_examples_vue_src_pages_about_$id$_nested_vue,\\"props\\":true}],\\"props\\":true,\\"name\\":\\"about-user-id\\",\\"meta\\":{\\"requiresAuth\\":true}},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":_examples_vue_src_pages_about_index_vue,\\"props\\":true}],\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yml\\"}},{\\"name\\":\\"blog-id\\",\\"path\\":\\"/blog/:id\\",\\"component\\":_examples_vue_src_pages_blog_$id$_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"blog\\",\\"path\\":\\"/blog\\",\\"component\\":_examples_vue_src_pages_blog_index_vue,\\"props\\":true},{\\"name\\":\\"blog-today-all\\",\\"path\\":\\"/blog/today/:all(.*)\\",\\"component\\":_examples_vue_src_pages_blog_today_$___all$_vue,\\"props\\":true},{\\"name\\":\\"blog-today\\",\\"path\\":\\"/blog/today\\",\\"component\\":_examples_vue_src_pages_blog_today_index_vue,\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":_examples_vue_src_pages_components_vue,\\"props\\":true,\\"meta\\":{\\"lang\\":\\"yaml\\"}},{\\"name\\":\\"homepage\\",\\"path\\":\\"/\\",\\"component\\":_examples_vue_src_pages_index_vue,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}];
 
 export default routes;"
 `;
@@ -352,24 +352,6 @@ exports[`Generate routes > vue - sync mode should match snapshot > routes 1`] = 
     "props": true,
   },
   {
-    "component": "/examples/vue/src/pages/components.vue",
-    "meta": {
-      "lang": "yaml",
-    },
-    "name": "components",
-    "path": "/components",
-    "props": true,
-  },
-  {
-    "component": "/examples/vue/src/pages/index.vue",
-    "meta": {
-      "requiresAuth": false,
-    },
-    "name": "homepage",
-    "path": "/",
-    "props": true,
-  },
-  {
     "component": "/examples/vue/src/pages/blog/[id].vue",
     "meta": {
       "requiresAuth": false,
@@ -397,6 +379,24 @@ exports[`Generate routes > vue - sync mode should match snapshot > routes 1`] = 
     "customBlock": undefined,
     "name": "blog-today",
     "path": "/blog/today",
+    "props": true,
+  },
+  {
+    "component": "/examples/vue/src/pages/components.vue",
+    "meta": {
+      "lang": "yaml",
+    },
+    "name": "components",
+    "path": "/components",
+    "props": true,
+  },
+  {
+    "component": "/examples/vue/src/pages/index.vue",
+    "meta": {
+      "requiresAuth": false,
+    },
+    "name": "homepage",
+    "path": "/",
     "props": true,
   },
 ]

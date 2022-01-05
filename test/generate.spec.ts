@@ -1,6 +1,15 @@
 import { describe, expect, test } from 'vitest'
 import { PageContext } from '../src/context'
 
+function deepSortArray(arr: any[], react?: boolean) {
+  const key = react ? 'element' : 'component'
+  return arr.sort((a, b) => {
+    if (a.children)
+      a.children = deepSortArray(a.children)
+    return a[key] ? a[key].localeCompare(b.component) : 0
+  })
+}
+
 describe('Generate routes', () => {
   test('vue - async mode should match snapshot', async() => {
     const ctx = new PageContext({
@@ -11,7 +20,9 @@ describe('Generate routes', () => {
       },
       onRoutesGenerated(routes) {
         // eslint-disable-next-line no-console
+        routes = deepSortArray(routes)
         expect(routes).toMatchSnapshot('routes')
+        return routes
       },
     })
     await ctx.searchGlob()
@@ -26,7 +37,9 @@ describe('Generate routes', () => {
       importMode: 'sync',
       onRoutesGenerated(routes) {
         // eslint-disable-next-line no-console
+        routes = deepSortArray(routes)
         expect(routes).toMatchSnapshot('routes')
+        return routes
       },
     })
     await ctx.searchGlob()
@@ -41,7 +54,9 @@ describe('Generate routes', () => {
       nuxtStyle: true,
       onRoutesGenerated(routes) {
         // eslint-disable-next-line no-console
+        routes = deepSortArray(routes)
         expect(routes).toMatchSnapshot('routes')
+        return routes
       },
     })
     await ctx.searchGlob()
@@ -56,7 +71,9 @@ describe('Generate routes', () => {
       resolver: 'react',
       onRoutesGenerated(routes) {
         // eslint-disable-next-line no-console
+        routes = deepSortArray(routes, true)
         expect(routes).toMatchSnapshot('routes')
+        return routes
       },
     })
     await ctx.searchGlob()
