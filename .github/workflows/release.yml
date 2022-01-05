@@ -29,15 +29,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run test
-        run: pnpm test
-
       - name: GitHub Release
         run: pnpm dlx conventional-github-releaser -p angular
         env:
           CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Publish package
-        run: pnpm publish --access public --no-git-checks
+        run: pnpm run publish:ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

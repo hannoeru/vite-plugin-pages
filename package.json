@@ -37,6 +37,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --tag --push",
+    "publish:ci": "esno scripts/publish.ts",
     "example:dev": "npm -C examples/vue run dev",
     "example:build": "npm -C examples/vue run build",
     "example:serve": "npm -C examples/vue run serve",
