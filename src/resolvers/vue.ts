@@ -1,13 +1,11 @@
-import { parse } from 'path'
 import {
-  countSlash,
   isCatchAllRoute,
   isDynamicRoute,
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
 import type { CustomBlock, Optional } from '../types'
-import type { PageContext, PageRoute } from '../context'
+import type { PageContext } from '../context'
 
 interface Route {
   name: string
@@ -58,7 +56,7 @@ function prepareRoutes(
 export async function resolveVueRoutes(ctx: PageContext) {
   const { nuxtStyle } = ctx.options
 
-  let pageRoutes = [...ctx.pageRouteMap.values()]
+  const pageRoutes = [...ctx.pageRouteMap.values()]
 
   const routes: Route[] = []
 
