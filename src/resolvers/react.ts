@@ -127,12 +127,12 @@ export async function resolveReactRoutes(ctx: PageContext) {
   let finalRoutes = prepareRoutes(routes, ctx.options)
 
   // replace duplicated cache all route
-  const allRoute = finalRoutes.find((i) => {
+  const haveAllRoute = finalRoutes.some((i) => {
     return i.element && isCatchAllRoute(parse(i.element).name, nuxtStyle)
   })
-  if (allRoute) {
-    finalRoutes = finalRoutes.filter(i => !i.element || !isCatchAllRoute(parse(i.element).name, nuxtStyle))
-    finalRoutes.push(allRoute)
+  if (haveAllRoute) {
+    const allRoute = finalRoutes.filter(i => !i.element || !isCatchAllRoute(parse(i.element).name, nuxtStyle))
+    allRoute.map(i => finalRoutes.push(i))
   }
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes

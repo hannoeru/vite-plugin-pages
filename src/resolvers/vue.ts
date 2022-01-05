@@ -138,12 +138,13 @@ export async function resolveVueRoutes(ctx: PageContext) {
   let finalRoutes = prepareRoutes(ctx, routes)
 
   // replace duplicated cache all route
-  const allRoute = finalRoutes.find((i) => {
+  const haveAllRoute = finalRoutes.some((i) => {
     return isCatchAllRoute(parse(i.component).name, nuxtStyle)
   })
-  if (allRoute) {
-    finalRoutes = finalRoutes.filter(i => !isCatchAllRoute(parse(i.component).name, nuxtStyle))
-    finalRoutes.push(allRoute)
+
+  if (haveAllRoute) {
+    const allRoute = finalRoutes.filter(i => !isCatchAllRoute(parse(i.component).name, nuxtStyle))
+    allRoute.map(i => finalRoutes.push(i))
   }
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
