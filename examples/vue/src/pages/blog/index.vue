@@ -6,6 +6,9 @@
     </router-link> |
     <router-link to="/blog/today">
       today
+    </router-link> |
+    <router-link to="/blog/today/xxx">
+      child - not found
     </router-link>
   </div>
 </template>

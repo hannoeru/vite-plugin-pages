@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest'
 import { PageContext } from '../src/context'
 
-describe('Generate', () => {
-  test('Vue routes - async', async() => {
+describe('Generate routes', () => {
+  test('vue - async mode should match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       extendRoute(route) {
@@ -20,7 +20,7 @@ describe('Generate', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('Vue routes - sync', async() => {
+  test('vue - sync mode should match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       importMode: 'sync',
@@ -35,7 +35,7 @@ describe('Generate', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('Nuxt Style Routes', async() => {
+  test('vue - nuxt style mode should match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/nuxt-style/src/pages',
       nuxtStyle: true,
@@ -50,7 +50,7 @@ describe('Generate', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('React routes', async() => {
+  test('react - should match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/react/src/pages',
       resolver: 'react',

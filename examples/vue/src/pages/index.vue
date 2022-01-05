@@ -13,7 +13,7 @@
     <router-link to="/markdown">
       markdown
     </router-link> |
-    <router-link to="/xxx">
+    <router-link to="/xxx/xxx">
       not exits
     </router-link> |
     <router-link to="/features/dashboard">

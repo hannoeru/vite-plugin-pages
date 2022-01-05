@@ -12,6 +12,7 @@ exports[`Get files > Pages file 1`] = `
   "examples/vue/src/pages/about/index.vue",
   "examples/vue/src/pages/blog/[id].vue",
   "examples/vue/src/pages/blog/index.vue",
+  "examples/vue/src/pages/blog/today/[...all].vue",
   "examples/vue/src/pages/blog/today/index.vue",
   "examples/vue/src/pages/components.vue",
   "examples/vue/src/pages/index.vue",
