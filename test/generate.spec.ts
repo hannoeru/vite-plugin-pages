@@ -6,7 +6,7 @@ function deepSortArray(arr: any[], react?: boolean) {
   return arr.sort((a, b) => {
     if (a.children)
       a.children = deepSortArray(a.children)
-    return a[key] ? a[key].localeCompare(b.component) : 0
+    return a[key] ? a[key].localeCompare(b[key]) : 0
   })
 }
 
