@@ -33,11 +33,11 @@ jobs:
       - name: Install deps
         run: pnpm install
 
-      - name: Run test
-        run: pnpm test
-
       - name: Run build
         run: pnpm build
+
+      - name: Run test
+        run: pnpm test
 
   lint:
     runs-on: ubuntu-latest
