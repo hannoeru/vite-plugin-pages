@@ -34,7 +34,7 @@ describe('vue e2e test', async() => {
   test('/blog/today should have currect content', async() => {
     try {
       await page.goto(getUrl('/blog/today'))
-      const text = await page.$eval('body > div', el => el.textContent)
+      const text = await page.locator('body > div').textContent()
       expect(text.trim()).toBe('blog/today/index.vue')
     } catch (e) {
       console.error(e)
@@ -45,7 +45,7 @@ describe('vue e2e test', async() => {
   test('/blog/today/xxx should be nested cache all', async() => {
     try {
       await page.goto(getUrl('/blog/today/xxx'))
-      const text = await page.$eval('body > div', el => el.textContent)
+      const text = await page.locator('body > div').textContent()
       expect(text.trim()).toBe('blog/today ...all route')
     } catch (e) {
       console.error(e)
@@ -56,7 +56,7 @@ describe('vue e2e test', async() => {
   test('/markdown should have markdown content', async() => {
     try {
       await page.goto(getUrl('/markdown'))
-      const text = await page.$eval('body > div > div > h1', el => el.textContent)
+      const text = await page.locator('body > div > div > h1').textContent()
       expect(text.trim()).toBe('hello from markdown file')
     } catch (e) {
       console.error(e)
@@ -67,7 +67,7 @@ describe('vue e2e test', async() => {
   test('/xxx/xxx should be cache all route', async() => {
     try {
       await page.goto(getUrl('/xxx/xxx'))
-      const text = await page.$eval('body > div', el => el.textContent)
+      const text = await page.locator('body > div').textContent()
       expect(text.trim()).toBe('...all route')
     } catch (e) {
       console.error(e)
@@ -78,7 +78,7 @@ describe('vue e2e test', async() => {
   test('/about/1b234bk12b3/more deep nested dynamic route should works', async() => {
     try {
       await page.goto(getUrl('/about/1b234bk12b3/more'))
-      const text = await page.$eval('div.deep-more', el => el.textContent)
+      const text = await page.locator('div.deep-more').textContent()
       expect(text.trim()).toBe('deep nested: about/[id]/more.vue')
     } catch (e) {
       console.error(e)
@@ -89,7 +89,7 @@ describe('vue e2e test', async() => {
   test('/features/dashboard custom routes folder should works', async() => {
     try {
       await page.goto(getUrl('/features/dashboard'))
-      const text = await page.$eval('body > div > p', el => el.textContent)
+      const text = await page.locator('body > div > p >> nth=0').textContent()
       expect(text.trim()).toBe('features/dashboard/pages/dashboard.vue')
     } catch (e) {
       console.error(e)
