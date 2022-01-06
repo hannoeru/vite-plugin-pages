@@ -1,4 +1,5 @@
 import {
+  countSlash,
   isCatchAllRoute,
   isDynamicRoute,
 } from '../utils'
@@ -57,6 +58,8 @@ export async function resolveVueRoutes(ctx: PageContext) {
   const { nuxtStyle } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
+    // sort routes for HMR
+    .sort((a, b) => countSlash(a.route) - countSlash(b.route))
 
   const routes: Route[] = []
 
