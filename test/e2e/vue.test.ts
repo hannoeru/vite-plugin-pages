@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { copyFile, rm } from 'fs/promises'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { createServer } from 'vite'
 import { chromium } from 'playwright'
@@ -92,6 +93,28 @@ describe('vue e2e test', async() => {
       const text = await page.locator('body > div > p >> nth=0').textContent()
       expect(text.trim()).toBe('features/dashboard/pages/dashboard.vue')
     } catch (e) {
+      console.error(e)
+      expect(e).toBeUndefined()
+    }
+  })
+
+  test('HMR - dynamic add /test route should works', async() => {
+    const srcPath = resolve('./test/data/test.vue')
+    const distPath = resolve('./examples/vue/src/pages/test.vue')
+
+    try {
+      await page.goto(getUrl('/'))
+
+      await copyFile(srcPath, distPath)
+
+      await page.goto(getUrl('/test'), { waitUntil: 'networkidle' })
+
+      const text = await page.locator('body > div').textContent()
+      expect(text.trim()).toBe('this is test file')
+
+      await rm(distPath)
+    } catch (e) {
+      await rm(distPath)
       console.error(e)
       expect(e).toBeUndefined()
     }
