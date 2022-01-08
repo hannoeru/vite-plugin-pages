@@ -1,4 +1,3 @@
-import { parse } from 'path'
 import {
   countSlash,
   isCatchAllRoute,
