@@ -10,6 +10,9 @@ const Component: React.FC = () => {
       </Link> |
       <Link to="/blog/today">
         today
+      </Link> |
+      <Link to="/blog/today/xxx">
+        not exit
       </Link>
     </>
   )

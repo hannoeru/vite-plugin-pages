@@ -1,23 +1,28 @@
 // Vitest Snapshot v1
 
 exports[`Generate routes > react - should match snapshot > client code 1`] = `
-"import _examples_react_src_pages_about_tsx from \\"/examples/react/src/pages/about.tsx\\";
+"import _examples_react_src_pages_$___all$_tsx from \\"/examples/react/src/pages/[...all].tsx\\";
+import _examples_react_src_pages_about_tsx from \\"/examples/react/src/pages/about.tsx\\";
 import _examples_react_src_pages_about_index_tsx from \\"/examples/react/src/pages/about/index.tsx\\";
 import _examples_react_src_pages_components_tsx from \\"/examples/react/src/pages/components.tsx\\";
 import _examples_react_src_pages_index_tsx from \\"/examples/react/src/pages/index.tsx\\";
+import _examples_react_src_pages_blog_$___all$_tsx from \\"/examples/react/src/pages/blog/[...all].tsx\\";
 import _examples_react_src_pages_blog_$id$_tsx from \\"/examples/react/src/pages/blog/[id].tsx\\";
 import _examples_react_src_pages_blog_index_tsx from \\"/examples/react/src/pages/blog/index.tsx\\";
 import _examples_react_src_pages_blog_today_index_tsx from \\"/examples/react/src/pages/blog/today/index.tsx\\";
-import _examples_react_src_pages_$___all$_tsx from \\"/examples/react/src/pages/[...all].tsx\\";
 import React from \\"react\\";
 
-const routes = [{\\"path\\":\\"about\\",\\"element\\":React.createElement(_examples_react_src_pages_about_tsx),\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_about_index_tsx),\\"index\\":true}]},{\\"path\\":\\"components\\",\\"element\\":React.createElement(_examples_react_src_pages_components_tsx)},{\\"element\\":React.createElement(_examples_react_src_pages_index_tsx),\\"index\\":true},{\\"path\\":\\"blog\\",\\"children\\":[{\\"path\\":\\":id\\",\\"element\\":React.createElement(_examples_react_src_pages_blog_$id$_tsx)},{\\"element\\":React.createElement(_examples_react_src_pages_blog_index_tsx),\\"index\\":true},{\\"path\\":\\"today\\",\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_blog_today_index_tsx),\\"index\\":true}]}]},{\\"path\\":\\"*\\",\\"element\\":React.createElement(_examples_react_src_pages_$___all$_tsx)}];
+const routes = [{\\"path\\":\\"*\\",\\"element\\":React.createElement(_examples_react_src_pages_$___all$_tsx)},{\\"path\\":\\"about\\",\\"element\\":React.createElement(_examples_react_src_pages_about_tsx),\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_about_index_tsx),\\"index\\":true}]},{\\"path\\":\\"components\\",\\"element\\":React.createElement(_examples_react_src_pages_components_tsx)},{\\"element\\":React.createElement(_examples_react_src_pages_index_tsx),\\"index\\":true},{\\"path\\":\\"blog\\",\\"children\\":[{\\"path\\":\\"*\\",\\"element\\":React.createElement(_examples_react_src_pages_blog_$___all$_tsx)},{\\"path\\":\\":id\\",\\"element\\":React.createElement(_examples_react_src_pages_blog_$id$_tsx)},{\\"element\\":React.createElement(_examples_react_src_pages_blog_index_tsx),\\"index\\":true},{\\"path\\":\\"today\\",\\"children\\":[{\\"element\\":React.createElement(_examples_react_src_pages_blog_today_index_tsx),\\"index\\":true}]}]}];
 
 export default routes;"
 `;
 
 exports[`Generate routes > react - should match snapshot > routes 1`] = `
 [
+  {
+    "element": "/examples/react/src/pages/[...all].tsx",
+    "path": "*",
+  },
   {
     "children": [
       {
@@ -39,6 +44,10 @@ exports[`Generate routes > react - should match snapshot > routes 1`] = `
   {
     "children": [
       {
+        "element": "/examples/react/src/pages/blog/[...all].tsx",
+        "path": "*",
+      },
+      {
         "element": "/examples/react/src/pages/blog/[id].tsx",
         "path": ":id",
       },
@@ -57,10 +66,6 @@ exports[`Generate routes > react - should match snapshot > routes 1`] = `
       },
     ],
     "path": "blog",
-  },
-  {
-    "element": "/examples/react/src/pages/[...all].tsx",
-    "path": "*",
   },
 ]
 `;

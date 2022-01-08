@@ -14,9 +14,6 @@ const index: React.FC = () => {
       <Link to="/components">
         components
       </Link> |
-      <Link to="/markdown">
-        markdown
-      </Link> |
       <Link to="/xxx">
         not exits
       </Link>
