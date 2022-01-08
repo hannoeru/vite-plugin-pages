@@ -49,18 +49,8 @@ export async function resolveReactRoutes(ctx: PageContext) {
   const { nuxtStyle } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
-    .sort((a, b) => {
-      if (countSlash(a.route) === countSlash(b.route)) {
-        const aDynamic = a.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
-        const bDynamic = b.route.split('/').some(r => isDynamicRoute(r, nuxtStyle))
-        if (aDynamic === bDynamic)
-          return a.route.localeCompare(b.route)
-        else
-          return aDynamic ? 1 : -1
-      } else {
-        return countSlash(a.route) - countSlash(b.route)
-      }
-    })
+    // sort routes for HMR
+    .sort((a, b) => countSlash(a.route) - countSlash(b.route))
 
   const routes: Route[] = []
 
@@ -125,15 +115,6 @@ export async function resolveReactRoutes(ctx: PageContext) {
 
   // sort by dynamic routes
   let finalRoutes = prepareRoutes(routes, ctx.options)
-
-  // replace duplicated cache all route
-  const allRoute = finalRoutes.find((i) => {
-    return i.element && isCatchAllRoute(parse(i.element).name, nuxtStyle)
-  })
-  if (allRoute) {
-    finalRoutes = finalRoutes.filter(i => !i.element || !isCatchAllRoute(parse(i.element).name, nuxtStyle))
-    finalRoutes.push(allRoute)
-  }
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
