@@ -20,6 +20,7 @@ exports[`Options > resolve > react 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": "react",
+  "root": Any<String>,
   "routeBlockLang": "json5",
   "syncIndex": true,
 }
@@ -46,6 +47,7 @@ exports[`Options > resolve > vue 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": "vue",
+  "root": Any<String>,
   "routeBlockLang": "json5",
   "syncIndex": true,
 }

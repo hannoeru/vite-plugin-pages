@@ -10,9 +10,11 @@ describe('Options', () => {
       dirs: 'examples/react/src/pages',
       resolver: 'react',
     })
-    delete options.root
-    delete reactOptions.root
-    expect(options).toMatchSnapshot('vue')
-    expect(reactOptions).toMatchSnapshot('react')
+    expect(options).toMatchSnapshot({
+      root: expect.any(String),
+    }, 'vue')
+    expect(reactOptions).toMatchSnapshot({
+      root: expect.any(String),
+    }, 'react')
   })
 })
