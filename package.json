@@ -57,7 +57,7 @@
   "dependencies": {
     "debug": "^4.3.3",
     "deep-equal": "^2.0.5",
-    "fast-glob": "^3.2.7",
+    "fast-glob": "^3.2.10",
     "json5": "^2.2.0",
     "local-pkg": "^0.4.1",
     "yaml": "^2.0.0-10"
@@ -74,12 +74,12 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.6.0",
     "esno": "^0.13.0",
-    "playwright": "^1.17.1",
+    "playwright": "^1.17.2",
     "react-router": "^6.2.1",
-    "tsup": "^5.11.10",
+    "tsup": "^5.11.11",
     "typescript": "^4.5.4",
-    "vite": "^2.7.10",
-    "vitest": "^0.0.132",
+    "vite": "^2.7.11",
+    "vitest": "^0.1.12",
     "vue-router": "^4.0.12"
   }
 }
