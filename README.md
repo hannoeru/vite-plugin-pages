@@ -29,7 +29,16 @@ Install:
 
 ```bash
 $ npm install -D vite-plugin-pages
-$ npm install react-router react-router-dom react-router-config
+$ npm install react-router react-router-dom 
+```
+
+### Solid
+
+Install:
+
+```bash
+$ npm install -D vite-plugin-pages
+$ npm install solid-app-router
 ```
 
 ### Vite config
@@ -105,6 +114,34 @@ ReactDOM.render(
 /// <reference types="vite-plugin-pages/client-react" />
 ```
 
+### Solid
+
+**experimental**
+
+```js
+import { render } from 'solid-js/web'
+import { Router, useRoutes } from 'solid-app-router'
+import routes from '~solid-pages'
+
+const Routes = useRoutes(routes)
+
+render(
+  () => (
+    <Router>
+      <Routes />
+    </Router>
+  ),
+  document.getElementById('root') as HTMLElement,
+)
+```
+
+**Type**
+
+```ts
+// vite-env.d.ts
+/// <reference types="vite-plugin-pages/client-solid" />
+```
+
 ## Configuration
 
 To use custom configuration, pass your options to Pages when instantiating the
@@ -178,6 +215,7 @@ export default {
 - **Default:**
   - Vue: `['vue', 'ts', 'js']`
   - React: `['tsx', 'jsx']`
+  - Solid: `['tsx', 'jsx', 'ts', 'js']`
 
 An array of valid file extensions for pages.
 
