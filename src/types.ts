@@ -1,3 +1,5 @@
+import type { PrepareRoute, Route } from './resolvers'
+
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
 export type ImportMode = 'sync' | 'async'
@@ -5,7 +7,7 @@ export type ImportModeResolveFn = (filepath: string) => ImportMode
 
 export type CustomBlock = Record<string, any>
 
-export type SupportedPagesResolver = 'vue' | 'react'
+export type SupportedPagesResolver = 'vue' | 'react' | 'solid'
 
 export interface PageOptions {
   dir: string
@@ -58,15 +60,15 @@ interface Options {
   /**
    * Extend route records
    */
-  extendRoute?: (route: any, parent: any | undefined) => any | void
+  extendRoute?: (route: PrepareRoute, parent: PrepareRoute | undefined) => Route | void
   /**
    * Custom generated routes
    */
-  onRoutesGenerated?: (routes: any[]) => any[] | void | Promise<any[] | void>
+  onRoutesGenerated?: (routes: PrepareRoute[]) => Route[] | Promise<Route[] | void>
   /**
    * Custom generated client code
    */
-  onClientGenerated?: (clientCode: string) => string | void | Promise<string | void>
+  onClientGenerated?: (clientCode: string) => string | Promise<string | void>
 
   /**
    * Paths to the directory to search for page components.

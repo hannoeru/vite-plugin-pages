@@ -9,12 +9,11 @@ import type { Optional, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
 
 export interface Route {
-  caseSensitive?: boolean
-  children?: Route[]
-  element?: string
-  index?: boolean
-  path: string
   rawRoute: string
+  path: string
+  children?: Route[]
+  component?: string
+  element?: string
 }
 
 export type PrepareRoute = Omit<Optional<Route, 'rawRoute' | 'path'>, 'children'> & {
@@ -35,16 +34,13 @@ function prepareRoutes(
 
     delete route.rawRoute
 
-    if (route.index)
-      delete route.path
-
     Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
 
   return routes
 }
 
-export async function resolveReactRoutes(ctx: PageContext) {
+export async function resolveSolidRoutes(ctx: PageContext) {
   const { nuxtStyle } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
@@ -56,6 +52,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
 
+    const component = page.path.replace(ctx.root, '')
     const element = page.path.replace(ctx.root, '')
 
     let parentRoutes = routes
@@ -76,11 +73,26 @@ export async function resolveReactRoutes(ctx: PageContext) {
         rawRoute: pathNodes.slice(0, i + 1).join('/'),
       }
 
-      if (i === pathNodes.length - 1)
-        route.element = element
+      // Check parent exists
+      const parent = parentRoutes.find(parent =>
+        pathNodes.slice(0, i).join('/') === parent.rawRoute,
+      )
 
-      if (!route.path && normalizedPath === 'index') {
-        route.index = true
+      if (parent) {
+        // Make sure children exist in parent
+        parent.children = parent.children || []
+        // Append to parent's children
+        parentRoutes = parent.children
+      }
+
+      if (i === pathNodes.length - 1) {
+        route.element = element
+        route.component = component
+      }
+
+      if (normalizedPath === 'index') {
+        if (!route.path)
+          route.path = '/'
       } else if (normalizedPath !== 'index') {
         if (isDynamic) {
           route.path = `:${normalizedName}`
@@ -92,22 +104,10 @@ export async function resolveReactRoutes(ctx: PageContext) {
         }
       }
 
-      // Check parent exits
-      const parent = parentRoutes.find((parent) => {
-        return pathNodes.slice(0, i).join('/') === parent.rawRoute
-      })
-
-      if (parent) {
-        // Make sure children exits in parent
-        parent.children = parent.children || []
-        // Append to parent's children
-        parentRoutes = parent.children
-      }
-
-      const exits = parentRoutes.some((parent) => {
+      const exist = parentRoutes.some((parent) => {
         return pathNodes.slice(0, i + 1).join('/') === parent.rawRoute
       })
-      if (!exits)
+      if (!exist)
         parentRoutes.push(route)
     }
   })

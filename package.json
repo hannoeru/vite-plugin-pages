@@ -76,6 +76,7 @@
     "esno": "^0.13.0",
     "playwright": "^1.17.2",
     "react-router": "^6.2.1",
+    "solid-app-router": "^0.2.1",
     "tsup": "^5.11.11",
     "typescript": "^4.5.4",
     "vite": "^2.7.11",

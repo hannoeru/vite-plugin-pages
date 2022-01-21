@@ -5,10 +5,10 @@ import {
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
-import type { CustomBlock, Optional } from '../types'
+import type { CustomBlock, Optional, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
 
-interface Route {
+export interface Route {
   name: string
   path: string
   props?: boolean
@@ -18,12 +18,12 @@ interface Route {
   rawRoute: string
 }
 
-type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'name'>, 'children'> & {
+export type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'name' | 'component'>, 'children'> & {
   children?: PrepareRoutes[]
 }
 
 function prepareRoutes(
-  ctx: PageContext,
+  options: ResolvedOptions,
   routes: PrepareRoutes[],
   parent?: PrepareRoutes,
 ) {
@@ -36,7 +36,7 @@ function prepareRoutes(
 
     if (route.children) {
       delete route.name
-      route.children = prepareRoutes(ctx, route.children, route)
+      route.children = prepareRoutes(options, route.children, route)
     }
 
     route.props = true
@@ -48,7 +48,7 @@ function prepareRoutes(
       delete route.customBlock
     }
 
-    Object.assign(route, ctx.options.extendRoute?.(route, parent) || {})
+    Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
 
   return routes
@@ -99,16 +99,16 @@ export async function resolveVueRoutes(ctx: PageContext) {
       })
 
       if (parent) {
-        // Make sure children exits in parent
+        // Make sure children exist in parent
         parent.children = parent.children || []
         // Append to parent's children
         parentRoutes = parent.children
         // Reset path
         route.path = ''
-      } else if (normalizedName.toLowerCase() === 'index') {
+      } else if (normalizedPath === 'index') {
         if (!route.path)
           route.path = '/'
-      } else if (normalizedName.toLowerCase() !== 'index') {
+      } else if (normalizedPath !== 'index') {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
           // Catch-all route
@@ -129,7 +129,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
     parentRoutes.push(route)
   })
 
-  let finalRoutes = prepareRoutes(ctx, routes)
+  let finalRoutes = prepareRoutes(ctx.options, routes)
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 

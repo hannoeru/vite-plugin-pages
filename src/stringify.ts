@@ -3,6 +3,7 @@ import {
   resolveImportMode,
 } from './utils'
 
+import type { PrepareRoute } from './resolvers'
 import type { ResolvedOptions } from './types'
 
 const componentRE = /"(?:component|element)":("(.*?)")/g
@@ -32,7 +33,7 @@ function replaceFunction(_: any, value: any) {
  * Creates a stringified Vue Router route definition.
  */
 export function stringifyRoutes(
-  preparedRoutes: any[],
+  preparedRoutes: PrepareRoute[],
   options: ResolvedOptions,
 ) {
   const imports: string[] = []
@@ -49,11 +50,14 @@ export function stringifyRoutes(
 
       if (options.resolver === 'react')
         return str.replace(replaceStr, `React.createElement(${importName})`)
+      // TODO: solid sync case
       else
         return str.replace(replaceStr, importName)
     } else {
       if (options.resolver === 'react')
         return str.replace(replaceStr, `React.lazy(() => import('${path}'))`)
+      else if (options.resolver === 'solid')
+        return str.replace(replaceStr, `Solid.lazy(() => import('${path}'))`)
       else
         return str.replace(replaceStr, `() => import('${path}')`)
     }
@@ -80,11 +84,13 @@ export function stringifyRoutes(
   }
 }
 
-export function generateClientCode(routes: any[], options: ResolvedOptions) {
+export function generateClientCode(routes: PrepareRoute[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
   if (options.resolver === 'react')
     imports.push('import React from \"react\"')
+  if (options.resolver === 'solid')
+    imports.push('import * as Solid from \"solid-js\"')
 
   return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
 }
