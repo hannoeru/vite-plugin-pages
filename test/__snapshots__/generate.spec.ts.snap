@@ -70,6 +70,105 @@ exports[`Generate routes > react - should match snapshot > routes 1`] = `
 ]
 `;
 
+exports[`Generate routes > solid - should match snapshot > client code 1`] = `
+"import * as Solid from \\"solid-js\\";
+
+const routes = [{\\"path\\":\\"*\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/[...all].tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/[...all].tsx'))},{\\"path\\":\\":sensor\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/[sensor].tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/[sensor].tsx')),\\"children\\":[{\\"path\\":\\"current\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/[sensor]/current.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/[sensor]/current.tsx'))}]},{\\"path\\":\\"about\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/about.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/about.tsx')),\\"children\\":[{\\"path\\":\\":id\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/about/[id].tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/about/[id].tsx')),\\"children\\":[{\\"path\\":\\"more\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/about/[id]/more.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/about/[id]/more.tsx'))},{\\"path\\":\\"nested\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/about/[id]/nested.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/about/[id]/nested.tsx'))}]},{\\"path\\":\\"\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/about/index.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/about/index.tsx'))}]},{\\"path\\":\\"components\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/components.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/components.tsx'))},{\\"path\\":\\"/\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/index.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/index.tsx'))},{\\"path\\":\\"blog\\",\\"children\\":[{\\"path\\":\\":id\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/[id].tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/[id].tsx'))},{\\"path\\":\\"\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/index.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/index.tsx'))},{\\"path\\":\\"today\\",\\"children\\":[{\\"path\\":\\"*\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/today/[...all].tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/today/[...all].tsx'))},{\\"path\\":\\"\\",\\"element\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/today/index.tsx')),\\"component\\":Solid.lazy(() => import('/examples/solid/src/pages/blog/today/index.tsx'))}]}]}];
+
+export default routes;"
+`;
+
+exports[`Generate routes > solid - should match snapshot > routes 1`] = `
+[
+  {
+    "component": "/examples/solid/src/pages/[...all].tsx",
+    "element": "/examples/solid/src/pages/[...all].tsx",
+    "path": "*",
+  },
+  {
+    "children": [
+      {
+        "component": "/examples/solid/src/pages/[sensor]/current.tsx",
+        "element": "/examples/solid/src/pages/[sensor]/current.tsx",
+        "path": "current",
+      },
+    ],
+    "component": "/examples/solid/src/pages/[sensor].tsx",
+    "element": "/examples/solid/src/pages/[sensor].tsx",
+    "path": ":sensor",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "component": "/examples/solid/src/pages/about/[id]/more.tsx",
+            "element": "/examples/solid/src/pages/about/[id]/more.tsx",
+            "path": "more",
+          },
+          {
+            "component": "/examples/solid/src/pages/about/[id]/nested.tsx",
+            "element": "/examples/solid/src/pages/about/[id]/nested.tsx",
+            "path": "nested",
+          },
+        ],
+        "component": "/examples/solid/src/pages/about/[id].tsx",
+        "element": "/examples/solid/src/pages/about/[id].tsx",
+        "path": ":id",
+      },
+      {
+        "component": "/examples/solid/src/pages/about/index.tsx",
+        "element": "/examples/solid/src/pages/about/index.tsx",
+        "path": "",
+      },
+    ],
+    "component": "/examples/solid/src/pages/about.tsx",
+    "element": "/examples/solid/src/pages/about.tsx",
+    "path": "about",
+  },
+  {
+    "component": "/examples/solid/src/pages/components.tsx",
+    "element": "/examples/solid/src/pages/components.tsx",
+    "path": "components",
+  },
+  {
+    "component": "/examples/solid/src/pages/index.tsx",
+    "element": "/examples/solid/src/pages/index.tsx",
+    "path": "/",
+  },
+  {
+    "children": [
+      {
+        "component": "/examples/solid/src/pages/blog/[id].tsx",
+        "element": "/examples/solid/src/pages/blog/[id].tsx",
+        "path": ":id",
+      },
+      {
+        "component": "/examples/solid/src/pages/blog/index.tsx",
+        "element": "/examples/solid/src/pages/blog/index.tsx",
+        "path": "",
+      },
+      {
+        "children": [
+          {
+            "component": "/examples/solid/src/pages/blog/today/[...all].tsx",
+            "element": "/examples/solid/src/pages/blog/today/[...all].tsx",
+            "path": "*",
+          },
+          {
+            "component": "/examples/solid/src/pages/blog/today/index.tsx",
+            "element": "/examples/solid/src/pages/blog/today/index.tsx",
+            "path": "",
+          },
+        ],
+        "path": "today",
+      },
+    ],
+    "path": "blog",
+  },
+]
+`;
+
 exports[`Generate routes > vue - async mode should match snapshot > client code 1`] = `
 "import _examples_vue_src_pages_index_vue from \\"/examples/vue/src/pages/index.vue\\";
 
