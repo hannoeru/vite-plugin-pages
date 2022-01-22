@@ -11,14 +11,3 @@ export default function Id() {
     </div>
   </>
 }
-
-/* TODO
-<route>
-{
-  name: 'blog-id',
-  meta: {
-    requiresAuth: false,
-  },
-}
-</route>
-*/

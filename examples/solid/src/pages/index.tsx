@@ -13,9 +13,6 @@ export default function Index() {
       <Link href="/components">
       components
       </Link> |
-      <Link href="/markdown">
-      markdown
-      </Link> |
       <Link href="/xxx/xxx">
       not exits
       </Link> |
@@ -31,11 +28,3 @@ export default function Index() {
     </div>
   </>
 }
-
-/* TODO:
- <route>
-{
-  name: "homepage",
-  meta: {requiresAuth: false}
-}
-</route> */

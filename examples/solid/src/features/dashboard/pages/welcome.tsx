@@ -4,13 +4,3 @@ export default function Welcome() {
     <p>located in features/dashboard/pages folder</p>
   </>
 }
-
-/* TODO
-<route>
-{
-  meta: {
-    requiresAuth: true
-  }
-}
-</route>
-*/

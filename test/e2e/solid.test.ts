@@ -6,7 +6,7 @@ import { chromium } from 'playwright'
 import type { Browser, Page } from 'playwright'
 import type { ViteDevServer } from 'vite'
 
-const solidRoot = resolve('./examples/solid-test')
+const solidRoot = resolve('./examples/solid')
 
 describe('solid e2e test', async() => {
   let server: ViteDevServer
@@ -53,18 +53,6 @@ describe('solid e2e test', async() => {
       expect(e).toBeUndefined()
     }
   })
-
-  // TODO: Markdown + Solid + Vite integration
-  // test('/markdown should have markdown content', async() => {
-  //   try {
-  //     await page.goto(getUrl('/markdown'))
-  //     const text = await page.locator('body > div > div > h1').textContent()
-  //     expect(text.trim()).toBe('hello from markdown file')
-  //   } catch (e) {
-  //     console.error(e)
-  //     expect(e).toBeUndefined()
-  //   }
-  // })
 
   test('/xxx/xxx should be cache all route', async() => {
     try {

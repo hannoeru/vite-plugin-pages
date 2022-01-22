@@ -14,14 +14,3 @@ export default function IdLayout() {
     </div>
   </>
 }
-
-/* TODO
-<route>
-{
-  name: 'about-user-id',
-  meta: {
-    requiresAuth: true,
-  },
-}
-</route>
-*/
