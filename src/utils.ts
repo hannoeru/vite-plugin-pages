@@ -83,3 +83,8 @@ export function invalidatePagesModule(server: ViteDevServer) {
     return module
   }
 }
+
+export function normalizeCase(str: string, caseSensitive: boolean) {
+  if (!caseSensitive) return str.toLocaleLowerCase()
+  return str
+}

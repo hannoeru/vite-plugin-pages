@@ -2,6 +2,7 @@ import {
   countSlash,
   isCatchAllRoute,
   isDynamicRoute,
+  normalizeCase,
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
@@ -45,7 +46,7 @@ function prepareRoutes(
 }
 
 export async function resolveReactRoutes(ctx: PageContext) {
-  const { nuxtStyle } = ctx.options
+  const { nuxtStyle, caseSensitive } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -69,7 +70,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
           ? isCatchAll ? 'all' : node.replace(/^_/, '')
           : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
         : node
-      const normalizedPath = normalizedName.toLowerCase()
+      const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
       const route: Route = {
         path: '',

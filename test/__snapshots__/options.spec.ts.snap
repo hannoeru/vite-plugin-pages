@@ -2,6 +2,7 @@
 
 exports[`Options > resolve > react 1`] = `
 {
+  "caseSensitive": false,
   "dirs": [
     {
       "baseRoute": "",
@@ -28,6 +29,7 @@ exports[`Options > resolve > react 1`] = `
 
 exports[`Options > resolve > vue 1`] = `
 {
+  "caseSensitive": false,
   "dirs": [
     {
       "baseRoute": "",
