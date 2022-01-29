@@ -65,7 +65,6 @@ importers:
       vite: ^2.7.13
       vite-plugin-md: ^0.11.7
       vite-plugin-pages: workspace:*
-      vite-plugin-restart: ^0.1.1
       vue: ^3.2.29
       vue-router: 4.0.12
     dependencies:
@@ -80,7 +79,6 @@ importers:
       vite: 2.7.13
       vite-plugin-md: 0.11.7_vite@2.7.13
       vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.1.1_vite@2.7.13
 
   examples/react:
     specifiers:
@@ -148,7 +146,6 @@ importers:
       vite: ^2.7.13
       vite-plugin-md: ^0.11.7
       vite-plugin-pages: workspace:*
-      vite-plugin-restart: ^0.1.1
       vue: ^3.2.29
       vue-router: 4.0.12
     dependencies:
@@ -163,7 +160,6 @@ importers:
       vite: 2.7.13
       vite-plugin-md: 0.11.7_vite@2.7.13
       vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.1.1_vite@2.7.13
 
   examples/vue-ssr:
     specifiers:
@@ -183,7 +179,6 @@ importers:
       typescript: ^4.5.5
       vite: ^2.7.13
       vite-plugin-pages: workspace:*
-      vite-plugin-restart: ^0.1.1
       vue: ^3.2.29
       vue-router: ^4.0.12
     dependencies:
@@ -206,7 +201,6 @@ importers:
       typescript: 4.5.5
       vite: 2.7.13
       vite-plugin-pages: link:../..
-      vite-plugin-restart: 0.1.1_vite@2.7.13
 
 packages:
 
@@ -4778,15 +4772,6 @@ packages:
       '@types/markdown-it': 12.2.3
       gray-matter: 4.0.3
       markdown-it: 12.3.2
-      vite: 2.7.13
-    dev: true
-
-  /vite-plugin-restart/0.1.1_vite@2.7.13:
-    resolution: {integrity: sha512-kBxOqRrdbjVmC0PiT2KNXZogpgqA2epMkny//VjWnOS2k9NV/vXA7PYgf8/1lmBCZsC+iMj1C1ODuAR/9Sig4A==}
-    peerDependencies:
-      vite: ^2.0.0
-    dependencies:
-      micromatch: 4.0.4
       vite: 2.7.13
     dev: true
 
