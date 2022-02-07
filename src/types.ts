@@ -48,6 +48,11 @@ interface Options {
    */
   nuxtStyle: boolean
   /**
+   * Use case for route paths
+   * @default false
+     */
+  caseSensitive: boolean
+  /**
    * Set the default route block parser, or use `<route lang=xxx>` in SFC route block
    * @default 'json5'
    */

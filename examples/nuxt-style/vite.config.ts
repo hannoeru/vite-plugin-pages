@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Markdown from 'vite-plugin-md'
-import Restart from 'vite-plugin-restart'
 
 const config = defineConfig({
   plugins: [
@@ -19,9 +18,6 @@ const config = defineConfig({
       nuxtStyle: true,
     }),
     Markdown(),
-    Restart({
-      restart: ['../../dist/*.js'],
-    }),
   ],
 })
 
