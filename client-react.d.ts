@@ -7,7 +7,7 @@ declare module '~react-pages' {
 
 declare module 'virtual:generated-pages-react' {
   // eslint-disable-next-line import/no-duplicates
-  import type { RouteRecordRaw } from 'vue-router'
+  import type { RouteObject } from 'react-router'
   const routes: RouteRecordRaw[]
   export default routes
 }
