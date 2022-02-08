@@ -28,8 +28,8 @@ npm install vue-router@next
 Install:
 
 ```bash
-$ npm install -D vite-plugin-pages
-$ npm install react-router react-router-dom 
+npm install -D vite-plugin-pages
+npm install react-router react-router-dom 
 ```
 
 ### Solid
@@ -37,8 +37,8 @@ $ npm install react-router react-router-dom
 Install:
 
 ```bash
-$ npm install -D vite-plugin-pages
-$ npm install solid-app-router
+npm install -D vite-plugin-pages
+npm install solid-app-router
 ```
 
 ### Vite config
