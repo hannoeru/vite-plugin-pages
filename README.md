@@ -255,6 +255,16 @@ Use Nuxt.js style dynamic routing
 More details:
 [File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
 
+### remixStyle
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Use Remix style dynamic routing
+
+More details:
+[Remix Routing](https://remix.run/docs/en/v1/guides/routing)
+
 ### resolver
 
 - **Type:** `string`

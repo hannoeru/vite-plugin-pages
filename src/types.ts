@@ -46,6 +46,12 @@ interface Options {
    */
   nuxtStyle: boolean
   /**
+   * Use Remix style route naming
+   * https://remix.run/docs/en/v1/api/conventions#route-file-conventions
+   * @default false
+   */
+  remixStyle: boolean
+  /**
    * Use case for route paths
    * @default false
      */
