@@ -2,6 +2,15 @@
   "name": "vite-plugin-pages",
   "version": "0.20.2",
   "description": "File system base vue-router plugin for Vite",
+  "keywords": [
+    "vite",
+    "vue",
+    "vute-router",
+    "react",
+    "react-router",
+    "file-system-based",
+    "routing"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
