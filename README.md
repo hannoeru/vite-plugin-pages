@@ -7,7 +7,7 @@
 
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/hannoeru/vite-plugin-pages)
 
-> File system based routing for Vue 3 applications using
+> File system based routing for Vue 3 / React applications using
 > [Vite](https://github.com/vitejs/vite)
 
 ## Getting Started
