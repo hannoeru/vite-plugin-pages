@@ -53,23 +53,6 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('vue - nuxt style mode should match snapshot', async() => {
-    const ctx = new PageContext({
-      dirs: 'examples/nuxt-style/src/pages',
-      nuxtStyle: true,
-      onRoutesGenerated(routes) {
-        // eslint-disable-next-line no-console
-        routes = deepSortArray(routes)
-        expect(routes).toMatchSnapshot('routes')
-        return routes
-      },
-    })
-    await ctx.searchGlob()
-    const routes = await ctx.resolveRoutes()
-
-    expect(routes).toMatchSnapshot('client code')
-  })
-
   test('react - should match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/react/src/pages',
@@ -87,21 +70,40 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('react - remix style should match snapshot', async() => {
-    const ctx = new PageContext({
-      dirs: 'examples/remix-style/src/pages',
-      remixStyle: true,
-      resolver: 'react',
-      onRoutesGenerated(routes) {
+  describe('routeStyle', () => {
+    test('nuxt style should match snapshot', async() => {
+      const ctx = new PageContext({
+        dirs: 'examples/nuxt-style/src/pages',
+        routeStyle: 'nuxt',
+        onRoutesGenerated(routes) {
         // eslint-disable-next-line no-console
-        routes = deepSortArray(routes, true)
-        expect(routes).toMatchSnapshot('routes')
-        return routes
-      },
-    })
-    await ctx.searchGlob()
-    const routes = await ctx.resolveRoutes()
+          routes = deepSortArray(routes)
+          expect(routes).toMatchSnapshot('routes')
+          return routes
+        },
+      })
+      await ctx.searchGlob()
+      const routes = await ctx.resolveRoutes()
 
-    expect(routes).toMatchSnapshot('client code')
+      expect(routes).toMatchSnapshot('client code')
+    })
+
+    test('remix style should match snapshot', async() => {
+      const ctx = new PageContext({
+        dirs: 'examples/remix-style/src/pages',
+        routeStyle: 'remix',
+        resolver: 'react',
+        onRoutesGenerated(routes) {
+        // eslint-disable-next-line no-console
+          routes = deepSortArray(routes, true)
+          expect(routes).toMatchSnapshot('routes')
+          return routes
+        },
+      })
+      await ctx.searchGlob()
+      const routes = await ctx.resolveRoutes()
+
+      expect(routes).toMatchSnapshot('client code')
+    })
   })
 })

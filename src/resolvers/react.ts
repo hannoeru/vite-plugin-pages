@@ -47,7 +47,7 @@ function prepareRoutes(
 }
 
 export async function resolveReactRoutes(ctx: PageContext) {
-  const { remixStyle, caseSensitive } = ctx.options
+  const { routeStyle, caseSensitive } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -76,7 +76,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
       if (!route.path && isIndexRoute) {
         route.index = true
       } else if (!isIndexRoute) {
-        if (remixStyle)
+        if (routeStyle === 'remix')
           route.path = buildRemixRoutePath(node)
         else
           route.path = buildRoutePath(node)

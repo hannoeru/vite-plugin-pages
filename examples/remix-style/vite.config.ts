@@ -6,6 +6,6 @@ import Pages from 'vite-plugin-pages'
 export default defineConfig({
   plugins: [
     react(),
-    Pages({ remixStyle: true }),
+    Pages({ routeStyle: 'remix' }),
   ],
 })

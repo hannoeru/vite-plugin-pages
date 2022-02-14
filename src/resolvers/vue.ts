@@ -56,7 +56,7 @@ function prepareRoutes(
 }
 
 export async function resolveVueRoutes(ctx: PageContext) {
-  const { nuxtStyle, caseSensitive } = ctx.options
+  const { routeStyle, caseSensitive } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -83,6 +83,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
+      const nuxtStyle = routeStyle === 'nuxt'
       const isDynamic = isDynamicRoute(node, nuxtStyle)
       const isCatchAll = isCatchAllRoute(node, nuxtStyle)
       const normalizedName = isDynamic

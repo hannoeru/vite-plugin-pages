@@ -41,16 +41,10 @@ interface Options {
    */
   syncIndex: boolean
   /**
-   * Use Nuxt.js style route naming
+   * Use routing style
    * @default false
    */
-  nuxtStyle: boolean
-  /**
-   * Use Remix style route naming
-   * https://remix.run/docs/en/v1/api/conventions#route-file-conventions
-   * @default false
-   */
-  remixStyle: boolean
+  routeStyle: 'next' | 'nuxt' | 'remix'
   /**
    * Use case for route paths
    * @default false

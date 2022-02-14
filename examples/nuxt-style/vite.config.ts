@@ -11,11 +11,12 @@ const config = defineConfig({
     Pages({
       dirs: [
         { dir: 'src/pages', baseRoute: '' },
-        { dir: 'src/features/admin/pages', baseRoute: 'admin' },
+        { dir: 'src/features/**/pages', baseRoute: 'features' },
+        { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
       extensions: ['vue', 'md'],
       syncIndex: false,
-      nuxtStyle: true,
+      routeStyle: 'nuxt',
     }),
     Markdown(),
   ],

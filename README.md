@@ -245,25 +245,16 @@ export default {
 
 Default SFC route block parser.
 
-### nuxtStyle
+### routeStyle
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **Type:** `'next' | 'nuxt' | 'remix'`
+- **Default:** `next`
 
-Use Nuxt.js style dynamic routing
+Use file system dynamic routing supporting: 
 
-More details:
-[File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
-
-### remixStyle
-
-- **Type:** `boolean`
-- **Default:** `false`
-
-Use Remix style dynamic routing
-
-More details:
-[Remix Routing](https://remix.run/docs/en/v1/guides/routing)
+- [Nextjs Routing](https://nextjs.org/docs/routing/introduction)
+- [Nuxtjs Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
+- [Remix Routing](https://remix.run/docs/en/v1/guides/routing)
 
 ### resolver
 

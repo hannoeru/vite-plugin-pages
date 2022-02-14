@@ -21,11 +21,10 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: strin
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
     dirs = userOptions.pagesDir || ['src/pages'],
+    routeStyle = 'next',
     routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
-    remixStyle = false,
-    nuxtStyle = false,
     caseSensitive = false,
     resolver = 'vue',
     extendRoute,
@@ -45,14 +44,13 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const resolvedOptions: ResolvedOptions = {
     dirs: resolvedDirs,
+    routeStyle,
     routeBlockLang,
     root,
     extensions,
     importMode,
     exclude,
     syncIndex,
-    remixStyle,
-    nuxtStyle,
     caseSensitive,
     resolver,
     extensionsRE,
