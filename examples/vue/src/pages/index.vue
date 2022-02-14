@@ -28,9 +28,11 @@
   </div>
 </template>
 
-<route>
+<route lang="json">
 {
-  name: "homepage",
-  meta: {requiresAuth: false}
+  "name": "homepage",
+  "meta": {
+    "requiresAuth": false
+  }
 }
 </route>
