@@ -107,7 +107,8 @@ describe('vue e2e test', async() => {
 
       await copyFile(srcPath, distPath)
 
-      await page.goto(getUrl('/test'), { waitUntil: 'networkidle' })
+      await page.goto(getUrl('/'), { waitUntil: 'networkidle' })
+      await page.goto(getUrl('/test'))
 
       const text = await page.locator('body > div').textContent()
       expect(text.trim()).toBe('this is test file')
