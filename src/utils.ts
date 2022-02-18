@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, win32 } from 'path'
 import Debug from 'debug'
 import { slash } from '@antfu/utils'
 import { MODULE_ID_VIRTUAL } from './constants'
@@ -87,4 +87,103 @@ export function invalidatePagesModule(server: ViteDevServer) {
 export function normalizeCase(str: string, caseSensitive: boolean) {
   if (!caseSensitive) return str.toLocaleLowerCase()
   return str
+}
+
+export function buildReactRoutePath(node: string): string | undefined {
+  const isDynamic = isDynamicRoute(node, false)
+  const isCatchAll = isCatchAllRoute(node, false)
+  const normalizedName = isDynamic
+    ? isCatchAll
+      ? 'all'
+      : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
+    : node
+
+  if (isDynamic) {
+    if (isCatchAll)
+      return '*'
+
+    return `:${normalizedName}`
+  }
+
+  return `${normalizedName}`
+}
+
+// https://github.dev/remix-run/remix/blob/264e3f8884c5cafd8d06acc3e01153b376745b7c/packages/remix-dev/config/routesConvention.ts#L105
+export function buildReactRemixRoutePath(node: string): string | undefined {
+  const escapeStart = '['
+  const escapeEnd = ']'
+  let result = ''
+  let rawSegmentBuffer = ''
+
+  let inEscapeSequence = 0
+  let skipSegment = false
+  for (let i = 0; i < node.length; i++) {
+    const char = node.charAt(i)
+    const lastChar = i > 0 ? node.charAt(i - 1) : undefined
+    const nextChar = i < node.length - 1 ? node.charAt(i + 1) : undefined
+
+    function isNewEscapeSequence() {
+      return (
+        !inEscapeSequence && char === escapeStart && lastChar !== escapeStart
+      )
+    }
+
+    function isCloseEscapeSequence() {
+      return inEscapeSequence && char === escapeEnd && nextChar !== escapeEnd
+    }
+
+    function isStartOfLayoutSegment() {
+      return char === '_' && nextChar === '_' && !rawSegmentBuffer
+    }
+
+    if (skipSegment) {
+      if (char === '/' || char === '.' || char === win32.sep)
+        skipSegment = false
+
+      continue
+    }
+
+    if (isNewEscapeSequence()) {
+      inEscapeSequence++
+      continue
+    }
+
+    if (isCloseEscapeSequence()) {
+      inEscapeSequence--
+      continue
+    }
+
+    if (inEscapeSequence) {
+      result += char
+      continue
+    }
+
+    if (char === '/' || char === win32.sep || char === '.') {
+      if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+        result = result.replace(/\/?index$/, '')
+      else result += '/'
+
+      rawSegmentBuffer = ''
+      continue
+    }
+
+    if (isStartOfLayoutSegment()) {
+      skipSegment = true
+      continue
+    }
+
+    rawSegmentBuffer += char
+
+    if (char === '$') {
+      result += typeof nextChar === 'undefined' ? '*' : ':'
+      continue
+    }
+
+    result += char
+  }
+
+  if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+    result = result.replace(/\/?index$/, '')
+
+  return result || undefined
 }
