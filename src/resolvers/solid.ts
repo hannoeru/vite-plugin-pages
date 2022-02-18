@@ -8,22 +8,22 @@ import { generateClientCode } from '../stringify'
 import type { Optional, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
 
-export interface Route {
+export interface SolidRouteBase {
   rawRoute: string
   path: string
-  children?: Route[]
+  children?: SolidRouteBase[]
   component?: string
   element?: string
 }
 
-export type PrepareRoute = Omit<Optional<Route, 'rawRoute' | 'path'>, 'children'> & {
-  children?: PrepareRoute[]
+export interface SolidRoute extends Omit<Optional<SolidRouteBase, 'rawRoute' | 'path'>, 'children'> {
+  children?: SolidRoute[]
 }
 
 function prepareRoutes(
   options: ResolvedOptions,
-  routes: PrepareRoute[],
-  parent?: PrepareRoute,
+  routes: SolidRoute[],
+  parent?: SolidRoute,
 ) {
   for (const route of routes) {
     if (parent)
@@ -41,13 +41,14 @@ function prepareRoutes(
 }
 
 export async function resolveSolidRoutes(ctx: PageContext) {
-  const { nuxtStyle } = ctx.options
+  const { routeStyle } = ctx.options
+  const nuxtStyle = routeStyle === 'nuxt'
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
     .sort((a, b) => countSlash(a.route) - countSlash(b.route))
 
-  const routes: Route[] = []
+  const routes: SolidRouteBase[] = []
 
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
@@ -68,7 +69,7 @@ export async function resolveSolidRoutes(ctx: PageContext) {
         : node
       const normalizedPath = normalizedName.toLowerCase()
 
-      const route: Route = {
+      const route: SolidRouteBase = {
         path: '',
         rawRoute: pathNodes.slice(0, i + 1).join('/'),
       }

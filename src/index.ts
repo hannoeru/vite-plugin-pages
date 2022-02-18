@@ -51,5 +51,10 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
 }
 
 export * from './types'
+export {
+  VueRoute,
+  ReactRoute,
+  SolidRoute,
+} from './resolvers'
 export { PageContext }
 export default pagesPlugin

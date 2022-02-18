@@ -9,23 +9,23 @@ import { generateClientCode } from '../stringify'
 import type { Optional, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
 
-interface Route {
+export interface ReactRouteBase {
   caseSensitive?: boolean
-  children?: Route[]
+  children?: ReactRouteBase[]
   element?: string
   index?: boolean
   path?: string
   rawRoute: string
 }
 
-type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'path'>, 'children'> & {
-  children?: PrepareRoutes[]
+export interface ReactRoute extends Omit<Optional<ReactRouteBase, 'rawRoute' | 'path'>, 'children'> {
+  children?: ReactRoute[]
 }
 
 function prepareRoutes(
-  routes: PrepareRoutes[],
+  routes: ReactRoute[],
   options: ResolvedOptions,
-  parent?: PrepareRoutes,
+  parent?: ReactRoute,
 ) {
   for (const route of routes) {
     if (parent)
@@ -52,7 +52,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
     // sort routes for HMR
     .sort((a, b) => countSlash(a.route) - countSlash(b.route))
 
-  const routes: Route[] = []
+  const routes: ReactRouteBase[] = []
 
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
@@ -62,7 +62,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
 
-      const route: Route = {
+      const route: ReactRouteBase = {
         caseSensitive,
         path: '',
         rawRoute: pathNodes.slice(0, i + 1).join('/'),
