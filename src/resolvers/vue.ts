@@ -6,10 +6,10 @@ import {
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
-import type { CustomBlock, Optional, ResolvedOptions } from '../types'
+import type { CustomBlock, Optional } from '../types'
 import type { PageContext } from '../context'
 
-export interface Route {
+interface Route {
   name: string
   path: string
   props?: boolean
@@ -19,12 +19,12 @@ export interface Route {
   rawRoute: string
 }
 
-export type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'name' | 'component'>, 'children'> & {
+type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'name'>, 'children'> & {
   children?: PrepareRoutes[]
 }
 
 function prepareRoutes(
-  options: ResolvedOptions,
+  ctx: PageContext,
   routes: PrepareRoutes[],
   parent?: PrepareRoutes,
 ) {
@@ -37,7 +37,7 @@ function prepareRoutes(
 
     if (route.children) {
       delete route.name
-      route.children = prepareRoutes(options, route.children, route)
+      route.children = prepareRoutes(ctx, route.children, route)
     }
 
     route.props = true
@@ -49,7 +49,7 @@ function prepareRoutes(
       delete route.customBlock
     }
 
-    Object.assign(route, options.extendRoute?.(route, parent) || {})
+    Object.assign(route, ctx.options.extendRoute?.(route, parent) || {})
   }
 
   return routes
@@ -131,7 +131,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
     parentRoutes.push(route)
   })
 
-  let finalRoutes = prepareRoutes(ctx.options, routes)
+  let finalRoutes = prepareRoutes(ctx, routes)
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 

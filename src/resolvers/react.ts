@@ -9,7 +9,7 @@ import { generateClientCode } from '../stringify'
 import type { Optional, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
 
-export interface Route {
+interface Route {
   caseSensitive?: boolean
   children?: Route[]
   element?: string
@@ -18,21 +18,21 @@ export interface Route {
   rawRoute: string
 }
 
-export type PrepareRoute = Omit<Optional<Route, 'rawRoute' | 'path'>, 'children'> & {
-  children?: PrepareRoute[]
+type PrepareRoutes = Omit<Optional<Route, 'rawRoute' | 'path'>, 'children'> & {
+  children?: PrepareRoutes[]
 }
 
 function prepareRoutes(
+  routes: PrepareRoutes[],
   options: ResolvedOptions,
-  routes: PrepareRoute[],
-  parent?: PrepareRoute,
+  parent?: PrepareRoutes,
 ) {
   for (const route of routes) {
     if (parent)
       route.path = route.path?.replace(/^\//, '')
 
     if (route.children)
-      route.children = prepareRoutes(options, route.children, route)
+      route.children = prepareRoutes(route.children, options, route)
 
     delete route.rawRoute
 
@@ -102,7 +102,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
   })
 
   // sort by dynamic routes
-  let finalRoutes = prepareRoutes(ctx.options, routes)
+  let finalRoutes = prepareRoutes(routes, ctx.options)
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 

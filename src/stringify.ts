@@ -3,7 +3,6 @@ import {
   resolveImportMode,
 } from './utils'
 
-import type { PrepareRoute } from './resolvers'
 import type { ResolvedOptions } from './types'
 
 const componentRE = /"(?:component|element)":("(.*?)")/g
@@ -33,7 +32,7 @@ function replaceFunction(_: any, value: any) {
  * Creates a stringified Vue Router route definition.
  */
 export function stringifyRoutes(
-  preparedRoutes: PrepareRoute[],
+  preparedRoutes: any[],
   options: ResolvedOptions,
 ) {
   const imports: string[] = []
@@ -84,7 +83,7 @@ export function stringifyRoutes(
   }
 }
 
-export function generateClientCode(routes: PrepareRoute[], options: ResolvedOptions) {
+export function generateClientCode(routes: any[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
   if (options.resolver === 'react')

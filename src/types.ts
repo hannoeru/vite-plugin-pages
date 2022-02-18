@@ -1,5 +1,3 @@
-import type { PrepareRoute, Route } from './resolvers'
-
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
 export type ImportMode = 'sync' | 'async'
@@ -65,11 +63,11 @@ interface Options {
   /**
    * Extend route records
    */
-  extendRoute?: (route: PrepareRoute, parent: PrepareRoute | undefined) => Route | void
+  extendRoute?: (route: any, parent: any | undefined) => any | void
   /**
    * Custom generated routes
    */
-  onRoutesGenerated?: (routes: PrepareRoute[]) => Route[] | Promise<Route[] | void>
+  onRoutesGenerated?: (routes: any[]) => any[] | Promise<any[] | void>
   /**
    * Custom generated client code
    */
