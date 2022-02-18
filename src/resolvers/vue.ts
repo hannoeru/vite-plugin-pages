@@ -3,6 +3,7 @@ import {
   isCatchAllRoute,
   isDynamicRoute,
   normalizeCase,
+  normalizeName,
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
@@ -86,11 +87,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
       const nuxtStyle = routeStyle === 'nuxt'
       const isDynamic = isDynamicRoute(node, nuxtStyle)
       const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-      const normalizedName = isDynamic
-        ? nuxtStyle
-          ? isCatchAll ? 'all' : node.replace(/^_/, '')
-          : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
-        : node
+      const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
       route.name += route.name ? `-${normalizedName}` : normalizedName

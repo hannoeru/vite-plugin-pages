@@ -6,6 +6,22 @@ import { MODULE_ID_VIRTUAL } from './constants'
 import type { ViteDevServer } from 'vite'
 import type { ResolvedOptions } from './types'
 
+const dynamicRouteRE = /^\[(.+)\]$/
+const cacheAllRouteRE = /^\[\.{3}(.*)\]$/
+const replaceDynamicRouteRE = /^\[(?:\.{3})?(.*)\]$/
+
+const nuxtDynamicRouteRE = /^_(.*)$/
+const nuxtCacheAllRouteRE = /^_$/
+
+const countSlashRE = /\//g
+
+const pathToNameRE = [
+  /[_.\-\\/]/g,
+  /[[:\]()]/g,
+]
+
+const replaceIndexRE = /\/?index$/
+
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
   routeBlock: Debug('vite-plugin-pages:routeBlock'),
@@ -22,7 +38,7 @@ export function extsToGlob(extensions: string[]) {
 }
 
 export function countSlash(value: string) {
-  return (value.match(/\//g) || []).length
+  return (value.match(countSlashRE) || []).length
 }
 
 function isPagesDir(path: string, options: ResolvedOptions) {
@@ -37,19 +53,16 @@ export function isTarget(path: string, options: ResolvedOptions) {
   return isPagesDir(path, options) && options.extensionsRE.test(path)
 }
 
-const dynamicRouteRE = /^\[.+\]$/
-export const nuxtDynamicRouteRE = /^_[\s\S]*$/
-
-export function isDynamicRoute(routePath: string, nuxtStyle: Boolean = false) {
+export function isDynamicRoute(routePath: string, nuxtStyle = false) {
   return nuxtStyle
     ? nuxtDynamicRouteRE.test(routePath)
     : dynamicRouteRE.test(routePath)
 }
 
-export function isCatchAllRoute(routePath: string, nuxtStyle: Boolean = false) {
+export function isCatchAllRoute(routePath: string, nuxtStyle = false) {
   return nuxtStyle
-    ? /^_$/.test(routePath)
-    : /^\[\.{3}/.test(routePath)
+    ? nuxtCacheAllRouteRE.test(routePath)
+    : cacheAllRouteRE.test(routePath)
 }
 
 export function resolveImportMode(
@@ -72,7 +85,7 @@ export function resolveImportMode(
 }
 
 export function pathToName(filepath: string) {
-  return filepath.replace(/[_.\-\\/]/g, '_').replace(/[[:\]()]/g, '$')
+  return filepath.replace(pathToNameRE[0], '_').replace(pathToNameRE[1], '$')
 }
 
 export function invalidatePagesModule(server: ViteDevServer) {
@@ -89,14 +102,18 @@ export function normalizeCase(str: string, caseSensitive: boolean) {
   return str
 }
 
-export function buildReactRoutePath(node: string): string | undefined {
-  const isDynamic = isDynamicRoute(node, false)
-  const isCatchAll = isCatchAllRoute(node, false)
-  const normalizedName = isDynamic
-    ? isCatchAll
-      ? 'all'
-      : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
-    : node
+export function normalizeName(name: string, isDynamic: boolean, nuxtStyle = false) {
+  if (!isDynamic) return name
+
+  return nuxtStyle
+    ? name.replace(nuxtDynamicRouteRE, '$1') || 'all'
+    : name.replace(replaceDynamicRouteRE, '$1')
+}
+
+export function buildReactRoutePath(node: string, nuxtStyle = false): string | undefined {
+  const isDynamic = isDynamicRoute(node, nuxtStyle)
+  const isCatchAll = isCatchAllRoute(node, nuxtStyle)
+  const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
 
   if (isDynamic) {
     if (isCatchAll)
@@ -160,7 +177,7 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
 
     if (char === '/' || char === win32.sep || char === '.') {
       if (rawSegmentBuffer === 'index' && result.endsWith('index'))
-        result = result.replace(/\/?index$/, '')
+        result = result.replace(replaceIndexRE, '')
       else result += '/'
 
       rawSegmentBuffer = ''
@@ -183,7 +200,7 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
   }
 
   if (rawSegmentBuffer === 'index' && result.endsWith('index'))
-    result = result.replace(/\/?index$/, '')
+    result = result.replace(replaceIndexRE, '')
 
   return result || undefined
 }

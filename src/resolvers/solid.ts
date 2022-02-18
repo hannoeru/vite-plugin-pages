@@ -1,7 +1,8 @@
 import {
+  buildReactRemixRoutePath,
+  buildReactRoutePath,
   countSlash,
-  isCatchAllRoute,
-  isDynamicRoute,
+  normalizeCase,
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
@@ -41,7 +42,7 @@ function prepareRoutes(
 }
 
 export async function resolveSolidRoutes(ctx: PageContext) {
-  const { routeStyle } = ctx.options
+  const { routeStyle, caseSensitive } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
@@ -60,14 +61,7 @@ export async function resolveSolidRoutes(ctx: PageContext) {
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
-      const isDynamic = isDynamicRoute(node, nuxtStyle)
-      const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-      const normalizedName = isDynamic
-        ? nuxtStyle
-          ? isCatchAll ? 'all' : node.replace(/^_/, '')
-          : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
-        : node
-      const normalizedPath = normalizedName.toLowerCase()
+      const normalizedPath = normalizeCase(node, caseSensitive)
 
       const route: SolidRouteBase = {
         path: '',
@@ -95,14 +89,10 @@ export async function resolveSolidRoutes(ctx: PageContext) {
         if (!route.path)
           route.path = '/'
       } else if (normalizedPath !== 'index') {
-        if (isDynamic) {
-          route.path = `:${normalizedName}`
-          // Catch-all route
-          if (isCatchAll)
-            route.path = '*'
-        } else {
-          route.path = `${normalizedPath}`
-        }
+        if (routeStyle === 'remix')
+          route.path = buildReactRemixRoutePath(node) || ''
+        else
+          route.path = buildReactRoutePath(node, nuxtStyle) || ''
       }
 
       const exist = parentRoutes.some((parent) => {

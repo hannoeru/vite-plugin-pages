@@ -47,6 +47,7 @@ function prepareRoutes(
 
 export async function resolveReactRoutes(ctx: PageContext) {
   const { routeStyle, caseSensitive } = ctx.options
+  const nuxtStyle = routeStyle === 'nuxt'
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -78,7 +79,7 @@ export async function resolveReactRoutes(ctx: PageContext) {
         if (routeStyle === 'remix')
           route.path = buildReactRemixRoutePath(node)
         else
-          route.path = buildReactRoutePath(node)
+          route.path = buildReactRoutePath(node, nuxtStyle)
       }
 
       // Check parent exits
