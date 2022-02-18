@@ -49,11 +49,14 @@ export function stringifyRoutes(
 
       if (options.resolver === 'react')
         return str.replace(replaceStr, `React.createElement(${importName})`)
+      // TODO: solid sync case
       else
         return str.replace(replaceStr, importName)
     } else {
       if (options.resolver === 'react')
         return str.replace(replaceStr, `React.lazy(() => import('${path}'))`)
+      else if (options.resolver === 'solid')
+        return str.replace(replaceStr, `Solid.lazy(() => import('${path}'))`)
       else
         return str.replace(replaceStr, `() => import('${path}')`)
     }
@@ -85,6 +88,8 @@ export function generateClientCode(routes: any[], options: ResolvedOptions) {
 
   if (options.resolver === 'react')
     imports.push('import React from \"react\"')
+  if (options.resolver === 'solid')
+    imports.push('import * as Solid from \"solid-js\"')
 
   return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
 }

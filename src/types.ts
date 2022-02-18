@@ -5,7 +5,7 @@ export type ImportModeResolveFn = (filepath: string) => ImportMode
 
 export type CustomBlock = Record<string, any>
 
-export type SupportedPagesResolver = 'vue' | 'react'
+export type SupportedPagesResolver = 'vue' | 'react' | 'solid'
 
 export interface PageOptions {
   dir: string
@@ -67,11 +67,11 @@ interface Options {
   /**
    * Custom generated routes
    */
-  onRoutesGenerated?: (routes: any[]) => any[] | void | Promise<any[] | void>
+  onRoutesGenerated?: (routes: any[]) => any[] | Promise<any[] | void>
   /**
    * Custom generated client code
    */
-  onClientGenerated?: (clientCode: string) => string | void | Promise<string | void>
+  onClientGenerated?: (clientCode: string) => string | Promise<string | void>
 
   /**
    * Paths to the directory to search for page components.

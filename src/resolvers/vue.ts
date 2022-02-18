@@ -101,7 +101,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
       })
 
       if (parent) {
-        // Make sure children exits in parent
+        // Make sure children exist in parent
         parent.children = parent.children || []
         // Append to parent's children
         parentRoutes = parent.children

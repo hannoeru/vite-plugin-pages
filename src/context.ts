@@ -6,6 +6,7 @@ import { getPageFiles } from './files'
 import { debug, invalidatePagesModule, isTarget } from './utils'
 import { resolveReactRoutes } from './resolvers/react'
 import { resolveVueRoutes } from './resolvers/vue'
+import { resolveSolidRoutes } from './resolvers/solid'
 import { getRouteBlock } from './customBlock'
 
 import type { FSWatcher } from 'fs'
@@ -131,6 +132,8 @@ export class PageContext {
       return await resolveVueRoutes(this)
     if (this.options.resolver === 'react')
       return await resolveReactRoutes(this)
+    if (this.options.resolver === 'solid')
+      return await resolveSolidRoutes(this)
   }
 
   async searchGlob() {

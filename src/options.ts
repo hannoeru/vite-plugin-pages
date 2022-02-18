@@ -6,10 +6,10 @@ import type { ResolvedOptions, UserOptions } from './types'
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
   dirs = toArray(dirs)
-  return dirs.flatMap((dirPath) => {
-    const option = typeof dirPath === 'string'
-      ? { dir: dirPath, baseRoute: '' }
-      : dirPath
+  return dirs.flatMap((dir) => {
+    const option = typeof dir === 'string'
+      ? { dir, baseRoute: '' }
+      : dir
 
     option.dir = slash(resolve(root, option.dir)).replace(`${root}/`, '')
     option.baseRoute = option.baseRoute.replace(/^\//, '').replace(/\/$/, '')
@@ -34,9 +34,10 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const root = viteRoot || slash(process.cwd())
 
+  // TODO: default import mode for solid
   const importMode = userOptions.importMode || (resolver === 'react' ? 'sync' : 'async')
 
-  const extensions = userOptions.extensions || (resolver === 'react' ? ['tsx', 'jsx'] : ['vue', 'ts', 'js'])
+  const extensions = userOptions.extensions || (resolver === 'react' ? ['tsx', 'jsx'] : resolver === 'solid' ? ['tsx', 'jsx', 'ts', 'js'] : ['vue', 'ts', 'js'])
 
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
