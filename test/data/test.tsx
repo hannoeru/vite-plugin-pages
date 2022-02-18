@@ -1,5 +1,7 @@
-export default function Test() {
-  return <>
-      this is test file
-  </>
+const Test: React.FC = () => {
+  return (
+    <>this is test file</>
+  )
 }
+
+export default Test

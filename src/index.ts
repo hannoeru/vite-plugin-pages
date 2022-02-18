@@ -43,7 +43,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     async transform(_code, id) {
       if (!/vue&type=route/.test(id)) return
       return {
-        code: 'export default {};',
+        code: id.endsWith('lang.json') ? '{}' : 'export default {};',
         map: null,
       }
     },

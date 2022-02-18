@@ -1,7 +1,7 @@
 import {
+  buildReactRemixRoutePath,
+  buildReactRoutePath,
   countSlash,
-  isCatchAllRoute,
-  isDynamicRoute,
   normalizeCase,
 } from '../utils'
 import { generateClientCode } from '../stringify'
@@ -14,7 +14,7 @@ export interface Route {
   children?: Route[]
   element?: string
   index?: boolean
-  path: string
+  path?: string
   rawRoute: string
 }
 
@@ -46,7 +46,7 @@ function prepareRoutes(
 }
 
 export async function resolveReactRoutes(ctx: PageContext) {
-  const { nuxtStyle, caseSensitive } = ctx.options
+  const { routeStyle, caseSensitive } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -56,41 +56,29 @@ export async function resolveReactRoutes(ctx: PageContext) {
 
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
-
     const element = page.path.replace(ctx.root, '')
-
     let parentRoutes = routes
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
-      const isDynamic = isDynamicRoute(node, nuxtStyle)
-      const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-      const normalizedName = isDynamic
-        ? nuxtStyle
-          ? isCatchAll ? 'all' : node.replace(/^_/, '')
-          : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
-        : node
-      const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
       const route: Route = {
+        caseSensitive,
         path: '',
         rawRoute: pathNodes.slice(0, i + 1).join('/'),
       }
 
-      if (i === pathNodes.length - 1)
-        route.element = element
+      if (i === pathNodes.length - 1) route.element = element
 
-      if (!route.path && normalizedPath === 'index') {
+      const isIndexRoute = normalizeCase(node, caseSensitive).endsWith('index')
+
+      if (!route.path && isIndexRoute) {
         route.index = true
-      } else if (normalizedPath !== 'index') {
-        if (isDynamic) {
-          route.path = `:${normalizedName}`
-          // Catch-all route
-          if (isCatchAll)
-            route.path = '*'
-        } else {
-          route.path = `${normalizedPath}`
-        }
+      } else if (!isIndexRoute) {
+        if (routeStyle === 'remix')
+          route.path = buildReactRemixRoutePath(node)
+        else
+          route.path = buildReactRoutePath(node)
       }
 
       // Check parent exits

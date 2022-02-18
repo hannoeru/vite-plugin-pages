@@ -14,7 +14,7 @@
       markdown
     </router-link> |
     <router-link to="/xxx/xxx">
-      not exits
+      not exists
     </router-link> |
     <router-link to="/features/dashboard">
       features:dashboard
@@ -28,9 +28,11 @@
   </div>
 </template>
 
-<route>
+<route lang="json">
 {
-  name: "homepage",
-  meta: {requiresAuth: false}
+  "name": "homepage",
+  "meta": {
+    "requiresAuth": false
+  }
 }
 </route>
