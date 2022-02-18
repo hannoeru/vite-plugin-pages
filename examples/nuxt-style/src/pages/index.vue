@@ -14,7 +14,7 @@
       markdown
     </router-link> |
     <router-link to="/xxx">
-      not exits
+      not exists
     </router-link> |
     <router-link to="/features/dashboard">
       features:dashboard

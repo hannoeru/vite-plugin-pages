@@ -17,12 +17,12 @@ exports[`Options > resolve > react 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\)\\$/,
   "importMode": "sync",
-  "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": "react",
   "root": Any<String>,
   "routeBlockLang": "json5",
+  "routeStyle": "next",
   "syncIndex": true,
 }
 `;
@@ -45,12 +45,12 @@ exports[`Options > resolve > vue 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
   "importMode": "async",
-  "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": "vue",
   "root": Any<String>,
   "routeBlockLang": "json5",
+  "routeStyle": "next",
   "syncIndex": true,
 }
 `;

@@ -1,3 +1,4 @@
+import path from 'path'
 import {
   countSlash,
   isCatchAllRoute,
@@ -14,7 +15,7 @@ interface Route {
   children?: Route[]
   element?: string
   index?: boolean
-  path: string
+  path?: string
   rawRoute: string
 }
 
@@ -46,7 +47,7 @@ function prepareRoutes(
 }
 
 export async function resolveReactRoutes(ctx: PageContext) {
-  const { nuxtStyle, caseSensitive } = ctx.options
+  const { routeStyle, caseSensitive } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -56,41 +57,29 @@ export async function resolveReactRoutes(ctx: PageContext) {
 
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
-
     const element = page.path.replace(ctx.root, '')
-
     let parentRoutes = routes
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
-      const isDynamic = isDynamicRoute(node, nuxtStyle)
-      const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-      const normalizedName = isDynamic
-        ? nuxtStyle
-          ? isCatchAll ? 'all' : node.replace(/^_/, '')
-          : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
-        : node
-      const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
       const route: Route = {
+        caseSensitive,
         path: '',
         rawRoute: pathNodes.slice(0, i + 1).join('/'),
       }
 
-      if (i === pathNodes.length - 1)
-        route.element = element
+      if (i === pathNodes.length - 1) route.element = element
 
-      if (!route.path && normalizedPath === 'index') {
+      const isIndexRoute = normalizeCase(node, caseSensitive).endsWith('index')
+
+      if (!route.path && isIndexRoute) {
         route.index = true
-      } else if (normalizedPath !== 'index') {
-        if (isDynamic) {
-          route.path = `:${normalizedName}`
-          // Catch-all route
-          if (isCatchAll)
-            route.path = '*'
-        } else {
-          route.path = `${normalizedPath}`
-        }
+      } else if (!isIndexRoute) {
+        if (routeStyle === 'remix')
+          route.path = buildRemixRoutePath(node)
+        else
+          route.path = buildRoutePath(node)
       }
 
       // Check parent exits
@@ -121,4 +110,103 @@ export async function resolveReactRoutes(ctx: PageContext) {
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
+}
+
+function buildRoutePath(node: string): string | undefined {
+  const isDynamic = isDynamicRoute(node, false)
+  const isCatchAll = isCatchAllRoute(node, false)
+  const normalizedName = isDynamic
+    ? isCatchAll
+      ? 'all'
+      : node.replace(/^\[(\.{3})?/, '').replace(/\]$/, '')
+    : node
+
+  if (isDynamic) {
+    if (isCatchAll)
+      return '*'
+
+    return `:${normalizedName}`
+  }
+
+  return `${normalizedName}`
+}
+
+// https://github.dev/remix-run/remix/blob/264e3f8884c5cafd8d06acc3e01153b376745b7c/packages/remix-dev/config/routesConvention.ts#L105
+function buildRemixRoutePath(node: string): string | undefined {
+  const escapeStart = '['
+  const escapeEnd = ']'
+  let result = ''
+  let rawSegmentBuffer = ''
+
+  let inEscapeSequence = 0
+  let skipSegment = false
+  for (let i = 0; i < node.length; i++) {
+    const char = node.charAt(i)
+    const lastChar = i > 0 ? node.charAt(i - 1) : undefined
+    const nextChar = i < node.length - 1 ? node.charAt(i + 1) : undefined
+
+    function isNewEscapeSequence() {
+      return (
+        !inEscapeSequence && char === escapeStart && lastChar !== escapeStart
+      )
+    }
+
+    function isCloseEscapeSequence() {
+      return inEscapeSequence && char === escapeEnd && nextChar !== escapeEnd
+    }
+
+    function isStartOfLayoutSegment() {
+      return char === '_' && nextChar === '_' && !rawSegmentBuffer
+    }
+
+    if (skipSegment) {
+      if (char === '/' || char === '.' || char === path.win32.sep)
+        skipSegment = false
+
+      continue
+    }
+
+    if (isNewEscapeSequence()) {
+      inEscapeSequence++
+      continue
+    }
+
+    if (isCloseEscapeSequence()) {
+      inEscapeSequence--
+      continue
+    }
+
+    if (inEscapeSequence) {
+      result += char
+      continue
+    }
+
+    if (char === '/' || char === path.win32.sep || char === '.') {
+      if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+        result = result.replace(/\/?index$/, '')
+      else result += '/'
+
+      rawSegmentBuffer = ''
+      continue
+    }
+
+    if (isStartOfLayoutSegment()) {
+      skipSegment = true
+      continue
+    }
+
+    rawSegmentBuffer += char
+
+    if (char === '$') {
+      result += typeof nextChar === 'undefined' ? '*' : ':'
+      continue
+    }
+
+    result += char
+  }
+
+  if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+    result = result.replace(/\/?index$/, '')
+
+  return result || undefined
 }
