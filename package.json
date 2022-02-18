@@ -51,6 +51,7 @@
     "example:build": "npm -C examples/vue run build",
     "example:serve": "npm -C examples/vue run serve",
     "test": "vitest",
+    "test:ui": "vitest --ui",
     "lint": "eslint --ext .js,.ts,.vue,.json .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue,.json ."
   },
@@ -78,6 +79,7 @@
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
     "@types/node": "^17.0.17",
+    "@vitest/ui": "^0.4.1",
     "@vue/compiler-sfc": "^3.2.31",
     "bumpp": "^7.1.1",
     "cross-env": "^7.0.3",
