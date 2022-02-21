@@ -499,6 +499,12 @@ Catch-all routes are denoted with square brackets containing an ellipsis:
 The text after the ellipsis will be used both to name the route, and as the name
 of the prop in which the route parameters are passed.
 
+
+## Sitemap generation
+
+If you need to generate a sitemap from generated routes, you can use [vite-plugin-pages-sitemap](https://github.com/jbaubree/vite-plugin-pages-sitemap).
+This plugin allow you to automatically generate sitemap.xml and robots.xml files with customization.
+
 ## License
 
 MIT License © 2021 [hannoeru](https://github.com/hannoeru)
