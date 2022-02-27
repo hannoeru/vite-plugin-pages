@@ -35,6 +35,9 @@
     },
     "./client-react": {
       "types": "./client-react.d.ts"
+    },
+    "./client-solid": {
+      "types": "./client-solid.d.ts"
     }
   },
   "main": "dist/index.js",
