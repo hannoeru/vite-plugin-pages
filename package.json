@@ -21,6 +21,7 @@
     "dist",
     "client.d.ts",
     "client-react.d.ts",
+    "client-solid.d.ts",
     "LICENSE"
   ],
   "exports": {
