@@ -26,6 +26,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
         userOptions.resolver = 'solid'
 
       ctx = new PageContext(userOptions, config.root)
+      ctx.setLogger(config.logger)
       await ctx.searchGlob()
     },
     configureServer(server) {

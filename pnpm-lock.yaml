@@ -21,6 +21,7 @@ importers:
       fast-glob: ^3.2.11
       json5: ^2.2.0
       local-pkg: ^0.4.1
+      picocolors: ^1.0.0
       playwright: ^1.19.1
       react-router: ^6.2.1
       solid-app-router: ^0.3.0
@@ -36,6 +37,7 @@ importers:
       fast-glob: 3.2.11
       json5: 2.2.0
       local-pkg: 0.4.1
+      picocolors: 1.0.0
       yaml: 2.0.0-10
     devDependencies:
       '@antfu/utils': 0.5.0

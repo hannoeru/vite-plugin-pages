@@ -1,6 +1,7 @@
 import { extname, join, resolve } from 'path'
 import deepEqual from 'deep-equal'
 import { slash, toArray } from '@antfu/utils'
+import colors from 'picocolors'
 import { resolveOptions } from './options'
 import { getPageFiles } from './files'
 import { debug, invalidatePagesModule, isTarget } from './utils'
@@ -10,7 +11,7 @@ import { resolveSolidRoutes } from './resolvers/solid'
 import { getRouteBlock } from './customBlock'
 
 import type { FSWatcher } from 'fs'
-import type { ViteDevServer } from 'vite'
+import type { Logger, ViteDevServer } from 'vite'
 import type { CustomBlock, PageOptions, ResolvedOptions, UserOptions } from './types'
 
 export type PageRoute = {
@@ -26,6 +27,7 @@ export class PageContext {
   rawOptions: UserOptions
   root: string
   options: ResolvedOptions
+  logger?: Logger
 
   constructor(userOptions: UserOptions, viteRoot: string = process.cwd()) {
     this.rawOptions = userOptions
@@ -33,6 +35,10 @@ export class PageContext {
     debug.env('root', this.root)
     this.options = resolveOptions(userOptions, this.root)
     debug.options(this.options)
+  }
+
+  setLogger(logger: Logger) {
+    this.logger = logger
   }
 
   setupViteServer(server: ViteDevServer) {
@@ -99,7 +105,14 @@ export class PageContext {
       return
 
     const exitsCustomBlock = this._customBlockMap.get(path)
-    const customBlock = await getRouteBlock(path, this.options)
+    let customBlock: CustomBlock | undefined
+    try {
+      customBlock = await getRouteBlock(path, this.options)
+    } catch (error: any) {
+      // eslint-disable-next-line no-console
+      this.logger?.error(colors.red(`[vite-plugin-pages] ${error.message}`))
+      return
+    }
     if (!exitsCustomBlock && !customBlock)
       return
 
