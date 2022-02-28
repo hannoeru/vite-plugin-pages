@@ -15,8 +15,8 @@
   "devDependencies": {
     "@types/compression": "^1.7.2",
     "@types/express": "^4.17.13",
-    "@types/node": "^17.0.18",
-    "@vitejs/plugin-vue": "^2.2.0",
+    "@types/node": "^17.0.21",
+    "@vitejs/plugin-vue": "^2.2.2",
     "@vue/compiler-sfc": "^3.2.31",
     "@vue/server-renderer": "^3.2.31",
     "compression": "^1.7.4",

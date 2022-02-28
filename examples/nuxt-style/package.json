@@ -10,7 +10,7 @@
     "vue-router": "4.0.12"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.2.0",
+    "@vitejs/plugin-vue": "^2.2.2",
     "@vue/compiler-sfc": "^3.2.31",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.15",
