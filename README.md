@@ -334,7 +334,7 @@ export default {
 
 ### onRoutesGenerated
 
-- **Type:** `(routes: Route[]) => Route[] | void | Promise<Route[] | void>`
+- **Type:** `(routes: Route[]) => Route[] | void | Promise<Route[] | void> | void`
 
 A function that takes a generated routes and optionally returns a modified
 generated routes.

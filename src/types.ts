@@ -67,7 +67,7 @@ interface Options {
   /**
    * Custom generated routes
    */
-  onRoutesGenerated?: (routes: any[]) => any[] | Promise<any[] | void>
+  onRoutesGenerated?: (routes: any[]) => any[] | Promise<any[] | void> | void
   /**
    * Custom generated client code
    */
