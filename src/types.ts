@@ -1,3 +1,5 @@
+import type { Awaitable } from '@antfu/utils'
+
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
 export type ImportMode = 'sync' | 'async'
@@ -67,11 +69,11 @@ interface Options {
   /**
    * Custom generated routes
    */
-  onRoutesGenerated?: (routes: any[]) => any[] | Promise<any[] | void>
+  onRoutesGenerated?: (routes: any[]) => Awaitable<any[] | void>
   /**
    * Custom generated client code
    */
-  onClientGenerated?: (clientCode: string) => string | Promise<string | void>
+  onClientGenerated?: (clientCode: string) => Awaitable<string | void>
 
   /**
    * Paths to the directory to search for page components.
