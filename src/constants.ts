@@ -8,6 +8,8 @@ export const MODULE_IDS = [
   'virtual:generated-pages-react',
 ]
 
+export const routeBlockQueryRE = /\.vue\?vue&type=route/
+
 export const dynamicRouteRE = /^\[(.+)\]$/
 export const cacheAllRouteRE = /^\[\.{3}(.*)\]$/
 export const replaceDynamicRouteRE = /^\[(?:\.{3})?(.*)\]$/
