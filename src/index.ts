@@ -34,7 +34,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       if (jsonPlugin) {
         const jsonTransform = jsonPlugin.transform // backup @rollup/plugin-json
         jsonPlugin.transform = async function(code: string, id: string) {
-          if (!/\.json$/.test(id) || routeBlockQueryRE.test(id))
+          if (routeBlockQueryRE.test(id))
             return
 
           return jsonTransform!.apply(this, [code, id])
