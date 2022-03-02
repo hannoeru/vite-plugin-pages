@@ -7,3 +7,19 @@ export const MODULE_IDS = [
   'virtual:generated-pages',
   'virtual:generated-pages-react',
 ]
+
+export const dynamicRouteRE = /^\[(.+)\]$/
+export const cacheAllRouteRE = /^\[\.{3}(.*)\]$/
+export const replaceDynamicRouteRE = /^\[(?:\.{3})?(.*)\]$/
+
+export const nuxtDynamicRouteRE = /^_(.*)$/
+export const nuxtCacheAllRouteRE = /^_$/
+
+export const countSlashRE = /\//g
+
+export const pathToNameRE = [
+  /[_.\-\\/]/g,
+  /[[:\]()]/g,
+]
+
+export const replaceIndexRE = /\/?index$/

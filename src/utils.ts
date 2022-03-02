@@ -1,26 +1,10 @@
 import { resolve, win32 } from 'path'
 import Debug from 'debug'
 import { slash } from '@antfu/utils'
-import { MODULE_ID_VIRTUAL } from './constants'
+import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, pathToNameRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
 import type { ViteDevServer } from 'vite'
 import type { ResolvedOptions } from './types'
-
-const dynamicRouteRE = /^\[(.+)\]$/
-const cacheAllRouteRE = /^\[\.{3}(.*)\]$/
-const replaceDynamicRouteRE = /^\[(?:\.{3})?(.*)\]$/
-
-const nuxtDynamicRouteRE = /^_(.*)$/
-const nuxtCacheAllRouteRE = /^_$/
-
-const countSlashRE = /\//g
-
-const pathToNameRE = [
-  /[_.\-\\/]/g,
-  /[[:\]()]/g,
-]
-
-const replaceIndexRE = /\/?index$/
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
