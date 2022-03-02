@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Markdown from 'vite-plugin-md'
+import Inspect from 'vite-plugin-inspect'
 
 const config = defineConfig({
   plugins: [
@@ -33,6 +34,7 @@ const config = defineConfig({
       },
     }),
     Markdown(),
+    Inspect(),
   ],
 })
 
