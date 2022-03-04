@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-pages",
-  "version": "0.21.2",
+  "version": "0.21.3",
   "description": "File system base vue-router plugin for Vite",
   "keywords": [
     "vite",
