@@ -1,4 +1,3 @@
-export const MODULE_ID_VIRTUAL = '/@vite-plugin-pages/generated-pages'
 export const MODULE_IDS = [
   '~pages',
   '~react-pages',
@@ -8,7 +7,10 @@ export const MODULE_IDS = [
   'virtual:generated-pages-react',
 ]
 
-export const routeBlockQueryRE = /\.vue\?vue&type=route/
+export const MODULE_ID_VIRTUAL = '/@vite-plugin-pages/generated-pages'
+export const ROUTE_BLOCK_ID_VIRTUAL = '/@vite-plugin-pages/route-block'
+
+export const routeBlockQueryRE = /\?vue&type=route/
 
 export const dynamicRouteRE = /^\[(.+)\]$/
 export const cacheAllRouteRE = /^\[\.{3}(.*)\]$/

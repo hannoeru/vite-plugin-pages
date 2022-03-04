@@ -1,4 +1,4 @@
-import { MODULE_IDS, MODULE_ID_VIRTUAL, routeBlockQueryRE } from './constants'
+import { MODULE_IDS, MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 import { PageContext } from './context'
 
 import type { UserOptions } from './types'
@@ -28,37 +28,31 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       ctx = new PageContext(userOptions, config.root)
       ctx.setLogger(config.logger)
       await ctx.searchGlob()
-
-      // hijack vite json plugin to avoid tranform custom block
-      const jsonPlugin = config.plugins.find(p => p.name === 'vite:json')
-      if (jsonPlugin) {
-        const jsonTransform = jsonPlugin.transform // backup @rollup/plugin-json
-        jsonPlugin.transform = async function(code: string, id: string) {
-          if (routeBlockQueryRE.test(id))
-            return
-
-          return jsonTransform!.apply(this, [code, id])
-        }
-      }
     },
     configureServer(server) {
       ctx.setupViteServer(server)
     },
     resolveId(id) {
-      return MODULE_IDS.includes(id) ? MODULE_ID_VIRTUAL : null
+      if (MODULE_IDS.includes(id))
+        return MODULE_ID_VIRTUAL
+
+      if (routeBlockQueryRE.test(id))
+        return ROUTE_BLOCK_ID_VIRTUAL
+
+      return null
     },
     async load(id) {
-      if (id !== MODULE_ID_VIRTUAL)
-        return
+      if (id === MODULE_ID_VIRTUAL)
+        return ctx.resolveRoutes()
 
-      return ctx.resolveRoutes()
-    },
-    async transform(_code, id) {
-      if (!routeBlockQueryRE.test(id)) return
-      return {
-        code: 'export default {};',
-        map: null,
+      if (id === ROUTE_BLOCK_ID_VIRTUAL) {
+        return {
+          code: 'export default {};',
+          map: null,
+        }
       }
+
+      return null
     },
   }
 }
