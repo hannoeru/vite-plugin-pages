@@ -21,7 +21,6 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: strin
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
     dirs = userOptions.pagesDir || ['src/pages'],
-    routeStyle = 'next',
     routeBlockLang = 'json5',
     exclude = [],
     syncIndex = true,
@@ -42,6 +41,8 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
   const resolvedDirs = resolvePageDirs(dirs, root, exclude)
+
+  const routeStyle = userOptions.nuxtStyle ? 'nuxt' : userOptions.routeStyle || 'next'
 
   const resolvedOptions: ResolvedOptions = {
     dirs: resolvedDirs,

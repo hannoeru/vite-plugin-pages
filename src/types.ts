@@ -43,6 +43,12 @@ interface Options {
    */
   syncIndex: boolean
   /**
+   * Use Nuxt.js style route naming
+   * @default false
+   * @deprecated use `routeStyle` instead
+   */
+  nuxtStyle: boolean
+  /**
    * Use routing style
    * @default false
    */
@@ -89,7 +95,7 @@ interface Options {
 
 export type UserOptions = Partial<Options>
 
-export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets'> {
+export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets' | 'nuxtStyle'> {
   /**
    * Resolves to the `root` value from Vite config.
    * @default config.root
