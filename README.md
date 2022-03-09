@@ -304,7 +304,7 @@ Route resolver, support `vue` or `react`.
 ### extendRoute
 
 - **Type:**
-  `(route: Route, parent: Route | undefined) => Route | void | Promise<Route | void>`
+  `(route: any, parent: any | undefined) => any | void`
 
 A function that takes a route and optionally returns a modified route. This is
 useful for augmenting your routes with extra data (e.g. route metadata).
@@ -334,14 +334,14 @@ export default {
 
 ### onRoutesGenerated
 
-- **Type:** `(routes: Route[]) => Route[] | void | Promise<Route[] | void>`
+- **Type:** `(routes: any[]) => Awaitable<any[] | void>`
 
 A function that takes a generated routes and optionally returns a modified
 generated routes.
 
 ### onClientGenerated
 
-- **Type:** `(clientCode: string) => string | void | Promise<string | void>`
+- **Type:** `(clientCode: string) => Awaitable<string | void>`
 
 A function that takes a generated client code and optionally returns a modified
 generated client code.
