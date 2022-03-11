@@ -16,7 +16,7 @@ function deepSortArray(arr: any[], react?: boolean) {
 }
 
 describe('Generate routes', () => {
-  test('vue - async mode should match snapshot', async() => {
+  test('vue - async mode match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       extendRoute(route) {
@@ -36,7 +36,7 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('vue - sync mode should match snapshot', async() => {
+  test('vue - sync mode match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       importMode: 'sync',
@@ -53,7 +53,7 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('react - should match snapshot', async() => {
+  test('react - match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/react/src/pages',
       resolver: 'react',
@@ -70,7 +70,7 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('solid - should match snapshot', async() => {
+  test('solid - match snapshot', async() => {
     const ctx = new PageContext({
       dirs: 'examples/solid/src/pages',
       resolver: 'solid',
@@ -88,7 +88,7 @@ describe('Generate routes', () => {
   })
 
   describe('routeStyle', () => {
-    test('nuxt style should match snapshot', async() => {
+    test('nuxt style match snapshot', async() => {
       const ctx = new PageContext({
         dirs: 'examples/nuxt-style/src/pages',
         routeStyle: 'nuxt',
@@ -105,7 +105,7 @@ describe('Generate routes', () => {
       expect(routes).toMatchSnapshot('client code')
     })
 
-    test('remix style should match snapshot', async() => {
+    test('remix Style match snapshot', async() => {
       const ctx = new PageContext({
         dirs: 'examples/remix-style/src/pages',
         routeStyle: 'remix',

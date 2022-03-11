@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-conditional-expect */
+/* eslint-disable no-console */
 import { resolve } from 'path'
 import { copyFile, rm } from 'fs/promises'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
@@ -8,7 +10,7 @@ import type { ViteDevServer } from 'vite'
 
 const vueRoot = resolve('./examples/react')
 
-describe('react e2e test', async() => {
+describe('react e2e test', () => {
   let server: ViteDevServer
   let browser: Browser
   let page: Page
@@ -32,7 +34,7 @@ describe('react e2e test', async() => {
 
   const getUrl = (path: string) => `http://localhost:${server.config.server.port}${path}`
 
-  test('/blog/today should have currect content', async() => {
+  test('/blog/today have content', async() => {
     try {
       await page.goto(getUrl('/blog/today'))
       const text = await page.locator('body > div').textContent()
@@ -43,7 +45,7 @@ describe('react e2e test', async() => {
     }
   })
 
-  test('/blog/today/xxx should be nested cache all', async() => {
+  test('/blog/today/xxx - nested cache all', async() => {
     try {
       await page.goto(getUrl('/blog/today/xxx'))
       const text = await page.locator('body > div').textContent()
@@ -54,7 +56,7 @@ describe('react e2e test', async() => {
     }
   })
 
-  test('/xxx/xxx should be cache all route', async() => {
+  test('/xxx/xxx - cache all route', async() => {
     try {
       await page.goto(getUrl('/xxx/xxx'))
       const text = await page.locator('body > div').textContent()
@@ -65,7 +67,7 @@ describe('react e2e test', async() => {
     }
   })
 
-  test('/blog/1b234bk12b3 dynamic route should works', async() => {
+  test('/blog/1b234bk12b3 - dynamic route', async() => {
     try {
       await page.goto(getUrl('/blog/1b234bk12b3'))
       const text = await page.locator('body > div > p').textContent()
@@ -76,7 +78,7 @@ describe('react e2e test', async() => {
     }
   })
 
-  test('HMR - dynamic add /test route should works', async() => {
+  test('hmr - dynamic add /test route', async() => {
     const srcPath = resolve('./test/data/test.tsx')
     const distPath = resolve('./examples/react/src/pages/test.tsx')
 

@@ -1,11 +1,3 @@
 {
-  "extends": "@hannoeru",
-  "overrides": [
-    {
-      "files": ["test/**/*"],
-      "rules": {
-        "no-console": "off" 
-      }
-    }
-  ]
+  "extends": "@hannoeru"
 }

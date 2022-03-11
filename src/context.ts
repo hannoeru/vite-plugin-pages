@@ -14,7 +14,7 @@ import type { FSWatcher } from 'fs'
 import type { Logger, ViteDevServer } from 'vite'
 import type { CustomBlock, PageOptions, ResolvedOptions, UserOptions } from './types'
 
-export type PageRoute = {
+export interface PageRoute {
   path: string
   route: string
 }
