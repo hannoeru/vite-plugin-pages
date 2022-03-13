@@ -1,18 +1,18 @@
 import { Link } from 'solid-app-router'
 
 export default function Index() {
-  return <>
+  return (
     <div>
-    blog/index.tsx
+      blog/index.tsx
       <Link href="/blog/1b234bk12b3">
-      id: 1b234bk12b3
+        id: 1b234bk12b3
       </Link> |
       <Link href="/blog/today">
-      today
+        today
       </Link> |
       <Link href="/blog/today/xxx">
-      child - not found
+        child - not found
       </Link>
     </div>
-  </>
+  )
 }

@@ -46,14 +46,14 @@ npm install solid-app-router
 Add to your `vite.config.js`:
 
 ```js
-import Pages from "vite-plugin-pages";
+import Pages from 'vite-plugin-pages'
 
 export default {
   plugins: [
     // ...
     Pages(),
   ],
-};
+}
 ```
 
 ## Overview
@@ -67,13 +67,13 @@ module in your application.
 ### Vue
 
 ```js
-import { createRouter } from "vue-router";
-import routes from "~pages";
+import { createRouter } from 'vue-router'
+import routes from '~pages'
 
 const router = createRouter({
   // ...
   routes,
-});
+})
 ```
 
 **Type**
@@ -89,8 +89,8 @@ const router = createRouter({
 
 ```js
 import {
-  useRoutes,
   BrowserRouter as Router,
+  useRoutes,
 } from 'react-router-dom'
 
 import routes from '~react-pages'
@@ -118,19 +118,20 @@ ReactDOM.render(
 
 **experimental**
 
-```js
+```tsx
 import { render } from 'solid-js/web'
 import { Router, useRoutes } from 'solid-app-router'
 import routes from '~solid-pages'
 
-const Routes = useRoutes(routes)
-
 render(
-  () => (
-    <Router>
-      <Routes />
-    </Router>
-  ),
+  () => {
+    const Routes = useRoutes(routes)
+    return (
+      <Router>
+        <Routes />
+      </Router>
+    )
+  },
   document.getElementById('root') as HTMLElement,
 )
 ```
@@ -149,15 +150,15 @@ plugin:
 
 ```js
 // vite.config.js
-import Pages from "vite-plugin-pages";
+import Pages from 'vite-plugin-pages'
 
 export default {
   plugins: [
     Pages({
-      dirs: "src/views"
+      dirs: 'src/views',
     }),
   ],
-};
+}
 ```
 
 ### dirs
@@ -200,13 +201,13 @@ export default {
   plugins: [
     Pages({
       dirs: [
-        { dir: "src/pages", baseRoute: "" },
-        { dir: "src/features/**/pages", baseRoute: "features" },
-        { dir: "src/admin/pages", baseRoute: "admin" },
+        { dir: 'src/pages', baseRoute: '' },
+        { dir: 'src/features/**/pages', baseRoute: 'features' },
+        { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
     }),
   ],
-};
+}
 ```
 
 ### extensions
@@ -242,10 +243,10 @@ src/pages/
 export default {
   plugins: [
     Pages({
-      exclude: ["**/components/*.vue"],
+      exclude: ['**/components/*.vue'],
     }),
   ],
-};
+}
 ```
 
 ### importMode
@@ -269,11 +270,11 @@ export default {
     Pages({
       importMode(path) {
         // Load about page synchronously, all other pages are async.
-        return path.includes("about") ? "sync" : "async";
+        return path.includes('about') ? 'sync' : 'async'
       },
     }),
   ],
-};
+}
 ```
 
 ### routeBlockLang
@@ -316,20 +317,20 @@ export default {
   plugins: [
     Pages({
       extendRoute(route, parent) {
-        if (route.path === "/") {
+        if (route.path === '/') {
           // Index is unauthenticated.
-          return route;
+          return route
         }
 
         // Augment the route with meta that indicates that the route requires authentication.
         return {
           ...route,
           meta: { auth: true },
-        };
+        }
       },
     }),
   ],
-};
+}
 ```
 
 ### onRoutesGenerated
@@ -472,18 +473,18 @@ will result in this routes configuration:
 ```json5
 [
   {
-    path: '/users',
-    component: '/src/pages/users.vue',
-    children: [
+    "path": "/users",
+    "component": "/src/pages/users.vue",
+    "children": [
       {
-        path: '',
-        component: '/src/pages/users/index.vue',
-        name: 'users'
+        "path": "",
+        "component": "/src/pages/users/index.vue",
+        "name": "users"
       },
       {
-        path: ':id',
-        component: '/src/pages/users/[id].vue',
-        name: 'users-id'
+        "path": ":id",
+        "component": "/src/pages/users/[id].vue",
+        "name": "users-id"
       }
     ]
   }

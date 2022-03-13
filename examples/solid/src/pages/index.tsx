@@ -1,30 +1,30 @@
 import { Link } from 'solid-app-router'
 
 export default function Index() {
-  return <>
+  return (
     <div>
       <p>index.tsx</p>
       <Link href="/blog">
-      blog
+        blog
       </Link> |
       <Link href="/about">
-      about
+        about
       </Link> |
       <Link href="/components">
-      components
+        components
       </Link> |
       <Link href="/xxx/xxx">
-      not exits
+        not exits
       </Link> |
       <Link href="/features/dashboard">
-      features:dashboard
+        features:dashboard
       </Link> |
       <Link href="/features/admin">
-      features:admin
+        features:admin
       </Link> |
       <Link href="/admin">
-      admin
+        admin
       </Link>
     </div>
-  </>
+  )
 }

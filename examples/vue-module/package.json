@@ -1,6 +1,6 @@
 {
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "nodemon --watch ../../dist/*.js -x 'cross-env DEBUG=vite-plugin-pages:* vite'",
     "build": "cross-env DEBUG=vite-plugin-pages vite build",

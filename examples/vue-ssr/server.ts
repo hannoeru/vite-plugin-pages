@@ -16,6 +16,7 @@ async function createServer(
     : ''
 
   const manifest = isProd
+    // @ts-expect-error dist file
     ? await import('./dist/client/ssr-manifest.json')
     : {}
 
@@ -50,11 +51,10 @@ async function createServer(
         // always read fresh template in dev
         template = fs.readFileSync(resolve('index.html'), 'utf-8')
         template = await vite.transformIndexHtml(url, template)
-        // @ts-ignore
         render = (await vite.ssrLoadModule('/src/entry-server.ts')).render
       } else {
         template = indexProd
-        // @ts-ignore
+        // @ts-expect-error dist file
         render = await import('./dist/server/entry-server.js').then(i => i.render)
       }
 
@@ -65,8 +65,7 @@ async function createServer(
         .replace('<!--app-html-->', appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
-    } catch (e) {
-      // @ts-ignore
+    } catch (e: any) {
       vite && vite.ssrFixStacktrace(e)
       // eslint-disable-next-line no-console
       console.log(e.stack)
@@ -74,7 +73,7 @@ async function createServer(
     }
   })
 
-  // @ts-ignore
+  // @ts-expect-error used before assign
   return { app, vite }
 }
 

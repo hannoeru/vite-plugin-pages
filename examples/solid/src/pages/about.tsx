@@ -1,10 +1,10 @@
 import { Outlet } from 'solid-app-router'
 
 export default function AboutLayout() {
-  return <>
+  return (
     <div>
-    nested about view:
+      nested about view:
       <Outlet />
     </div>
-  </>
+  )
 }

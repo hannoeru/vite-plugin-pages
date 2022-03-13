@@ -22,11 +22,11 @@ export async function build() {
   //     middlewareMode: true,
   //   },
   // }))
-  // @ts-ignore
+  // @ts-expect-error dist file
   const manifest = await import('./dist/static/ssr-manifest.json')
   const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
 
-  // @ts-ignore
+  // @ts-expect-error dist file
   const { render } = await import('./dist/server/entry-server.js')
 
   // determine routes to pre-render from src/pages

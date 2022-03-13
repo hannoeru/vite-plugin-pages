@@ -41,7 +41,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    name: "Lint: node-16, ubuntu-latest"
+    name: 'Lint: node-16, ubuntu-latest'
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2

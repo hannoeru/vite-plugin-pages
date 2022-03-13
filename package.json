@@ -12,18 +12,14 @@
     "routing"
   ],
   "license": "MIT",
+  "author": "hannoeru <me@hanlee.co>",
   "repository": {
     "type": "git",
     "url": "https://github.com/hannoeru/vite-plugin-pages"
   },
-  "author": "hannoeru <me@hanlee.co>",
-  "files": [
-    "dist",
-    "client.d.ts",
-    "client-react.d.ts",
-    "client-solid.d.ts",
-    "LICENSE"
-  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -40,9 +36,13 @@
       "types": "./client-solid.d.ts"
     }
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "client.d.ts",
+    "client-react.d.ts",
+    "client-solid.d.ts",
+    "LICENSE"
+  ],
   "homepage": "https://github.com/hannoeru/vite-plugin-pages",
   "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "scripts": {
@@ -56,8 +56,8 @@
     "example:serve": "npm -C examples/vue run serve",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "lint": "eslint --ext .js,.ts,.vue,.json .",
-    "lint:fix": "eslint --fix --ext .js,.ts,.vue,.json ."
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "peerDependencies": {
     "@vue/compiler-sfc": ">=3",
@@ -79,7 +79,7 @@
   },
   "devDependencies": {
     "@antfu/utils": "^0.5.0",
-    "@hannoeru/eslint-config": "^0.7.1",
+    "@hannoeru/eslint-config": "^0.7.5",
     "@types/debug": "^4.1.7",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
@@ -88,7 +88,7 @@
     "@vue/compiler-sfc": "^3.2.31",
     "bumpp": "^7.1.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.10.0",
+    "eslint": "^8.11.0",
     "esno": "^0.14.1",
     "playwright": "^1.19.2",
     "react-router": "^6.2.2",

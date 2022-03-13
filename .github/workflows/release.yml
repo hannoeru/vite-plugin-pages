@@ -3,7 +3,7 @@ name: Publish Package
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 jobs:
   publish-npm:

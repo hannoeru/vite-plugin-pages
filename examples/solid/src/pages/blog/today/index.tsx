@@ -1,7 +1,7 @@
 export default function Index() {
-  return <>
+  return (
     <div>
-    blog/today/index.tsx
+      blog/today/index.tsx
     </div>
-  </>
+  )
 }
