@@ -54,7 +54,7 @@ export function stringifyRoutes(
         return str.replace(replaceStr, importName)
     } else {
       if (options.resolver === 'react')
-        return str.replace(replaceStr, `React.lazy(() => import('${path}'))`)
+        return str.replace(replaceStr, `React.createElement(React.lazy(() => import('${path}')))`)
       else if (options.resolver === 'solid')
         return str.replace(replaceStr, `Solid.lazy(() => import('${path}'))`)
       else
