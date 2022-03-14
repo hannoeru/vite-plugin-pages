@@ -36,10 +36,11 @@ function prepareRoutes(
     if (parent)
       route.path = route.path?.replace(/^\//, '')
 
-    if (route.children) {
-      delete route.name
+    if (route.children)
       route.children = prepareRoutes(ctx, route.children, route)
-    }
+
+    if (route.children?.find(c => c.name === route.name))
+      delete route.name
 
     route.props = true
 
