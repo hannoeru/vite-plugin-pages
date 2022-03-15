@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Options > resolve > react 1`] = `
+exports[`Options resolve > react 1`] = `
 {
   "caseSensitive": false,
   "dirs": [
@@ -14,20 +14,49 @@ exports[`Options > resolve > react 1`] = `
   "extensions": [
     "tsx",
     "jsx",
+    "ts",
+    "js",
   ],
-  "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\)\\$/,
-  "importMode": "sync",
+  "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
+  "importMode": [Function],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": "react",
   "root": Any<String>,
   "routeBlockLang": "json5",
   "routeStyle": "next",
-  "syncIndex": true,
 }
 `;
 
-exports[`Options > resolve > vue 1`] = `
+exports[`Options resolve > solid 1`] = `
+{
+  "caseSensitive": false,
+  "dirs": [
+    {
+      "baseRoute": "",
+      "dir": "examples/solid/src/pages",
+    },
+  ],
+  "exclude": [],
+  "extendRoute": undefined,
+  "extensions": [
+    "tsx",
+    "jsx",
+    "ts",
+    "js",
+  ],
+  "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
+  "importMode": [Function],
+  "onClientGenerated": undefined,
+  "onRoutesGenerated": undefined,
+  "resolver": "solid",
+  "root": Any<String>,
+  "routeBlockLang": "json5",
+  "routeStyle": "next",
+}
+`;
+
+exports[`Options resolve > vue 1`] = `
 {
   "caseSensitive": false,
   "dirs": [
@@ -44,13 +73,12 @@ exports[`Options > resolve > vue 1`] = `
     "js",
   ],
   "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
-  "importMode": "async",
+  "importMode": [Function],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": "vue",
   "root": Any<String>,
   "routeBlockLang": "json5",
   "routeStyle": "next",
-  "syncIndex": true,
 }
 `;
