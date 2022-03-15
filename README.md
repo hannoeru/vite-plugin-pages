@@ -283,10 +283,10 @@ export default {
 ```
 
 If you are using `async` mode with `react-router`, you will need to wrap your route components with `Suspense`:
-```tsx
+
+```jsx
 const App = () => {
   return (
-    // eslint-disable-next-line react/jsx-no-undef
     <Suspense fallback={<p>Loading...</p>}>
       {useRoutes(routes)}
     </Suspense>
