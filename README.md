@@ -87,7 +87,8 @@ const router = createRouter({
 
 **experimental**
 
-```js
+```jsx
+import { Suspense } from 'react'
 import {
   BrowserRouter as Router,
   useRoutes,
@@ -95,8 +96,12 @@ import {
 
 import routes from '~react-pages'
 
-function App() {
-  return useRoutes(routes)
+const App = () => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      {useRoutes(routes)}
+    </Suspense>
+  )
 }
 
 ReactDOM.render(
