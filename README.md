@@ -251,11 +251,9 @@ export default {
 
 ### importMode
 
-- **Type:** `'sync' | 'async' | (filepath: string) => 'sync' | 'async')`
+- **Type:** `'sync' | 'async' | (filepath: string, pluginOptions: ResolvedOptions) => 'sync' | 'async')`
 - **Default:**
-  - Top level index file: `'sync'`, can turn off by option `syncIndex`.
-  - Others(Vue): `'async'`
-  - Others(React): `'sync'`
+  - Top level index file: `'sync'`, others: `async`.
 
 Import mode can be set to either `async`, `sync`, or a function which returns
 one of those values.
@@ -268,12 +266,31 @@ can use a function to resolve the value based on the route path. For example:
 export default {
   plugins: [
     Pages({
-      importMode(path) {
+      importMode(filepath, options) {
+        // default resolver
+        // for (const page of options.dirs) {
+        //   if (page.baseRoute === '' && filepath.startsWith(`/${page.dir}/index`))
+        //     return 'sync'
+        // }
+        // return 'async'
+
         // Load about page synchronously, all other pages are async.
-        return path.includes('about') ? 'sync' : 'async'
+        return filepath.includes('about') ? 'sync' : 'async'
       },
     }),
   ],
+}
+```
+
+If you are using `async` mode with `react-router`, you will need to wrap your route components with `Suspense`:
+```tsx
+const App = () => {
+  return (
+    // eslint-disable-next-line react/jsx-no-undef
+    <Suspense fallback={<p>Loading...</p>}>
+      {useRoutes(routes)}
+    </Suspense>
+  )
 }
 ```
 

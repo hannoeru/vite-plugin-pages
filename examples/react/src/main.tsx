@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
@@ -13,7 +13,11 @@ import routes from '~react-pages'
 console.log(routes)
 
 function App() {
-  return useRoutes(routes)
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      {useRoutes(routes)}
+    </Suspense>
+  )
 }
 
 ReactDOM.render(

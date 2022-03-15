@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import { slash, toArray } from '@antfu/utils'
 import { getPageDirs } from './files'
 
-import type { ResolvedOptions, UserOptions } from './types'
+import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
   dirs = toArray(dirs)
@@ -18,14 +18,34 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: strin
   })
 }
 
+export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
+  for (const page of options.dirs) {
+    if (page.baseRoute === '' && filepath.startsWith(`/${page.dir}/index`))
+      return 'sync'
+  }
+  return 'async'
+}
+
+const getExtensions = (resolver: ResolvedOptions['resolver']) => {
+  switch (resolver) {
+  case 'vue':
+    return ['vue', 'ts', 'js']
+  case 'react':
+  case 'solid':
+    return ['tsx', 'jsx', 'ts', 'js']
+  default:
+    throw new Error(`Unsupported resolver: ${resolver}`)
+  }
+}
+
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
     dirs = userOptions.pagesDir || ['src/pages'],
     routeBlockLang = 'json5',
     exclude = [],
-    syncIndex = true,
     caseSensitive = false,
     resolver = 'vue',
+    syncIndex = true,
     extendRoute,
     onRoutesGenerated,
     onClientGenerated,
@@ -33,10 +53,9 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const root = viteRoot || slash(process.cwd())
 
-  // TODO: default import mode for solid
-  const importMode = userOptions.importMode || (resolver === 'react' ? 'sync' : 'async')
+  const importMode = userOptions.importMode || (syncIndex ? syncIndexResolver : 'async')
 
-  const extensions = userOptions.extensions || (resolver === 'react' ? ['tsx', 'jsx'] : resolver === 'solid' ? ['tsx', 'jsx', 'ts', 'js'] : ['vue', 'ts', 'js'])
+  const extensions = userOptions.extensions || getExtensions(resolver)
 
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
@@ -52,7 +71,6 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     extensions,
     importMode,
     exclude,
-    syncIndex,
     caseSensitive,
     resolver,
     extensionsRE,

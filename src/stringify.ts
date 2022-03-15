@@ -49,7 +49,6 @@ export function stringifyRoutes(
 
       if (options.resolver === 'react')
         return str.replace(replaceStr, `React.createElement(${importName})`)
-      // TODO: solid sync case
       else
         return str.replace(replaceStr, importName)
     } else {
