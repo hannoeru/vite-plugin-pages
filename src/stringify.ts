@@ -1,4 +1,7 @@
-import { pathToName, resolveImportMode } from './utils'
+import {
+  pathToName,
+  resolveImportMode,
+} from './utils'
 
 import type { ResolvedOptions } from './types'
 
@@ -10,8 +13,7 @@ const singlelineCommentsRE = /\/\/.*/g
 
 function replaceFunction(_: any, value: any) {
   if (value instanceof Function || typeof value === 'function') {
-    const fnBody = value
-      .toString()
+    const fnBody = value.toString()
       .replace(multilineCommentsRE, '')
       .replace(singlelineCommentsRE, '')
       .replace(/(\t|\n|\r|\s)/g, '')
@@ -50,16 +52,16 @@ export function stringifyRoutes(
     const mode = resolveImportMode(path, options)
     const importName = pathToName(path)
 
-    const importStr
-      = mode === 'sync'
-        ? `import ${importName} from "${path}"`
-        : `const ${importName} = ${getAsyncImportFunctionForResoler(
-          options.resolver,
-          path,
-        )}`
+    const importStr = mode === 'sync'
+      ? `import ${importName} from "${path}"`
+      : `const ${importName} = ${getAsyncImportFunctionForResoler(
+        options.resolver,
+        path,
+      )}`
 
     // Only add import to array if it hasn't beed added before.
-    if (!imports.includes(importStr)) imports.push(importStr)
+    if (!imports.includes(importStr))
+      imports.push(importStr)
 
     if (options.resolver === 'react')
       return str.replace(replaceStr, `React.createElement(${importName})`)
@@ -68,7 +70,8 @@ export function stringifyRoutes(
   }
 
   function functionReplacer(str: string, replaceStr: string, content: string) {
-    if (content.startsWith('function')) return str.replace(replaceStr, content)
+    if (content.startsWith('function'))
+      return str.replace(replaceStr, content)
 
     if (content.startsWith('_NuFrRa_'))
       return str.replace(replaceStr, content.slice(8))
@@ -76,7 +79,8 @@ export function stringifyRoutes(
     return str
   }
 
-  const stringRoutes = JSON.stringify(preparedRoutes, replaceFunction)
+  const stringRoutes = JSON
+    .stringify(preparedRoutes, replaceFunction)
     .replace(componentRE, componentReplacer)
     .replace(hasFunctionRE, functionReplacer)
 
@@ -89,11 +93,10 @@ export function stringifyRoutes(
 export function generateClientCode(routes: any[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
 
-  if (options.resolver === 'react') imports.unshift('import React from "react"')
+  if (options.resolver === 'react')
+    imports.unshift('import React from "react"')
   if (options.resolver === 'solid')
     imports.unshift('import * as Solid from "solid-js"')
 
-  return `${imports.join(
-    ';\n',
-  )};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
+  return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
 }
