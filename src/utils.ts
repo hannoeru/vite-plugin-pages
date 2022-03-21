@@ -190,10 +190,3 @@ export function isSupportedPagesResolver(resolver: PageResolver): resolver is Su
 
   return ['react', 'solid', 'vue'].includes(resolver)
 }
-
-export function isPageResolverImport(resolver: PageResolver): resolver is SupportedPagesResolver {
-  if (isPageResolverFunc(resolver))
-    return false
-
-  return !isSupportedPagesResolver(resolver)
-}

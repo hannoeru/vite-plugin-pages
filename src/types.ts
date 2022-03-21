@@ -16,9 +16,8 @@ export enum SupportedPagesResolverEnum {
 
 export type SupportedPagesResolver = keyof typeof SupportedPagesResolverEnum
 
-export type PageResolverImport = string
 export type PageResolverFunc = (page: PageContext) => Promise<string>
-export type PageResolver = SupportedPagesResolver | PageResolverFunc | PageResolverImport
+export type PageResolver = SupportedPagesResolver | PageResolverFunc
 
 export interface PageOptions {
   dir: string
