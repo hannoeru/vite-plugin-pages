@@ -3,3 +3,4 @@ node_modules
 dist
 # intellij/webstorm stuff
 .idea/
+.pnpm-debug*
