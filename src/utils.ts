@@ -3,8 +3,8 @@ import Debug from 'debug'
 import { slash } from '@antfu/utils'
 import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, pathToNameRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
+import type { PageResolver, PageResolverFunc, ResolvedOptions, SupportedPagesResolver } from './types'
 import type { ViteDevServer } from 'vite'
-import type { ResolvedOptions } from './types'
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
@@ -178,4 +178,22 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
     result = result.replace(replaceIndexRE, '')
 
   return result || undefined
+}
+
+export function isPageResolverFunc(resolver: PageResolver): resolver is PageResolverFunc {
+  return typeof resolver === 'function'
+}
+
+export function isSupportedPagesResolver(resolver: PageResolver): resolver is SupportedPagesResolver {
+  if (isPageResolverFunc(resolver))
+    return false
+
+  return ['react', 'solid', 'vue'].includes(resolver)
+}
+
+export function isPageResolverImport(resolver: PageResolver): resolver is SupportedPagesResolver {
+  if (isPageResolverFunc(resolver))
+    return false
+
+  return !isSupportedPagesResolver(resolver)
 }

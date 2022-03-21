@@ -1,4 +1,5 @@
 import type { Awaitable } from '@antfu/utils'
+import type { PageContext } from './context'
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
@@ -7,7 +8,17 @@ export type ImportModeResolver = (filepath: string, pluginOptions: ResolvedOptio
 
 export type CustomBlock = Record<string, any>
 
-export type SupportedPagesResolver = 'vue' | 'react' | 'solid'
+export enum SupportedPagesResolverEnum {
+  vue = 'vue',
+  react = 'react',
+  solid = 'solid',
+}
+
+export type SupportedPagesResolver = keyof typeof SupportedPagesResolverEnum
+
+export type PageResolverImport = string
+export type PageResolverFunc = (page: PageContext) => Promise<string>
+export type PageResolver = SupportedPagesResolver | PageResolverFunc | PageResolverImport
 
 export interface PageOptions {
   dir: string
@@ -68,7 +79,14 @@ interface Options {
    * Generate React Route
    * @default 'auto detect'
    */
-  resolver: SupportedPagesResolver
+  resolver: PageResolver
+
+  /**
+   * import module resolver.
+   * @summary If you are using our own supported pages resolver, this will be set for you, please read the documentation for the chosen framework
+   * @default 'undefined'
+   */
+  moduleId?: string
   /**
    * Extend route records
    */

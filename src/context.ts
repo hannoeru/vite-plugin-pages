@@ -4,7 +4,7 @@ import { slash, toArray } from '@antfu/utils'
 import colors from 'picocolors'
 import { resolveOptions } from './options'
 import { getPageFiles } from './files'
-import { debug, invalidatePagesModule, isTarget } from './utils'
+import { debug, invalidatePagesModule, isPageResolverFunc, isPageResolverImport, isTarget } from './utils'
 import { resolveReactRoutes } from './resolvers/react'
 import { resolveVueRoutes } from './resolvers/vue'
 import { resolveSolidRoutes } from './resolvers/solid'
@@ -12,7 +12,7 @@ import { getRouteBlock } from './customBlock'
 
 import type { FSWatcher } from 'fs'
 import type { Logger, ViteDevServer } from 'vite'
-import type { CustomBlock, PageOptions, ResolvedOptions, UserOptions } from './types'
+import type { CustomBlock, PageOptions, PageResolverFunc, ResolvedOptions, UserOptions } from './types'
 
 export interface PageRoute {
   path: string
@@ -147,6 +147,17 @@ export class PageContext {
       return await resolveReactRoutes(this)
     if (this.options.resolver === 'solid')
       return await resolveSolidRoutes(this)
+    if (isPageResolverFunc(this.options.resolver))
+      return await this.options.resolver(this)
+    if (isPageResolverImport(this.options.resolver)) {
+      try {
+        const customResolver: PageResolverFunc = await import(this.options.resolver)
+        return await customResolver(this)
+      } catch (e) {
+        throw new Error(`Unable to resolve router plugin ${this.options.resolver
+        }`)
+      }
+    }
   }
 
   async searchGlob() {

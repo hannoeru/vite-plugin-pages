@@ -33,7 +33,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       ctx.setupViteServer(server)
     },
     resolveId(id) {
-      if (MODULE_IDS.includes(id))
+      if (id === userOptions.moduleId || MODULE_IDS.includes(id))
         return MODULE_ID_VIRTUAL
 
       if (routeBlockQueryRE.test(id))
