@@ -44,22 +44,25 @@ export function stringifyRoutes(
   preparedRoutes: any[],
   options: ResolvedOptions,
 ) {
-  const imports: string[] = []
+  const importsMap: Map<string, string> = new Map()
 
-  function componentReplacer(str: string, replaceStr: string, path: string) {
+  function getImportString(path: string, importName: string) {
     const mode = resolveImportMode(path, options)
-    const importName = ROUTE_IMPORT_NAME.replace('$1', `${imports.length}`)
-
-    const importStr = mode === 'sync'
+    return mode === 'sync'
       ? `import ${importName} from "${path}"`
       : `const ${importName} = ${getDynamicImportString(
         options.resolver,
         path,
       )}`
+  }
 
-    // Only add import to array if it hasn't been added before.
-    if (!imports.includes(importStr))
-      imports.push(importStr)
+  function componentReplacer(str: string, replaceStr: string, path: string) {
+    let importName = importsMap.get(path)
+
+    if (!importName)
+      importName = ROUTE_IMPORT_NAME.replace('$1', `${importsMap.size}`)
+
+    importsMap.set(path, importName)
 
     if (options.resolver === 'react')
       return str.replace(replaceStr, `React.createElement(${importName})`)
@@ -81,6 +84,8 @@ export function stringifyRoutes(
     .stringify(preparedRoutes, replaceFunction)
     .replace(componentRE, componentReplacer)
     .replace(hasFunctionRE, functionReplacer)
+
+  const imports = Array.from(importsMap).map(args => getImportString(...args))
 
   return {
     imports,

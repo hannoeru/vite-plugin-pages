@@ -274,35 +274,21 @@ exports[`Generate routes > routeStyle > remix Style match snapshot > routes 1`] 
 exports[`Generate routes > solid - match snapshot > client code 1`] = `
 "import * as Solid from \\"solid-js\\";
 const __pages_import_0__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[...all].tsx\\"));
-const __pages_import_1__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[...all].tsx\\"));
-const __pages_import_2__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[sensor].tsx\\"));
-const __pages_import_3__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[sensor].tsx\\"));
-const __pages_import_4__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[sensor]/current.tsx\\"));
-const __pages_import_5__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[sensor]/current.tsx\\"));
-const __pages_import_6__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about.tsx\\"));
-const __pages_import_7__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about.tsx\\"));
-const __pages_import_8__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id].tsx\\"));
-const __pages_import_9__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id].tsx\\"));
-const __pages_import_10__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id]/more.tsx\\"));
-const __pages_import_11__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id]/more.tsx\\"));
-const __pages_import_12__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id]/nested.tsx\\"));
-const __pages_import_13__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id]/nested.tsx\\"));
-const __pages_import_14__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/index.tsx\\"));
-const __pages_import_15__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/index.tsx\\"));
-const __pages_import_16__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/components.tsx\\"));
-const __pages_import_17__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/components.tsx\\"));
-import __pages_import_18__ from \\"/examples/solid/src/pages/index.tsx\\";
-import __pages_import_19__ from \\"/examples/solid/src/pages/index.tsx\\";
-const __pages_import_20__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/[id].tsx\\"));
-const __pages_import_21__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/[id].tsx\\"));
-const __pages_import_22__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/index.tsx\\"));
-const __pages_import_23__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/index.tsx\\"));
-const __pages_import_24__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/today/[...all].tsx\\"));
-const __pages_import_25__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/today/[...all].tsx\\"));
-const __pages_import_26__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/today/index.tsx\\"));
-const __pages_import_27__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/today/index.tsx\\"));
+const __pages_import_1__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[sensor].tsx\\"));
+const __pages_import_2__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[sensor]/current.tsx\\"));
+const __pages_import_3__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about.tsx\\"));
+const __pages_import_4__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id].tsx\\"));
+const __pages_import_5__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id]/more.tsx\\"));
+const __pages_import_6__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/[id]/nested.tsx\\"));
+const __pages_import_7__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/about/index.tsx\\"));
+const __pages_import_8__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/components.tsx\\"));
+import __pages_import_9__ from \\"/examples/solid/src/pages/index.tsx\\";
+const __pages_import_10__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/[id].tsx\\"));
+const __pages_import_11__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/index.tsx\\"));
+const __pages_import_12__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/today/[...all].tsx\\"));
+const __pages_import_13__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/blog/today/index.tsx\\"));
 
-const routes = [{\\"path\\":\\"*\\",\\"element\\":__pages_import_0__,\\"component\\":__pages_import_1__},{\\"path\\":\\":sensor\\",\\"element\\":__pages_import_2__,\\"component\\":__pages_import_3__,\\"children\\":[{\\"path\\":\\"current\\",\\"element\\":__pages_import_4__,\\"component\\":__pages_import_5__}]},{\\"path\\":\\"about\\",\\"element\\":__pages_import_6__,\\"component\\":__pages_import_7__,\\"children\\":[{\\"path\\":\\":id\\",\\"element\\":__pages_import_8__,\\"component\\":__pages_import_9__,\\"children\\":[{\\"path\\":\\"more\\",\\"element\\":__pages_import_10__,\\"component\\":__pages_import_11__},{\\"path\\":\\"nested\\",\\"element\\":__pages_import_12__,\\"component\\":__pages_import_13__}]},{\\"path\\":\\"\\",\\"element\\":__pages_import_14__,\\"component\\":__pages_import_15__}]},{\\"path\\":\\"components\\",\\"element\\":__pages_import_16__,\\"component\\":__pages_import_17__},{\\"path\\":\\"/\\",\\"element\\":__pages_import_18__,\\"component\\":__pages_import_19__},{\\"path\\":\\"blog\\",\\"children\\":[{\\"path\\":\\":id\\",\\"element\\":__pages_import_20__,\\"component\\":__pages_import_21__},{\\"path\\":\\"\\",\\"element\\":__pages_import_22__,\\"component\\":__pages_import_23__},{\\"path\\":\\"today\\",\\"children\\":[{\\"path\\":\\"*\\",\\"element\\":__pages_import_24__,\\"component\\":__pages_import_25__},{\\"path\\":\\"\\",\\"element\\":__pages_import_26__,\\"component\\":__pages_import_27__}]}]}];
+const routes = [{\\"path\\":\\"*\\",\\"element\\":__pages_import_0__,\\"component\\":__pages_import_0__},{\\"path\\":\\":sensor\\",\\"element\\":__pages_import_1__,\\"component\\":__pages_import_1__,\\"children\\":[{\\"path\\":\\"current\\",\\"element\\":__pages_import_2__,\\"component\\":__pages_import_2__}]},{\\"path\\":\\"about\\",\\"element\\":__pages_import_3__,\\"component\\":__pages_import_3__,\\"children\\":[{\\"path\\":\\":id\\",\\"element\\":__pages_import_4__,\\"component\\":__pages_import_4__,\\"children\\":[{\\"path\\":\\"more\\",\\"element\\":__pages_import_5__,\\"component\\":__pages_import_5__},{\\"path\\":\\"nested\\",\\"element\\":__pages_import_6__,\\"component\\":__pages_import_6__}]},{\\"path\\":\\"\\",\\"element\\":__pages_import_7__,\\"component\\":__pages_import_7__}]},{\\"path\\":\\"components\\",\\"element\\":__pages_import_8__,\\"component\\":__pages_import_8__},{\\"path\\":\\"/\\",\\"element\\":__pages_import_9__,\\"component\\":__pages_import_9__},{\\"path\\":\\"blog\\",\\"children\\":[{\\"path\\":\\":id\\",\\"element\\":__pages_import_10__,\\"component\\":__pages_import_10__},{\\"path\\":\\"\\",\\"element\\":__pages_import_11__,\\"component\\":__pages_import_11__},{\\"path\\":\\"today\\",\\"children\\":[{\\"path\\":\\"*\\",\\"element\\":__pages_import_12__,\\"component\\":__pages_import_12__},{\\"path\\":\\"\\",\\"element\\":__pages_import_13__,\\"component\\":__pages_import_13__}]}]}];
 
 export default routes;"
 `;
