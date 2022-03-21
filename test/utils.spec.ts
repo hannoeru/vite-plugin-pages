@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, pathToName } from '../src/utils'
+import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute } from '../src/utils'
 
 describe('Utils', () => {
   test('extensions to glob', () => {
@@ -17,10 +17,6 @@ describe('Utils', () => {
     expect(isCatchAllRoute('_', true)).toBe(true)
     expect(isCatchAllRoute('[id]')).toBe(false)
     expect(isCatchAllRoute('_id', true)).toBe(false)
-  })
-
-  test('path to name', () => {
-    expect(pathToName('user-[route]-current')).toBe('user_$route$_current')
   })
 
   test('count slash', () => {

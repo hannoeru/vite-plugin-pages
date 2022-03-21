@@ -1,7 +1,5 @@
-import {
-  pathToName,
-  resolveImportMode,
-} from './utils'
+import { resolveImportMode } from './utils'
+import { ROUTE_IMPORT_NAME } from './constants'
 
 import type { ResolvedOptions } from './types'
 
@@ -28,14 +26,14 @@ function replaceFunction(_: any, value: any) {
   return value
 }
 
-function getAsyncImportFunctionForResoler(resolver: string, path: string) {
+function getDynamicImportString(resolver: string, path: string) {
   switch (resolver) {
   case 'react':
-    return `React.lazy(() => import('${path}'))`
+    return `React.lazy(() => import("${path}"))`
   case 'solid':
-    return `Solid.lazy(() => import('${path}'))`
+    return `Solid.lazy(() => import("${path}"))`
   default:
-    return `() => import('${path}')`
+    return `() => import("${path}")`
   }
 }
 
@@ -50,16 +48,16 @@ export function stringifyRoutes(
 
   function componentReplacer(str: string, replaceStr: string, path: string) {
     const mode = resolveImportMode(path, options)
-    const importName = pathToName(path)
+    const importName = ROUTE_IMPORT_NAME.replace('$1', `${imports.length}`)
 
     const importStr = mode === 'sync'
       ? `import ${importName} from "${path}"`
-      : `const ${importName} = ${getAsyncImportFunctionForResoler(
+      : `const ${importName} = ${getDynamicImportString(
         options.resolver,
         path,
       )}`
 
-    // Only add import to array if it hasn't beed added before.
+    // Only add import to array if it hasn't been added before.
     if (!imports.includes(importStr))
       imports.push(importStr)
 

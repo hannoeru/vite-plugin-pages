@@ -1,7 +1,7 @@
 import { resolve, win32 } from 'path'
 import Debug from 'debug'
 import { slash } from '@antfu/utils'
-import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, pathToNameRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
+import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
 import type { ViteDevServer } from 'vite'
 import type { ResolvedOptions } from './types'
@@ -57,10 +57,6 @@ export function resolveImportMode(
   if (typeof mode === 'function')
     return mode(filepath, options)
   return mode
-}
-
-export function pathToName(filepath: string) {
-  return filepath.replace(pathToNameRE[0], '_').replace(pathToNameRE[1], '$')
 }
 
 export function invalidatePagesModule(server: ViteDevServer) {

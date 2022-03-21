@@ -9,6 +9,7 @@ export const MODULE_IDS = [
 
 export const MODULE_ID_VIRTUAL = '/@vite-plugin-pages/generated-pages'
 export const ROUTE_BLOCK_ID_VIRTUAL = '/@vite-plugin-pages/route-block'
+export const ROUTE_IMPORT_NAME = '__pages_import_$1__'
 
 export const routeBlockQueryRE = /\?vue&type=route/
 
@@ -20,10 +21,5 @@ export const nuxtDynamicRouteRE = /^_(.*)$/
 export const nuxtCacheAllRouteRE = /^_$/
 
 export const countSlashRE = /\//g
-
-export const pathToNameRE = [
-  /[_.\-\\/]/g,
-  /[[:\]()]/g,
-]
 
 export const replaceIndexRE = /\/?index$/
