@@ -1,4 +1,5 @@
 {
+  "name": "vue",
   "private": true,
   "scripts": {
     "dev": "nodemon --watch ../../dist/*.js -x 'cross-env DEBUG=vite-plugin-pages:* vite'",
