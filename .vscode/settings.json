@@ -4,4 +4,6 @@
     "source.fixAll.eslint": true
   },
   "prettier.enable": false,
+  "prettier.useTabs": false,
+  "editor.insertSpaces": true
 }

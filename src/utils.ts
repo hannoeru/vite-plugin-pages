@@ -180,7 +180,7 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
   return result || undefined
 }
 
-export function isPageResolverFunc(resolver: PageResolver): resolver is PageResolverFunc {
+export function isPageResolverFunc(resolver?: PageResolver): resolver is PageResolverFunc {
   return typeof resolver === 'function'
 }
 

@@ -1,5 +1,8 @@
+import type EventEmitter from 'events'
+import type { Logger } from 'vite'
 import type { Awaitable } from '@antfu/utils'
-import type { PageContext } from './context'
+import type { PageRoute } from './context'
+import type Debug from 'debug'
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
@@ -13,11 +16,6 @@ export enum SupportedPagesResolverEnum {
   react = 'react',
   solid = 'solid',
 }
-
-export type SupportedPagesResolver = keyof typeof SupportedPagesResolverEnum
-
-export type PageResolverFunc = (page: PageContext) => Promise<string>
-export type PageResolver = SupportedPagesResolver | PageResolverFunc
 
 export interface PageOptions {
   dir: string
@@ -47,6 +45,12 @@ interface Options {
    * @default 'root index file => "sync", others => "async"'
    */
   importMode: ImportMode | ImportModeResolver
+
+  /**
+   * Import routes directly or as async components
+   * @default 'Internal Page Context'
+   */
+  pageContext: BasePageContext
   /**
    * Sync load top level index file
    * @default true
@@ -128,3 +132,36 @@ export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSqua
    */
   extensionsRE: RegExp
 }
+
+export interface ResolverConstructor {
+  // eslint-disable-next-line @typescript-eslint/no-misused-new
+  new(userOptions: UserOptions, viteRoot: string): Resolver
+}
+export interface Resolver {
+  setLogger(logger: Logger): void
+  setUserOptions(userOptions: UserOptions): void
+  setViteInfo(viteRoot: string): void
+  resolveRoutes(ctx: BasePageContext): Promise<string>
+}
+
+export interface BasePageContext {
+  setLogger(logger: Logger): void
+  setUserOptions(userOptions: UserOptions): void
+  setViteInfo(viteRoot: string): void
+
+  addPage(path: string | string[], pageDir: PageOptions): void | Promise<void>
+  removePage(path: string | string[]): void
+  checkCustomBlockChange(path: string): void | Promise<void>
+  resolveRoutes(): Promise<string | undefined>
+  onUpdate?(): void
+  customBlockMap: Map<string, CustomBlock>
+  pageRouteMap: Map<string, PageRoute>
+  debug: Record<string, Debug.Debugger>
+  events: EventEmitter
+  options?: ResolvedOptions | UserOptions
+}
+
+export type SupportedPagesResolver = keyof typeof SupportedPagesResolverEnum
+
+export type PageResolverFunc = (page: BasePageContext) => Promise<string>
+export type PageResolver = SupportedPagesResolver | PageResolverFunc

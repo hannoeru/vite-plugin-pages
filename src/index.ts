@@ -1,11 +1,12 @@
 import { MODULE_IDS, MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 import { PageContext } from './context'
 
+import { ContextRunner } from './contextRunner'
 import type { UserOptions } from './types'
 import type { Plugin } from 'vite'
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
-  let ctx: PageContext
+  let ctx: ContextRunner
 
   return {
     name: 'vite-plugin-pages',
@@ -25,7 +26,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       )
         userOptions.resolver = 'solid'
 
-      ctx = new PageContext(userOptions, config.root)
+      ctx = new ContextRunner(userOptions, userOptions.pageContext ?? new PageContext(), config.root)
       ctx.setLogger(config.logger)
       await ctx.searchGlob()
     },

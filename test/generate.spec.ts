@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { PageContext } from '../src/context'
+import { ContextRunner } from '../src/contextRunner'
 
 const sensitivity = process.platform === 'win32' ? 'base' : 'variant'
 
@@ -17,7 +18,7 @@ function deepSortArray(arr: any[], react?: boolean) {
 
 describe('Generate routes', () => {
   test('vue - async mode match snapshot', async() => {
-    const ctx = new PageContext({
+    const ctx = new ContextRunner({
       dirs: 'examples/vue/src/pages',
       extendRoute(route) {
         if (route.name === 'about')
@@ -29,7 +30,7 @@ describe('Generate routes', () => {
         expect(routes).toMatchSnapshot('routes')
         return routes
       },
-    })
+    }, new PageContext())
     await ctx.searchGlob()
     const routes = await ctx.resolveRoutes()
 
@@ -37,7 +38,7 @@ describe('Generate routes', () => {
   })
 
   test('vue - sync mode match snapshot', async() => {
-    const ctx = new PageContext({
+    const ctx = new ContextRunner({
       dirs: 'examples/vue/src/pages',
       importMode: 'sync',
       onRoutesGenerated(routes) {
@@ -46,7 +47,7 @@ describe('Generate routes', () => {
         expect(routes).toMatchSnapshot('routes')
         return routes
       },
-    })
+    }, new PageContext())
     await ctx.searchGlob()
     const routes = await ctx.resolveRoutes()
 
@@ -54,7 +55,7 @@ describe('Generate routes', () => {
   })
 
   test('react - match snapshot', async() => {
-    const ctx = new PageContext({
+    const ctx = new ContextRunner({
       dirs: 'examples/react/src/pages',
       resolver: 'react',
       onRoutesGenerated(routes) {
@@ -63,7 +64,7 @@ describe('Generate routes', () => {
         expect(routes).toMatchSnapshot('routes')
         return routes
       },
-    })
+    }, new PageContext())
     await ctx.searchGlob()
     const routes = await ctx.resolveRoutes()
 
@@ -71,7 +72,7 @@ describe('Generate routes', () => {
   })
 
   test('solid - match snapshot', async() => {
-    const ctx = new PageContext({
+    const ctx = new ContextRunner({
       dirs: 'examples/solid/src/pages',
       resolver: 'solid',
       onRoutesGenerated(routes) {
@@ -80,7 +81,7 @@ describe('Generate routes', () => {
         expect(routes).toMatchSnapshot('routes')
         return routes
       },
-    })
+    }, new PageContext())
     await ctx.searchGlob()
     const routes = await ctx.resolveRoutes()
 
@@ -89,7 +90,7 @@ describe('Generate routes', () => {
 
   describe('routeStyle', () => {
     test('nuxt style match snapshot', async() => {
-      const ctx = new PageContext({
+      const ctx = new ContextRunner({
         dirs: 'examples/nuxt-style/src/pages',
         routeStyle: 'nuxt',
         onRoutesGenerated(routes) {
@@ -98,7 +99,7 @@ describe('Generate routes', () => {
           expect(routes).toMatchSnapshot('routes')
           return routes
         },
-      })
+      }, new PageContext())
       await ctx.searchGlob()
       const routes = await ctx.resolveRoutes()
 
@@ -106,7 +107,7 @@ describe('Generate routes', () => {
     })
 
     test('remix Style match snapshot', async() => {
-      const ctx = new PageContext({
+      const ctx = new ContextRunner({
         dirs: 'examples/remix-style/src/pages',
         routeStyle: 'remix',
         resolver: 'react',
@@ -116,7 +117,7 @@ describe('Generate routes', () => {
           expect(routes).toMatchSnapshot('routes')
           return routes
         },
-      })
+      }, new PageContext())
       await ctx.searchGlob()
       const routes = await ctx.resolveRoutes()
 
