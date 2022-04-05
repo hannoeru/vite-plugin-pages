@@ -4,7 +4,7 @@ import Debug from 'debug'
 import { slash } from '@antfu/utils'
 import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
-import type { ViteDevServer } from 'vite'
+import type { ModuleNode, ViteDevServer } from 'vite'
 import type { ResolvedOptions } from './types'
 
 export const debug = {
@@ -62,10 +62,12 @@ export function resolveImportMode(
 
 export function invalidatePagesModule(server: ViteDevServer) {
   const { moduleGraph } = server
-  const module = moduleGraph.getModuleById(MODULE_ID_VIRTUAL)
-  if (module) {
-    moduleGraph.invalidateModule(module)
-    return module
+  const mods = moduleGraph.getModulesByFile(MODULE_ID_VIRTUAL)
+  if (mods) {
+    const seen = new Set<ModuleNode>()
+    mods.forEach((mod) => {
+      moduleGraph.invalidateModule(mod, seen)
+    })
   }
 }
 
