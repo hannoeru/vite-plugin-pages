@@ -33,6 +33,12 @@ const config = defineConfig({
         }
       },
     }),
+    // test multiple instances
+    Pages({
+      dirs: '../react/src/pages',
+      resolver: 'react',
+      moduleId: '~admin-pages',
+    }),
     Markdown(),
     Inspect(),
   ],
