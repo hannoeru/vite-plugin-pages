@@ -319,10 +319,10 @@ Use file system dynamic routing supporting:
 
 ### resolver
 
-- **Type:** `string`
+- **Type:** `'vue' | 'react' | 'solid' | PageResolver`
 - **Default:** `'auto detect'`
 
-Route resolver, support `vue` or `react`.
+Route resolver, support `vue`, `react`, `solid` or custom `PageResolver`.
 
 ### extendRoute
 
