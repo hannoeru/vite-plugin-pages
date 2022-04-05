@@ -85,12 +85,10 @@ export class PageContext {
     }
   }
 
-  async removePage(path: string | string[]) {
+  async removePage(path: string) {
     debug.pages('remove', path)
-    await Promise.all(toArray(path).map(async(p) => {
-      this._pageRouteMap.delete(p)
-      await this.options.resolver.hmr?.removed?.(this, p)
-    }))
+    this._pageRouteMap.delete(path)
+    await this.options.resolver.hmr?.removed?.(this, path)
   }
 
   onUpdate() {
