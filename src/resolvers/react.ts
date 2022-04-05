@@ -6,7 +6,7 @@ import {
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
-import type { Optional, ResolvedOptions } from '../types'
+import type { Optional, PageResolver, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
 
 export interface ReactRouteBase {
@@ -45,7 +45,7 @@ function prepareRoutes(
   return routes
 }
 
-export async function resolveReactRoutes(ctx: PageContext) {
+async function resolveReactRoutes(ctx: PageContext) {
   const { routeStyle, caseSensitive } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
@@ -110,4 +110,20 @@ export async function resolveReactRoutes(ctx: PageContext) {
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
+}
+
+export function ReactResolver(): PageResolver {
+  return {
+    resolveExtensions() {
+      return ['tsx', 'jsx', 'ts', 'js']
+    },
+    async resolveRoutes(ctx) {
+      return await resolveReactRoutes(ctx)
+    },
+    stringify: {
+      component: path => `React.createElement(${path})`,
+      dynamicImport: path => `React.lazy(() => import("${path}"))`,
+      final: code => `import React from "react";\n${code}`,
+    },
+  }
 }

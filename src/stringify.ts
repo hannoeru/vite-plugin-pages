@@ -26,17 +26,6 @@ function replaceFunction(_: any, value: any) {
   return value
 }
 
-function getDynamicImportString(resolver: string, path: string) {
-  switch (resolver) {
-  case 'react':
-    return `React.lazy(() => import("${path}"))`
-  case 'solid':
-    return `Solid.lazy(() => import("${path}"))`
-  default:
-    return `() => import("${path}")`
-  }
-}
-
 /**
  * Creates a stringified Vue Router route definition.
  */
@@ -50,10 +39,9 @@ export function stringifyRoutes(
     const mode = resolveImportMode(path, options)
     return mode === 'sync'
       ? `import ${importName} from "${path}"`
-      : `const ${importName} = ${getDynamicImportString(
-        options.resolver,
-        path,
-      )}`
+      : `const ${importName} = ${
+        options.resolver.stringify?.dynamicImport?.(path) || `() => import("${path}")`
+      }`
   }
 
   function componentReplacer(str: string, replaceStr: string, path: string) {
@@ -64,10 +52,9 @@ export function stringifyRoutes(
 
     importsMap.set(path, importName)
 
-    if (options.resolver === 'react')
-      return str.replace(replaceStr, `React.createElement(${importName})`)
-    else
-      return str.replace(replaceStr, importName)
+    importName = options.resolver.stringify?.component?.(importName) || importName
+
+    return str.replace(replaceStr, importName)
   }
 
   function functionReplacer(str: string, replaceStr: string, content: string) {
@@ -95,11 +82,6 @@ export function stringifyRoutes(
 
 export function generateClientCode(routes: any[], options: ResolvedOptions) {
   const { imports, stringRoutes } = stringifyRoutes(routes, options)
-
-  if (options.resolver === 'react')
-    imports.unshift('import React from "react"')
-  if (options.resolver === 'solid')
-    imports.unshift('import * as Solid from "solid-js"')
-
-  return `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
+  const code = `${imports.join(';\n')};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`
+  return options.resolver.stringify?.final?.(code) || code
 }

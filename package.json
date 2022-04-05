@@ -58,7 +58,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": ">=3",

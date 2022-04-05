@@ -1,3 +1,5 @@
+import colors from 'picocolors'
+import deepEqual from 'deep-equal'
 import {
   countSlash,
   isCatchAllRoute,
@@ -7,7 +9,8 @@ import {
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
-import type { CustomBlock, Optional } from '../types'
+import { getRouteBlock } from '../customBlock'
+import type { CustomBlock, Optional, PageResolver } from '../types'
 import type { PageContext } from '../context'
 
 export interface VueRouteBase {
@@ -57,7 +60,7 @@ function prepareRoutes(
   return routes
 }
 
-export async function resolveVueRoutes(ctx: PageContext) {
+async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>) {
   const { routeStyle, caseSensitive } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
@@ -71,7 +74,7 @@ export async function resolveVueRoutes(ctx: PageContext) {
 
     // add leading slash to component path if not already there
     const component = page.path.replace(ctx.root, '')
-    const customBlock = ctx.customBlockMap.get(page.path)
+    const customBlock = customBlockMap.get(page.path)
 
     const route: VueRouteBase = {
       name: '',
@@ -136,4 +139,50 @@ export async function resolveVueRoutes(ctx: PageContext) {
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
+}
+
+export function VueResolver(): PageResolver {
+  const customBlockMap = new Map<string, CustomBlock>()
+
+  async function checkCustomBlockChange(ctx: PageContext, path: string) {
+    const exitsCustomBlock = customBlockMap.get(path)
+    let customBlock: CustomBlock | undefined
+    try {
+      customBlock = await getRouteBlock(path, ctx.options)
+    } catch (error: any) {
+      // eslint-disable-next-line no-console
+      ctx.logger?.error(colors.red(`[vite-plugin-pages] ${error.message}`))
+      return
+    }
+    if (!exitsCustomBlock && !customBlock)
+      return
+
+    if (!customBlock) {
+      customBlockMap.delete(path)
+      ctx.debug.routeBlock('%s deleted', path)
+      return
+    }
+    if (!exitsCustomBlock || !deepEqual(exitsCustomBlock, customBlock)) {
+      ctx.debug.routeBlock('%s old: %O', path, exitsCustomBlock)
+      ctx.debug.routeBlock('%s new: %O', path, customBlock)
+      customBlockMap.set(path, customBlock)
+      ctx.onUpdate()
+    }
+  }
+
+  return {
+    resolveExtensions() {
+      return ['vue', 'ts', 'js']
+    },
+    async resolveRoutes(ctx) {
+      return await resolveVueRoutes(ctx, customBlockMap)
+    },
+    hmr: {
+      added: async(ctx, path) => checkCustomBlockChange(ctx, path),
+      changed: async(ctx, path) => checkCustomBlockChange(ctx, path),
+      removed: async(_ctx, path) => {
+        customBlockMap.delete(path)
+      },
+    },
+  }
 }

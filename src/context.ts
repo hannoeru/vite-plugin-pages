@@ -1,18 +1,12 @@
 import { extname, join, resolve } from 'path'
-import deepEqual from 'deep-equal'
 import { slash, toArray } from '@antfu/utils'
-import colors from 'picocolors'
 import { resolveOptions } from './options'
 import { getPageFiles } from './files'
 import { debug, invalidatePagesModule, isTarget } from './utils'
-import { resolveReactRoutes } from './resolvers/react'
-import { resolveVueRoutes } from './resolvers/vue'
-import { resolveSolidRoutes } from './resolvers/solid'
-import { getRouteBlock } from './customBlock'
 
 import type { FSWatcher } from 'fs'
 import type { Logger, ViteDevServer } from 'vite'
-import type { CustomBlock, PageOptions, ResolvedOptions, UserOptions } from './types'
+import type { PageOptions, ResolvedOptions, UserOptions } from './types'
 
 export interface PageRoute {
   path: string
@@ -22,7 +16,6 @@ export interface PageRoute {
 export class PageContext {
   private _server: ViteDevServer | undefined
   private _pageRouteMap = new Map<string, PageRoute>()
-  private _customBlockMap: Map<string, CustomBlock> = new Map()
 
   rawOptions: UserOptions
   root: string
@@ -51,11 +44,11 @@ export class PageContext {
 
   setupWatcher(watcher: FSWatcher) {
     watcher
-      .on('unlink', (path) => {
+      .on('unlink', async(path) => {
         path = slash(path)
         if (!isTarget(path, this.options))
           return
-        this.removePage(path)
+        await this.removePage(path)
         this.onUpdate()
       })
     watcher
@@ -75,7 +68,7 @@ export class PageContext {
           return
         const page = this._pageRouteMap.get(path)
         if (page)
-          this.checkCustomBlockChange(path)
+          await this.options.resolver.hmr?.changed?.(this, path)
       })
   }
 
@@ -88,45 +81,16 @@ export class PageContext {
         path: p,
         route,
       })
-      await this.checkCustomBlockChange(p)
+      await this.options.resolver.hmr?.added?.(this, p)
     }
   }
 
-  removePage(path: string | string[]) {
+  async removePage(path: string | string[]) {
     debug.pages('remove', path)
-    toArray(path).forEach((p) => {
+    await Promise.all(toArray(path).map(async(p) => {
       this._pageRouteMap.delete(p)
-      this._customBlockMap.delete(p)
-    })
-  }
-
-  async checkCustomBlockChange(path: string) {
-    if (this.options.resolver !== 'vue')
-      return
-
-    const exitsCustomBlock = this._customBlockMap.get(path)
-    let customBlock: CustomBlock | undefined
-    try {
-      customBlock = await getRouteBlock(path, this.options)
-    } catch (error: any) {
-      // eslint-disable-next-line no-console
-      this.logger?.error(colors.red(`[vite-plugin-pages] ${error.message}`))
-      return
-    }
-    if (!exitsCustomBlock && !customBlock)
-      return
-
-    if (!customBlock) {
-      this._customBlockMap.delete(path)
-      debug.routeBlock('%s deleted', path)
-      return
-    }
-    if (!exitsCustomBlock || !deepEqual(exitsCustomBlock, customBlock)) {
-      debug.routeBlock('%s old: %O', path, exitsCustomBlock)
-      debug.routeBlock('%s new: %O', path, customBlock)
-      this._customBlockMap.set(path, customBlock)
-      this.onUpdate()
-    }
+      await this.options.resolver.hmr?.removed?.(this, p)
+    }))
   }
 
   onUpdate() {
@@ -141,12 +105,7 @@ export class PageContext {
   }
 
   async resolveRoutes() {
-    if (this.options.resolver === 'vue')
-      return await resolveVueRoutes(this)
-    if (this.options.resolver === 'react')
-      return await resolveReactRoutes(this)
-    if (this.options.resolver === 'solid')
-      return await resolveSolidRoutes(this)
+    return this.options.resolver.resolveRoutes(this)
   }
 
   async searchGlob() {
@@ -164,7 +123,6 @@ export class PageContext {
       await this.addPage(page.files, page)
 
     debug.cache(this.pageRouteMap)
-    debug.cache(this.customBlockMap)
   }
 
   get debug() {
@@ -173,9 +131,5 @@ export class PageContext {
 
   get pageRouteMap() {
     return this._pageRouteMap
-  }
-
-  get customBlockMap() {
-    return this._customBlockMap
   }
 }

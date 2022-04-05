@@ -1,3 +1,4 @@
+import type { PageContext } from './context'
 import type { Awaitable } from '@antfu/utils'
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
@@ -7,11 +8,26 @@ export type ImportModeResolver = (filepath: string, pluginOptions: ResolvedOptio
 
 export type CustomBlock = Record<string, any>
 
-export type SupportedPagesResolver = 'vue' | 'react' | 'solid'
+export type InternalPageResolvers = 'vue' | 'react' | 'solid'
 
 export interface PageOptions {
   dir: string
   baseRoute: string
+}
+
+export interface PageResolver {
+  resolveExtensions: () => string[]
+  resolveRoutes: (ctx: PageContext) => Awaitable<string>
+  stringify?: {
+    dynamicImport?: (importPath: string) => string
+    component?: (importName: string) => string
+    final?: (code: string) => string
+  }
+  hmr?: {
+    added?: (ctx: PageContext, path: string) => Awaitable<void>
+    removed?: (ctx: PageContext, path: string) => Awaitable<void>
+    changed?: (ctx: PageContext, path: string) => Awaitable<void>
+  }
 }
 
 /**
@@ -68,7 +84,7 @@ interface Options {
    * Generate React Route
    * @default 'auto detect'
    */
-  resolver: SupportedPagesResolver
+  resolver: InternalPageResolvers | PageResolver
   /**
    * Extend route records
    */
@@ -106,6 +122,10 @@ export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSqua
    * Resolved page dirs
    */
   dirs: PageOptions[]
+  /**
+   * Resolved page resolver
+   */
+  resolver: PageResolver
   /**
    * RegExp to match extensions
    */

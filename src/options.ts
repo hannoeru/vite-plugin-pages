@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import { slash, toArray } from '@antfu/utils'
 import { getPageDirs } from './files'
 
+import { ReactResolver, SolidResolver, VueResolver } from './resolvers'
 import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
@@ -26,16 +27,26 @@ export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
   return 'async'
 }
 
-const getExtensions = (resolver: ResolvedOptions['resolver']) => {
+const getResolver = (originalResolver: UserOptions['resolver']) => {
+  let resolver = originalResolver || 'vue'
+
+  if (typeof resolver !== 'string')
+    return resolver
+
   switch (resolver) {
   case 'vue':
-    return ['vue', 'ts', 'js']
+    resolver = VueResolver()
+    break
   case 'react':
+    resolver = ReactResolver()
+    break
   case 'solid':
-    return ['tsx', 'jsx', 'ts', 'js']
+    resolver = SolidResolver()
+    break
   default:
     throw new Error(`Unsupported resolver: ${resolver}`)
   }
+  return resolver
 }
 
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
@@ -44,7 +55,6 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     routeBlockLang = 'json5',
     exclude = [],
     caseSensitive = false,
-    resolver = 'vue',
     syncIndex = true,
     extendRoute,
     onRoutesGenerated,
@@ -55,7 +65,9 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const importMode = userOptions.importMode || (syncIndex ? syncIndexResolver : 'async')
 
-  const extensions = userOptions.extensions || getExtensions(resolver)
+  const resolver = getResolver(userOptions.resolver)
+
+  const extensions = userOptions.extensions || resolver.resolveExtensions()
 
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 

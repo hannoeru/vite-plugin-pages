@@ -6,7 +6,7 @@ import {
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
-import type { Optional, ResolvedOptions } from '../types'
+import type { Optional, PageResolver, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
 
 export interface SolidRouteBase {
@@ -41,7 +41,7 @@ function prepareRoutes(
   return routes
 }
 
-export async function resolveSolidRoutes(ctx: PageContext) {
+async function resolveSolidRoutes(ctx: PageContext) {
   const { routeStyle, caseSensitive } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
@@ -111,4 +111,19 @@ export async function resolveSolidRoutes(ctx: PageContext) {
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
+}
+
+export function SolidResolver(): PageResolver {
+  return {
+    resolveExtensions() {
+      return ['tsx', 'jsx', 'ts', 'js']
+    },
+    async resolveRoutes(ctx) {
+      return await resolveSolidRoutes(ctx)
+    },
+    stringify: {
+      dynamicImport: path => `Solid.lazy(() => import("${path}"))`,
+      final: code => `import * as Solid from "solid-js";\n${code}`,
+    },
+  }
 }
