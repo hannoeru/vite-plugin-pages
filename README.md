@@ -220,7 +220,7 @@ export default {
 - **Type:** `string[]`
 - **Default:**
   - Vue: `['vue', 'ts', 'js']`
-  - React: `['tsx', 'jsx']`
+  - React: `['tsx', 'jsx', 'ts', 'js']`
   - Solid: `['tsx', 'jsx', 'ts', 'js']`
 
 An array of valid file extensions for pages.
@@ -323,6 +323,16 @@ Use file system dynamic routing supporting:
 - **Default:** `'auto detect'`
 
 Route resolver, support `vue`, `react`, `solid` or custom `PageResolver`.
+
+### moduleId
+
+- **Type:** `string`
+- **Default:**
+  - Vue: `'~pages'`
+  - React: `'~react-pages'`
+  - Solid: `'~solid-pages'`
+
+Module id for routes import, useful when you what to use multiple pages plugin in one project.
 
 ### extendRoute
 

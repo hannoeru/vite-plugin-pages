@@ -114,6 +114,9 @@ async function resolveReactRoutes(ctx: PageContext) {
 
 export function ReactResolver(): PageResolver {
   return {
+    resolveModuleIds() {
+      return ['~react-pages', 'virtual:generated-pages-react']
+    },
     resolveExtensions() {
       return ['tsx', 'jsx', 'ts', 'js']
     },

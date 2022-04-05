@@ -3,6 +3,7 @@ import { slash, toArray } from '@antfu/utils'
 import { getPageDirs } from './files'
 
 import { ReactResolver, SolidResolver, VueResolver } from './resolvers'
+import { MODULE_IDS } from './constants'
 import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
@@ -75,10 +76,15 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const routeStyle = userOptions.nuxtStyle ? 'nuxt' : userOptions.routeStyle || 'next'
 
+  const moduleIds = userOptions.moduleId
+    ? [userOptions.moduleId]
+    : resolver.resolveModuleIds?.() || MODULE_IDS
+
   const resolvedOptions: ResolvedOptions = {
     dirs: resolvedDirs,
     routeStyle,
     routeBlockLang,
+    moduleIds,
     root,
     extensions,
     importMode,

@@ -1,6 +1,7 @@
-import { MODULE_IDS, MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
+import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 import { PageContext } from './context'
 
+import { parsePageRequest } from './utils'
 import type { UserOptions } from './types'
 import type { Plugin } from 'vite'
 
@@ -33,8 +34,8 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       ctx.setupViteServer(server)
     },
     resolveId(id) {
-      if (MODULE_IDS.includes(id))
-        return MODULE_ID_VIRTUAL
+      if (ctx.options.moduleIds.includes(id))
+        return `${MODULE_ID_VIRTUAL}?id=${id}`
 
       if (routeBlockQueryRE.test(id))
         return ROUTE_BLOCK_ID_VIRTUAL
@@ -42,7 +43,12 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       return null
     },
     async load(id) {
-      if (id === MODULE_ID_VIRTUAL)
+      const {
+        moduleId,
+        pageId,
+      } = parsePageRequest(id)
+
+      if (moduleId === MODULE_ID_VIRTUAL && pageId && ctx.options.moduleIds.includes(pageId))
         return ctx.resolveRoutes()
 
       if (id === ROUTE_BLOCK_ID_VIRTUAL) {

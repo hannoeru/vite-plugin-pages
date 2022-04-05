@@ -1,4 +1,5 @@
 import { resolve, win32 } from 'path'
+import { URLSearchParams } from 'url'
 import Debug from 'debug'
 import { slash } from '@antfu/utils'
 import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
@@ -174,4 +175,15 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
     result = result.replace(replaceIndexRE, '')
 
   return result || undefined
+}
+
+export function parsePageRequest(id: string) {
+  const [moduleId, rawQuery] = id.split('?', 2)
+  const query = new URLSearchParams(rawQuery)
+  const pageId = query.get('id')
+  return {
+    moduleId,
+    query,
+    pageId,
+  }
 }

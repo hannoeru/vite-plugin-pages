@@ -11,6 +11,16 @@ describe('Options resolve', () => {
     })
   })
 
+  test('vue - custom module id', () => {
+    const options = resolveOptions({
+      dirs: 'examples/vue/src/pages',
+      moduleId: '~vue-pages',
+    })
+    expect(options).toMatchSnapshot({
+      root: expect.any(String),
+    })
+  })
+
   test('react', () => {
     const options = resolveOptions({
       dirs: 'examples/react/src/pages',

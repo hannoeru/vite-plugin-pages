@@ -16,6 +16,7 @@ export interface PageOptions {
 }
 
 export interface PageResolver {
+  resolveModuleIds: () => string[]
   resolveExtensions: () => string[]
   resolveRoutes: (ctx: PageContext) => Awaitable<string>
   stringify?: {
@@ -66,12 +67,12 @@ interface Options {
    */
   nuxtStyle: boolean
   /**
-   * Use routing style
+   * Routing style
    * @default false
    */
   routeStyle: 'next' | 'nuxt' | 'remix'
   /**
-   * Use case for route paths
+   * Case for route paths
    * @default false
      */
   caseSensitive: boolean
@@ -80,6 +81,11 @@ interface Options {
    * @default 'json5'
    */
   routeBlockLang: 'json5' | 'json' | 'yaml' | 'yml'
+  /**
+   * Module id for routes import
+   * @default '~pages'
+   */
+  moduleId: string
   /**
    * Generate React Route
    * @default 'auto detect'
@@ -112,7 +118,7 @@ interface Options {
 
 export type UserOptions = Partial<Options>
 
-export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets' | 'nuxtStyle' | 'syncIndex'> {
+export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets' | 'nuxtStyle' | 'syncIndex' | 'moduleId'> {
   /**
    * Resolves to the `root` value from Vite config.
    * @default config.root
@@ -130,4 +136,8 @@ export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSqua
    * RegExp to match extensions
    */
   extensionsRE: RegExp
+  /**
+   * Module IDs for routes import
+   */
+  moduleIds: string[]
 }

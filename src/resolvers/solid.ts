@@ -115,6 +115,9 @@ async function resolveSolidRoutes(ctx: PageContext) {
 
 export function SolidResolver(): PageResolver {
   return {
+    resolveModuleIds() {
+      return ['~solid-pages']
+    },
     resolveExtensions() {
       return ['tsx', 'jsx', 'ts', 'js']
     },

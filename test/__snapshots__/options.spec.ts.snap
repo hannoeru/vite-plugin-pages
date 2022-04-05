@@ -19,10 +19,15 @@ exports[`Options resolve > react 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
   "importMode": [Function],
+  "moduleIds": [
+    "~react-pages",
+    "virtual:generated-pages-react",
+  ],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
     "resolveExtensions": [Function],
+    "resolveModuleIds": [Function],
     "resolveRoutes": [Function],
     "stringify": {
       "component": [Function],
@@ -55,15 +60,58 @@ exports[`Options resolve > solid 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
   "importMode": [Function],
+  "moduleIds": [
+    "~solid-pages",
+  ],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
     "resolveExtensions": [Function],
+    "resolveModuleIds": [Function],
     "resolveRoutes": [Function],
     "stringify": {
       "dynamicImport": [Function],
       "final": [Function],
     },
+  },
+  "root": Any<String>,
+  "routeBlockLang": "json5",
+  "routeStyle": "next",
+}
+`;
+
+exports[`Options resolve > vue - custom module id 1`] = `
+{
+  "caseSensitive": false,
+  "dirs": [
+    {
+      "baseRoute": "",
+      "dir": "examples/vue/src/pages",
+    },
+  ],
+  "exclude": [],
+  "extendRoute": undefined,
+  "extensions": [
+    "vue",
+    "ts",
+    "js",
+  ],
+  "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
+  "importMode": [Function],
+  "moduleIds": [
+    "~vue-pages",
+  ],
+  "onClientGenerated": undefined,
+  "onRoutesGenerated": undefined,
+  "resolver": {
+    "hmr": {
+      "added": [Function],
+      "changed": [Function],
+      "removed": [Function],
+    },
+    "resolveExtensions": [Function],
+    "resolveModuleIds": [Function],
+    "resolveRoutes": [Function],
   },
   "root": Any<String>,
   "routeBlockLang": "json5",
@@ -89,6 +137,11 @@ exports[`Options resolve > vue 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
   "importMode": [Function],
+  "moduleIds": [
+    "~pages",
+    "pages-generated",
+    "virtual:generated-pages",
+  ],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
@@ -98,6 +151,7 @@ exports[`Options resolve > vue 1`] = `
       "removed": [Function],
     },
     "resolveExtensions": [Function],
+    "resolveModuleIds": [Function],
     "resolveRoutes": [Function],
   },
   "root": Any<String>,

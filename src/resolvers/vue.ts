@@ -174,6 +174,9 @@ export function VueResolver(): PageResolver {
     resolveExtensions() {
       return ['vue', 'ts', 'js']
     },
+    resolveModuleIds() {
+      return ['~pages', 'pages-generated', 'virtual:generated-pages']
+    },
     async resolveRoutes(ctx) {
       return await resolveVueRoutes(ctx, customBlockMap)
     },
