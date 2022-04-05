@@ -178,7 +178,7 @@ export function VueResolver(): PageResolver {
       return ['~pages', 'pages-generated', 'virtual:generated-pages']
     },
     async resolveRoutes(ctx) {
-      return await resolveVueRoutes(ctx, customBlockMap)
+      return resolveVueRoutes(ctx, customBlockMap)
     },
     hmr: {
       added: async(ctx, path) => checkCustomBlockChange(ctx, path),

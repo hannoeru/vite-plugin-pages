@@ -122,7 +122,7 @@ export function SolidResolver(): PageResolver {
       return ['tsx', 'jsx', 'ts', 'js']
     },
     async resolveRoutes(ctx) {
-      return await resolveSolidRoutes(ctx)
+      return resolveSolidRoutes(ctx)
     },
     stringify: {
       dynamicImport: path => `Solid.lazy(() => import("${path}"))`,

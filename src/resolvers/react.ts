@@ -121,7 +121,7 @@ export function ReactResolver(): PageResolver {
       return ['tsx', 'jsx', 'ts', 'js']
     },
     async resolveRoutes(ctx) {
-      return await resolveReactRoutes(ctx)
+      return resolveReactRoutes(ctx)
     },
     stringify: {
       component: path => `React.createElement(${path})`,
