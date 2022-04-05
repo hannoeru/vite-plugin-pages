@@ -4,8 +4,7 @@ import { resolve } from 'path'
 import { copyFile, rm } from 'fs/promises'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { createServer } from 'vite'
-import { chromium } from 'playwright'
-import { getViteConfig } from './utils'
+import { getBrowser, getViteConfig } from './utils'
 import type { Browser, Page } from 'playwright'
 import type { ViteDevServer } from 'vite'
 
@@ -19,7 +18,7 @@ describe('vue e2e test', () => {
   beforeAll(async() => {
     server = await createServer(getViteConfig(vueRoot))
     await server.listen()
-    browser = await chromium.launch()
+    browser = await getBrowser()
     page = await browser.newPage()
   })
 

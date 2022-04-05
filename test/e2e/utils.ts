@@ -1,3 +1,5 @@
+import { chromium } from 'playwright'
+import type { Browser } from 'playwright'
 import type { UserConfig } from 'vite'
 
 export const getViteConfig = (root: string): UserConfig => ({
@@ -16,3 +18,12 @@ export const getViteConfig = (root: string): UserConfig => ({
     target: 'esnext',
   },
 })
+
+let browser: Browser
+
+export const getBrowser = async() => {
+  if (!browser)
+    browser = await chromium.launch()
+
+  return browser
+}
