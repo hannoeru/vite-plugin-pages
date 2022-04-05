@@ -5,6 +5,7 @@ import { copyFile, rm } from 'fs/promises'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { createServer } from 'vite'
 import { chromium } from 'playwright'
+import { getViteConfig } from './utils'
 import type { Browser, Page } from 'playwright'
 import type { ViteDevServer } from 'vite'
 
@@ -16,12 +17,7 @@ describe('solid e2e test', () => {
   let page: Page
 
   beforeAll(async() => {
-    server = await createServer({
-      root: solidRoot,
-      build: {
-        target: 'esnext',
-      },
-    })
+    server = await createServer(getViteConfig(solidRoot))
     await server.listen()
     browser = await chromium.launch()
     page = await browser.newPage()
