@@ -19,7 +19,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       )
         userOptions.resolver = 'react'
 
-      // TODO: auto set resolver for solid project
+      // auto set resolver for solid project
       if (
         !userOptions.resolver
         && config.plugins.find(i => i.name.includes('solid'))
