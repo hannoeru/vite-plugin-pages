@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -44,7 +44,7 @@ jobs:
     name: 'Lint: node-16, ubuntu-latest'
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
