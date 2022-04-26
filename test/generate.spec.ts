@@ -24,7 +24,6 @@ describe('Generate routes', () => {
           route.props = (route: any) => ({ query: route.query.q })
       },
       onRoutesGenerated(routes) {
-        // eslint-disable-next-line no-console
         routes = deepSortArray(routes)
         expect(routes).toMatchSnapshot('routes')
         return routes
@@ -41,7 +40,6 @@ describe('Generate routes', () => {
       dirs: 'examples/vue/src/pages',
       importMode: 'sync',
       onRoutesGenerated(routes) {
-        // eslint-disable-next-line no-console
         routes = deepSortArray(routes)
         expect(routes).toMatchSnapshot('routes')
         return routes
@@ -58,7 +56,6 @@ describe('Generate routes', () => {
       dirs: 'examples/react/src/pages',
       resolver: 'react',
       onRoutesGenerated(routes) {
-        // eslint-disable-next-line no-console
         routes = deepSortArray(routes, true)
         expect(routes).toMatchSnapshot('routes')
         return routes
@@ -75,7 +72,6 @@ describe('Generate routes', () => {
       dirs: 'examples/solid/src/pages',
       resolver: 'solid',
       onRoutesGenerated(routes) {
-        // eslint-disable-next-line no-console
         routes = deepSortArray(routes, true)
         expect(routes).toMatchSnapshot('routes')
         return routes
@@ -93,7 +89,6 @@ describe('Generate routes', () => {
         dirs: 'examples/nuxt-style/src/pages',
         routeStyle: 'nuxt',
         onRoutesGenerated(routes) {
-        // eslint-disable-next-line no-console
           routes = deepSortArray(routes)
           expect(routes).toMatchSnapshot('routes')
           return routes
@@ -111,7 +106,6 @@ describe('Generate routes', () => {
         routeStyle: 'remix',
         resolver: 'react',
         onRoutesGenerated(routes) {
-        // eslint-disable-next-line no-console
           routes = deepSortArray(routes, true)
           expect(routes).toMatchSnapshot('routes')
           return routes

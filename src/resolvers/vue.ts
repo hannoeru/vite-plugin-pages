@@ -150,7 +150,6 @@ export function VueResolver(): PageResolver {
     try {
       customBlock = await getRouteBlock(path, ctx.options)
     } catch (error: any) {
-      // eslint-disable-next-line no-console
       ctx.logger?.error(colors.red(`[vite-plugin-pages] ${error.message}`))
       return
     }
