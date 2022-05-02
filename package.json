@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-pages",
   "version": "0.23.0",
-  "packageManager": "pnpm@6.32.11",
+  "packageManager": "pnpm@7.0.0",
   "description": "File system base vue-router plugin for Vite",
   "keywords": [
     "vite",
