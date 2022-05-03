@@ -1,7 +1,7 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
+import type { FC } from 'react'
 
-const Component: React.FC = () => {
+const Component: FC = () => {
   return (
     <div>
       <p>pathless layout route</p>

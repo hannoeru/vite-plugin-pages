@@ -1,6 +1,6 @@
-import React from 'react'
+import type { FC } from 'react'
 
-const index: React.FC = () => {
+const index: FC = () => {
   return (
     <p>blog/today/index</p>
   )

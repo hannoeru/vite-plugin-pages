@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import { StrictMode, Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
@@ -21,10 +21,10 @@ function App() {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <Router>
       <App />
     </Router>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById('root'),
 )

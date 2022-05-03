@@ -1,7 +1,7 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
+import type { FC } from 'react'
 
-const index: React.FC = () => {
+const index: FC = () => {
   return (
     <div>
       <p>index.tsx</p>

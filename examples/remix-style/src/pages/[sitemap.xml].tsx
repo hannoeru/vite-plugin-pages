@@ -1,6 +1,6 @@
-import React from 'react'
+import type { FC } from 'react'
 
-const Component: React.FC = () => {
+const Component: FC = () => {
   return (
     <div>
       <p>[sitemap.xml].tsx</p>

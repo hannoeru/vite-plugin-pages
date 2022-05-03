@@ -1,7 +1,7 @@
-import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import type { FC } from 'react'
 
-const Blog: React.FC = () => {
+const Blog: FC = () => {
   return (
     <div>
       <p>blog.tsx</p>

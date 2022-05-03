@@ -1,6 +1,6 @@
-import React from 'react'
+import type { FC } from 'react'
 
-const Component: React.FC = () => {
+const Component: FC = () => {
   return (
     <h1>Test Components name</h1>
   )

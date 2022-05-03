@@ -12,6 +12,7 @@ export default {
 <style>
 
 </style>
+
 <route>
 {
 meta: {

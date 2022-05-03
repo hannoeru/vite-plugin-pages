@@ -1,6 +1,6 @@
-import React from 'react'
+import type { FC } from 'react'
 
-const all: React.FC = () => {
+const all: FC = () => {
   return (
     <p>...all route</p>
   )

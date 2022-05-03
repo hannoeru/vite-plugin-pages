@@ -1,7 +1,7 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
+import type { FC } from 'react'
 
-const Component: React.FC = () => {
+const Component: FC = () => {
   return (
     <>
       <p>blog/index.vue</p>
