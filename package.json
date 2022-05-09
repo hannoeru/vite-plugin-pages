@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@antfu/utils": "^0.5.1",
-    "@hannoeru/eslint-config": "^0.8.4",
+    "@hannoeru/eslint-config": "^0.8.5",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
     "@types/node": "^17.0.31",
@@ -91,7 +91,7 @@
     "@vue/compiler-sfc": "^3.2.33",
     "bumpp": "^7.1.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.14.0",
+    "eslint": "^8.15.0",
     "esno": "^0.14.1",
     "playwright": "^1.21.1",
     "react": "^18.0.0",
