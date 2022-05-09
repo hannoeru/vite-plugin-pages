@@ -45,7 +45,7 @@ function prepareRoutes(
   return routes
 }
 
-async function resolveReactRoutes(ctx: PageContext) {
+async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
   const { routeStyle, caseSensitive } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
@@ -107,6 +107,11 @@ async function resolveReactRoutes(ctx: PageContext) {
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
+  return finalRoutes
+}
+
+async function resolveReactRoutes(ctx: PageContext) {
+  const finalRoutes = await computeReactRoutes(ctx)
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
@@ -122,6 +127,9 @@ export function ReactResolver(): PageResolver {
     },
     async resolveRoutes(ctx) {
       return resolveReactRoutes(ctx)
+    },
+    async getComputedRoutes(ctx) {
+      return computeReactRoutes(ctx)
     },
     stringify: {
       component: path => `React.createElement(${path})`,

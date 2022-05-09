@@ -1,3 +1,4 @@
+import type { ReactRoute, SolidRoute, VueRoute } from './resolvers'
 import type { PageContext } from './context'
 import type { Awaitable } from '@antfu/utils'
 
@@ -19,6 +20,7 @@ export interface PageResolver {
   resolveModuleIds: () => string[]
   resolveExtensions: () => string[]
   resolveRoutes: (ctx: PageContext) => Awaitable<string>
+  getComputedRoutes: (ctx: PageContext) => Awaitable<VueRoute[] | ReactRoute[] | SolidRoute[]>
   stringify?: {
     dynamicImport?: (importPath: string) => string
     component?: (importName: string) => string
