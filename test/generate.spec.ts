@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { PageContext } from '../src/context'
 
 const sensitivity = process.platform === 'win32' ? 'base' : 'variant'

@@ -1,5 +1,4 @@
 import { join } from 'path'
-import { describe, expect, test } from 'vitest'
 import { resolveOptions } from '../src/options'
 import { getPageDirs, getPageFiles } from '../src/files'
 
