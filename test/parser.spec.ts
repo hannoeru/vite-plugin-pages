@@ -1,5 +1,4 @@
 import { resolve } from 'path'
-import { describe, expect, test } from 'vitest'
 import { getRouteBlock } from '../src/customBlock'
 import { resolveOptions } from '../src/options'
 

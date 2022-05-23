@@ -2,7 +2,6 @@
 /* eslint-disable no-console */
 import { resolve } from 'path'
 import { copyFile, rm } from 'fs/promises'
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { createServer } from 'vite'
 import { getBrowser, getViteConfig } from './utils'
 import type { Browser, Page } from 'playwright'
@@ -24,7 +23,7 @@ describe('react e2e test', () => {
 
   afterAll(async() => {
     await browser.close()
-    server.httpServer.close()
+    server.httpServer?.close()
   })
 
   const getUrl = (path: string) => `http://localhost:${server.config.server.port}${path}`
@@ -33,7 +32,7 @@ describe('react e2e test', () => {
     try {
       await page.goto(getUrl('/blog/today'))
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('blog/today/index')
+      expect(text?.trim()).toBe('blog/today/index')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -44,7 +43,7 @@ describe('react e2e test', () => {
     try {
       await page.goto(getUrl('/blog/today/xxx'))
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('blog/today ...all route')
+      expect(text?.trim()).toBe('blog/today ...all route')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -55,7 +54,7 @@ describe('react e2e test', () => {
     try {
       await page.goto(getUrl('/xxx/xxx'))
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('...all route')
+      expect(text?.trim()).toBe('...all route')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -66,7 +65,7 @@ describe('react e2e test', () => {
     try {
       await page.goto(getUrl('/blog/1b234bk12b3'))
       const text = await page.locator('body > div > p').textContent()
-      expect(text.trim()).toBe('blog/[id].tsx: 1b234bk12b3')
+      expect(text?.trim()).toBe('blog/[id].tsx: 1b234bk12b3')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -86,7 +85,7 @@ describe('react e2e test', () => {
       await page.goto(getUrl('/test'))
 
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('this is test file')
+      expect(text?.trim()).toBe('this is test file')
 
       await rm(distPath)
     } catch (e) {

@@ -1,4 +1,4 @@
-/* eslint-disable jest/no-conditional-expect */
+/* eslint-disable jest/no-standalone-expect */
 /* eslint-disable no-console */
 import { resolve } from 'path'
 import { copyFile, rm } from 'fs/promises'
@@ -24,7 +24,7 @@ describe('solid e2e test', () => {
 
   afterAll(async() => {
     await browser.close()
-    server.httpServer.close()
+    server.httpServer?.close()
   })
 
   const getUrl = (path: string) => `http://localhost:${server.config.server.port}${path}`
@@ -33,7 +33,7 @@ describe('solid e2e test', () => {
     try {
       await page.goto(getUrl('/blog/today'))
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('blog/today/index.tsx')
+      expect(text?.trim()).toBe('blog/today/index.tsx')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -44,7 +44,7 @@ describe('solid e2e test', () => {
     try {
       await page.goto(getUrl('/blog/today/xxx'))
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('blog/today ...all route')
+      expect(text?.trim()).toBe('blog/today ...all route')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -55,7 +55,7 @@ describe('solid e2e test', () => {
     try {
       await page.goto(getUrl('/xxx/xxx'))
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('...all route')
+      expect(text?.trim()).toBe('...all route')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -66,7 +66,7 @@ describe('solid e2e test', () => {
     try {
       await page.goto(getUrl('/about/1b234bk12b3/more'))
       const text = await page.locator('div.deep-more').textContent()
-      expect(text.trim()).toBe('deep nested: about/[id]/more.tsx')
+      expect(text?.trim()).toBe('deep nested: about/[id]/more.tsx')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -77,7 +77,7 @@ describe('solid e2e test', () => {
     try {
       await page.goto(getUrl('/features/dashboard'))
       const text = await page.locator('body > div > p >> nth=0').textContent()
-      expect(text.trim()).toBe('features/dashboard/pages/dashboard.tsx')
+      expect(text?.trim()).toBe('features/dashboard/pages/dashboard.tsx')
     } catch (e) {
       console.error(e)
       expect(e).toBeUndefined()
@@ -97,7 +97,7 @@ describe('solid e2e test', () => {
       await page.goto(getUrl('/test'))
 
       const text = await page.locator('body > div').textContent()
-      expect(text.trim()).toBe('this is test file')
+      expect(text?.trim()).toBe('this is test file')
 
       await rm(distPath)
     } catch (e) {
