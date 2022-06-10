@@ -6,6 +6,15 @@ export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 export type ImportMode = 'sync' | 'async'
 export type ImportModeResolver = (filepath: string, pluginOptions: ResolvedOptions) => ImportMode
 
+export interface ParsedJSX {
+  value: string
+  loc: {
+    start: {
+      line: number
+    }
+  }
+}
+
 export type CustomBlock = Record<string, any>
 
 export type InternalPageResolvers = 'vue' | 'react' | 'solid'
