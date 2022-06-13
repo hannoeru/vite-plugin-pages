@@ -8,3 +8,13 @@ exports[`Parser > custom block 1`] = `
   "name": "blog-id",
 }
 `;
+
+exports[`Parser > jsx yaml comment 1`] = `
+{
+  "meta": {
+    "id": 1234,
+    "requiresAuth": false,
+  },
+  "name": "blog-id",
+}
+`;
