@@ -432,6 +432,29 @@ To enable syntax highlighting `<route>` in VS Code using [Vetur's Custom Code Bl
  3. Restart VS Code to get syntax highlighting for custom blocks.
 
 
+### JSX/TSX YAML format comments for Route Data(In Vue)
+
+Add route meta to the route by adding a comment block starts with `route` to the JSX or TSX file(In Vue). This will be directly added to the route after it is generated, and will override it.
+
+This feature only support JSX/TSX in vue, and will parse only the first block of comments which should also start with `route`.
+
+Now only `yaml` parser supported.
+
+- **Type:** `'vue'`
+- **Supported parser:** YAML
+
+```jsx
+/*
+route
+
+name: name-override
+meta:
+  requiresAuth: false
+  id: 1234
+  string: "1234"
+*/
+```
+
 ## File System Routing
 
 Inspired by the routing from
