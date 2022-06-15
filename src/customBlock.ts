@@ -4,11 +4,11 @@ import { parse as YAMLParser } from 'yaml'
 
 import { importModule } from 'local-pkg'
 
+// @ts-expect-error no type
+import extractComments from 'extract-comments'
 import { debug } from './utils'
 import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
-
-const extractComments = require('extract-comments')
 
 const routeJSXReg = /^[\n\s]+(route)[\n\s]+/gm
 
