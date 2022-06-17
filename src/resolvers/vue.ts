@@ -60,7 +60,7 @@ function prepareRoutes(
   return routes
 }
 
-async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>) {
+async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
   const { routeStyle, caseSensitive } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
@@ -136,6 +136,12 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
+  return finalRoutes
+}
+
+async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>) {
+  const finalRoutes = await computeVueRoutes(ctx, customBlockMap)
+
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
@@ -178,6 +184,9 @@ export function VueResolver(): PageResolver {
     },
     async resolveRoutes(ctx) {
       return resolveVueRoutes(ctx, customBlockMap)
+    },
+    async getComputedRoutes(ctx) {
+      return computeVueRoutes(ctx, customBlockMap)
     },
     hmr: {
       added: async(ctx, path) => checkCustomBlockChange(ctx, path),
