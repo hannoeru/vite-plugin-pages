@@ -76,7 +76,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
   const content = fs.readFileSync(path, 'utf8')
 
   const parsedSFC = await parseSFC(content)
-  const blockStr = parsedSFC.customBlocks.find(b => b.type === 'route')
+  const blockStr = parsedSFC?.customBlocks.find(b => b.type === 'route')
 
   const parsedJSX = parseJSX(content)
 
