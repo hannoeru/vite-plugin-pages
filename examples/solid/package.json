@@ -6,13 +6,13 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "solid-app-router": "^0.3.3",
+    "solid-app-router": "^0.4.1",
     "solid-js": "^1.4.4"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.16",
-    "typescript": "^4.7.3",
+    "nodemon": "^2.0.18",
+    "typescript": "^4.7.4",
     "vite": "^2.9.12",
     "vite-plugin-pages": "workspace:*",
     "vite-plugin-solid": "^2.2.6"

@@ -13,10 +13,10 @@
     "@vitejs/plugin-vue": "^2.3.3",
     "@vue/compiler-sfc": "^3.2.37",
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.16",
-    "typescript": "^4.7.3",
+    "nodemon": "^2.0.18",
+    "typescript": "^4.7.4",
     "vite": "^2.9.12",
-    "vite-plugin-md": "^0.14.1",
+    "vite-plugin-vue-markdown": "^0.1.1",
     "vite-plugin-pages": "workspace:*"
   }
 }
