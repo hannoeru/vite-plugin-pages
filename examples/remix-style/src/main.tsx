@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import {
   BrowserRouter as Router,
   useRoutes,
@@ -16,11 +16,12 @@ function App() {
   return useRoutes(routes)
 }
 
-ReactDOM.render(
+const app = createRoot(document.getElementById('root')!)
+
+app.render(
   <StrictMode>
     <Router>
       <App />
     </Router>
   </StrictMode>,
-  document.getElementById('root'),
 )
