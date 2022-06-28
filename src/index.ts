@@ -75,6 +75,11 @@ export type {
   SolidRoute,
 } from './resolvers'
 
+export {
+  vueResolver,
+  reactResolver,
+  solidResolver,
+} from './resolvers'
 export { syncIndexResolver } from './options'
 export { PageContext }
 export default pagesPlugin

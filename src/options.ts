@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import { slash, toArray } from '@antfu/utils'
 import { getPageDirs } from './files'
 
-import { ReactResolver, SolidResolver, VueResolver } from './resolvers'
+import { reactResolver, solidResolver, vueResolver } from './resolvers'
 import { MODULE_IDS } from './constants'
 import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
 
@@ -36,13 +36,13 @@ const getResolver = (originalResolver: UserOptions['resolver']) => {
 
   switch (resolver) {
     case 'vue':
-      resolver = VueResolver()
+      resolver = vueResolver()
       break
     case 'react':
-      resolver = ReactResolver()
+      resolver = reactResolver()
       break
     case 'solid':
-      resolver = SolidResolver()
+      resolver = solidResolver()
       break
     default:
       throw new Error(`Unsupported resolver: ${resolver}`)

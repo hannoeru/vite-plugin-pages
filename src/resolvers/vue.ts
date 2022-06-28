@@ -147,7 +147,7 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
   return client
 }
 
-export function VueResolver(): PageResolver {
+export function vueResolver(): PageResolver {
   const customBlockMap = new Map<string, CustomBlock>()
 
   async function checkCustomBlockChange(ctx: PageContext, path: string) {
