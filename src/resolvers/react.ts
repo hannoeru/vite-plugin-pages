@@ -36,9 +36,6 @@ function prepareRoutes(
 
     delete route.rawRoute
 
-    if (route.index)
-      delete route.path
-
     Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
 
@@ -74,7 +71,7 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
       const isIndexRoute = normalizeCase(node, caseSensitive).endsWith('index')
 
       if (!route.path && isIndexRoute) {
-        route.index = true
+        route.path = "/"
       } else if (!isIndexRoute) {
         if (routeStyle === 'remix')
           route.path = buildReactRemixRoutePath(node)
