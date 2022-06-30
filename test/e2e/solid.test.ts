@@ -4,7 +4,8 @@ import { resolve } from 'path'
 import { copyFile, rm } from 'fs/promises'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { createServer } from 'vite'
-import { getBrowser, getViteConfig } from './utils'
+import { chromium } from 'playwright'
+import { getViteConfig, stopServer } from './utils'
 import type { Browser, Page } from 'playwright'
 import type { ViteDevServer } from 'vite'
 
@@ -17,14 +18,14 @@ describe('solid e2e test', () => {
 
   beforeAll(async() => {
     server = await createServer(getViteConfig(solidRoot))
-    await server.listen()
-    browser = await getBrowser()
+    await server.listen(0)
+    browser = await chromium.launch()
     page = await browser.newPage()
   })
 
   afterAll(async() => {
     await browser.close()
-    server.httpServer?.close()
+    await stopServer(server)
   })
 
   const getUrl = (path: string) => `http://localhost:${server.config.server.port}${path}`
