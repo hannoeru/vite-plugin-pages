@@ -49,10 +49,8 @@
   "scripts": {
     "dev": "npm run build -- --watch --ignore-watch examples",
     "build": "tsup",
-    "dev:vue": "pnpm --filter vue dev",
-    "dev:react": "pnpm --filter react dev",
-    "build:vue": "pnpm --filter vue build",
-    "build:react": "pnpm --filter react build",
+    "play": "pnpm --filter vue dev",
+    "play:react": "pnpm --filter react dev",
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --tag --push",
     "publish:ci": "esno scripts/publish.ts",
@@ -64,7 +62,7 @@
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^2.7.0 || ^3.0.0",
-    "vite": "^2.0.0"
+    "vite": "^2.0.0 || ^3.0.0-0"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {

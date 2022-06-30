@@ -1,6 +1,4 @@
-import { chromium } from 'playwright'
-import type { Browser } from 'playwright'
-import type { UserConfig } from 'vite'
+import type { UserConfig, ViteDevServer } from 'vite'
 
 export const getViteConfig = (root: string): UserConfig => ({
   root,
@@ -19,11 +17,9 @@ export const getViteConfig = (root: string): UserConfig => ({
   },
 })
 
-let browser: Browser
-
-export const getBrowser = async() => {
-  if (!browser)
-    browser = await chromium.launch()
-
-  return browser
+export const stopServer = async(server: ViteDevServer) => {
+  return new Promise<void>((resolve, reject) => server.httpServer?.close((err) => {
+    if (err) reject(err)
+    resolve()
+  }))
 }
