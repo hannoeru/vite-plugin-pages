@@ -13,7 +13,7 @@ const __pages_import_7__ = React.lazy(() => import(\\"/examples/react/src/pages/
 const __pages_import_8__ = React.lazy(() => import(\\"/examples/react/src/pages/blog/today/[...all].tsx\\"));
 const __pages_import_9__ = React.lazy(() => import(\\"/examples/react/src/pages/blog/today/index.tsx\\"));
 
-const routes = [{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_0__)},{\\"caseSensitive\\":false,\\"path\\":\\"about\\",\\"element\\":React.createElement(__pages_import_1__),\\"children\\":[{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_2__),\\"index\\":true}]},{\\"caseSensitive\\":false,\\"path\\":\\"components\\",\\"element\\":React.createElement(__pages_import_3__)},{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_4__),\\"index\\":true},{\\"caseSensitive\\":false,\\"path\\":\\"blog\\",\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_5__)},{\\"caseSensitive\\":false,\\"path\\":\\":id\\",\\"element\\":React.createElement(__pages_import_6__)},{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_7__),\\"index\\":true},{\\"caseSensitive\\":false,\\"path\\":\\"today\\",\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_8__)},{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_9__),\\"index\\":true}]}]}];
+const routes = [{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_0__)},{\\"caseSensitive\\":false,\\"path\\":\\"about\\",\\"element\\":React.createElement(__pages_import_1__),\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"\\",\\"element\\":React.createElement(__pages_import_2__)}]},{\\"caseSensitive\\":false,\\"path\\":\\"components\\",\\"element\\":React.createElement(__pages_import_3__)},{\\"caseSensitive\\":false,\\"path\\":\\"/\\",\\"element\\":React.createElement(__pages_import_4__)},{\\"caseSensitive\\":false,\\"path\\":\\"blog\\",\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_5__)},{\\"caseSensitive\\":false,\\"path\\":\\":id\\",\\"element\\":React.createElement(__pages_import_6__)},{\\"caseSensitive\\":false,\\"path\\":\\"\\",\\"element\\":React.createElement(__pages_import_7__)},{\\"caseSensitive\\":false,\\"path\\":\\"today\\",\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_8__)},{\\"caseSensitive\\":false,\\"path\\":\\"\\",\\"element\\":React.createElement(__pages_import_9__)}]}]}];
 
 export default routes;"
 `;
@@ -31,7 +31,7 @@ exports[`Generate routes > react - match snapshot > routes 1`] = `
       {
         "caseSensitive": false,
         "element": "/examples/react/src/pages/about/index.tsx",
-        "index": true,
+        "path": "",
       },
     ],
     "element": "/examples/react/src/pages/about.tsx",
@@ -45,7 +45,7 @@ exports[`Generate routes > react - match snapshot > routes 1`] = `
   {
     "caseSensitive": false,
     "element": "/examples/react/src/pages/index.tsx",
-    "index": true,
+    "path": "/",
   },
   {
     "caseSensitive": false,
@@ -63,7 +63,7 @@ exports[`Generate routes > react - match snapshot > routes 1`] = `
       {
         "caseSensitive": false,
         "element": "/examples/react/src/pages/blog/index.tsx",
-        "index": true,
+        "path": "",
       },
       {
         "caseSensitive": false,
@@ -76,7 +76,7 @@ exports[`Generate routes > react - match snapshot > routes 1`] = `
           {
             "caseSensitive": false,
             "element": "/examples/react/src/pages/blog/today/index.tsx",
-            "index": true,
+            "path": "",
           },
         ],
         "path": "today",
@@ -184,7 +184,7 @@ const __pages_import_10__ = React.lazy(() => import(\\"/examples/remix-style/src
 const __pages_import_11__ = React.lazy(() => import(\\"/examples/remix-style/src/pages/blog/today/index.tsx\\"));
 import __pages_import_12__ from \\"/examples/remix-style/src/pages/index.tsx\\";
 
-const routes = [{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_0__),\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"product\\",\\"element\\":React.createElement(__pages_import_1__)}]},{\\"caseSensitive\\":false,\\"path\\":\\"sitemap.xml\\",\\"element\\":React.createElement(__pages_import_2__)},{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_3__)},{\\"caseSensitive\\":false,\\"path\\":\\"about\\",\\"element\\":React.createElement(__pages_import_4__),\\"children\\":[{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_5__),\\"index\\":true}]},{\\"caseSensitive\\":false,\\"path\\":\\"blog/authors\\",\\"element\\":React.createElement(__pages_import_6__)},{\\"caseSensitive\\":false,\\"path\\":\\"blog\\",\\"element\\":React.createElement(__pages_import_7__),\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_8__)},{\\"caseSensitive\\":false,\\"path\\":\\":id\\",\\"element\\":React.createElement(__pages_import_9__)},{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_10__),\\"index\\":true},{\\"caseSensitive\\":false,\\"path\\":\\"today\\",\\"children\\":[{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_11__),\\"index\\":true}]}]},{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_12__),\\"index\\":true}];
+const routes = [{\\"caseSensitive\\":false,\\"element\\":React.createElement(__pages_import_0__),\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"product\\",\\"element\\":React.createElement(__pages_import_1__)}]},{\\"caseSensitive\\":false,\\"path\\":\\"sitemap.xml\\",\\"element\\":React.createElement(__pages_import_2__)},{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_3__)},{\\"caseSensitive\\":false,\\"path\\":\\"about\\",\\"element\\":React.createElement(__pages_import_4__),\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"\\",\\"element\\":React.createElement(__pages_import_5__)}]},{\\"caseSensitive\\":false,\\"path\\":\\"blog/authors\\",\\"element\\":React.createElement(__pages_import_6__)},{\\"caseSensitive\\":false,\\"path\\":\\"blog\\",\\"element\\":React.createElement(__pages_import_7__),\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":React.createElement(__pages_import_8__)},{\\"caseSensitive\\":false,\\"path\\":\\":id\\",\\"element\\":React.createElement(__pages_import_9__)},{\\"caseSensitive\\":false,\\"path\\":\\"\\",\\"element\\":React.createElement(__pages_import_10__)},{\\"caseSensitive\\":false,\\"path\\":\\"today\\",\\"children\\":[{\\"caseSensitive\\":false,\\"path\\":\\"\\",\\"element\\":React.createElement(__pages_import_11__)}]}]},{\\"caseSensitive\\":false,\\"path\\":\\"/\\",\\"element\\":React.createElement(__pages_import_12__)}];
 
 export default routes;"
 `;
@@ -219,7 +219,7 @@ exports[`Generate routes > routeStyle > remix Style match snapshot > routes 1`] 
       {
         "caseSensitive": false,
         "element": "/examples/remix-style/src/pages/about/index.tsx",
-        "index": true,
+        "path": "",
       },
     ],
     "element": "/examples/remix-style/src/pages/about.tsx",
@@ -246,7 +246,7 @@ exports[`Generate routes > routeStyle > remix Style match snapshot > routes 1`] 
       {
         "caseSensitive": false,
         "element": "/examples/remix-style/src/pages/blog/index.tsx",
-        "index": true,
+        "path": "",
       },
       {
         "caseSensitive": false,
@@ -254,7 +254,7 @@ exports[`Generate routes > routeStyle > remix Style match snapshot > routes 1`] 
           {
             "caseSensitive": false,
             "element": "/examples/remix-style/src/pages/blog/today/index.tsx",
-            "index": true,
+            "path": "",
           },
         ],
         "path": "today",
@@ -266,7 +266,7 @@ exports[`Generate routes > routeStyle > remix Style match snapshot > routes 1`] 
   {
     "caseSensitive": false,
     "element": "/examples/remix-style/src/pages/index.tsx",
-    "index": true,
+    "path": "/",
   },
 ]
 `;
