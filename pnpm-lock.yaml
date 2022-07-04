@@ -10,7 +10,7 @@ importers:
       '@types/deep-equal': ^1.0.1
       '@types/glob-to-regexp': ^0.4.1
       '@types/node': ^18.0.0
-      '@vitest/ui': ^0.16.0
+      '@vitest/ui': ^0.17.0
       '@vue/compiler-sfc': ^3.2.37
       bumpp: ^8.2.1
       cross-env: ^7.0.3
@@ -27,11 +27,11 @@ importers:
       react: ^18.2.0
       react-router: ^6.3.0
       solid-app-router: ^0.4.1
-      solid-js: ^1.4.4
-      tsup: ^6.1.2
+      solid-js: ^1.4.6
+      tsup: ^6.1.3
       typescript: ^4.7.4
-      vite: ^2.9.12
-      vitest: ^0.16.0
+      vite: ^2.9.13
+      vitest: ^0.17.0
       vue: ^3.2.37
       vue-router: ^4.0.16
       yaml: ^2.1.1
@@ -51,7 +51,7 @@ importers:
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.1
       '@types/node': 18.0.0
-      '@vitest/ui': 0.16.0
+      '@vitest/ui': 0.17.0
       '@vue/compiler-sfc': 3.2.37
       bumpp: 8.2.1
       cross-env: 7.0.3
@@ -60,12 +60,12 @@ importers:
       playwright: 1.23.0
       react: 18.2.0
       react-router: 6.3.0_react@18.2.0
-      solid-app-router: 0.4.1_solid-js@1.4.5
-      solid-js: 1.4.5
-      tsup: 6.1.2_typescript@4.7.4
+      solid-app-router: 0.4.1_solid-js@1.4.6
+      solid-js: 1.4.6
+      tsup: 6.1.3_typescript@4.7.4
       typescript: 4.7.4
       vite: 2.9.13
-      vitest: 0.16.0_@vitest+ui@0.16.0
+      vitest: 0.17.0_@vitest+ui@0.17.0
       vue: 3.2.37
       vue-router: 4.0.16_vue@3.2.37
 
@@ -1174,8 +1174,8 @@ packages:
       vue: 3.2.37
     dev: true
 
-  /@vitest/ui/0.16.0:
-    resolution: {integrity: sha512-RwXYTFA2tVwUhuuTcdAaK5kIq+I3pnvNQUojPThZPZhS7ttKXkCgWwud0KXwnR04ofKc3HXEuzWPf6s7JD1vgw==}
+  /@vitest/ui/0.17.0:
+    resolution: {integrity: sha512-R8Lhx865qG288eWuzzZQ1PSUmiU4kiU1/rvQ9K2o0jSREbAqN9oss37dDdbCHr2Y4WRmZ/u9BuuwrppbjVfuiA==}
     dependencies:
       sirv: 2.0.2
     dev: true
@@ -4636,8 +4636,20 @@ packages:
     dependencies:
       solid-js: 1.4.5
 
+  /solid-app-router/0.4.1_solid-js@1.4.6:
+    resolution: {integrity: sha512-RKHyFQ+J5lXyE/SoyJVHgTBeBck2etYVJn1/9F7ehlzyD2pIOMqLpNXD1GfWQljHqNdXZBSyE+xB/Cck5l9Q/g==}
+    peerDependencies:
+      solid-js: ^1.3.5
+    dependencies:
+      solid-js: 1.4.6
+    dev: true
+
   /solid-js/1.4.5:
     resolution: {integrity: sha512-32NGpuabEJDTeQ7fjaTR2TLC7R/X5hbqhYdEQ1e+GcIK8r8+/V0Nv17eZQii5Z/97/mtdt8yi63chzg73qnz/A==}
+
+  /solid-js/1.4.6:
+    resolution: {integrity: sha512-vF0x5qbVCDi8zlEyN92y/i+pS7QNYh3uNvbSyUYDhLifKuYqGcJwGxbH9zzDX5sR8o1ijgzI6BEAXlcR7Mkkjw==}
+    dev: true
 
   /solid-refresh/0.4.1_solid-js@1.4.5:
     resolution: {integrity: sha512-v3tD/OXQcUyXLrWjPW1dXZyeWwP7/+GQNs8YTL09GBq+5FguA6IejJWUvJDrLIA4M0ho9/5zK2e9n+uy+4488g==}
@@ -4909,8 +4921,8 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
-  /tsup/6.1.2_typescript@4.7.4:
-    resolution: {integrity: sha512-Hw4hKDHaAQkm2eVavlArEOrAPA93bziRDamdfwaNs0vXQdUUFfItvUWY0L/F6oQQMVh6GvjQq1+HpDXw8UKtPA==}
+  /tsup/6.1.3_typescript@4.7.4:
+    resolution: {integrity: sha512-eRpBnbfpDFng+EJNTQ90N7QAf4HAGGC7O3buHIjroKWK7D1ibk9/YnR/3cS8HsMU5T+6Oi+cnF+yU5WmCnB//Q==}
     engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
@@ -5190,16 +5202,19 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.16.0_@vitest+ui@0.16.0:
-    resolution: {integrity: sha512-Ntp6jrM8wf2NMtamMBLkRBBdeqHkgAH/WMh5Xryts1j2ft2D8QZQbiSVFkSl4WmEQzcPP0YM069g/Ga1vtnEtg==}
+  /vitest/0.17.0_@vitest+ui@0.17.0:
+    resolution: {integrity: sha512-5YO9ubHo0Zg35mea3+zZAr4sCku32C3usvIH5COeJB48TZV/R0J9aGNtGOOqEWZYfOKP0pGZUvTokne3x/QEFg==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
+      '@edge-runtime/vm': '*'
       '@vitest/ui': '*'
       c8: '*'
       happy-dom: '*'
       jsdom: '*'
     peerDependenciesMeta:
+      '@edge-runtime/vm':
+        optional: true
       '@vitest/ui':
         optional: true
       c8:
@@ -5212,7 +5227,7 @@ packages:
       '@types/chai': 4.3.1
       '@types/chai-subset': 1.3.3
       '@types/node': 18.0.0
-      '@vitest/ui': 0.16.0
+      '@vitest/ui': 0.17.0
       chai: 4.3.6
       debug: 4.3.4
       local-pkg: 0.4.1
