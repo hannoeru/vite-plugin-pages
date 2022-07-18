@@ -92,7 +92,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
     "esno": "^0.16.3",
-    "playwright": "^1.23.3",
+    "playwright": "^1.23.4",
     "react": "^18.2.0",
     "react-router": "^6.3.0",
     "solid-app-router": "^0.4.1",
