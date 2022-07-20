@@ -6,9 +6,11 @@
   "keywords": [
     "vite",
     "vue",
-    "vute-router",
+    "vue-router",
     "react",
     "react-router",
+    "solid-js",
+    "solid-app-router",
     "file-system-based",
     "routing"
   ],
