@@ -563,4 +563,4 @@ This plugin allow you to automatically generate sitemap.xml and robots.xml files
 
 ## License
 
-MIT License © 2021 [hannoeru](https://github.com/hannoeru)
+MIT License © 2021-PRESENT [hannoeru](https://github.com/hannoeru)
