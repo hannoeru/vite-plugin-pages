@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-pages",
   "version": "0.25.0",
-  "packageManager": "pnpm@7.8.0",
+  "packageManager": "pnpm@7.9.0",
   "description": "File system base vue-router plugin for Vite",
   "keywords": [
     "vite",
@@ -88,7 +88,7 @@
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
     "@types/node": "^18.0.4",
-    "@vitest/ui": "^0.20.2",
+    "@vitest/ui": "^0.21.0",
     "@vue/compiler-sfc": "^3.2.37",
     "bumpp": "^8.2.1",
     "cross-env": "^7.0.3",
@@ -102,7 +102,7 @@
     "tsup": "^6.2.1",
     "typescript": "^4.7.4",
     "vite": "^3.0.4",
-    "vitest": "^0.20.2",
+    "vitest": "^0.21.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3"
   }
