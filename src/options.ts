@@ -54,7 +54,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
   const {
     dirs = userOptions.pagesDir || ['src/pages'],
     routeBlockLang = 'json5',
-    exclude = [],
+    exclude = ['node_modules', '.git', '**/__*__/**'],
     caseSensitive = false,
     syncIndex = true,
     extendRoute,
