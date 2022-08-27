@@ -85,6 +85,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     }
 
     let parentRoutes = routes
+    let dynamicRoute = false
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
@@ -93,6 +94,9 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const isCatchAll = isCatchAllRoute(node, nuxtStyle)
       const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
+
+      if (isDynamic)
+        dynamicRoute = true
 
       route.name += route.name ? `-${normalizedName}` : normalizedName
 
@@ -129,7 +133,11 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       }
     }
 
-    parentRoutes.push(route)
+    // put dynamic routes at the end
+    if (dynamicRoute)
+      parentRoutes.push(route)
+    else
+      parentRoutes.unshift(route)
   })
 
   let finalRoutes = prepareRoutes(ctx, routes)
