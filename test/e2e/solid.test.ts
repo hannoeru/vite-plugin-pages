@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-standalone-expect */
 import { resolve } from 'path'
 import { copyFile, rm } from 'fs/promises'
 import { existsSync } from 'fs'
