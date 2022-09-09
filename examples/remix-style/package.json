@@ -20,6 +20,6 @@
     "nodemon": "^2.0.19",
     "typescript": "^4.8.2",
     "vite": "^3.0.9",
-    "vite-plugin-pages": "workspace:0.25.0"
+    "vite-plugin-pages": "workspace:0.26.0"
   }
 }
