@@ -77,7 +77,7 @@ importers:
       nodemon: ^2.0.19
       typescript: ^4.8.2
       vite: ^3.0.9
-      vite-plugin-pages: workspace:0.25.0
+      vite-plugin-pages: workspace:*
       vite-plugin-vue-markdown: ^0.21.1
       vue: ^3.2.38
       vue-router: 4.1.5
@@ -108,7 +108,7 @@ importers:
       react-router-dom: ^6.3.0
       typescript: ^4.8.2
       vite: ^3.0.9
-      vite-plugin-pages: workspace:0.25.0
+      vite-plugin-pages: workspace:*
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -139,7 +139,7 @@ importers:
       react-router-dom: ^6.3.0
       typescript: ^4.8.2
       vite: ^3.0.9
-      vite-plugin-pages: workspace:0.25.0
+      vite-plugin-pages: workspace:*
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -164,7 +164,7 @@ importers:
       solid-js: ^1.5.4
       typescript: ^4.8.2
       vite: ^3.0.9
-      vite-plugin-pages: workspace:0.25.0
+      vite-plugin-pages: workspace:*
       vite-plugin-solid: ^2.3.0
     dependencies:
       solid-app-router: 0.4.2_solid-js@1.5.4
@@ -187,7 +187,7 @@ importers:
       typescript: ^4.8.2
       vite: ^3.0.9
       vite-plugin-inspect: ^0.6.1
-      vite-plugin-pages: workspace:0.25.0
+      vite-plugin-pages: workspace:*
       vite-plugin-vue-markdown: ^0.21.1
       vue: ^3.2.38
       vue-router: 4.1.5
@@ -214,7 +214,7 @@ importers:
       nodemon: ^2.0.19
       typescript: ^4.8.2
       vite: ^3.0.9
-      vite-plugin-pages: workspace:0.25.0
+      vite-plugin-pages: workspace:*
       vue: ^3.2.38
       vue-router: 4.1.5
     dependencies:
@@ -246,7 +246,7 @@ importers:
       serve-static: ^1.15.0
       typescript: ^4.8.2
       vite: ^3.0.9
-      vite-plugin-pages: workspace:0.25.0
+      vite-plugin-pages: workspace:*
       vue: ^3.2.38
       vue-router: ^4.1.5
     dependencies:
