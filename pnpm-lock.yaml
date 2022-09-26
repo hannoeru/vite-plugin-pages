@@ -25,7 +25,7 @@ importers:
       picocolors: ^1.0.0
       playwright: ^1.25.2
       react: ^18.2.0
-      react-router: ^6.3.0
+      react-router: ^6.4.1
       solid-app-router: ^0.4.2
       solid-js: ^1.5.6
       tsup: ^6.2.3
@@ -59,7 +59,7 @@ importers:
       esno: 0.16.3
       playwright: 1.25.2
       react: 18.2.0
-      react-router: 6.3.0_react@18.2.0
+      react-router: 6.4.1_react@18.2.0
       solid-app-router: 0.4.2_solid-js@1.5.6
       solid-js: 1.5.6
       tsup: 6.2.3_typescript@4.8.3
@@ -866,6 +866,11 @@ packages:
 
   /@polka/url/1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
+    dev: true
+
+  /@remix-run/router/1.0.1:
+    resolution: {integrity: sha512-eBV5rvW4dRFOU1eajN7FmYxjAIVz/mRHgUE9En9mBn6m3mulK3WTR5C3iQhL9MZ14rWAq+xOlEaCkDiW0/heOg==}
+    engines: {node: '>=14'}
     dev: true
 
   /@rollup/pluginutils/4.2.1:
@@ -3365,6 +3370,7 @@ packages:
     resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
     dependencies:
       '@babel/runtime': 7.18.9
+    dev: false
 
   /hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
@@ -4406,6 +4412,17 @@ packages:
     dependencies:
       history: 5.3.0
       react: 18.2.0
+    dev: false
+
+  /react-router/6.4.1_react@18.2.0:
+    resolution: {integrity: sha512-OJASKp5AykDWFewgWUim1vlLr7yfD4vO/h+bSgcP/ix8Md+LMHuAjovA74MQfsfhQJGGN1nHRhwS5qQQbbBt3A==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.0.1
+      react: 18.2.0
+    dev: true
 
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
