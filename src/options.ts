@@ -57,6 +57,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     exclude = ['node_modules', '.git', '**/__*__/**'],
     caseSensitive = false,
     syncIndex = true,
+    routeNameSeparator = '-',
     extendRoute,
     onRoutesGenerated,
     onClientGenerated,
@@ -95,6 +96,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     extendRoute,
     onRoutesGenerated,
     onClientGenerated,
+    routeNameSeparator,
   }
 
   return resolvedOptions
