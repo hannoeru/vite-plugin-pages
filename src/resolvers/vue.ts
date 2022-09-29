@@ -72,6 +72,11 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
 
+    if (routeStyle === 'sveltekit') {
+      if (pathNodes?.[pathNodes.length - 1] !== '+page') return
+      pathNodes.splice(-1)
+    }
+
     // add leading slash to component path if not already there
     const component = page.path.replace(ctx.root, '')
     const customBlock = customBlockMap.get(page.path)

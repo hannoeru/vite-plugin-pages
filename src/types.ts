@@ -81,7 +81,7 @@ interface Options {
    * Routing style
    * @default false
    */
-  routeStyle: 'next' | 'nuxt' | 'remix'
+  routeStyle: 'next' | 'nuxt' | 'remix' | 'sveltekit'
   /**
    * Case for route paths
    * @default false

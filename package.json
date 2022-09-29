@@ -49,7 +49,7 @@
   "homepage": "https://github.com/hannoeru/vite-plugin-pages",
   "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "scripts": {
-    "dev": "npm run build -- --watch --ignore-watch examples",
+    "dev": "pnpm run build --watch --ignore-watch examples",
     "build": "tsup",
     "play": "pnpm --filter vue dev",
     "play:react": "pnpm --filter react dev",
