@@ -1,6 +1,8 @@
 <template>
-  <p>/about/+page.vue</p>
-  <router-link to="/about/who/me">
-    me
-  </router-link>
+  <div>
+    about/index.vue
+    <router-link to="/about/1b234bk12b3">
+      id: 1b234bk12b3
+    </router-link>
+  </div>
 </template>

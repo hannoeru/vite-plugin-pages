@@ -1,11 +1,26 @@
 <script setup lang="ts">
-import MyComponent from './MyComponent.vue'
-
 defineProps({
   id: String,
 })
 </script>
 
 <template>
-  <MyComponent>{{ id }}</MyComponent>
+  <div>
+    <div>
+      about/[id].vue: {{ id }}
+    </div>
+    <router-link to="/about/1b234bk12b3/more">
+      more deep
+    </router-link>
+    <router-view />
+  </div>
 </template>
+
+<route>
+{
+  name: 'about-user-id',
+  meta: {
+    requiresAuth: true,
+  },
+}
+</route>

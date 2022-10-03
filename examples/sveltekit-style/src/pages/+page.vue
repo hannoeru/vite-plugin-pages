@@ -13,7 +13,7 @@
     <router-link to="/markdown">
       markdown
     </router-link> |
-    <router-link to="/xxx">
+    <router-link to="/xxx/xxx">
       not exists
     </router-link> |
     <router-link to="/features/dashboard">
@@ -28,9 +28,11 @@
   </div>
 </template>
 
-<route>
+<route lang="json">
 {
-  name: "name-override",
-  meta: {requiresAuth: false}
+  "name": "homepage",
+  "meta": {
+    "requiresAuth": false
+  }
 }
 </route>
