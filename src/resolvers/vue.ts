@@ -69,7 +69,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
   const routes: VueRouteBase[] = []
 
-  let root: VueRouteBase | undefined = undefined
+  let root: VueRouteBase | undefined
 
   pageRoutes.forEach((page) => {
     let pathNodes = page.route.split('/')
@@ -119,8 +119,8 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
-        return pathNodes.slice(0, i + 1).join('/') ===
-          (routeStyle === 'sveltekit' ? transformSvelteKitRoute(parent.rawRoute.split('/')).join('/') : parent.rawRoute)
+        return pathNodes.slice(0, i + 1).join('/')
+          === (routeStyle === 'sveltekit' ? transformSvelteKitRoute(parent.rawRoute.split('/')).join('/') : parent.rawRoute)
       })
 
       if (parent) {
