@@ -69,6 +69,8 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
   const routes: VueRouteBase[] = []
 
+  let root: VueRouteBase | undefined = undefined
+
   pageRoutes.forEach((page) => {
     let pathNodes = page.route.split('/')
 
@@ -91,6 +93,16 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
     let parentRoutes = routes
     let dynamicRoute = false
+
+    if (pathNodes.length === 0) {
+      route.name = 'root'
+      route.path = '/'
+
+      root = route
+    } else if (root) {
+      root.children = root.children || []
+      parentRoutes = root.children
+    }
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
