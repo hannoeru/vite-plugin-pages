@@ -189,3 +189,13 @@ export function parsePageRequest(id: string) {
     pageId,
   }
 }
+
+export function isSvelteKitRoute(pathNodes: string[]) {
+  return ['+layout', '+page'].includes(pathNodes[pathNodes.length - 1])
+}
+
+export function transformSvelteKitRoute(pathNodes: string[]) {
+  if (pathNodes[pathNodes.length - 1] === '+page') pathNodes[pathNodes.length - 1] = 'index'
+  if (pathNodes[pathNodes.length - 1] === '+layout') pathNodes.splice(-1)
+  return pathNodes
+}

@@ -10,7 +10,7 @@ const config = defineConfig({
     }),
     Pages({
       dirs: [
-        { dir: 'src/newPages', baseRoute: '' },
+        { dir: 'src/pages', baseRoute: '' },
       ],
       extensions: ['vue', 'md'],
       syncIndex: false,

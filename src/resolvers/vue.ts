@@ -3,9 +3,9 @@ import deepEqual from 'deep-equal'
 import {
   countSlash,
   isCatchAllRoute,
-  isDynamicRoute,
+  isDynamicRoute, isSvelteKitRoute,
   normalizeCase,
-  normalizeName,
+  normalizeName, transformSvelteKitRoute,
 } from '../utils'
 import { generateClientCode } from '../stringify'
 
@@ -70,11 +70,11 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
   const routes: VueRouteBase[] = []
 
   pageRoutes.forEach((page) => {
-    const pathNodes = page.route.split('/')
+    let pathNodes = page.route.split('/')
 
     if (routeStyle === 'sveltekit') {
-      if (pathNodes?.[pathNodes.length - 1] !== '+page') return
-      pathNodes.splice(-1)
+      if (!isSvelteKitRoute(pathNodes)) return
+      pathNodes = transformSvelteKitRoute(pathNodes)
     }
 
     // add leading slash to component path if not already there
@@ -107,7 +107,8 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
-        return pathNodes.slice(0, i + 1).join('/') === parent.rawRoute
+        return pathNodes.slice(0, i + 1).join('/') ===
+          (routeStyle === 'sveltekit' ? transformSvelteKitRoute(parent.rawRoute.split('/')).join('/') : parent.rawRoute)
       })
 
       if (parent) {
