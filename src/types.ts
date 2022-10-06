@@ -61,11 +61,6 @@ interface Options {
    */
   exclude: string[]
   /**
-   * Separator for generating route names.
-   * @default -
-   */
-  routeNameSeparator: string
-  /**
    * Import routes directly or as async components
    * @default 'root index file => "sync", others => "async"'
    */
@@ -87,6 +82,11 @@ interface Options {
    * @default false
    */
   routeStyle: 'next' | 'nuxt' | 'remix'
+  /**
+   * Separator for generated route names.
+   * @default -
+   */
+  routeNameSeparator: string
   /**
    * Case for route paths
    * @default false
