@@ -317,6 +317,13 @@ Use file system dynamic routing supporting:
 - [Nuxtjs Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
 - [Remix Routing](https://remix.run/docs/en/v1/guides/routing)
 
+### routeNameSeparator
+
+- **Type:** `string`
+- **Default:** `-`
+
+Separator for generated route names.
+
 ### resolver
 
 - **Type:** `'vue' | 'react' | 'solid' | PageResolver`
