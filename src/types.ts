@@ -83,6 +83,11 @@ interface Options {
    */
   routeStyle: 'next' | 'nuxt' | 'remix' | 'sveltekit'
   /**
+   * Separator for generated route names.
+   * @default -
+   */
+  routeNameSeparator: string
+  /**
    * Case for route paths
    * @default false
      */

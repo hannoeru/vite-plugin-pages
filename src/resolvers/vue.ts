@@ -61,7 +61,7 @@ function prepareRoutes(
 }
 
 async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
-  const { routeStyle, caseSensitive } = ctx.options
+  const { routeStyle, caseSensitive, routeNameSeparator } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -93,6 +93,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
     let parentRoutes = routes
     let dynamicRoute = false
+    let optionalPathParameter = false
 
     if (pathNodes.length === 0) {
       route.name = 'root'
@@ -112,10 +113,13 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
-      if (isDynamic)
+      if (isDynamic) {
         dynamicRoute = true
+        if (nuxtStyle)
+          optionalPathParameter = true
+      }
 
-      route.name += route.name ? `-${normalizedName}` : normalizedName
+      route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
@@ -144,7 +148,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
             else
               // nested cache all route not include children
               route.path += '(.*)'
-          }
+          } else if (optionalPathParameter && i === pathNodes.length - 1) { route.path += '?' }
         } else {
           route.path += `/${normalizedPath}`
         }
