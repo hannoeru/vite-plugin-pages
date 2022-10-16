@@ -38,7 +38,7 @@ Install:
 
 ```bash
 npm install -D vite-plugin-pages
-npm install solid-app-router
+npm install @solidjs/router
 ```
 
 ### Vite config
@@ -125,7 +125,7 @@ ReactDOM.render(
 
 ```tsx
 import { render } from 'solid-js/web'
-import { Router, useRoutes } from 'solid-app-router'
+import { Router, useRoutes } from '@solidjs/router'
 import routes from '~solid-pages'
 
 render(

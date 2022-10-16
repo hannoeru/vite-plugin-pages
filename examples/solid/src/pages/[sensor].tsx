@@ -1,4 +1,4 @@
-import { Outlet } from 'solid-app-router'
+import { Outlet } from '@solidjs/router'
 
 export default function SensorLayout() {
   return (
