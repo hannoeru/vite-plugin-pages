@@ -1,17 +1,17 @@
-import colors from 'picocolors'
 import deepEqual from 'deep-equal'
+import colors from 'picocolors'
+import { generateClientCode } from '../stringify'
 import {
   countSlash,
   isCatchAllRoute,
   isDynamicRoute,
   normalizeCase,
-  normalizeName,
+  normalizeName
 } from '../utils'
-import { generateClientCode } from '../stringify'
 
+import type { PageContext } from '../context'
 import { getRouteBlock } from '../customBlock'
 import type { CustomBlock, Optional, PageResolver } from '../types'
-import type { PageContext } from '../context'
 
 export interface VueRouteBase {
   name: string
@@ -86,7 +86,6 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
     let parentRoutes = routes
     let dynamicRoute = false
-    let optionalPathParameter = false
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
@@ -98,8 +97,6 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
       if (isDynamic) {
         dynamicRoute = true
-        if (nuxtStyle)
-          optionalPathParameter = true
       }
 
       route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName
@@ -130,7 +127,13 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
             else
               // nested cache all route not include children
               route.path += '(.*)'
-          } else if (optionalPathParameter && i === pathNodes.length - 1) { route.path += '?' }
+          } else if (nuxtStyle && i === pathNodes.length - 1) { 
+            // we need to search if the folder provide `index.vue`
+            const isIndexFound = pageRoutes.find(function({ route }) {
+              return route === pathNodes.join('/').replace(`/${pathNodes[i]}`, '/index')
+            })
+            if(!isIndexFound) route.path += '?'
+          }
         } else {
           route.path += `/${normalizedPath}`
         }
