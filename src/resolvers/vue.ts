@@ -130,7 +130,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
           } else if (nuxtStyle && i === pathNodes.length - 1) { 
             // we need to search if the folder provide `index.vue`
             const isIndexFound = pageRoutes.find(function({ route }) {
-              return route === pathNodes.join('/').replace(`/${pathNodes[i]}`, '/index')
+              return route === page.route.replace(pathNodes[i], 'index')
             })
             if(!isIndexFound) route.path += '?'
           }
