@@ -96,8 +96,9 @@ const __pages_import_4__ = () => import(\\"/examples/nuxt-style/src/pages/about/
 const __pages_import_5__ = () => import(\\"/examples/nuxt-style/src/pages/about/who/me.vue\\");
 const __pages_import_6__ = () => import(\\"/examples/nuxt-style/src/pages/components.vue\\");
 import __pages_import_7__ from \\"/examples/nuxt-style/src/pages/index.vue\\";
+const __pages_import_8__ = () => import(\\"/examples/nuxt-style/src/pages/optional/_id.vue\\");
 
-const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":__pages_import_0__,\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":__pages_import_1__,\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":__pages_import_2__,\\"children\\":[{\\"name\\":\\"about-id\\",\\"path\\":\\":id?\\",\\"component\\":__pages_import_3__,\\"props\\":true},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":__pages_import_4__,\\"props\\":true},{\\"name\\":\\"who-me-override\\",\\"path\\":\\"who/me\\",\\"component\\":__pages_import_5__,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}],\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":__pages_import_6__,\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":__pages_import_7__,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}];
+const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\":__pages_import_0__,\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":__pages_import_1__,\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":__pages_import_2__,\\"children\\":[{\\"name\\":\\"about-id\\",\\"path\\":\\":id\\",\\"component\\":__pages_import_3__,\\"props\\":true},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":__pages_import_4__,\\"props\\":true},{\\"name\\":\\"who-me-override\\",\\"path\\":\\"who/me\\",\\"component\\":__pages_import_5__,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}],\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":__pages_import_6__,\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":__pages_import_7__,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"optional-id\\",\\"path\\":\\"/optional/:id?\\",\\"component\\":__pages_import_8__,\\"props\\":true}];
 
 export default routes;"
 `;
@@ -124,7 +125,7 @@ exports[`Generate routes > routeStyle > nuxt style match snapshot > routes 1`] =
         "component": "/examples/nuxt-style/src/pages/about/_id.vue",
         "customBlock": undefined,
         "name": "about-id",
-        "path": ":id?",
+        "path": ":id",
         "props": true,
       },
       {
@@ -163,6 +164,13 @@ exports[`Generate routes > routeStyle > nuxt style match snapshot > routes 1`] =
     },
     "name": "name-override",
     "path": "/",
+    "props": true,
+  },
+  {
+    "component": "/examples/nuxt-style/src/pages/optional/_id.vue",
+    "customBlock": undefined,
+    "name": "optional-id",
+    "path": "/optional/:id?",
     "props": true,
   },
 ]
