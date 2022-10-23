@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from 'solid-app-router'
+import { Link, Outlet, useParams } from '@solidjs/router'
 
 export default function IdLayout() {
   const { id } = useParams<{ id: string }>()

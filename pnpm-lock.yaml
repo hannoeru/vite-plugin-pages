@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@antfu/utils': ^0.5.2
       '@hannoeru/eslint-config': ^0.8.10
+      '@solidjs/router': ^0.5.0
       '@types/debug': ^4.1.7
       '@types/deep-equal': ^1.0.1
       '@types/glob-to-regexp': ^0.4.1
@@ -26,7 +27,6 @@ importers:
       playwright: ^1.25.2
       react: ^18.2.0
       react-router: ^6.4.2
-      solid-app-router: ^0.4.2
       solid-js: ^1.5.7
       tsup: ^6.2.3
       typescript: ^4.8.4
@@ -48,6 +48,7 @@ importers:
     devDependencies:
       '@antfu/utils': 0.5.2
       '@hannoeru/eslint-config': 0.8.10_ypn2ylkkyfa5i233caldtndbqa
+      '@solidjs/router': 0.5.0_solid-js@1.5.7
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.1
       '@types/node': 18.7.14
@@ -60,7 +61,6 @@ importers:
       playwright: 1.25.2
       react: 18.2.0
       react-router: 6.4.2_react@18.2.0
-      solid-app-router: 0.4.2_solid-js@1.5.7
       solid-js: 1.5.7
       tsup: 6.2.3_typescript@4.8.4
       typescript: 4.8.4
@@ -158,16 +158,16 @@ importers:
 
   examples/solid:
     specifiers:
+      '@solidjs/router': ^0.5.0
       cross-env: ^7.0.3
       nodemon: ^2.0.19
-      solid-app-router: ^0.4.2
       solid-js: ^1.5.4
       typescript: ^4.8.2
       vite: ^3.0.9
       vite-plugin-pages: workspace:*
       vite-plugin-solid: ^2.3.0
     dependencies:
-      solid-app-router: 0.4.2_solid-js@1.5.4
+      '@solidjs/router': 0.5.0_solid-js@1.5.4
       solid-js: 1.5.4
     devDependencies:
       cross-env: 7.0.3
@@ -897,6 +897,22 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.1
+    dev: true
+
+  /@solidjs/router/0.5.0_solid-js@1.5.4:
+    resolution: {integrity: sha512-rNR07l21tWWDVmCbaapggB89rEX7jlM2XChpTLqEGEnj46LzVZ8zgvjcF6NNKScByAlLpoQUkVIjB2KHpcMi+w==}
+    peerDependencies:
+      solid-js: ^1.5.3
+    dependencies:
+      solid-js: 1.5.4
+    dev: false
+
+  /@solidjs/router/0.5.0_solid-js@1.5.7:
+    resolution: {integrity: sha512-rNR07l21tWWDVmCbaapggB89rEX7jlM2XChpTLqEGEnj46LzVZ8zgvjcF6NNKScByAlLpoQUkVIjB2KHpcMi+w==}
+    peerDependencies:
+      solid-js: ^1.5.3
+    dependencies:
+      solid-js: 1.5.7
     dev: true
 
   /@types/body-parser/1.19.2:
@@ -4911,22 +4927,6 @@ packages:
   /slash/3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
-    dev: true
-
-  /solid-app-router/0.4.2_solid-js@1.5.4:
-    resolution: {integrity: sha512-+NrLcmqYssx8DcbpcLBaYPqfTRtS+rkfbxMhLH8MHfTcTkdZfrkWQK7lsUvuPCebGEzfaPZJvHqBwhPrCXAmxg==}
-    peerDependencies:
-      solid-js: ^1.3.5
-    dependencies:
-      solid-js: 1.5.4
-    dev: false
-
-  /solid-app-router/0.4.2_solid-js@1.5.7:
-    resolution: {integrity: sha512-+NrLcmqYssx8DcbpcLBaYPqfTRtS+rkfbxMhLH8MHfTcTkdZfrkWQK7lsUvuPCebGEzfaPZJvHqBwhPrCXAmxg==}
-    peerDependencies:
-      solid-js: ^1.3.5
-    dependencies:
-      solid-js: 1.5.7
     dev: true
 
   /solid-js/1.5.4:

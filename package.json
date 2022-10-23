@@ -10,7 +10,7 @@
     "react",
     "react-router",
     "solid-js",
-    "solid-app-router",
+    "@solidjs/router",
     "file-system-based",
     "routing"
   ],
@@ -85,6 +85,7 @@
   "devDependencies": {
     "@antfu/utils": "^0.5.2",
     "@hannoeru/eslint-config": "^0.8.10",
+    "@solidjs/router": "^0.5.0",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
     "@types/node": "^18.7.14",
@@ -97,7 +98,6 @@
     "playwright": "^1.25.2",
     "react": "^18.2.0",
     "react-router": "^6.4.2",
-    "solid-app-router": "^0.4.2",
     "solid-js": "^1.5.7",
     "tsup": "^6.2.3",
     "typescript": "^4.8.4",
