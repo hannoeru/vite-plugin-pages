@@ -36,16 +36,13 @@ function prepareRoutes(
 
     delete route.rawRoute
 
-    if (route.index)
-      delete route.path
-
     Object.assign(route, options.extendRoute?.(route, parent) || {})
   }
 
   return routes
 }
 
-async function resolveReactRoutes(ctx: PageContext) {
+async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
   const { routeStyle, caseSensitive } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
@@ -74,7 +71,7 @@ async function resolveReactRoutes(ctx: PageContext) {
       const isIndexRoute = normalizeCase(node, caseSensitive).endsWith('index')
 
       if (!route.path && isIndexRoute) {
-        route.index = true
+        route.path = '/'
       } else if (!isIndexRoute) {
         if (routeStyle === 'remix')
           route.path = buildReactRemixRoutePath(node)
@@ -107,12 +104,17 @@ async function resolveReactRoutes(ctx: PageContext) {
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
+  return finalRoutes
+}
+
+async function resolveReactRoutes(ctx: PageContext) {
+  const finalRoutes = await computeReactRoutes(ctx)
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
 }
 
-export function ReactResolver(): PageResolver {
+export function reactResolver(): PageResolver {
   return {
     resolveModuleIds() {
       return ['~react-pages', 'virtual:generated-pages-react']
@@ -122,6 +124,9 @@ export function ReactResolver(): PageResolver {
     },
     async resolveRoutes(ctx) {
       return resolveReactRoutes(ctx)
+    },
+    async getComputedRoutes(ctx) {
+      return computeReactRoutes(ctx)
     },
     stringify: {
       component: path => `React.createElement(${path})`,

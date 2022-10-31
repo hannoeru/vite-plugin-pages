@@ -30,6 +30,11 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       ctx.setLogger(config.logger)
       await ctx.searchGlob()
     },
+    api: {
+      getResolvedRoutes() {
+        return ctx.options.resolver.getComputedRoutes(ctx)
+      },
+    },
     configureServer(server) {
       ctx.setupViteServer(server)
     },
@@ -75,6 +80,11 @@ export type {
   SolidRoute,
 } from './resolvers'
 
+export {
+  vueResolver,
+  reactResolver,
+  solidResolver,
+} from './resolvers'
 export { syncIndexResolver } from './options'
 export { PageContext }
 export default pagesPlugin

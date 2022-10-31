@@ -1,4 +1,5 @@
 import type { TransformResult } from 'vite'
+import type { ReactRoute, SolidRoute, VueRoute } from './resolvers'
 import type { PageContext } from './context'
 import type { Awaitable } from '@antfu/utils'
 
@@ -6,6 +7,15 @@ export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
 export type ImportMode = 'sync' | 'async'
 export type ImportModeResolver = (filepath: string, pluginOptions: ResolvedOptions) => ImportMode
+
+export interface ParsedJSX {
+  value: string
+  loc: {
+    start: {
+      line: number
+    }
+  }
+}
 
 export type CustomBlock = Record<string, any>
 
@@ -20,6 +30,7 @@ export interface PageResolver {
   resolveModuleIds: () => string[]
   resolveExtensions: () => string[]
   resolveRoutes: (ctx: PageContext) => Awaitable<string>
+  getComputedRoutes: (ctx: PageContext) => Awaitable<VueRoute[] | ReactRoute[] | SolidRoute[]>
   stringify?: {
     dynamicImport?: (importPath: string) => string
     component?: (importName: string) => string
@@ -73,6 +84,11 @@ interface Options {
    * @default false
    */
   routeStyle: 'next' | 'nuxt' | 'remix'
+  /**
+   * Separator for generated route names.
+   * @default -
+   */
+  routeNameSeparator: string
   /**
    * Case for route paths
    * @default false

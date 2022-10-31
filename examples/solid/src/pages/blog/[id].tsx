@@ -1,4 +1,4 @@
-import { useParams } from 'solid-app-router'
+import { useParams } from '@solidjs/router'
 
 export default function Id() {
   const { id } = useParams<{ id: string }>()

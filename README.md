@@ -7,7 +7,7 @@
 
 [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://open.vscode.dev/hannoeru/vite-plugin-pages)
 
-> File system based routing for Vue 3 / React applications using
+> File system based routing for Vue 3 / React / Solid applications using
 > [Vite](https://github.com/vitejs/vite)
 
 ## Getting Started
@@ -38,7 +38,7 @@ Install:
 
 ```bash
 npm install -D vite-plugin-pages
-npm install solid-app-router
+npm install @solidjs/router
 ```
 
 ### Vite config
@@ -125,7 +125,7 @@ ReactDOM.render(
 
 ```tsx
 import { render } from 'solid-js/web'
-import { Router, useRoutes } from 'solid-app-router'
+import { Router, useRoutes } from '@solidjs/router'
 import routes from '~solid-pages'
 
 render(
@@ -317,6 +317,13 @@ Use file system dynamic routing supporting:
 - [Nuxtjs Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
 - [Remix Routing](https://remix.run/docs/en/v1/guides/routing)
 
+### routeNameSeparator
+
+- **Type:** `string`
+- **Default:** `-`
+
+Separator for generated route names.
+
 ### resolver
 
 - **Type:** `'vue' | 'react' | 'solid' | PageResolver`
@@ -432,6 +439,29 @@ To enable syntax highlighting `<route>` in VS Code using [Vetur's Custom Code Bl
  3. Restart VS Code to get syntax highlighting for custom blocks.
 
 
+### JSX/TSX YAML format comments for Route Data(In Vue)
+
+Add route meta to the route by adding a comment block starts with `route` to the JSX or TSX file(In Vue). This will be directly added to the route after it is generated, and will override it.
+
+This feature only support JSX/TSX in vue, and will parse only the first block of comments which should also start with `route`.
+
+Now only `yaml` parser supported.
+
+- **Type:** `'vue'`
+- **Supported parser:** YAML
+
+```jsx
+/*
+route
+
+name: name-override
+meta:
+  requiresAuth: false
+  id: 1234
+  string: "1234"
+*/
+```
+
 ## File System Routing
 
 Inspired by the routing from
@@ -540,4 +570,4 @@ This plugin allow you to automatically generate sitemap.xml and robots.xml files
 
 ## License
 
-MIT License © 2021 [hannoeru](https://github.com/hannoeru)
+MIT License © 2021-PRESENT [hannoeru](https://github.com/hannoeru)

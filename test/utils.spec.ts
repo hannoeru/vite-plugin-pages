@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute } from '../src/utils'
 
 describe('Utils', () => {

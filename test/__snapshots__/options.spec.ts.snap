@@ -9,7 +9,11 @@ exports[`Options resolve > react 1`] = `
       "dir": "examples/react/src/pages",
     },
   ],
-  "exclude": [],
+  "exclude": [
+    "node_modules",
+    ".git",
+    "**/__*__/**",
+  ],
   "extendRoute": undefined,
   "extensions": [
     "tsx",
@@ -26,6 +30,7 @@ exports[`Options resolve > react 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
+    "getComputedRoutes": [Function],
     "resolveExtensions": [Function],
     "resolveModuleIds": [Function],
     "resolveRoutes": [Function],
@@ -37,6 +42,7 @@ exports[`Options resolve > react 1`] = `
   },
   "root": Any<String>,
   "routeBlockLang": "json5",
+  "routeNameSeparator": "-",
   "routeStyle": "next",
 }
 `;
@@ -50,7 +56,11 @@ exports[`Options resolve > solid 1`] = `
       "dir": "examples/solid/src/pages",
     },
   ],
-  "exclude": [],
+  "exclude": [
+    "node_modules",
+    ".git",
+    "**/__*__/**",
+  ],
   "extendRoute": undefined,
   "extensions": [
     "tsx",
@@ -66,6 +76,7 @@ exports[`Options resolve > solid 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
+    "getComputedRoutes": [Function],
     "resolveExtensions": [Function],
     "resolveModuleIds": [Function],
     "resolveRoutes": [Function],
@@ -76,6 +87,7 @@ exports[`Options resolve > solid 1`] = `
   },
   "root": Any<String>,
   "routeBlockLang": "json5",
+  "routeNameSeparator": "-",
   "routeStyle": "next",
 }
 `;
@@ -89,7 +101,11 @@ exports[`Options resolve > vue - custom module id 1`] = `
       "dir": "examples/vue/src/pages",
     },
   ],
-  "exclude": [],
+  "exclude": [
+    "node_modules",
+    ".git",
+    "**/__*__/**",
+  ],
   "extendRoute": undefined,
   "extensions": [
     "vue",
@@ -104,6 +120,7 @@ exports[`Options resolve > vue - custom module id 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
+    "getComputedRoutes": [Function],
     "hmr": {
       "added": [Function],
       "changed": [Function],
@@ -115,6 +132,7 @@ exports[`Options resolve > vue - custom module id 1`] = `
   },
   "root": Any<String>,
   "routeBlockLang": "json5",
+  "routeNameSeparator": "-",
   "routeStyle": "next",
 }
 `;
@@ -128,7 +146,11 @@ exports[`Options resolve > vue 1`] = `
       "dir": "examples/vue/src/pages",
     },
   ],
-  "exclude": [],
+  "exclude": [
+    "node_modules",
+    ".git",
+    "**/__*__/**",
+  ],
   "extendRoute": undefined,
   "extensions": [
     "vue",
@@ -145,6 +167,7 @@ exports[`Options resolve > vue 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
+    "getComputedRoutes": [Function],
     "hmr": {
       "added": [Function],
       "changed": [Function],
@@ -156,6 +179,7 @@ exports[`Options resolve > vue 1`] = `
   },
   "root": Any<String>,
   "routeBlockLang": "json5",
+  "routeNameSeparator": "-",
   "routeStyle": "next",
 }
 `;

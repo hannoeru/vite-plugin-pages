@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
-import Markdown from 'vite-plugin-md'
+import Markdown from 'vite-plugin-vue-markdown'
 import Inspect from 'vite-plugin-inspect'
 
 const config = defineConfig({
@@ -17,7 +17,7 @@ const config = defineConfig({
         { dir: 'src/features/**/pages', baseRoute: 'features' },
         { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
-      extensions: ['vue', 'md'],
+      extensions: ['vue', 'md', 'jsx'],
       extendRoute(route: any) {
         if (route.name === 'about')
           route.props = (route: any) => ({ query: route.query.q })

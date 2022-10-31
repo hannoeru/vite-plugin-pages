@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { resolveOptions } from '../src/options'
 
 describe('Options resolve', () => {

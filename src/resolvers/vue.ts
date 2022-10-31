@@ -62,8 +62,8 @@ function prepareRoutes(
   return routes
 }
 
-async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>) {
-  const { routeStyle, caseSensitive } = ctx.options
+async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
+  const { routeStyle, caseSensitive, routeNameSeparator } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -87,6 +87,7 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     }
 
     let parentRoutes = routes
+    let dynamicRoute = false
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
@@ -96,7 +97,10 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
-      page.name = route.name += route.name ? `-${normalizedName}` : normalizedName
+      if (isDynamic)
+        dynamicRoute = true
+
+      page.name = route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
@@ -124,6 +128,12 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
             else
               // nested cache all route not include children
               route.path += '(.*)'
+          } else if (nuxtStyle && i === pathNodes.length - 1) {
+            // we need to search if the folder provide `index.vue`
+            const isIndexFound = pageRoutes.find(({ route }) => {
+              return route === page.route.replace(pathNodes[i], 'index')
+            })
+            if (!isIndexFound) route.path += '?'
           }
         } else {
           route.path += `/${normalizedPath}`
@@ -131,12 +141,22 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       }
     }
 
-    parentRoutes.push(route)
+    // put dynamic routes at the end
+    if (dynamicRoute)
+      parentRoutes.push(route)
+    else
+      parentRoutes.unshift(route)
   })
 
   let finalRoutes = prepareRoutes(ctx, routes)
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
+
+  return finalRoutes
+}
+
+async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>) {
+  const finalRoutes = await computeVueRoutes(ctx, customBlockMap)
 
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
@@ -210,6 +230,9 @@ export function VueResolver(): PageResolver {
     },
     async resolveRoutes(ctx) {
       return resolveVueRoutes(ctx, customBlockMap)
+    },
+    async getComputedRoutes(ctx) {
+      return computeVueRoutes(ctx, customBlockMap)
     },
     hmr: {
       added: async(ctx, path) => checkCustomBlockChange(ctx, path),

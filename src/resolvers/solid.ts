@@ -41,7 +41,7 @@ function prepareRoutes(
   return routes
 }
 
-async function resolveSolidRoutes(ctx: PageContext) {
+async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
   const { routeStyle, caseSensitive } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
@@ -108,12 +108,17 @@ async function resolveSolidRoutes(ctx: PageContext) {
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
+  return finalRoutes
+}
+
+async function resolveSolidRoutes(ctx: PageContext) {
+  const finalRoutes = await computeSolidRoutes(ctx)
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
 }
 
-export function SolidResolver(): PageResolver {
+export function solidResolver(): PageResolver {
   return {
     resolveModuleIds() {
       return ['~solid-pages']
@@ -123,6 +128,9 @@ export function SolidResolver(): PageResolver {
     },
     async resolveRoutes(ctx) {
       return resolveSolidRoutes(ctx)
+    },
+    async getComputedRoutes(ctx) {
+      return computeSolidRoutes(ctx)
     },
     stringify: {
       dynamicImport: path => `Solid.lazy(() => import("${path}"))`,
