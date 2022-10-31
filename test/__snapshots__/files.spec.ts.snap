@@ -19,6 +19,16 @@ exports[`Get files > pages 1`] = `
 ]
 `;
 
+exports[`Get files - direct children only > pages 1`] = `
+[
+  "examples/vue/src/pages/[...all].vue",
+  "examples/vue/src/pages/[sensor].vue",
+  "examples/vue/src/pages/about.vue",
+  "examples/vue/src/pages/components.vue",
+  "examples/vue/src/pages/index.vue",
+]
+`;
+
 exports[`Get page dirs > with glob 1`] = `
 [
   {

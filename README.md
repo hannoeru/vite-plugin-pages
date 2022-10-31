@@ -181,7 +181,8 @@ Can be:
 
 Specifying a glob or an array of `PageOptions` allow you to use multiple
 pages folder, and specify the base route to append to the path and the route
-name.
+name. Additionally, you can specify a pattern to filter the files that will be
+used as pages.
 
 **Example:**
 
@@ -209,6 +210,7 @@ export default {
         { dir: 'src/pages', baseRoute: '' },
         { dir: 'src/features/**/pages', baseRoute: 'features' },
         { dir: 'src/admin/pages', baseRoute: 'admin' },
+        { dir: 'src/with-pattern/pages', baseRoute: 'pattern', filePattern: '**/*.page.*' },
       ],
     }),
   ],
