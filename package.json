@@ -78,6 +78,7 @@
     "fast-glob": "^3.2.11",
     "json5": "^2.2.1",
     "local-pkg": "^0.4.1",
+    "magic-string": "^0.26.7",
     "picocolors": "^1.0.0",
     "yaml": "^2.0.1"
   },

@@ -1,3 +1,4 @@
+import type { TransformResult } from 'vite'
 import type { PageContext } from './context'
 import type { Awaitable } from '@antfu/utils'
 
@@ -29,6 +30,7 @@ export interface PageResolver {
     removed?: (ctx: PageContext, path: string) => Awaitable<void>
     changed?: (ctx: PageContext, path: string) => Awaitable<void>
   }
+  transform?: (ctx: PageContext, code: string, id: string) => Awaitable<TransformResult | undefined>
 }
 
 /**

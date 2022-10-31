@@ -1,5 +1,7 @@
 import colors from 'picocolors'
 import deepEqual from 'deep-equal'
+import { compileScript, parse } from '@vue/compiler-sfc'
+import MagicString from 'magic-string'
 import {
   countSlash,
   isCatchAllRoute,
@@ -94,7 +96,7 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
-      route.name += route.name ? `-${normalizedName}` : normalizedName
+      page.name = route.name += route.name ? `-${normalizedName}` : normalizedName
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
@@ -139,6 +141,36 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
   let client = generateClientCode(finalRoutes, ctx.options)
   client = (await ctx.options.onClientGenerated?.(client)) || client
   return client
+}
+
+async function transform(ctx: PageContext, code: string, id: string) {
+  if (!/\.vue$/.test(id))
+    return
+  const name = ctx.pageRouteMap.get(id)?.name
+  if (name)
+    return
+  const { descriptor } = parse(code)
+  if (!descriptor.scriptSetup)
+    return
+  const result = compileScript(descriptor, { id })
+  if (result.scriptAst?.find(i => i.type === 'ExportDefaultDeclaration'))
+    return
+
+  const s = new MagicString(code)
+  const lang = result.attrs.lang
+  s.appendLeft(
+    0,
+`<script ${lang ? `lang="${lang}"` : ''}>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+name: '${name}',
+})
+</script>\n`,
+  )
+  return {
+    map: s.generateMap(),
+    code: s.toString(),
+  }
 }
 
 export function VueResolver(): PageResolver {
@@ -186,5 +218,6 @@ export function VueResolver(): PageResolver {
         customBlockMap.delete(path)
       },
     },
+    transform,
   }
 }

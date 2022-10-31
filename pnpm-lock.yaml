@@ -21,6 +21,7 @@ importers:
       fast-glob: ^3.2.11
       json5: ^2.2.1
       local-pkg: ^0.4.1
+      magic-string: ^0.26.7
       picocolors: ^1.0.0
       playwright: ^1.21.1
       react: ^18.0.0
@@ -41,6 +42,7 @@ importers:
       fast-glob: 3.2.11
       json5: 2.2.1
       local-pkg: 0.4.1
+      magic-string: 0.26.7
       picocolors: 1.0.0
       yaml: 2.0.1
     devDependencies:
@@ -3781,6 +3783,13 @@ packages:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
     dependencies:
       sourcemap-codec: 1.4.8
+
+  /magic-string/0.26.7:
+    resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==}
+    engines: {node: '>=12'}
+    dependencies:
+      sourcemap-codec: 1.4.8
+    dev: false
 
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}

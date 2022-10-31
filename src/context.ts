@@ -11,6 +11,7 @@ import type { PageOptions, ResolvedOptions, UserOptions } from './types'
 export interface PageRoute {
   path: string
   route: string
+  name?: string
 }
 
 export class PageContext {
