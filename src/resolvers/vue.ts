@@ -167,7 +167,7 @@ async function transform(ctx: PageContext, code: string, id: string) {
   if (!/\.vue$/.test(id))
     return
   const name = ctx.pageRouteMap.get(id)?.name
-  if (name)
+  if (!name)
     return
   const { descriptor } = parse(code)
   if (!descriptor.scriptSetup)
@@ -193,7 +193,7 @@ name: '${name}',
   }
 }
 
-export function VueResolver(): PageResolver {
+export function vueResolver(): PageResolver {
   const customBlockMap = new Map<string, CustomBlock>()
 
   async function checkCustomBlockChange(ctx: PageContext, path: string) {
