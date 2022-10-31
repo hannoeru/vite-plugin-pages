@@ -159,3 +159,13 @@ export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSqua
    */
   moduleIds: string[]
 }
+
+export interface VueRouteBase {
+  name: string
+  path: string
+  props?: boolean
+  component: string
+  children?: VueRouteBase[]
+  customBlock?: CustomBlock
+  rawRoute: string
+}

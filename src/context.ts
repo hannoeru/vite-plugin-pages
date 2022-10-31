@@ -6,12 +6,12 @@ import { debug, invalidatePagesModule, isTarget } from './utils'
 
 import type { FSWatcher } from 'fs'
 import type { Logger, ViteDevServer } from 'vite'
-import type { PageOptions, ResolvedOptions, UserOptions } from './types'
+import type { PageOptions, ResolvedOptions, UserOptions, VueRouteBase } from './types'
 
 export interface PageRoute {
   path: string
   route: string
-  name?: string
+  routeBase?: VueRouteBase
 }
 
 export class PageContext {

@@ -12,18 +12,8 @@ import {
 import { generateClientCode } from '../stringify'
 
 import { getRouteBlock } from '../customBlock'
-import type { CustomBlock, Optional, PageResolver } from '../types'
+import type { CustomBlock, Optional, PageResolver, VueRouteBase } from '../types'
 import type { PageContext } from '../context'
-
-export interface VueRouteBase {
-  name: string
-  path: string
-  props?: boolean
-  component: string
-  children?: VueRouteBase[]
-  customBlock?: CustomBlock
-  rawRoute: string
-}
 
 export interface VueRoute extends Omit<Optional<VueRouteBase, 'rawRoute' | 'name'>, 'children'> {
   children?: VueRoute[]
@@ -78,7 +68,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     const component = page.path.replace(ctx.root, '')
     const customBlock = customBlockMap.get(page.path)
 
-    const route: VueRouteBase = {
+    const route: VueRouteBase = page.routeBase = {
       name: '',
       path: '',
       component,
@@ -100,7 +90,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       if (isDynamic)
         dynamicRoute = true
 
-      page.name = route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName
+      route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
@@ -166,7 +156,7 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 async function transform(ctx: PageContext, code: string, id: string) {
   if (!/\.vue$/.test(id))
     return
-  const name = ctx.pageRouteMap.get(id)?.name
+  const name = ctx.pageRouteMap.get(id)?.routeBase?.name
   if (!name)
     return
   const { descriptor } = parse(code)
