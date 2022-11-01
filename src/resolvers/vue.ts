@@ -163,7 +163,7 @@ async function transform(ctx: PageContext, code: string, id: string) {
   if (!descriptor.scriptSetup)
     return
   const result = compileScript(descriptor, { id })
-  if (result.scriptAst?.find(i => i.type === 'ExportDefaultDeclaration'))
+  if (result.scriptAst?.some(i => i.type === 'ExportDefaultDeclaration'))
     return
 
   const s = new MagicString(code)

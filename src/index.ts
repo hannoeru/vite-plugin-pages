@@ -48,9 +48,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       return null
     },
     async transform(code, id) {
-      return ctx.options.resolver?.transform
-        ? ctx.options.resolver?.transform(ctx, code, id)
-        : null
+      return ctx.options.resolver.transform?.(ctx, code, id)
     },
     async load(id) {
       const {
