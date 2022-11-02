@@ -173,12 +173,16 @@ async function transform(ctx: PageContext, code: string, id: string) {
 `<script ${lang ? `lang="${lang}"` : ''}>
 import { defineComponent } from 'vue'
 export default /*#__PURE__*/ defineComponent({
-name: '${name}',
+  name: '${name}',
 })
 </script>\n`,
   )
   return {
-    map: s.generateMap(),
+    map: s.generateMap({
+      source: id,
+      includeContent: true,
+      hires: true,
+    }),
     code: s.toString(),
   }
 }
