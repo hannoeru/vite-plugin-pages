@@ -56,7 +56,7 @@
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --tag --push",
     "publish:ci": "esno scripts/publish.ts",
-    "test": "vitest",
+    "test": "vitest -u",
     "test:ui": "vitest --ui",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -78,8 +78,8 @@
     "extract-comments": "^1.1.0",
     "fast-glob": "^3.2.12",
     "json5": "^2.2.1",
-    "magic-string": "^0.26.7",
     "local-pkg": "^0.4.2",
+    "magic-string": "^0.26.7",
     "picocolors": "^1.0.0",
     "yaml": "^2.1.3"
   },
