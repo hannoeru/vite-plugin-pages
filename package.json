@@ -56,7 +56,7 @@
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --tag --push",
     "publish:ci": "esno scripts/publish.ts",
-    "test": "vitest -u",
+    "test": "vitest",
     "test:ui": "vitest --ui",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
