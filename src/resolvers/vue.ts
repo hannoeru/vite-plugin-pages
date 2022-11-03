@@ -160,30 +160,23 @@ async function transform(ctx: PageContext, code: string, id: string) {
   if (!name)
     return
   const { descriptor } = parse(code)
-  if (!descriptor.scriptSetup)
-    return
-  const result = compileScript(descriptor, { id })
-  if (result.scriptAst?.some(i => i.type === 'ExportDefaultDeclaration'))
+  if (descriptor.script)
     return
 
+  const lang = descriptor.scriptSetup && compileScript(descriptor, { id }).attrs.lang
   const s = new MagicString(code)
-  const lang = result.attrs.lang
   s.appendLeft(
     0,
-`<script ${lang ? `lang="${lang}"` : ''}>
+`<script${lang ? ` lang="${lang}"` : ''}>
 import { defineComponent } from 'vue'
 export default /*#__PURE__*/ defineComponent({
-  name: '${name}',
+  name: '${name}'
 })
 </script>\n`,
   )
   return {
-    map: s.generateMap({
-      source: id,
-      includeContent: true,
-      hires: true,
-    }),
     code: s.toString(),
+    map: s.generateMap({ source: id, includeContent: true, hires: true }),
   }
 }
 
