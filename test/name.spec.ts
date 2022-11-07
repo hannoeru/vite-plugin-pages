@@ -14,11 +14,13 @@ describe('Component name', async() => {
   for (const file of files) {
     it(file.replace(/\\/g, '/'), async() => {
       const filepath = resolve(root, file)
+      const dir = resolve(__dirname, '../examples/vue/src/pages')
 
       const bundle = await build({
-        root: resolve(__dirname, '../examples/vue/src/pages'),
+        root: dir,
         build: {
           sourcemap: false,
+          write: false,
           lib: {
             entry: filepath,
             formats: ['es'],
@@ -28,7 +30,7 @@ describe('Component name', async() => {
         plugins: [
           Pages({
             dirs: [
-              { dir: resolve(__dirname, '../examples/vue/src/pages'), baseRoute: '' },
+              { dir, baseRoute: '' },
             ],
             extensions: ['vue'],
           }),
