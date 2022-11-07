@@ -76,7 +76,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     const component = page.path.replace(ctx.root, '')
     const customBlock = customBlockMap.get(page.path)
 
-    const route: VueRouteBase = {
+    const route: VueRouteBase = page.vueRoute = {
       name: '',
       path: '',
       component,

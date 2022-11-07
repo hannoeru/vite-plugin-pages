@@ -34,6 +34,9 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       getResolvedRoutes() {
         return ctx.options.resolver.getComputedRoutes(ctx)
       },
+      getPageRouteMap() {
+        return ctx.pageRouteMap
+      },
     },
     configureServer(server) {
       ctx.setupViteServer(server)

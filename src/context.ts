@@ -4,6 +4,7 @@ import { resolveOptions } from './options'
 import { getPageFiles } from './files'
 import { debug, invalidatePagesModule, isTarget } from './utils'
 
+import type { VueRoute } from './resolvers'
 import type { FSWatcher } from 'fs'
 import type { Logger, ViteDevServer } from 'vite'
 import type { PageOptions, ResolvedOptions, UserOptions } from './types'
@@ -11,6 +12,7 @@ import type { PageOptions, ResolvedOptions, UserOptions } from './types'
 export interface PageRoute {
   path: string
   route: string
+  vueRoute?: VueRoute
 }
 
 export class PageContext {
