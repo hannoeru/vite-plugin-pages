@@ -35,7 +35,7 @@ function prepareRoutes(
 ) {
   for (const route of routes) {
     if (route.name)
-      route.name = route.name.replace(/-index$/, '')
+      route.name = route.name.replace(RegExp(`${ctx.options.routeNameSeparator}index$`), '')
 
     if (parent)
       route.path = route.path?.replace(/^\//, '')
