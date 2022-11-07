@@ -1,7 +1,6 @@
 import colors from 'picocolors'
 import deepEqual from 'deep-equal'
-import { compileScript, parse } from '@vue/compiler-sfc'
-import MagicString from 'magic-string'
+import { MagicString, compileScript, parse } from '@vue/compiler-sfc'
 import {
   countSlash,
   isCatchAllRoute,
@@ -12,8 +11,18 @@ import {
 import { generateClientCode } from '../stringify'
 
 import { getRouteBlock } from '../customBlock'
-import type { CustomBlock, Optional, PageResolver, VueRouteBase } from '../types'
+import type { CustomBlock, Optional, PageResolver } from '../types'
 import type { PageContext } from '../context'
+
+export interface VueRouteBase {
+  name: string
+  path: string
+  props?: boolean
+  component: string
+  children?: VueRouteBase[]
+  customBlock?: CustomBlock
+  rawRoute: string
+}
 
 export interface VueRoute extends Omit<Optional<VueRouteBase, 'rawRoute' | 'name'>, 'children'> {
   children?: VueRoute[]
@@ -68,7 +77,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     const component = page.path.replace(ctx.root, '')
     const customBlock = customBlockMap.get(page.path)
 
-    const route: VueRouteBase = page.routeBase = {
+    const route: VueRouteBase = page.vueRoute = {
       name: '',
       path: '',
       component,
@@ -156,7 +165,7 @@ async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 async function transform(ctx: PageContext, code: string, id: string) {
   if (!/\.vue$/.test(id))
     return
-  const name = ctx.pageRouteMap.get(id)?.routeBase?.name
+  const name = ctx.pageRouteMap.get(id)?.vueRoute?.name
   if (!name)
     return
   const { descriptor } = parse(code)

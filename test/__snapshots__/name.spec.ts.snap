@@ -1,0 +1,358 @@
+// Vitest Snapshot v1
+
+exports[`Component name > ./examples/vue/src/pages/[...all].vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'all'
+})
+<\\\\/script>
+<template>
+  <div>...all route</div>
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/[sensor].vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'sensor'
+})
+<\\\\/script>
+<template>
+  nested dynamic view:
+  <router-view />
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/[sensor]/current.vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'sensor-current'
+})
+<\\\\/script>
+<template>
+  <p>/[sensor]/current.vue</p>
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/__test__/index.vue 1`] = `
+"const e = \`<template>
+  test default exclude
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/about.vue 1`] = `
+"const e = \`<template>
+  <div>
+    nested about view:
+    <router-view />
+  </div>
+</template>
+
+<route lang=\\"yml\\">
+meta:
+  lang: yml
+</route>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/about/[id].vue 1`] = `
+"const e = \`<script lang=\\"ts\\">
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'about-user-id'
+})
+<\\\\/script>
+<script setup lang=\\"ts\\">
+defineProps({
+  id: String,
+})
+<\\\\/script>
+
+<template>
+  <div>
+    <div>
+      about/[id].vue: {{ id }}
+    </div>
+    <router-link to=\\"/about/1b234bk12b3/more\\">
+      more deep
+    </router-link>
+    <router-view />
+  </div>
+</template>
+
+<route>
+{
+  name: 'about-user-id',
+  meta: {
+    requiresAuth: true,
+  },
+}
+</route>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/about/[id]/more.vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'about-id-more'
+})
+<\\\\/script>
+<template>
+  <div class=\\"deep-more\\">
+    deep nested: about/[id]/more.vue
+  </div>
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/about/[id]/nested.vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'about-id-nested'
+})
+<\\\\/script>
+<template>
+  <div class=\\"deep-nested\\">
+    deep nested: about/[id]/nested.vue
+  </div>
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/about/index.vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'about'
+})
+<\\\\/script>
+<template>
+  <div>
+    about/index.vue
+    <router-link to=\\"/about/1b234bk12b3\\">
+      id: 1b234bk12b3
+    </router-link>
+  </div>
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/blog/[id].vue 1`] = `
+"const e = \`<script lang=\\"ts\\">
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'blog-id'
+})
+<\\\\/script>
+<script setup lang=\\"ts\\">
+defineProps({
+  id: String,
+})
+<\\\\/script>
+
+<template>
+  <div>
+    <p>blog/[id].vue: {{ id }}</p>
+    <p>
+      {{ $route }}
+    </p>
+  </div>
+</template>
+
+<route>
+{
+  name: 'blog-id',
+  meta: {
+    requiresAuth: false,
+  },
+}
+</route>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/blog/index.vue 1`] = `
+"const o = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'blog'
+})
+<\\\\/script>
+<template>
+  <div>
+    blog/index.vue
+    <router-link to=\\"/blog/1b234bk12b3\\">
+      id: 1b234bk12b3
+    </router-link> |
+    <router-link to=\\"/blog/today\\">
+      today
+    </router-link> |
+    <router-link to=\\"/blog/today/xxx\\">
+      child - not found
+    </router-link>
+  </div>
+</template>
+\`;
+export {
+  o as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/blog/today/[...all].vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'blog-today-all'
+})
+<\\\\/script>
+<template>
+  <div>blog/today ...all route</div>
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/blog/today/index.vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'blog-today'
+})
+<\\\\/script>
+<template>
+  <div>
+    blog/today/index.vue
+  </div>
+</template>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/components.vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'components'
+})
+<\\\\/script>
+<template>
+  <h1>Test Components name</h1>
+</template>
+
+<route lang=\\"yaml\\">
+meta:
+  lang: yaml
+</route>
+\`;
+export {
+  e as default
+};
+"
+`;
+
+exports[`Component name > ./examples/vue/src/pages/index.vue 1`] = `
+"const e = \`<script>
+import { defineComponent } from 'vue'
+export default /*#__PURE__*/ defineComponent({
+  name: 'homepage'
+})
+<\\\\/script>
+<template>
+  <div>
+    <p>index.vue</p>
+    <router-link to=\\"/blog\\">
+      blog
+    </router-link> |
+    <router-link to=\\"/about\\">
+      about
+    </router-link> |
+    <router-link to=\\"/components\\">
+      components
+    </router-link> |
+    <router-link to=\\"/markdown\\">
+      markdown
+    </router-link> |
+    <router-link to=\\"/xxx/xxx\\">
+      not exists
+    </router-link> |
+    <router-link to=\\"/features/dashboard\\">
+      features:dashboard
+    </router-link> |
+    <router-link to=\\"/features/admin\\">
+      features:admin
+    </router-link> |
+    <router-link to=\\"/admin\\">
+      admin
+    </router-link>
+  </div>
+</template>
+
+<route lang=\\"json\\">
+{
+  \\"name\\": \\"homepage\\",
+  \\"meta\\": {
+    \\"requiresAuth\\": false
+  }
+}
+</route>
+\`;
+export {
+  e as default
+};
+"
+`;
