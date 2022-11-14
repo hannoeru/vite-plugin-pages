@@ -90,7 +90,7 @@
     "@types/glob-to-regexp": "^0.4.1",
     "@types/node": "^18.11.9",
     "@vitest/ui": "^0.24.3",
-    "@vue/compiler-sfc": "^3.2.41",
+    "@vue/compiler-sfc": "^3.2.45",
     "bumpp": "^8.2.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.26.0",
@@ -103,7 +103,7 @@
     "typescript": "^4.8.4",
     "vite": "^3.2.3",
     "vitest": "^0.24.3",
-    "vue": "^3.2.41",
+    "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   }
 }
