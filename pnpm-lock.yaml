@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@antfu/utils': ^0.6.2
+      '@antfu/utils': ^0.6.3
       '@hannoeru/eslint-config': ^0.8.10
       '@solidjs/router': ^0.5.0
       '@types/debug': ^4.1.7
@@ -27,10 +27,10 @@ importers:
       playwright: ^1.25.2
       react: ^18.2.0
       react-router: ^6.4.3
-      solid-js: ^1.6.1
+      solid-js: ^1.6.2
       tsup: ^6.4.0
       typescript: ^4.8.4
-      vite: ^3.2.2
+      vite: ^3.2.3
       vitest: ^0.24.3
       vue: ^3.2.41
       vue-router: ^4.1.6
@@ -46,9 +46,9 @@ importers:
       picocolors: 1.0.0
       yaml: 2.1.3
     devDependencies:
-      '@antfu/utils': 0.6.2
+      '@antfu/utils': 0.6.3
       '@hannoeru/eslint-config': 0.8.10_wyqvi574yv7oiwfeinomdzmc3m
-      '@solidjs/router': 0.5.0_solid-js@1.6.1
+      '@solidjs/router': 0.5.0_solid-js@1.6.2
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.1
       '@types/node': 18.11.9
@@ -61,10 +61,10 @@ importers:
       playwright: 1.25.2
       react: 18.2.0
       react-router: 6.4.3_react@18.2.0
-      solid-js: 1.6.1
+      solid-js: 1.6.2
       tsup: 6.4.0_typescript@4.8.4
       typescript: 4.8.4
-      vite: 3.2.2
+      vite: 3.2.3_@types+node@18.11.9
       vitest: 0.24.3_@vitest+ui@0.24.3
       vue: 3.2.41
       vue-router: 4.1.6_vue@3.2.41
@@ -284,8 +284,8 @@ packages:
     resolution: {integrity: sha512-CQkeV+oJxUazwjlHD0/3ZD08QWKuGQkhnrKo3e6ly5pd48VUpXbb77q0xMU4+vc2CkJnDS02Eq/M9ugyX20XZA==}
     dev: true
 
-  /@antfu/utils/0.6.2:
-    resolution: {integrity: sha512-Qdwda+qE1KOKXuM8Gnn09zIJSA293J5putdHBx4J9sdbHzqp5QY4OmH77KgwJoi0PuY+kbddkVVdkSoZ9ruiug==}
+  /@antfu/utils/0.6.3:
+    resolution: {integrity: sha512-sEYpyyKUPOew9QsXZ8feRVMzW6DWLviwOl+/ap06UQW02A8Srbc95CPHVm4eUbiBzBgD46eyIT+przv//KSSlQ==}
     dev: true
 
   /@babel/code-frame/7.18.6:
@@ -898,12 +898,12 @@ packages:
       solid-js: 1.5.4
     dev: false
 
-  /@solidjs/router/0.5.0_solid-js@1.6.1:
+  /@solidjs/router/0.5.0_solid-js@1.6.2:
     resolution: {integrity: sha512-rNR07l21tWWDVmCbaapggB89rEX7jlM2XChpTLqEGEnj46LzVZ8zgvjcF6NNKScByAlLpoQUkVIjB2KHpcMi+w==}
     peerDependencies:
       solid-js: ^1.5.3
     dependencies:
-      solid-js: 1.6.1
+      solid-js: 1.6.2
     dev: true
 
   /@types/body-parser/1.19.2:
@@ -4739,8 +4739,8 @@ packages:
     dependencies:
       csstype: 3.1.0
 
-  /solid-js/1.6.1:
-    resolution: {integrity: sha512-i8OmR419Hr0918Or6sm1ET/cgmxTtAB7Bdz/UwhZ7G2THixrvVSO3jd+C7YqMKKfVwmf8PJ2gUSbKE8NKv28GA==}
+  /solid-js/1.6.2:
+    resolution: {integrity: sha512-AZBsj+Yn1xliniTTeuQKG9V7VQVkQ8lZmSKvBjpcVSoZeF7nvt/N5f7Kcsx6QSufioa2YgvBjkIiA0cM0qhotw==}
     dependencies:
       csstype: 3.1.0
     dev: true
@@ -5254,17 +5254,20 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/3.2.2:
-    resolution: {integrity: sha512-pLrhatFFOWO9kS19bQ658CnRYzv0WLbsPih6R+iFeEEhDOuYgYCX2rztUViMz/uy/V8cLCJvLFeiOK7RJEzHcw==}
+  /vite/3.2.3_@types+node@18.11.9:
+    resolution: {integrity: sha512-h8jl1TZ76eGs3o2dIBSsvXDLb1m/Ec1iej8ZMdz+PsaFUsftZeWe2CZOI3qogEsMNaywc17gu0q6cQDzh/weCQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
+      '@types/node': '>= 14'
       less: '*'
       sass: '*'
       stylus: '*'
       sugarss: '*'
       terser: ^5.4.0
     peerDependenciesMeta:
+      '@types/node':
+        optional: true
       less:
         optional: true
       sass:
@@ -5276,6 +5279,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 18.11.9
       esbuild: 0.15.10
       postcss: 8.4.18
       resolve: 1.22.1
@@ -5317,7 +5321,7 @@ packages:
       tinybench: 2.3.0
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 3.2.2
+      vite: 3.2.3_@types+node@18.11.9
     transitivePeerDependencies:
       - less
       - sass
