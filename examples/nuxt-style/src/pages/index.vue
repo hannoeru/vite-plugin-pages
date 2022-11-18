@@ -24,6 +24,9 @@
     </router-link> |
     <router-link to="/admin">
       admin
+    </router-link> |
+    <router-link to="/optional">
+      optional
     </router-link>
   </div>
 </template>

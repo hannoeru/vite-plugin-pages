@@ -116,4 +116,15 @@ describe('Generate routes', () => {
       expect(routes).toMatchSnapshot('client code')
     })
   })
+
+  test('use route name separator', async() => {
+    const ctx = new PageContext({
+      dirs: 'examples/vue/src/pages',
+      routeNameSeparator: '/',
+    })
+    await ctx.searchGlob()
+
+    const routes = await ctx.resolveRoutes()
+    expect(routes).toMatchSnapshot('client code')
+  })
 })

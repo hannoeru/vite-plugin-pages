@@ -34,7 +34,7 @@ function prepareRoutes(
 ) {
   for (const route of routes) {
     if (route.name)
-      route.name = route.name.replace(/-index$/, '')
+      route.name = route.name.replace(RegExp(`${ctx.options.routeNameSeparator}index$`), '')
 
     if (parent)
       route.path = route.path?.replace(/^\//, '')
@@ -93,7 +93,6 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
     let parentRoutes = routes
     let dynamicRoute = false
-    let optionalPathParameter = false
 
     if (pathNodes.length === 0) {
       route.name = 'root'
@@ -113,11 +112,8 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
-      if (isDynamic) {
+      if (isDynamic)
         dynamicRoute = true
-        if (nuxtStyle)
-          optionalPathParameter = true
-      }
 
       route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName
 
@@ -148,7 +144,13 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
             else
               // nested cache all route not include children
               route.path += '(.*)'
-          } else if (optionalPathParameter && i === pathNodes.length - 1) { route.path += '?' }
+          } else if (nuxtStyle && i === pathNodes.length - 1) {
+            // we need to search if the folder provide `index.vue`
+            const isIndexFound = pageRoutes.find(({ route }) => {
+              return route === page.route.replace(pathNodes[i], 'index')
+            })
+            if (!isIndexFound) route.path += '?'
+          }
         } else {
           route.path += `/${normalizedPath}`
         }
