@@ -36,10 +36,11 @@ export function getPageFiles(path: string, options: ResolvedOptions): string[] {
 
   const ext = extsToGlob(extensions)
 
-  const files = fg.sync(slash(join(path, `**/*.${ext}`)), {
+  const files = fg.sync(`**/*.${ext}`, {
     ignore: exclude,
     onlyFiles: true,
-  })
+    cwd: path
+  }).map(p => slash(join(path, p)))
 
   return files
 }
