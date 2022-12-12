@@ -2,8 +2,8 @@
   "name": "react",
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch ../../dist/*.js -x 'cross-env DEBUG=vite-plugin-pages:* vite'",
-    "build": "cross-env DEBUG=vite-plugin-pages vite build",
+    "dev": "nodemon --watch ../../dist/*.js -x 'DEBUG=vite-plugin-pages:* vite'",
+    "build": "DEBUG=vite-plugin-pages vite build",
     "serve": "vite preview"
   },
   "dependencies": {
@@ -17,7 +17,6 @@
     "@types/react-router-config": "^5.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^2.0.1",
-    "cross-env": "^7.0.3",
     "nodemon": "^2.0.19",
     "typescript": "^4.8.2",
     "vite": "^3.0.9",
