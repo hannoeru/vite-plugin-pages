@@ -58,8 +58,8 @@
     "publish:ci": "esno scripts/publish.ts",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint --cache --fix .",
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
