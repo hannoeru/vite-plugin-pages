@@ -4,3 +4,4 @@ dist
 # intellij/webstorm stuff
 .idea/
 .pnpm-debug*
+.eslintcache
