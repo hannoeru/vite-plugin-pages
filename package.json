@@ -59,7 +59,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "lint": "eslint . --cache",
-    "lint:fix": "eslint --cache --fix .",
+    "lint:fix": "pnpm lint --fix",
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
