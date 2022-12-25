@@ -41,6 +41,10 @@ export async function parseSFC(code: string): Promise<SFCDescriptor> {
     return parse(code, {
       pad: 'space',
     }).descriptor
+    // for @vue/compiler-sfc ^2.7
+    || (parse as any)({
+      source: code,
+    })
   } catch {
     throw new Error('[vite-plugin-pages] Vue3\'s "@vue/compiler-sfc" is required.')
   }
