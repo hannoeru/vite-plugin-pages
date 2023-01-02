@@ -20,7 +20,7 @@ importers:
       esno: ^0.16.3
       extract-comments: ^1.1.0
       fast-glob: ^3.2.12
-      json5: ^2.2.2
+      json5: ^2.2.3
       local-pkg: ^0.4.2
       picocolors: ^1.0.0
       playwright: ^1.28.1
@@ -33,17 +33,17 @@ importers:
       vitest: ^0.25.7
       vue: ^3.2.45
       vue-router: ^4.1.6
-      yaml: ^2.2.0
+      yaml: ^2.2.1
     dependencies:
       '@types/debug': 4.1.7
       debug: 4.3.4
       deep-equal: 2.1.0
       extract-comments: 1.1.0
       fast-glob: 3.2.12
-      json5: 2.2.2
+      json5: 2.2.3
       local-pkg: 0.4.2
       picocolors: 1.0.0
-      yaml: 2.2.0
+      yaml: 2.2.1
     devDependencies:
       '@antfu/utils': 0.7.2
       '@hannoeru/eslint-config': 0.9.4_lzzuuodtsqwxnvqeq4g4likcqa
@@ -301,7 +301,7 @@ packages:
       convert-source-map: 1.9.0
       debug: 4.3.4
       gensync: 1.0.0-beta.2
-      json5: 2.2.2
+      json5: 2.2.3
       semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
@@ -3735,8 +3735,8 @@ packages:
       minimist: 1.2.7
     dev: true
 
-  /json5/2.2.2:
-    resolution: {integrity: sha512-46Tk9JiOL2z7ytNQWFLpj99RZkVgeHf87yGQKsIkaPz1qSH9UczKH1rO7K3wgRselo0tYMUNfecYpm/p1vC7tQ==}
+  /json5/2.2.3:
+    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
 
@@ -5527,7 +5527,7 @@ packages:
     dependencies:
       eslint-visitor-keys: 3.3.0
       lodash: 4.17.21
-      yaml: 2.2.0
+      yaml: 2.2.1
     dev: true
 
   /yaml/1.10.2:
@@ -5535,8 +5535,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /yaml/2.2.0:
-    resolution: {integrity: sha512-auf7Gi6QwO7HW//GA9seGvTXVGWl1CM/ADWh1+RxtXr6XOxnT65ovDl9fTi4e0monEyJxCHqDpF6QnFDXmJE4g==}
+  /yaml/2.2.1:
+    resolution: {integrity: sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==}
     engines: {node: '>= 14'}
 
   /yocto-queue/0.1.0:
