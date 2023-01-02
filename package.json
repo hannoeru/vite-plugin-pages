@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-pages",
   "version": "0.28.0",
-  "packageManager": "pnpm@7.20.0",
+  "packageManager": "pnpm@7.21.0",
   "description": "File system base vue-router plugin for Vite",
   "keywords": [
     "vite",
@@ -77,10 +77,10 @@
     "deep-equal": "^2.1.0",
     "extract-comments": "^1.1.0",
     "fast-glob": "^3.2.12",
-    "json5": "^2.2.2",
+    "json5": "^2.2.3",
     "local-pkg": "^0.4.2",
     "picocolors": "^1.0.0",
-    "yaml": "^2.2.0"
+    "yaml": "^2.2.1"
   },
   "devDependencies": {
     "@antfu/utils": "^0.7.2",
