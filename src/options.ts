@@ -61,6 +61,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     extendRoute,
     onRoutesGenerated,
     onClientGenerated,
+    resolveRouteBlock,
   } = userOptions
 
   const root = viteRoot || slash(process.cwd())
@@ -97,6 +98,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     onRoutesGenerated,
     onClientGenerated,
     routeNameSeparator,
+    resolveRouteBlock,
   }
 
   return resolvedOptions

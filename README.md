@@ -386,6 +386,13 @@ generated routes.
 A function that takes a generated client code and optionally returns a modified
 generated client code.
 
+### resolveRouteBlock
+
+- **Type:** `(content: string, path: string) => Awaitable<CustomBlock | void>`
+
+A function that takes page file content and path, and optionally returns route data.
+
+
 ### SFC custom block for Route Data
 
 Add route meta to the route by adding a `<route>` block to the SFC. This will be

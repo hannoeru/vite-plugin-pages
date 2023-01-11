@@ -29,6 +29,7 @@ exports[`Options resolve > react 1`] = `
   ],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
+  "resolveRouteBlock": undefined,
   "resolver": {
     "getComputedRoutes": [Function],
     "resolveExtensions": [Function],
@@ -75,6 +76,7 @@ exports[`Options resolve > solid 1`] = `
   ],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
+  "resolveRouteBlock": undefined,
   "resolver": {
     "getComputedRoutes": [Function],
     "resolveExtensions": [Function],
@@ -119,6 +121,7 @@ exports[`Options resolve > vue - custom module id 1`] = `
   ],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
+  "resolveRouteBlock": undefined,
   "resolver": {
     "getComputedRoutes": [Function],
     "hmr": {
@@ -166,6 +169,7 @@ exports[`Options resolve > vue 1`] = `
   ],
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
+  "resolveRouteBlock": undefined,
   "resolver": {
     "getComputedRoutes": [Function],
     "hmr": {

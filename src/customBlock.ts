@@ -79,6 +79,11 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
 export async function getRouteBlock(path: string, options: ResolvedOptions) {
   const content = fs.readFileSync(path, 'utf8')
 
+  if (typeof options.resolveRouteBlock === 'function') {
+    const result = await options.resolveRouteBlock(content, path)
+    if (result) return result
+  }
+
   const parsedSFC = await parseSFC(content)
   const blockStr = parsedSFC?.customBlocks.find(b => b.type === 'route')
 

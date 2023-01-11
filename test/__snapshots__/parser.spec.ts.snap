@@ -18,3 +18,30 @@ exports[`Parser > jsx yaml comment 1`] = `
   "name": "blog-id",
 }
 `;
+
+exports[`Parser > option:resolveRouteBlock > does not meet the condition of resolveRouteBlock 1`] = `
+{
+  "meta": {
+    "requiresAuth": false,
+  },
+  "name": "blog-id",
+}
+`;
+
+exports[`Parser > option:resolveRouteBlock > does not meet the condition of resolveRouteBlock 2`] = `
+{
+  "meta": {
+    "id": 1234,
+    "requiresAuth": false,
+  },
+  "name": "blog-id",
+}
+`;
+
+exports[`Parser > option:resolveRouteBlock > meet the condition of resolveRouteBlock 1`] = `
+{
+  "meta": {
+    "title": "CustomRouteBlock",
+  },
+}
+`;
