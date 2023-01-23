@@ -6,7 +6,7 @@ importers:
     specifiers:
       '@antfu/utils': ^0.7.2
       '@hannoeru/eslint-config': ^0.9.4
-      '@solidjs/router': ^0.6.0
+      '@solidjs/router': ^0.7.0
       '@types/debug': ^4.1.7
       '@types/deep-equal': ^1.0.1
       '@types/glob-to-regexp': ^0.4.1
@@ -15,21 +15,21 @@ importers:
       '@vue/compiler-sfc': ^3.2.45
       bumpp: ^8.2.1
       debug: ^4.3.4
-      deep-equal: ^2.1.0
+      deep-equal: ^2.2.0
       eslint: ^8.31.0
       esno: ^0.16.3
       extract-comments: ^1.1.0
       fast-glob: ^3.2.12
       json5: ^2.2.3
-      local-pkg: ^0.4.2
+      local-pkg: ^0.4.3
       picocolors: ^1.0.0
       playwright: ^1.28.1
       react: ^18.2.0
       react-router: ^6.4.5
-      solid-js: ^1.6.6
+      solid-js: ^1.6.9
       tsup: ^6.5.0
       typescript: ^4.9.4
-      vite: ^4.0.3
+      vite: ^4.0.4
       vitest: ^0.25.7
       vue: ^3.2.45
       vue-router: ^4.1.6
@@ -37,17 +37,17 @@ importers:
     dependencies:
       '@types/debug': 4.1.7
       debug: 4.3.4
-      deep-equal: 2.1.0
+      deep-equal: 2.2.0
       extract-comments: 1.1.0
       fast-glob: 3.2.12
       json5: 2.2.3
-      local-pkg: 0.4.2
+      local-pkg: 0.4.3
       picocolors: 1.0.0
       yaml: 2.2.1
     devDependencies:
       '@antfu/utils': 0.7.2
       '@hannoeru/eslint-config': 0.9.4_iukboom6ndih5an6iafl45j2fe
-      '@solidjs/router': 0.6.0_solid-js@1.6.6
+      '@solidjs/router': 0.7.0_solid-js@1.6.9
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.1
       '@types/node': 18.11.18
@@ -59,10 +59,10 @@ importers:
       playwright: 1.28.1
       react: 18.2.0
       react-router: 6.4.5_react@18.2.0
-      solid-js: 1.6.6
+      solid-js: 1.6.9
       tsup: 6.5.0_typescript@4.9.4
       typescript: 4.9.4
-      vite: 4.0.3_@types+node@18.11.18
+      vite: 4.0.4_@types+node@18.11.18
       vitest: 0.25.7_@vitest+ui@0.25.7
       vue: 3.2.45
       vue-router: 4.1.6_vue@3.2.45
@@ -1083,12 +1083,12 @@ packages:
       solid-js: 1.6.4
     dev: false
 
-  /@solidjs/router/0.6.0_solid-js@1.6.6:
-    resolution: {integrity: sha512-7ug2fzXXhvvDBL4CQyMvMM9o3dgBE6PoRh38T8UTmMnYz4rcCfROqSZc9yq+YEC96qWt5OvJgZ1Uj/4EAQXlfA==}
+  /@solidjs/router/0.7.0_solid-js@1.6.9:
+    resolution: {integrity: sha512-8HI84twe5FjYRebSLMAhtkL9bRuTDIlxJK56kjfjU9WKGoUCTaWpCnkuj8Hqde1bWZ0X+GOZxKDfNkn1CjtjxA==}
     peerDependencies:
       solid-js: ^1.5.3
     dependencies:
-      solid-js: 1.6.6
+      solid-js: 1.6.9
     dev: true
 
   /@types/body-parser/1.19.2:
@@ -2057,15 +2057,17 @@ packages:
       type-detect: 4.0.8
     dev: true
 
-  /deep-equal/2.1.0:
-    resolution: {integrity: sha512-2pxgvWu3Alv1PoWEyVg7HS8YhGlUFUV7N5oOvfL6d+7xAmLSemMwv/c8Zv/i9KFzxV5Kt5CAvQc70fLwVuf4UA==}
+  /deep-equal/2.2.0:
+    resolution: {integrity: sha512-RdpzE0Hv4lhowpIUKKMJfeH6C1pXdtT1/it80ubgWqwI3qpuxUBpC1S4hnHg+zjnuOoDkzUtUCEEkG+XG5l3Mw==}
     dependencies:
       call-bind: 1.0.2
       es-get-iterator: 1.1.2
       get-intrinsic: 1.1.3
       is-arguments: 1.1.1
+      is-array-buffer: 3.0.1
       is-date-object: 1.0.5
       is-regex: 1.1.4
+      is-shared-array-buffer: 1.0.2
       isarray: 2.0.5
       object-is: 1.1.5
       object-keys: 1.1.1
@@ -3491,6 +3493,14 @@ packages:
       has-tostringtag: 1.0.0
     dev: false
 
+  /is-array-buffer/3.0.1:
+    resolution: {integrity: sha512-ASfLknmY8Xa2XtB4wmbz13Wu202baeA18cJBCeCy0wXUHZF0IPyVEXqKEcd+t2fNSLLL1vC6k7lxZEojNbISXQ==}
+    dependencies:
+      call-bind: 1.0.2
+      get-intrinsic: 1.1.3
+      is-typed-array: 1.1.10
+    dev: false
+
   /is-arrayish/0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
     dev: true
@@ -3605,7 +3615,6 @@ packages:
     resolution: {integrity: sha512-sqN2UDu1/0y6uvXyStCOzyhAjCSlHceFoMKJW8W9EU9cvic/QdsZ0kEU93HEy3IUEFZIiH/3w+AH/UQbPHNdhA==}
     dependencies:
       call-bind: 1.0.2
-    dev: true
 
   /is-stream/2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
@@ -3823,8 +3832,8 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
-  /local-pkg/0.4.2:
-    resolution: {integrity: sha512-mlERgSPrbxU3BP4qBqAvvwlgW4MTg78iwJdGGnv7kibKjWcJksrG3t6LB5lXI93wXRDvG4NpUgJFmTG4T6rdrg==}
+  /local-pkg/0.4.3:
+    resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
     engines: {node: '>=14'}
 
   /locate-path/5.0.0:
@@ -4746,8 +4755,8 @@ packages:
     dependencies:
       csstype: 3.1.1
 
-  /solid-js/1.6.6:
-    resolution: {integrity: sha512-5x33mEbPI8QLuywvFjQP4krjWDr8xiYFgZx9KCBH7b0ZzypQCHaUubob7bK6i+1u6nhaAqhWtvXS587Kb8DShA==}
+  /solid-js/1.6.9:
+    resolution: {integrity: sha512-kV3fMmm+1C2J95c8eDOPKGfZHnuAkHUBLG4hX1Xu08bXeAIPqmxuz/QdH3B8SIdTp3EatBVIyA6RCes3hrGzpg==}
     dependencies:
       csstype: 3.1.1
     dev: true
@@ -5327,8 +5336,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/4.0.3_@types+node@18.11.18:
-    resolution: {integrity: sha512-HvuNv1RdE7deIfQb8mPk51UKjqptO/4RXZ5yXSAvurd5xOckwS/gg8h9Tky3uSbnjYTgUm0hVCet1cyhKd73ZA==}
+  /vite/4.0.4_@types+node@18.11.18:
+    resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -5402,13 +5411,13 @@ packages:
       acorn-walk: 8.2.0
       chai: 4.3.7
       debug: 4.3.4
-      local-pkg: 0.4.2
+      local-pkg: 0.4.3
       source-map: 0.6.1
       strip-literal: 1.0.0
       tinybench: 2.3.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 4.0.3_@types+node@18.11.18
+      vite: 4.0.4_@types+node@18.11.18
     transitivePeerDependencies:
       - less
       - sass

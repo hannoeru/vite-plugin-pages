@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-pages",
   "version": "0.28.0",
-  "packageManager": "pnpm@7.21.0",
+  "packageManager": "pnpm@7.25.1",
   "description": "File system base vue-router plugin for Vite",
   "keywords": [
     "vite",
@@ -74,18 +74,18 @@
   "dependencies": {
     "@types/debug": "^4.1.7",
     "debug": "^4.3.4",
-    "deep-equal": "^2.1.0",
+    "deep-equal": "^2.2.0",
     "extract-comments": "^1.1.0",
     "fast-glob": "^3.2.12",
     "json5": "^2.2.3",
-    "local-pkg": "^0.4.2",
+    "local-pkg": "^0.4.3",
     "picocolors": "^1.0.0",
     "yaml": "^2.2.1"
   },
   "devDependencies": {
     "@antfu/utils": "^0.7.2",
     "@hannoeru/eslint-config": "^0.9.4",
-    "@solidjs/router": "^0.6.0",
+    "@solidjs/router": "^0.7.0",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
     "@types/node": "^18.11.18",
@@ -97,10 +97,10 @@
     "playwright": "^1.28.1",
     "react": "^18.2.0",
     "react-router": "^6.4.5",
-    "solid-js": "^1.6.6",
+    "solid-js": "^1.6.9",
     "tsup": "^6.5.0",
     "typescript": "^4.9.4",
-    "vite": "^4.0.3",
+    "vite": "^4.0.4",
     "vitest": "^0.25.7",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
