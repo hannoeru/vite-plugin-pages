@@ -6,11 +6,11 @@ importers:
     specifiers:
       '@antfu/utils': ^0.7.2
       '@hannoeru/eslint-config': ^0.9.4
-      '@solidjs/router': ^0.7.0
+      '@solidjs/router': ^0.8.0
       '@types/debug': ^4.1.7
       '@types/deep-equal': ^1.0.1
       '@types/glob-to-regexp': ^0.4.1
-      '@types/node': ^18.14.6
+      '@types/node': ^18.15.0
       '@vitest/ui': ^0.25.7
       '@vue/compiler-sfc': ^3.2.47
       bumpp: ^8.2.1
@@ -26,7 +26,7 @@ importers:
       playwright: ^1.30.0
       react: ^18.2.0
       react-router: ^6.4.5
-      solid-js: ^1.6.13
+      solid-js: ^1.6.14
       tsup: ^6.6.3
       typescript: ^4.9.5
       vite: ^4.1.4
@@ -47,10 +47,10 @@ importers:
     devDependencies:
       '@antfu/utils': 0.7.2
       '@hannoeru/eslint-config': 0.9.4_7kw3g6rralp5ps6mg3uyzz6azm
-      '@solidjs/router': 0.7.0_solid-js@1.6.13
+      '@solidjs/router': 0.8.0_solid-js@1.6.14
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.1
-      '@types/node': 18.14.6
+      '@types/node': 18.15.0
       '@vitest/ui': 0.25.7
       '@vue/compiler-sfc': 3.2.47
       bumpp: 8.2.1
@@ -59,10 +59,10 @@ importers:
       playwright: 1.30.0
       react: 18.2.0
       react-router: 6.4.5_react@18.2.0
-      solid-js: 1.6.13
+      solid-js: 1.6.14
       tsup: 6.6.3_typescript@4.9.5
       typescript: 4.9.5
-      vite: 4.1.4_@types+node@18.14.6
+      vite: 4.1.4_@types+node@18.15.0
       vitest: 0.25.7_@vitest+ui@0.25.7
       vue: 3.2.47
       vue-router: 4.1.6_vue@3.2.47
@@ -1479,19 +1479,19 @@ packages:
       solid-js: 1.6.4
     dev: false
 
-  /@solidjs/router/0.7.0_solid-js@1.6.13:
-    resolution: {integrity: sha512-8HI84twe5FjYRebSLMAhtkL9bRuTDIlxJK56kjfjU9WKGoUCTaWpCnkuj8Hqde1bWZ0X+GOZxKDfNkn1CjtjxA==}
+  /@solidjs/router/0.8.0_solid-js@1.6.14:
+    resolution: {integrity: sha512-gvKAfYbuq6rpuNM9E7qIRXOrUEHY4AoOiok3xo/Slw5ph+hvJ+gKRhQgW0Et8xcsq2NZcc4AvJF8VTBmXfwEyA==}
     peerDependencies:
       solid-js: ^1.5.3
     dependencies:
-      solid-js: 1.6.13
+      solid-js: 1.6.14
     dev: true
 
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 18.14.6
+      '@types/node': 18.15.0
     dev: true
 
   /@types/chai-subset/1.3.3:
@@ -1513,7 +1513,7 @@ packages:
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.0
     dev: true
 
   /@types/debug/4.1.7:
@@ -1533,7 +1533,7 @@ packages:
   /@types/express-serve-static-core/4.17.31:
     resolution: {integrity: sha512-DxMhY+NAsTwMMFHBTtJFNp5qiHKJ7TeqOo23zVEM9alT1Ml27Q3xcTH0xwxn7Q0BbMcVEJOs/7aQtUWupUQN3Q==}
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.0
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
     dev: true
@@ -1596,8 +1596,8 @@ packages:
     resolution: {integrity: sha512-IASpMGVcWpUsx5xBOrxMj7Bl8lqfuTY7FKAnPmu5cHkfQVWF8GulWS1jbRqA934qZL35xh5xN/+Xe/i26Bod4w==}
     dev: true
 
-  /@types/node/18.14.6:
-    resolution: {integrity: sha512-93+VvleD3mXwlLI/xASjw0FzKcwzl3OdTCzm1LaRfqgS21gfFtK3zDXM5Op9TeeMsJVOaJ2VRDpT9q4Y3d0AvA==}
+  /@types/node/18.15.0:
+    resolution: {integrity: sha512-z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -1665,7 +1665,7 @@ packages:
     resolution: {integrity: sha512-z5xyF6uh8CbjAu9760KDKsH2FcDxZ2tFCsA4HIMWE6IkiYMXfVoa+4f9KX+FN0ZLsaMw1WNG2ETLA6N+/YA+cg==}
     dependencies:
       '@types/mime': 3.0.1
-      '@types/node': 18.14.6
+      '@types/node': 18.15.0
     dev: true
 
   /@types/unist/2.0.6:
@@ -5306,8 +5306,8 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /solid-js/1.6.13:
-    resolution: {integrity: sha512-/zcyeect3QnmcD58754IpOU/SzX3s9N19RlRVoKRz3tNpzvel7QKO4FX/PpIFQH6n/pxWq6rSh6b9fwe20XUvw==}
+  /solid-js/1.6.14:
+    resolution: {integrity: sha512-9SSpGWZqzq8n/JhIt2PsYzLreG4PySmAexLnRM386oMeG5oSWa9QIRoiok45rLNJg148USEfI9wlkJkMrA2qGg==}
     dependencies:
       csstype: 3.1.1
     dev: true
@@ -5898,7 +5898,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/4.1.4_@types+node@18.14.6:
+  /vite/4.1.4_@types+node@18.15.0:
     resolution: {integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -5923,7 +5923,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.0
       esbuild: 0.16.17
       postcss: 8.4.21
       resolve: 1.22.1
@@ -5967,7 +5967,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.4
       '@types/chai-subset': 1.3.3
-      '@types/node': 18.14.6
+      '@types/node': 18.15.0
       '@vitest/ui': 0.25.7
       acorn: 8.8.1
       acorn-walk: 8.2.0
@@ -5979,7 +5979,7 @@ packages:
       tinybench: 2.3.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 4.1.4_@types+node@18.14.6
+      vite: 4.1.4_@types+node@18.15.0
     transitivePeerDependencies:
       - less
       - sass
