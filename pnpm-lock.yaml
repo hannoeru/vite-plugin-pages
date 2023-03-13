@@ -25,7 +25,7 @@ importers:
       picocolors: ^1.0.0
       playwright: ^1.30.0
       react: ^18.2.0
-      react-router: ^6.4.5
+      react-router: ^6.9.0
       solid-js: ^1.6.14
       tsup: ^6.6.3
       typescript: ^4.9.5
@@ -58,7 +58,7 @@ importers:
       esno: 0.16.3
       playwright: 1.30.0
       react: 18.2.0
-      react-router: 6.4.5_react@18.2.0
+      react-router: 6.9.0_react@18.2.0
       solid-js: 1.6.14
       tsup: 6.6.3_typescript@4.9.5
       typescript: 4.9.5
@@ -1448,6 +1448,12 @@ packages:
   /@remix-run/router/1.0.5:
     resolution: {integrity: sha512-my0Mycd+jruq/1lQuO5LBB6WTlL/e8DTCYWp44DfMTDcXz8DcTlgF0ISaLsGewt+ctHN+yA8xMq3q/N7uWJPug==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@remix-run/router/1.4.0:
+    resolution: {integrity: sha512-BJ9SxXux8zAg991UmT8slpwpsd31K1dHHbD3Ba4VzD+liLQ4WAMSxQp2d2ZPRPfN0jN2NPRowcSSoM7lCaF08Q==}
+    engines: {node: '>=14'}
+    dev: true
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -5031,6 +5037,17 @@ packages:
     dependencies:
       '@remix-run/router': 1.0.5
       react: 18.2.0
+    dev: false
+
+  /react-router/6.9.0_react@18.2.0:
+    resolution: {integrity: sha512-51lKevGNUHrt6kLuX3e/ihrXoXCa9ixY/nVWRLlob4r/l0f45x3SzBvYJe3ctleLUQQ5fVa4RGgJOTH7D9Umhw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.4.0
+      react: 18.2.0
+    dev: true
 
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
