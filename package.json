@@ -96,7 +96,7 @@
     "esno": "^0.16.3",
     "playwright": "^1.31.2",
     "react": "^18.2.0",
-    "react-router": "^6.4.5",
+    "react-router": "^6.9.0",
     "solid-js": "^1.6.14",
     "tsup": "^6.6.3",
     "typescript": "^4.9.5",
