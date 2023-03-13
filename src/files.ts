@@ -28,15 +28,16 @@ export function getPageDirs(PageOptions: PageOptions, root: string, exclude: str
 /**
  * Resolves the files that are valid pages for the given context.
  */
-export function getPageFiles(path: string, options: ResolvedOptions): string[] {
+export function getPageFiles(path: string, options: ResolvedOptions, pageOptions?: PageOptions): string[] {
   const {
     exclude,
     extensions,
   } = options
 
   const ext = extsToGlob(extensions)
+  const pattern = pageOptions?.filePatern ?? `**/*.${ext}`
 
-  const files = fg.sync(`**/*.${ext}`, {
+  const files = fg.sync(pattern, {
     ignore: exclude,
     onlyFiles: true,
     cwd: path,

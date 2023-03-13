@@ -13,6 +13,17 @@ describe('Get files', () => {
   })
 })
 
+describe('Get files - direct children only', () => {
+  test('pages', async() => {
+    const files = getPageFiles(testpages, options, {
+      dir: join(testDeeppages, '**', 'pages'),
+      baseRoute: '',
+      filePatern: '*.vue',
+    })
+    expect(files.sort()).toMatchSnapshot()
+  })
+})
+
 describe('Get page dirs', () => {
   test('with glob', async() => {
     const PageOptions = {
