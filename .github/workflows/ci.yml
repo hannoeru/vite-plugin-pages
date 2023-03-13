@@ -17,9 +17,9 @@ jobs:
         include:
           # Active LTS + other OS
           - os: macos-latest
-            node_version: 16
+            node_version: 18
           - os: windows-latest
-            node_version: 16
+            node_version: 18
 
     steps:
       - name: Checkout repo
@@ -59,7 +59,7 @@ jobs:
       - name: Set node version to 16
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: pnpm
 
       - name: Install deps
