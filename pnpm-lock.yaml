@@ -23,7 +23,7 @@ importers:
       json5: ^2.2.3
       local-pkg: ^0.4.3
       picocolors: ^1.0.0
-      playwright: ^1.30.0
+      playwright: ^1.31.2
       react: ^18.2.0
       react-router: ^6.4.5
       solid-js: ^1.6.14
@@ -56,7 +56,7 @@ importers:
       bumpp: 8.2.1
       eslint: 8.34.0
       esno: 0.16.3
-      playwright: 1.30.0
+      playwright: 1.31.2
       react: 18.2.0
       react-router: 6.4.5_react@18.2.0
       solid-js: 1.6.14
@@ -4867,19 +4867,19 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /playwright-core/1.30.0:
-    resolution: {integrity: sha512-7AnRmTCf+GVYhHbLJsGUtskWTE33SwMZkybJ0v6rqR1boxq2x36U7p1vDRV7HO2IwTZgmycracLxPEJI49wu4g==}
+  /playwright-core/1.31.2:
+    resolution: {integrity: sha512-a1dFgCNQw4vCsG7bnojZjDnPewZcw7tZUNFN0ZkcLYKj+mPmXvg4MpaaKZ5SgqPsOmqIf2YsVRkgqiRDxD+fDQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
 
-  /playwright/1.30.0:
-    resolution: {integrity: sha512-ENbW5o75HYB3YhnMTKJLTErIBExrSlX2ZZ1C/FzmHjUYIfxj/UnI+DWpQr992m+OQVSg0rCExAOlRwB+x+yyIg==}
+  /playwright/1.31.2:
+    resolution: {integrity: sha512-jpC47n2PKQNtzB7clmBuWh6ftBRS/Bt5EGLigJ9k2QAKcNeYXZkEaDH5gmvb6+AbcE0DO6GnXdbl9ogG6Eh+og==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.30.0
+      playwright-core: 1.31.2
     dev: true
 
   /pluralize/8.0.0:
