@@ -26,7 +26,7 @@ importers:
       playwright: ^1.31.2
       react: ^18.2.0
       react-router: ^6.9.0
-      solid-js: ^1.7.2
+      solid-js: ^1.7.3
       tsup: ^6.7.0
       typescript: ^4.9.5
       vite: ^4.2.1
@@ -47,7 +47,7 @@ importers:
     devDependencies:
       '@antfu/utils': 0.7.2
       '@hannoeru/eslint-config': 0.9.4_vgl77cfdswitgr47lm5swmv43m
-      '@solidjs/router': 0.8.2_solid-js@1.7.2
+      '@solidjs/router': 0.8.2_solid-js@1.7.3
       '@types/deep-equal': 1.0.1
       '@types/glob-to-regexp': 0.4.1
       '@types/node': 18.15.11
@@ -59,7 +59,7 @@ importers:
       playwright: 1.31.2
       react: 18.2.0
       react-router: 6.9.0_react@18.2.0
-      solid-js: 1.7.2
+      solid-js: 1.7.3
       tsup: 6.7.0_typescript@4.9.5
       typescript: 4.9.5
       vite: 4.2.1_@types+node@18.15.11
@@ -1257,12 +1257,12 @@ packages:
       solid-js: 1.6.14
     dev: false
 
-  /@solidjs/router/0.8.2_solid-js@1.7.2:
+  /@solidjs/router/0.8.2_solid-js@1.7.3:
     resolution: {integrity: sha512-gUKW+LZqxtX6y/Aw6JKyy4gQ9E7dLqp513oB9pSYJR1HM5c56Pf7eijzyXX+b3WuXig18Cxqah4tMtF0YGu80w==}
     peerDependencies:
       solid-js: ^1.5.3
     dependencies:
-      solid-js: 1.7.2
+      solid-js: 1.7.3
     dev: true
 
   /@types/babel__core/7.20.0:
@@ -5074,8 +5074,8 @@ packages:
     dependencies:
       csstype: 3.1.1
 
-  /solid-js/1.7.2:
-    resolution: {integrity: sha512-01f8GIc+HTTlfDXtK+TFku3AllHyJ3hNsIpxM2qpObRP4VbEGVIP6VbULnThPlpse+J1y/I/1N9QeQ9MNkE8Ow==}
+  /solid-js/1.7.3:
+    resolution: {integrity: sha512-4hwaF/zV/xbNeBBIYDyu3dcReOZBECbO//mrra6GqOrKy4Soyo+fnKjpZSa0nODm6j1aL0iQRh/7ofYowH+jzw==}
     dependencies:
       csstype: 3.1.1
       seroval: 0.5.1
