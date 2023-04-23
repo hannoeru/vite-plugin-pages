@@ -1,3 +1,4 @@
+import { join } from 'path'
 import {
   buildReactRemixRoutePath,
   buildReactRoutePath,
@@ -84,11 +85,13 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
         return pathNodes.slice(0, i).join('/') === parent.rawRoute
       })
 
-      if (parent) {
+      if (parent && parent.element) {
         // Make sure children exits in parent
         parent.children = parent.children || []
         // Append to parent's children
         parentRoutes = parent.children
+      } else if (parent) {
+        route.path = route.path !== '/' ? join(parent.path ?? '', route.path ?? '') : parent.path
       }
 
       const exits = parentRoutes.some((parent) => {
@@ -101,6 +104,7 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
 
   // sort by dynamic routes
   let finalRoutes = prepareRoutes(routes, ctx.options)
+  finalRoutes = finalRoutes.filter(route => route.element || (!route.element && route.children))
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
