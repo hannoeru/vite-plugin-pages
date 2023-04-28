@@ -14,13 +14,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - name: Enable corepack
+        run: corepack enable
 
-      - name: Set node version to ${{ matrix.node }}
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version-file: '.nvmrc'
           registry-url: https://registry.npmjs.org/
           cache: pnpm
 
