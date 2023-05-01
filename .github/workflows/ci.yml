@@ -54,7 +54,7 @@ jobs:
       - name: Enable corepack
         run: corepack enable
 
-      - name: Set node version to 16
+      - name: Set node version
         uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
