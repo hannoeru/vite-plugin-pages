@@ -57,7 +57,7 @@ jobs:
       - name: Set node version to 16
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: .nvmrc
           cache: pnpm
 
       - name: Install deps
