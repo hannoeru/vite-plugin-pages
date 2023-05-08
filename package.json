@@ -92,7 +92,7 @@
     "@vitest/ui": "^0.29.8",
     "@vue/compiler-sfc": "^3.2.47",
     "bumpp": "^9.1.0",
-    "eslint": "^8.39.0",
+    "eslint": "^8.40.0",
     "esno": "^0.16.3",
     "playwright": "^1.33.0",
     "react": "^18.2.0",
