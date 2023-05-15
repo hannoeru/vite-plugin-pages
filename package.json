@@ -84,7 +84,7 @@
   },
   "devDependencies": {
     "@antfu/utils": "^0.7.2",
-    "@hannoeru/eslint-config": "^0.9.4",
+    "@hannoeru/eslint-config": "^0.9.5",
     "@solidjs/router": "^0.8.2",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
