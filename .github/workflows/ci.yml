@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+env:
+  VITEST_SEGFAULT_RETRY: 3
+  PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -34,6 +38,25 @@ jobs:
           node-version: ${{ matrix.node_version }}
           registry-url: https://registry.npmjs.org/
           cache: pnpm
+
+      - name: Resolve playwright version
+        id: playwright-version
+        shell: bash
+        run: >
+          echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').dependencies['playwright'].version)")" >> $GITHUB_OUTPUT
+
+      - name: Print playwright version
+        shell: bash
+        run: echo "${{ toJson(steps.playwright-version.outputs) }}"
+
+      - name: Cache Playwright v${{ steps.playwright-version.outputs.PLAYWRIGHT_VERSION }}
+        uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.PLAYWRIGHT_VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
 
       - name: Install deps
         run: pnpm install
