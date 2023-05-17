@@ -14,7 +14,13 @@
 
 ### Vue
 
-Install:
+**🚨Important Notes🚨**
+
+We recommend Vue user using [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) instead of this plugin.
+
+[unplugin-vue-router](https://github.com/posva/unplugin-vue-router) is a unplugin library created by [@posva](https://github.com/posva), same auther as vue-router. It provide almost same feature as [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) but better intergration with vue-router, include some cool feature like auto generate route types base on your route files to provide autocomplete for vue-router.
+
+#### Install:
 
 ```bash
 npm install -D vite-plugin-pages
@@ -25,7 +31,7 @@ npm install vue-router
 
 > since v0.19.0 we only support react-router v6, if you are using react-router v5 use v0.18.2.
 
-Install:
+#### Install:
 
 ```bash
 npm install -D vite-plugin-pages
@@ -34,7 +40,7 @@ npm install react-router react-router-dom
 
 ### Solid
 
-Install:
+#### Install:
 
 ```bash
 npm install -D vite-plugin-pages
