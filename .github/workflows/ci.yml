@@ -43,7 +43,7 @@ jobs:
         id: playwright-version
         shell: bash
         run: >
-          echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').dependencies['playwright'].version)")" >> $GITHUB_OUTPUT
+          echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['playwright'])")" >> $GITHUB_OUTPUT
 
       - name: Print playwright version
         shell: bash
