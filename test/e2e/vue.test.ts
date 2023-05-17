@@ -20,7 +20,7 @@ describe('vue e2e test', () => {
 
   beforeAll(async() => {
     server = await createServer(getViteConfig(vueRoot))
-    await server.listen(0)
+    await server.listen()
     browser = await chromium.launch()
     page = await browser.newPage()
   })

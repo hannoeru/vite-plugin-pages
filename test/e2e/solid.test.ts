@@ -20,7 +20,7 @@ describe('solid e2e test', () => {
 
   beforeAll(async() => {
     server = await createServer(getViteConfig(solidRoot))
-    await server.listen(0)
+    await server.listen()
     browser = await chromium.launch()
     page = await browser.newPage()
   })
