@@ -21,12 +21,23 @@ export type CustomBlock = Record<string, any>
 export type InternalPageResolvers = 'vue' | 'react' | 'solid'
 
 export interface PageOptions {
+  /**
+   * Page base directory.
+   * @default 'src/pages'
+   */
   dir: string
+  /**
+   * Page base route.
+   */
   baseRoute: string
   /**
    * @deprecated use `filePattern` instead
    */
   filePatern?: string
+  /**
+   * Page file pattern.
+   * @example `**\/*.page.vue`
+   */
   filePattern?: string
 }
 

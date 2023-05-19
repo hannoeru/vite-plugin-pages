@@ -185,15 +185,36 @@ Can be:
 - array of paths: all routes in the paths point to `/`
 - array of `PageOptions`, Check below 👇
 
+```ts
+interface PageOptions {
+  /**
+   * Page base directory.
+   * @default 'src/pages'
+   */
+  dir: string
+  /**
+   * Page base route.
+   */
+  baseRoute: string
+  /**
+   * Page file pattern.
+   * @example `**\/*.page.vue`
+   */
+  filePattern?: string
+}
+```
+
 Specifying a glob or an array of `PageOptions` allow you to use multiple
 pages folder, and specify the base route to append to the path and the route
-name. Additionally, you can specify a pattern to filter the files that will be
-used as pages.
+name.
 
-**Example:**
+Additionally, you can specify a `filePattern` to filter the files that will be used as pages.
+
+#### Example
+
+Folder structure
 
 ```bash
-# folder structure
 src/
   ├── features/
   │  └── dashboard/
@@ -207,16 +228,20 @@ src/
   └── pages/
 ```
 
+Config
+
 ```js
 // vite.config.js
 export default {
   plugins: [
     Pages({
       dirs: [
+        // basic
         { dir: 'src/pages', baseRoute: '' },
+        // features dir for pages
         { dir: 'src/features/**/pages', baseRoute: 'features' },
-        { dir: 'src/admin/pages', baseRoute: 'admin' },
-        { dir: 'src/with-pattern/pages', baseRoute: 'pattern', filePattern: '**/*.page.*' },
+        // with custom file pattern
+        { dir: 'src/admin/pages', baseRoute: 'admin', filePattern: '**/*.page.*' },
       ],
     }),
   ],
