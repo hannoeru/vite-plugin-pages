@@ -7,15 +7,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.2",
-    "vue-router": "4.2.0"
+    "vue": "^3.3.4",
+    "vue-router": "4.2.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
-    "@vue/compiler-sfc": "^3.3.2",
+    "@vue/compiler-sfc": "^3.3.4",
     "nodemon": "^2.0.22",
     "typescript": "^5.0.4",
-    "vite": "^4.3.7",
+    "vite": "^4.3.8",
     "vite-plugin-pages": "workspace:*"
   }
 }
