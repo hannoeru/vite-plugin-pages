@@ -18,7 +18,7 @@ describe('Get files - direct children only', () => {
     const files = getPageFiles(testpages, options, {
       dir: join(testDeeppages, '**', 'pages'),
       baseRoute: '',
-      filePatern: '*.vue',
+      filePattern: '*.vue',
     })
     expect(files.sort()).toMatchSnapshot()
   })

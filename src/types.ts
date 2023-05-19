@@ -23,7 +23,11 @@ export type InternalPageResolvers = 'vue' | 'react' | 'solid'
 export interface PageOptions {
   dir: string
   baseRoute: string
+  /**
+   * @deprecated use `filePattern` instead
+   */
   filePatern?: string
+  filePattern?: string
 }
 
 export interface PageResolver {
