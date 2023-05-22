@@ -88,7 +88,7 @@
     "@solidjs/router": "^0.8.2",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
-    "@types/node": "^18.16.13",
+    "@types/node": "^18.16.14",
     "@vitest/ui": "^0.31.1",
     "@vue/compiler-sfc": "^3.3.4",
     "bumpp": "^9.1.0",
