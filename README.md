@@ -118,6 +118,36 @@ ReactDOM.render(
 )
 ```
 
+Or with React 18 :
+
+```jsx
+import { createRoot } from 'react-dom/client'
+import { Suspense } from 'react'
+import {
+  BrowserRouter as Router,
+  useRoutes,
+} from 'react-router-dom'
+
+import routes from '~react-pages'
+
+const App = () => {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      {useRoutes(routes)}
+    </Suspense>
+  )
+}
+
+const container = document.getElementById('app')
+const root = createRoot(container) // createRoot(container!) if you use TypeScript
+
+root.render(
+  <Router>
+    <App />
+  </Router>,
+)
+```
+
 **Type**
 
 ```ts
