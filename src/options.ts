@@ -71,8 +71,6 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const extensions = userOptions.extensions || resolver.resolveExtensions()
 
-  extensions.sort((a, b) => b.length - a.length)
-
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
   const resolvedDirs = resolvePageDirs(dirs, root, exclude)
