@@ -76,10 +76,10 @@ export class PageContext {
     debug.pages('add', path)
     for (const p of toArray(path)) {
       const pageDirPath = slash(resolve(this.root, pageDir.dir))
-      const extension = this.options.extensions.find(e => p.endsWith(e))
+      const extension = this.options.extensions.find(ext => p.endsWith(`.${ext}`))
       if (!extension) continue
 
-      const route = slash(join(pageDir.baseRoute, p.replace(`${pageDirPath}/`, '').replace(extension, '')))
+      const route = slash(join(pageDir.baseRoute, p.replace(`${pageDirPath}/`, '').replace(`.${extension}`, '')))
       this._pageRouteMap.set(p, {
         path: p,
         route,
