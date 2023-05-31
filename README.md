@@ -256,7 +256,7 @@ export default {
   - React: `['tsx', 'jsx', 'ts', 'js']`
   - Solid: `['tsx', 'jsx', 'ts', 'js']`
 
-An array of valid file extensions for pages.
+An array of valid file extensions for pages. If multiple extensions match for a file, the first one is used.
 
 ### exclude
 
