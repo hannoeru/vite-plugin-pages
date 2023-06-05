@@ -63,7 +63,6 @@ describe('react e2e test', () => {
 
     await copyFile(srcPath, distPath)
 
-    await page.goto(getUrl('/'), { waitUntil: 'networkidle' })
     await page.goto(getUrl('/test'), { waitUntil: 'networkidle' })
 
     const text = await page.locator('body > div').textContent()
