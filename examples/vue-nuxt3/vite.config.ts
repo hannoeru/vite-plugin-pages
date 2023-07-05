@@ -1,9 +1,9 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import Pages from '../../src'
 import Markdown from 'vite-plugin-vue-markdown'
 import Inspect from 'vite-plugin-inspect'
+import Pages from '../../src'
 
 const config = defineConfig({
   plugins: [

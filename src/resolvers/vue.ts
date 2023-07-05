@@ -4,6 +4,7 @@ import {
   countSlash,
   isCatchAllRoute,
   isDynamicRoute,
+  isNuxt3PathOptional,
   normalizeCase,
   normalizeName,
 } from '../utils'
@@ -91,6 +92,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const node = pathNodes[i]
       const isDynamic = isDynamicRoute(node, routeStyle)
       const isCatchAll = isCatchAllRoute(node, routeStyle)
+      const isOptional = routeStyle !== 'nuxt3' || isNuxt3PathOptional(node)
       const normalizedName = normalizeName(node, isDynamic, routeStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
@@ -116,7 +118,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
           route.path = '/'
       } else if (normalizedPath !== 'index') {
         if (isDynamic) {
-          route.path += `/:${normalizedName}`
+          route.path += `/${routeStyle === 'nuxt3' ? '' : ':'}${normalizedName}`
           // Catch-all route
           if (isCatchAll) {
             if (i === 0)
@@ -125,7 +127,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
             else
               // nested cache all route not include children
               route.path += '(.*)'
-          } else if (routeStyle.startsWith('nuxt') && i === pathNodes.length - 1) {
+          } else if (routeStyle.startsWith('nuxt') && i === pathNodes.length - 1 && isOptional) {
             // we need to search if the folder provide `index.vue`
             const isIndexFound = pageRoutes.find(({ route }) => {
               return route === page.route.replace(pathNodes[i], 'index')

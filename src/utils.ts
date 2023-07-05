@@ -2,7 +2,7 @@ import { resolve, win32 } from 'path'
 import { URLSearchParams } from 'url'
 import Debug from 'debug'
 import { slash } from '@antfu/utils'
-import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxt3CatchAllRouteRE, nuxt3DynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
+import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxt3CatchAllRouteRE, nuxt3DynamicRouteORE, nuxt3DynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
 import type { ModuleNode, ViteDevServer } from 'vite'
 import type { ResolvedOptions, RouteStyle } from './types'
@@ -87,13 +87,17 @@ export function normalizeName(name: string, isDynamic: boolean, routeStyle: Rout
     case 'nuxt3': return name.replace(nuxt3DynamicRouteRE, (_, $1, $2) => {
       const value = ($2 || $1)
 
-      if (value.startsWith('...')) return value.slice(3)
+      if (value.startsWith('...')) return `:${value.slice(3)}`
 
-      return value
+      return `:${value}`
     })
     case 'nuxt':return name.replace(nuxtDynamicRouteRE, '$1') || 'all'
     default: return name.replace(replaceDynamicRouteRE, '$1')
   }
+}
+
+export function isNuxt3PathOptional(name: string) {
+  return nuxt3DynamicRouteORE.test(name)
 }
 
 export function buildReactRoutePath(node: string, routeStyle: RouteStyle): string | undefined {
@@ -105,7 +109,7 @@ export function buildReactRoutePath(node: string, routeStyle: RouteStyle): strin
     if (isCatchAll)
       return '*'
 
-    return `:${normalizedName}`
+    return `${routeStyle === 'nuxt3' ? '' : ':'}${normalizedName}`
   }
 
   return `${normalizedName}`

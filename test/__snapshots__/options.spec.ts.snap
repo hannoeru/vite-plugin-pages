@@ -43,6 +43,7 @@ exports[`Options resolve > react 1`] = `
   "root": Any<String>,
   "routeBlockLang": "json5",
   "routeNameSeparator": "-",
+  "routeProps": true,
   "routeStyle": "next",
 }
 `;
@@ -88,6 +89,7 @@ exports[`Options resolve > solid 1`] = `
   "root": Any<String>,
   "routeBlockLang": "json5",
   "routeNameSeparator": "-",
+  "routeProps": true,
   "routeStyle": "next",
 }
 `;
@@ -133,6 +135,7 @@ exports[`Options resolve > vue - custom module id 1`] = `
   "root": Any<String>,
   "routeBlockLang": "json5",
   "routeNameSeparator": "-",
+  "routeProps": true,
   "routeStyle": "next",
 }
 `;
@@ -180,6 +183,7 @@ exports[`Options resolve > vue 1`] = `
   "root": Any<String>,
   "routeBlockLang": "json5",
   "routeNameSeparator": "-",
+  "routeProps": true,
   "routeStyle": "next",
 }
 `;
