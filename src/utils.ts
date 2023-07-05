@@ -2,10 +2,10 @@ import { resolve, win32 } from 'path'
 import { URLSearchParams } from 'url'
 import Debug from 'debug'
 import { slash } from '@antfu/utils'
-import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
+import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxt3CatchAllRouteRE, nuxt3DynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
 import type { ModuleNode, ViteDevServer } from 'vite'
-import type { ResolvedOptions } from './types'
+import type { ResolvedOptions, RouteStyle } from './types'
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),
@@ -38,16 +38,20 @@ export function isTarget(path: string, options: ResolvedOptions) {
   return isPagesDir(path, options) && options.extensionsRE.test(path)
 }
 
-export function isDynamicRoute(routePath: string, nuxtStyle = false) {
-  return nuxtStyle
-    ? nuxtDynamicRouteRE.test(routePath)
-    : dynamicRouteRE.test(routePath)
+export function isDynamicRoute(routePath: string, routeStyle: RouteStyle) {
+  switch (routeStyle) {
+    case 'nuxt3': return nuxt3DynamicRouteRE.test(routePath)
+    case 'nuxt': return nuxtDynamicRouteRE.test(routePath)
+    default: return dynamicRouteRE.test(routePath)
+  }
 }
 
-export function isCatchAllRoute(routePath: string, nuxtStyle = false) {
-  return nuxtStyle
-    ? nuxtCacheAllRouteRE.test(routePath)
-    : cacheAllRouteRE.test(routePath)
+export function isCatchAllRoute(routePath: string, routeStyle: RouteStyle) {
+  switch (routeStyle) {
+    case 'nuxt3': return nuxt3CatchAllRouteRE.test(routePath)
+    case 'nuxt': return nuxtCacheAllRouteRE.test(routePath)
+    default: return cacheAllRouteRE.test(routePath)
+  }
 }
 
 export function resolveImportMode(
@@ -76,18 +80,26 @@ export function normalizeCase(str: string, caseSensitive: boolean) {
   return str
 }
 
-export function normalizeName(name: string, isDynamic: boolean, nuxtStyle = false) {
+export function normalizeName(name: string, isDynamic: boolean, routeStyle: RouteStyle) {
   if (!isDynamic) return name
 
-  return nuxtStyle
-    ? name.replace(nuxtDynamicRouteRE, '$1') || 'all'
-    : name.replace(replaceDynamicRouteRE, '$1')
+  switch (routeStyle) {
+    case 'nuxt3': return name.replace(nuxt3DynamicRouteRE, (_, $1, $2) => {
+      const value = ($2 || $1)
+
+      if (value.startsWith('...')) return value.slice(3)
+
+      return value
+    })
+    case 'nuxt':return name.replace(nuxtDynamicRouteRE, '$1') || 'all'
+    default: return name.replace(replaceDynamicRouteRE, '$1')
+  }
 }
 
-export function buildReactRoutePath(node: string, nuxtStyle = false): string | undefined {
-  const isDynamic = isDynamicRoute(node, nuxtStyle)
-  const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-  const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
+export function buildReactRoutePath(node: string, routeStyle: RouteStyle): string | undefined {
+  const isDynamic = isDynamicRoute(node, routeStyle)
+  const isCatchAll = isCatchAllRoute(node, routeStyle)
+  const normalizedName = normalizeName(node, isDynamic, routeStyle)
 
   if (isDynamic) {
     if (isCatchAll)
