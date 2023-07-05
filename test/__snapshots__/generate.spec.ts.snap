@@ -176,6 +176,103 @@ exports[`Generate routes > routeStyle > nuxt style match snapshot > routes 1`] =
 ]
 `;
 
+exports[`Generate routes > routeStyle > nuxt3 style match snapshot > client code 1`] = `
+"const __pages_import_0__ = () => import(\\"/examples/nuxt3-style/src/pages/[...catchAll].vue\\");
+const __pages_import_1__ = () => import(\\"/examples/nuxt3-style/src/pages/[sensor]/current.vue\\");
+const __pages_import_2__ = () => import(\\"/examples/nuxt3-style/src/pages/about.vue\\");
+const __pages_import_3__ = () => import(\\"/examples/nuxt3-style/src/pages/about/[id].vue\\");
+const __pages_import_4__ = () => import(\\"/examples/nuxt3-style/src/pages/about/index.vue\\");
+const __pages_import_5__ = () => import(\\"/examples/nuxt3-style/src/pages/about/who/me.vue\\");
+const __pages_import_6__ = () => import(\\"/examples/nuxt3-style/src/pages/components.vue\\");
+import __pages_import_7__ from \\"/examples/nuxt3-style/src/pages/index.vue\\";
+const __pages_import_8__ = () => import(\\"/examples/nuxt3-style/src/pages/optional/[[id]].vue\\");
+const __pages_import_9__ = () => import(\\"/examples/nuxt3-style/src/pages/posts/[[id]].vue\\");
+
+const routes = [{\\"name\\":\\"catchAll\\",\\"path\\":\\"/:catchAll(.*)*\\",\\"component\\":__pages_import_0__,\\"props\\":true},{\\"name\\":\\"sensor-current\\",\\"path\\":\\"/:sensor/current\\",\\"component\\":__pages_import_1__,\\"props\\":true},{\\"path\\":\\"/about\\",\\"component\\":__pages_import_2__,\\"children\\":[{\\"name\\":\\"about-id\\",\\"path\\":\\":id\\",\\"component\\":__pages_import_3__,\\"props\\":true},{\\"name\\":\\"about\\",\\"path\\":\\"\\",\\"component\\":__pages_import_4__,\\"props\\":true},{\\"name\\":\\"who-me-override\\",\\"path\\":\\"who/me\\",\\"component\\":__pages_import_5__,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}}],\\"props\\":true},{\\"name\\":\\"components\\",\\"path\\":\\"/components\\",\\"component\\":__pages_import_6__,\\"props\\":true},{\\"name\\":\\"name-override\\",\\"path\\":\\"/\\",\\"component\\":__pages_import_7__,\\"props\\":true,\\"meta\\":{\\"requiresAuth\\":false}},{\\"name\\":\\"optional-id\\",\\"path\\":\\"/optional/:id?\\",\\"component\\":__pages_import_8__,\\"props\\":true},{\\"name\\":\\"posts-id\\",\\"path\\":\\"/posts/:id?\\",\\"component\\":__pages_import_9__,\\"props\\":true}];
+
+export default routes;"
+`;
+
+exports[`Generate routes > routeStyle > nuxt3 style match snapshot > routes 1`] = `
+[
+  {
+    "component": "/examples/nuxt3-style/src/pages/[...catchAll].vue",
+    "customBlock": undefined,
+    "name": "catchAll",
+    "path": "/:catchAll(.*)*",
+    "props": true,
+  },
+  {
+    "component": "/examples/nuxt3-style/src/pages/[sensor]/current.vue",
+    "customBlock": undefined,
+    "name": "sensor-current",
+    "path": "/:sensor/current",
+    "props": true,
+  },
+  {
+    "children": [
+      {
+        "component": "/examples/nuxt3-style/src/pages/about/[id].vue",
+        "customBlock": undefined,
+        "name": "about-id",
+        "path": ":id",
+        "props": true,
+      },
+      {
+        "component": "/examples/nuxt3-style/src/pages/about/index.vue",
+        "customBlock": undefined,
+        "name": "about",
+        "path": "",
+        "props": true,
+      },
+      {
+        "component": "/examples/nuxt3-style/src/pages/about/who/me.vue",
+        "meta": {
+          "requiresAuth": false,
+        },
+        "name": "who-me-override",
+        "path": "who/me",
+        "props": true,
+      },
+    ],
+    "component": "/examples/nuxt3-style/src/pages/about.vue",
+    "customBlock": undefined,
+    "path": "/about",
+    "props": true,
+  },
+  {
+    "component": "/examples/nuxt3-style/src/pages/components.vue",
+    "customBlock": undefined,
+    "name": "components",
+    "path": "/components",
+    "props": true,
+  },
+  {
+    "component": "/examples/nuxt3-style/src/pages/index.vue",
+    "meta": {
+      "requiresAuth": false,
+    },
+    "name": "name-override",
+    "path": "/",
+    "props": true,
+  },
+  {
+    "component": "/examples/nuxt3-style/src/pages/optional/[[id]].vue",
+    "customBlock": undefined,
+    "name": "optional-id",
+    "path": "/optional/:id?",
+    "props": true,
+  },
+  {
+    "component": "/examples/nuxt3-style/src/pages/posts/[[id]].vue",
+    "customBlock": undefined,
+    "name": "posts-id",
+    "path": "/posts/:id?",
+    "props": true,
+  },
+]
+`;
+
 exports[`Generate routes > routeStyle > remix Style match snapshot > client code 1`] = `
 "import React from \\"react\\";
 const __pages_import_0__ = React.lazy(() => import(\\"/examples/remix-style/src/pages/__marketing.tsx\\"));
