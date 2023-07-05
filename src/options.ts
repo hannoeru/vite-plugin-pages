@@ -81,6 +81,8 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     ? [userOptions.moduleId]
     : resolver.resolveModuleIds?.() || MODULE_IDS
 
+  const routeProps = userOptions.routeProps ?? true
+
   const resolvedOptions: ResolvedOptions = {
     dirs: resolvedDirs,
     routeStyle,
@@ -97,6 +99,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     onRoutesGenerated,
     onClientGenerated,
     routeNameSeparator,
+    routeProps,
   }
 
   return resolvedOptions

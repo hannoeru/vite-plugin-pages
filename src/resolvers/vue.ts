@@ -45,7 +45,7 @@ function prepareRoutes(
     if (route.children?.find(c => c.name === route.name))
       delete route.name
 
-    route.props = ctx.options.routeProps ?? true
+    route.props = ctx.options.routeProps
 
     delete route.rawRoute
 
