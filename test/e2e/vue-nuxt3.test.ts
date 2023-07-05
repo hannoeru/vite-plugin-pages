@@ -78,6 +78,18 @@ describe('vue-nuxt3 e2e test', () => {
     expect(text?.trim()).toBe('user-123')
   })
 
+  test('/profile/group-123', async() => {
+    await page.goto(getUrl('/profile/group-123'))
+    const text = await page.locator('body > div > div').textContent()
+    expect(text?.trim()).toBe('group-123')
+  })
+
+  test('/profile/group-', async() => {
+    await page.goto(getUrl('/profile/group-'))
+    const text = await page.locator('body > div > div').textContent()
+    expect(text?.trim()).toBe('group-')
+  })
+
   test('hmr - dynamic add /test route works', async() => {
     await page.goto(getUrl('/'))
 

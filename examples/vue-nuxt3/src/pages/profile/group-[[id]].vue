@@ -1,5 +1,5 @@
 <template>
-  profile/group-{{ route.params.id }}
+  <div>group-{{ route.params.id }}</div>
 </template>
 
 <script lang="ts" setup>
