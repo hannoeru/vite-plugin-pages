@@ -46,6 +46,8 @@ export interface PageResolver {
   resolveExtensions: () => string[]
   resolveRoutes: (ctx: PageContext) => Awaitable<string>
   getComputedRoutes: (ctx: PageContext) => Awaitable<VueRoute[] | ReactRoute[] | SolidRoute[]>
+  generateDTS?: (ctx: PageContext) => string
+  resolveRouteHelpers?: () => string
   stringify?: {
     dynamicImport?: (importPath: string) => string
     component?: (importName: string) => string
@@ -146,6 +148,11 @@ interface Options {
    * @deprecated issue #122
    */
   replaceSquareBrackets: never
+
+  /**
+   * Generate declaration file
+   */
+  dts?: boolean | string
 }
 
 export type UserOptions = Partial<Options>
@@ -172,4 +179,8 @@ export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSqua
    * Module IDs for routes import
    */
   moduleIds: string[]
+  /**
+   * Module IDs for route helpers import
+   */
+  helpersModuleIds: string[]
 }

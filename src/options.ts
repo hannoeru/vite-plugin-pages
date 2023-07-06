@@ -61,6 +61,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     extendRoute,
     onRoutesGenerated,
     onClientGenerated,
+    dts = false,
   } = userOptions
 
   const root = viteRoot || slash(process.cwd())
@@ -81,6 +82,8 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     ? [userOptions.moduleId]
     : resolver.resolveModuleIds?.() || MODULE_IDS
 
+  const helpersModuleIds = moduleIds.map(id => `${id}-helpers`)
+
   const resolvedOptions: ResolvedOptions = {
     dirs: resolvedDirs,
     routeStyle,
@@ -97,6 +100,8 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     onRoutesGenerated,
     onClientGenerated,
     routeNameSeparator,
+    dts,
+    helpersModuleIds,
   }
 
   return resolvedOptions

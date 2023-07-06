@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": ["./src", "../../client-react.d.ts"]
+  "include": ["./src", "./react-pages.d.ts"]
 }

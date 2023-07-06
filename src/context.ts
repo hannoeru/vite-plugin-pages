@@ -109,6 +109,17 @@ export class PageContext {
     return this.options.resolver.resolveRoutes(this)
   }
 
+  async resolveHelpers() {
+    return this.options.resolver.resolveRouteHelpers?.()
+  }
+
+  async generateDTS() {
+    if (this.options.dts && this.options.resolver.generateDTS) {
+      const generatedPath = await this.options.resolver.generateDTS(this)
+      debug.dts('Generated declaration file:', generatedPath)
+    }
+  }
+
   async searchGlob() {
     const pageDirFiles = this.options.dirs.map((page) => {
       const pagesDirPath = slash(resolve(this.options.root, page.dir))

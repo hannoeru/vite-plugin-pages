@@ -13,10 +13,10 @@ export default defineConfig({
         { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],
       extensions: ['tsx', 'md'],
+      dts: true,
     }),
   ],
   build: {
     target: 'esnext',
-    polyfillDynamicImport: false,
   },
 })

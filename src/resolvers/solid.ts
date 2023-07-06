@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+import { writeFileSync } from 'fs'
 import {
   buildReactRemixRoutePath,
   buildReactRoutePath,
@@ -5,6 +7,7 @@ import {
   normalizeCase,
 } from '../utils'
 import { generateClientCode } from '../stringify'
+import { generateSolidDtsTemplate, generateSolidHelpers } from '../generators/solid'
 
 import type { Optional, PageResolver, ResolvedOptions } from '../types'
 import type { PageContext } from '../context'
@@ -114,8 +117,61 @@ async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
 async function resolveSolidRoutes(ctx: PageContext) {
   const finalRoutes = await computeSolidRoutes(ctx)
   let client = generateClientCode(finalRoutes, ctx.options)
+
   client = (await ctx.options.onClientGenerated?.(client)) || client
+
   return client
+}
+
+function generateSolidRoutePaths(ctx: PageContext): string[] {
+  const { routeStyle, caseSensitive } = ctx.options
+  const nuxtStyle = routeStyle === 'nuxt'
+
+  const pageRoutes = [...ctx.pageRouteMap.values()]
+    // sort routes for HMR
+    .sort((a, b) => countSlash(a.route) - countSlash(b.route))
+
+  const routePaths: string[] = []
+
+  pageRoutes.forEach((page) => {
+    const pathNodes = page.route.split('/').map((node) => {
+      const isIndexRoute = normalizeCase(node, caseSensitive).endsWith('index')
+
+      if (isIndexRoute) {
+        return ''
+      } else if (!isIndexRoute) {
+        if (routeStyle === 'remix')
+          return buildReactRemixRoutePath(node)
+        else
+          return buildReactRoutePath(node, nuxtStyle)
+      }
+
+      return node
+    }).filter(node => !!node)
+    const path = `/${pathNodes.join('/')}`
+
+    if (!routePaths.includes(path))
+      routePaths.push(path)
+  })
+
+  return routePaths
+}
+
+function generateSolidDTS(ctx: PageContext) {
+  const routePaths = generateSolidRoutePaths(ctx)
+  const routePathsString = routePaths.map(path => `'${path}'`).join(' | ')
+
+  const filePath = typeof ctx.options.dts === 'string' ? ctx.options.dts : 'solid-pages.d.ts'
+
+  const dtsContent = generateSolidDtsTemplate(ctx.options.moduleIds, routePathsString)
+
+  writeFileSync(
+    resolve(ctx.options.root, filePath),
+    dtsContent,
+    { encoding: 'utf8' },
+  )
+
+  return filePath
 }
 
 export function solidResolver(): PageResolver {
@@ -131,6 +187,12 @@ export function solidResolver(): PageResolver {
     },
     async getComputedRoutes(ctx) {
       return computeSolidRoutes(ctx)
+    },
+    generateDTS(ctx) {
+      return generateSolidDTS(ctx)
+    },
+    resolveRouteHelpers() {
+      return generateSolidHelpers()
     },
     stringify: {
       dynamicImport: path => `Solid.lazy(() => import("${path}"))`,
