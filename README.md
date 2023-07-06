@@ -120,6 +120,8 @@ ReactDOM.render(
 
 **Type**
 
+Include generated declaration file or
+
 ```ts
 // vite-env.d.ts
 /// <reference types="vite-plugin-pages/client-react" />
@@ -148,6 +150,8 @@ render(
 ```
 
 **Type**
+
+Include generated declaration file or
 
 ```ts
 // vite-env.d.ts
@@ -419,7 +423,32 @@ generated routes.
 A function that takes a generated client code and optionally returns a modified
 generated client code.
 
-### SFC custom block for Route Data
+### dts
+- **Type:** `boolean | string`
+
+Generate declaration file for auto complete feature.
+
+## Auto Complete
+**experimental**
+
+- Only support `React` and `Solid`.
+
+To enable this feature, you need:
+- Set option `dts` to `true` or file name you want.
+- Include generated declaration file to your `tsconfig.json`.
+- Instead of importing `Link`, `useNavigate` and `Navigate` from official package, you have to import them from: `<module-id>-helpers`.
+
+  **Example:**
+    - You import routes from `~react-pages`.
+    - Then you can import `Link` from `~react-pages-helpers`.
+
+### API diffs
+**Notice** that `Link`, `useNavigate` and `Navigate` will have some difference with official package.
+
+- `Link` and `Navigate` will use prop `path` instead of `to`(React) or `href`(Solid).
+- The function returned from `useNavigate` will need to pass prop `to`(React) | `href`(Solid) as an `object` with properties: `path` and `params`(required when path has path params).
+
+## SFC custom block for Route Data
 
 Add route meta to the route by adding a `<route>` block to the SFC. This will be
 directly added to the route after it is generated, and will override it.
