@@ -9,8 +9,8 @@ declare module '~solid-pages' {
 
 declare module '~solid-pages-helpers' {
   import type { JSX } from 'solid-js'
-  import type { LinkProps, NavigateOptions, NavigateProps, RouteDefinition } from '@solidjs/router'
-  
+  import type { LinkProps, NavigateOptions, NavigateProps } from '@solidjs/router'
+
   export type RoutePaths = '/*' | '/:sensor' | '/about' | '/components' | '/' | '/:sensor/current' | '/about/:id' | '/blog/:id' | '/blog' | '/features/admin' | '/features/dashboard' | '/features/welcome' | '/admin' | '/about/:id/more' | '/about/:id/nested' | '/blog/today/*' | '/blog/today'
 
   type Split<T extends string> = T extends `${infer P}/`

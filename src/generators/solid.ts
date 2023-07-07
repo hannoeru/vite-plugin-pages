@@ -13,8 +13,8 @@ export function generateSolidDtsTemplate(moduleIds: string[], routePaths: string
 
 declare module '${moduleId}-helpers' {
   import type { JSX } from 'solid-js'
-  import type { LinkProps, NavigateOptions, NavigateProps, RouteDefinition } from '@solidjs/router'
-  
+  import type { LinkProps, NavigateOptions, NavigateProps } from '@solidjs/router'
+
   export type RoutePaths = ${routePaths}
 
   ${baseHelpersDtsTemplate}
@@ -36,7 +36,8 @@ declare module '${moduleId}-helpers' {
     props: GeneratePathOptions<T> &
     Omit<NavigateProps, 'href'>
   ): null
-}`
+}
+`
   }).join('\n// ---------------------------------\n\n')
 }
 
