@@ -40,7 +40,7 @@ export function isTarget(path: string, options: ResolvedOptions) {
 
 export function isDynamicRoute(routePath: string, routeStyle: RouteStyle) {
   switch (routeStyle) {
-    case 'nuxt3': return nuxt3DynamicRouteRE.test(routePath)
+    case 'nuxt3': return (routePath).match(nuxt3DynamicRouteRE) !== null
     case 'nuxt': return nuxtDynamicRouteRE.test(routePath)
     default: return dynamicRouteRE.test(routePath)
   }
@@ -48,7 +48,7 @@ export function isDynamicRoute(routePath: string, routeStyle: RouteStyle) {
 
 export function isCatchAllRoute(routePath: string, routeStyle: RouteStyle) {
   switch (routeStyle) {
-    case 'nuxt3': return nuxt3CatchAllRouteRE.test(routePath)
+    case 'nuxt3': return (routePath).match(nuxt3CatchAllRouteRE) !== null
     case 'nuxt': return nuxtCacheAllRouteRE.test(routePath)
     default: return cacheAllRouteRE.test(routePath)
   }
@@ -97,7 +97,7 @@ export function normalizeName(name: string, isDynamic: boolean, routeStyle: Rout
 }
 
 export function isNuxt3PathOptional(name: string) {
-  return nuxt3DynamicRouteORE.test(name)
+  return (name).match(nuxt3DynamicRouteORE) !== null
 }
 
 export function buildReactRoutePath(node: string, routeStyle: RouteStyle): string | undefined {

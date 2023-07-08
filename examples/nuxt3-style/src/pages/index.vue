@@ -27,6 +27,9 @@
     </router-link> |
     <router-link to="/optional">
       optional
+    </router-link> |
+    <router-link to="/manga/tonikawaii-chap-125">
+      tonikawaii-chap-125
     </router-link>
   </div>
 </template>

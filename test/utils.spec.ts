@@ -1,4 +1,4 @@
-import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute } from '../src/utils'
+import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, normalizeName } from '../src/utils'
 
 describe('Utils', () => {
   test('extensions to glob', () => {
@@ -6,12 +6,16 @@ describe('Utils', () => {
   })
 
   test('is dynamic route', () => {
+    // return console.log(isDynamicRoute('[id]', 'nuxt3'))
     expect(isDynamicRoute('[id]', 'next')).toBe(true)
     expect(isDynamicRoute('_id', 'nuxt')).toBe(true)
     expect(isDynamicRoute('[id]', 'nuxt3')).toBe(true)
     expect(isDynamicRoute('[[id]]', 'nuxt3')).toBe(true)
     expect(isDynamicRoute('user-[id]', 'nuxt3')).toBe(true)
+    expect(isDynamicRoute('user-[id]', 'nuxt3')).toBe(true)
     expect(isDynamicRoute('user-[[id]]', 'nuxt3')).toBe(true)
+    expect(isDynamicRoute('[rand]-user-[id]', 'nuxt3')).toBe(true)
+    expect(isDynamicRoute('[[rand]]-user-[[id]]', 'nuxt3')).toBe(true)
     expect(isDynamicRoute('me', 'remix')).toBe(false)
   })
 
@@ -31,6 +35,13 @@ describe('Utils', () => {
   test('count slash', () => {
     expect(countSlash('route')).toBe(0)
     expect(countSlash('user/route/current')).toBe(2)
+  })
+
+  test('normalizeName', () => {
+    expect(normalizeName('[slug]', true, 'nuxt3')).toBe(':slug')
+    expect(normalizeName('[slug]', true, 'next')).toBe('slug')
+    expect(normalizeName('chap-[id]', true, 'nuxt3')).toBe('chap-:id')
+    expect(normalizeName('[slug]-chap-[chap]', true, 'nuxt3')).toBe(':slug-chap-:chap')
   })
 
   // react route path

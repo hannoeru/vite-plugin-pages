@@ -74,7 +74,7 @@ describe('vue-nuxt3 e2e test', () => {
   test('/profile/user-123', async() => {
     await page.goto(getUrl('/profile/user-123'))
     const text = await page.locator('body > div > div').textContent()
-  //  console.log(text?.trim())
+    //  console.log(text?.trim())
     expect(text?.trim()).toBe('user-123')
   })
 
