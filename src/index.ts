@@ -29,6 +29,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       ctx = new PageContext(userOptions, config.root)
       ctx.setLogger(config.logger)
       await ctx.searchGlob()
+      ctx.generateDTS()
     },
     api: {
       getResolvedRoutes() {
@@ -44,6 +45,9 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
 
       if (routeBlockQueryRE.test(id))
         return ROUTE_BLOCK_ID_VIRTUAL
+
+      if (ctx.options.helpersModuleIds.includes(id))
+        return id
 
       return null
     },
@@ -62,6 +66,9 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
           map: null,
         }
       }
+
+      if (ctx.options.helpersModuleIds.includes(id))
+        return ctx.resolveHelpers()
 
       return null
     },

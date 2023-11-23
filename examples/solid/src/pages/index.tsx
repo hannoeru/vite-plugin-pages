@@ -1,30 +1,48 @@
-import { Link } from '@solidjs/router'
+import { Link, useNavigate } from '~solid-pages-helpers'
 
 export default function Index() {
+  const navigate = useNavigate()
+
   return (
     <div>
       <p>index.tsx</p>
-      <Link href="/blog">
+      <Link path="/blog/today/*" params={{ $slug: 'abc' }} replace>
         blog
       </Link> |
-      <Link href="/about">
+      <Link path="/about">
         about
       </Link> |
-      <Link href="/components">
+      <Link path="/components">
         components
       </Link> |
-      <Link href="/xxx/xxx">
+      <Link path="/xxx/xxx">
         not exits
       </Link> |
-      <Link href="/features/dashboard">
+      <Link path="/features/dashboard">
         features:dashboard
       </Link> |
-      <Link href="/features/admin">
+      <Link path="/features/admin">
         features:admin
       </Link> |
-      <Link href="/admin">
+      <Link path="/admin">
         admin
       </Link>
+      <br />
+      <br />
+      <button
+        onClick={() => navigate({
+          path: '/blog/:id',
+          params: {
+            id: 123,
+          },
+        }, {
+          state: {
+            abc: '234',
+          },
+        })}
+      >
+        Go to Blog 123
+      </button>
     </div>
   )
 }

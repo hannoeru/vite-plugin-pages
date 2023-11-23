@@ -16,6 +16,7 @@ export const debug = {
   env: Debug('vite-plugin-pages:env'),
   cache: Debug('vite-plugin-pages:cache'),
   resolver: Debug('vite-plugin-pages:resolver'),
+  dts: Debug('vite-plugin-pages:dts'),
 }
 
 export function extsToGlob(extensions: string[]) {

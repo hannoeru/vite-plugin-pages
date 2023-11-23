@@ -1,16 +1,17 @@
-import { Link } from '@solidjs/router'
+import { Link } from '~solid-pages-helpers'
 
 export default function Index() {
   return (
     <div>
       blog/index.tsx
-      <Link href="/blog/1b234bk12b3">
+      <br />
+      <Link path="/blog/:id" params={{ id: '1b234bk12b3' }}>
         id: 1b234bk12b3
       </Link> |
-      <Link href="/blog/today">
+      <Link path="/blog/today">
         today
       </Link> |
-      <Link href="/blog/today/xxx">
+      <Link path="/blog/today/xxx">
         child - not found
       </Link>
     </div>

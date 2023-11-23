@@ -9,6 +9,7 @@ exports[`Options resolve > react 1`] = `
       "dir": "examples/react/src/pages",
     },
   ],
+  "dts": false,
   "exclude": [
     "node_modules",
     ".git",
@@ -22,6 +23,10 @@ exports[`Options resolve > react 1`] = `
     "js",
   ],
   "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
+  "helpersModuleIds": [
+    "~react-pages-helpers",
+    "virtual:generated-pages-react-helpers",
+  ],
   "importMode": [Function],
   "moduleIds": [
     "~react-pages",
@@ -30,9 +35,11 @@ exports[`Options resolve > react 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
+    "generateDTS": [Function],
     "getComputedRoutes": [Function],
     "resolveExtensions": [Function],
     "resolveModuleIds": [Function],
+    "resolveRouteHelpers": [Function],
     "resolveRoutes": [Function],
     "stringify": {
       "component": [Function],
@@ -56,6 +63,7 @@ exports[`Options resolve > solid 1`] = `
       "dir": "examples/solid/src/pages",
     },
   ],
+  "dts": false,
   "exclude": [
     "node_modules",
     ".git",
@@ -69,6 +77,9 @@ exports[`Options resolve > solid 1`] = `
     "js",
   ],
   "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
+  "helpersModuleIds": [
+    "~solid-pages-helpers",
+  ],
   "importMode": [Function],
   "moduleIds": [
     "~solid-pages",
@@ -76,9 +87,11 @@ exports[`Options resolve > solid 1`] = `
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "resolver": {
+    "generateDTS": [Function],
     "getComputedRoutes": [Function],
     "resolveExtensions": [Function],
     "resolveModuleIds": [Function],
+    "resolveRouteHelpers": [Function],
     "resolveRoutes": [Function],
     "stringify": {
       "dynamicImport": [Function],
@@ -101,6 +114,7 @@ exports[`Options resolve > vue - custom module id 1`] = `
       "dir": "examples/vue/src/pages",
     },
   ],
+  "dts": false,
   "exclude": [
     "node_modules",
     ".git",
@@ -113,6 +127,9 @@ exports[`Options resolve > vue - custom module id 1`] = `
     "js",
   ],
   "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
+  "helpersModuleIds": [
+    "~vue-pages-helpers",
+  ],
   "importMode": [Function],
   "moduleIds": [
     "~vue-pages",
@@ -146,6 +163,7 @@ exports[`Options resolve > vue 1`] = `
       "dir": "examples/vue/src/pages",
     },
   ],
+  "dts": false,
   "exclude": [
     "node_modules",
     ".git",
@@ -158,6 +176,11 @@ exports[`Options resolve > vue 1`] = `
     "js",
   ],
   "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
+  "helpersModuleIds": [
+    "~pages-helpers",
+    "pages-generated-helpers",
+    "virtual:generated-pages-helpers",
+  ],
   "importMode": [Function],
   "moduleIds": [
     "~pages",

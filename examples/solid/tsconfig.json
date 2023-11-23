@@ -7,6 +7,6 @@
     "esModuleInterop": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "types": ["vite/client", "vite-plugin-pages/client-solid"]
+    "types": ["vite/client", "./solid-pages.d.ts"]
   }
 }

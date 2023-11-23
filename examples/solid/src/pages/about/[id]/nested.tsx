@@ -1,6 +1,6 @@
 export default function Nested() {
   return (
-    <div className="deep-nested">
+    <div class="deep-nested">
       deep nested: about/[id]/nested.tsx
     </div>
   )

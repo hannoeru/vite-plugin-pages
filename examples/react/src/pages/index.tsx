@@ -1,22 +1,30 @@
-import { Link } from 'react-router-dom'
 import type { FC } from 'react'
+import { Link, useNavigate } from '~react-pages-helpers'
 
 const index: FC = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const navigate = useNavigate()
+
   return (
     <div>
       <p>index.vue</p>
-      <Link to="/blog">
+      <Link path="/blog">
         blog
       </Link> |
-      <Link to="/about">
+      <Link path="/about">
         about
       </Link> |
-      <Link to="/components">
+      <Link path="/components">
         components
       </Link> |
-      <Link to="/xxx">
+      <Link path="/xxx">
         not exists
       </Link>
+      <br />
+      <br />
+      <button onClick={() => navigate({ path: '/blog/:id', params: { id: '123' } })}>
+        Go to blog detail: 123
+      </button>
     </div>
   )
 }
