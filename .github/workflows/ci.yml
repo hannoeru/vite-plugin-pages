@@ -33,7 +33,7 @@ jobs:
         run: corepack enable
 
       - name: Set node version to ${{ matrix.node_version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
           registry-url: https://registry.npmjs.org/
@@ -81,7 +81,7 @@ jobs:
         run: corepack enable
 
       - name: Set node version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: pnpm
