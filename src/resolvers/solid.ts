@@ -43,7 +43,6 @@ function prepareRoutes(
 
 async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
   const { routeStyle, caseSensitive } = ctx.options
-  const nuxtStyle = routeStyle === 'nuxt'
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -92,7 +91,7 @@ async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
         if (routeStyle === 'remix')
           route.path = buildReactRemixRoutePath(node) || ''
         else
-          route.path = buildReactRoutePath(node, nuxtStyle) || ''
+          route.path = buildReactRoutePath(node, routeStyle) || ''
       }
 
       const exist = parentRoutes.some((parent) => {

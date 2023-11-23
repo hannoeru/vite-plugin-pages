@@ -99,6 +99,22 @@ describe('Generate routes', () => {
       expect(routes).toMatchSnapshot('client code')
     })
 
+    test('nuxt3 style match snapshot', async() => {
+      const ctx = new PageContext({
+        dirs: 'examples/nuxt3-style/src/pages',
+        routeStyle: 'nuxt3',
+        onRoutesGenerated(routes) {
+          routes = deepSortArray(routes)
+          expect(routes).toMatchSnapshot('routes')
+          return routes
+        },
+      })
+      await ctx.searchGlob()
+      const routes = await ctx.resolveRoutes()
+
+      expect(routes).toMatchSnapshot('client code')
+    })
+
     test('remix Style match snapshot', async() => {
       const ctx = new PageContext({
         dirs: 'examples/remix-style/src/pages',

@@ -58,6 +58,8 @@ export interface PageResolver {
   }
 }
 
+export type RouteStyle = 'next' | 'nuxt' | 'remix' | 'nuxt3'
+
 /**
  * Plugin options.
  */
@@ -97,12 +99,17 @@ interface Options {
    * Routing style
    * @default false
    */
-  routeStyle: 'next' | 'nuxt' | 'remix'
+  routeStyle: RouteStyle
   /**
    * Separator for generated route names.
    * @default -
    */
   routeNameSeparator: string
+  /**
+   * Set default to props (vue-router)
+   * @default true
+   */
+  routeProps: boolean
   /**
    * Case for route paths
    * @default false

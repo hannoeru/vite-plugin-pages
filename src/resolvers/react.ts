@@ -44,7 +44,6 @@ function prepareRoutes(
 
 async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
   const { routeStyle, caseSensitive } = ctx.options
-  const nuxtStyle = routeStyle === 'nuxt'
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -76,7 +75,7 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
         if (routeStyle === 'remix')
           route.path = buildReactRemixRoutePath(node)
         else
-          route.path = buildReactRoutePath(node, nuxtStyle)
+          route.path = buildReactRoutePath(node, routeStyle)
       }
 
       // Check parent exits

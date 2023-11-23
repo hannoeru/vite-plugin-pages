@@ -4,6 +4,7 @@ import {
   countSlash,
   isCatchAllRoute,
   isDynamicRoute,
+  isNuxt3PathOptional,
   normalizeCase,
   normalizeName,
 } from '../utils'
@@ -45,7 +46,7 @@ function prepareRoutes(
     if (route.children?.find(c => c.name === route.name))
       delete route.name
 
-    route.props = true
+    route.props = ctx.options.routeProps
 
     delete route.rawRoute
 
@@ -89,10 +90,10 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
 
     for (let i = 0; i < pathNodes.length; i++) {
       const node = pathNodes[i]
-      const nuxtStyle = routeStyle === 'nuxt'
-      const isDynamic = isDynamicRoute(node, nuxtStyle)
-      const isCatchAll = isCatchAllRoute(node, nuxtStyle)
-      const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
+      const isDynamic = isDynamicRoute(node, routeStyle)
+      const isCatchAll = isCatchAllRoute(node, routeStyle)
+      const isOptional = routeStyle !== 'nuxt3' || isNuxt3PathOptional(node)
+      const normalizedName = normalizeName(node, isDynamic, routeStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
       if (isDynamic)
@@ -117,7 +118,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
           route.path = '/'
       } else if (normalizedPath !== 'index') {
         if (isDynamic) {
-          route.path += `/:${normalizedName}`
+          route.path += `/${routeStyle === 'nuxt3' ? '' : ':'}${normalizedName}`
           // Catch-all route
           if (isCatchAll) {
             if (i === 0)
@@ -126,7 +127,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
             else
               // nested cache all route not include children
               route.path += '(.*)'
-          } else if (nuxtStyle && i === pathNodes.length - 1) {
+          } else if (routeStyle.startsWith('nuxt') && i === pathNodes.length - 1 && isOptional) {
             // we need to search if the folder provide `index.vue`
             const isIndexFound = pageRoutes.find(({ route }) => {
               return route === page.route.replace(pathNodes[i], 'index')
