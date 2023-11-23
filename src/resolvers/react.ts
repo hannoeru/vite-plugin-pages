@@ -66,13 +66,15 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
         rawRoute: pathNodes.slice(0, i + 1).join('/'),
       }
 
-      if (i === pathNodes.length - 1) route.element = element
+      if (i === pathNodes.length - 1)
+        route.element = element
 
       const isIndexRoute = normalizeCase(node, caseSensitive).endsWith('index')
 
       if (!route.path && isIndexRoute) {
         route.path = '/'
-      } else if (!isIndexRoute) {
+      }
+      else if (!isIndexRoute) {
         if (routeStyle === 'remix')
           route.path = buildReactRemixRoutePath(node)
         else

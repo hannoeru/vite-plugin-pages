@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Options resolve > react 1`] = `
+exports[`options resolve > react 1`] = `
 {
   "caseSensitive": false,
   "dirs": [
@@ -47,7 +47,7 @@ exports[`Options resolve > react 1`] = `
 }
 `;
 
-exports[`Options resolve > solid 1`] = `
+exports[`options resolve > solid 1`] = `
 {
   "caseSensitive": false,
   "dirs": [
@@ -92,7 +92,7 @@ exports[`Options resolve > solid 1`] = `
 }
 `;
 
-exports[`Options resolve > vue - custom module id 1`] = `
+exports[`options resolve > vue - custom module id 1`] = `
 {
   "caseSensitive": false,
   "dirs": [
@@ -137,7 +137,7 @@ exports[`Options resolve > vue - custom module id 1`] = `
 }
 `;
 
-exports[`Options resolve > vue 1`] = `
+exports[`options resolve > vue 1`] = `
 {
   "caseSensitive": false,
   "dirs": [

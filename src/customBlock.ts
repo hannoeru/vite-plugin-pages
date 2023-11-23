@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import JSON5 from 'json5'
 import { parse as YAMLParser } from 'yaml'
 
@@ -6,8 +6,8 @@ import { importModule } from 'local-pkg'
 
 // @ts-expect-error no type
 import extractComments from 'extract-comments'
-import { debug } from './utils'
 import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
+import { debug } from './utils'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 
 const routeJSXReg = /^[\n\s]+(route)[\n\s]+/gm
@@ -29,7 +29,8 @@ export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
         ...memo,
         ...yamlResult,
       }
-    } catch (err: any) {
+    }
+    catch (err: any) {
       throw new Error(`Invalid YAML format of comment in ${path}\n${err.message}`)
     }
   }, {})
@@ -45,7 +46,8 @@ export async function parseSFC(code: string): Promise<SFCDescriptor> {
     || (parse as any)({
       source: code,
     })
-  } catch {
+  }
+  catch {
     throw new Error('[vite-plugin-pages] Vue3\'s "@vue/compiler-sfc" is required.')
   }
 }
@@ -58,19 +60,24 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
   if (lang === 'json5') {
     try {
       return JSON5.parse(block.content)
-    } catch (err: any) {
+    }
+    catch (err: any) {
       throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
-  } else if (lang === 'json') {
+  }
+  else if (lang === 'json') {
     try {
       return JSON.parse(block.content)
-    } catch (err: any) {
+    }
+    catch (err: any) {
       throw new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
-  } else if (lang === 'yaml' || lang === 'yml') {
+  }
+  else if (lang === 'yaml' || lang === 'yml') {
     try {
       return YAMLParser(block.content)
-    } catch (err: any) {
+    }
+    catch (err: any) {
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
     }
   }

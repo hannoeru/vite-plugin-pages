@@ -102,7 +102,7 @@ import {
 
 import routes from '~react-pages'
 
-const App = () => {
+function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       {useRoutes(routes)}
@@ -323,7 +323,7 @@ export default {
 If you are using `async` mode with `react-router`, you will need to wrap your route components with `Suspense`:
 
 ```jsx
-const App = () => {
+function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       {useRoutes(routes)}

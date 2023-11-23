@@ -1,9 +1,9 @@
+import type { Plugin } from 'vite'
 import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 import { PageContext } from './context'
 
 import { parsePageRequest } from './utils'
 import type { UserOptions } from './types'
-import type { Plugin } from 'vite'
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext

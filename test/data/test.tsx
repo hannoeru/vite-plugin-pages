@@ -1,4 +1,4 @@
-const Test = () => {
+function Test() {
   return (
     <>this is test file</>
   )

@@ -1,8 +1,17 @@
 {
   "name": "vite-plugin-pages",
+  "type": "module",
   "version": "0.31.0",
   "packageManager": "pnpm@8.10.5",
   "description": "File system base vue-router plugin for Vite",
+  "author": "hannoeru <me@hanlee.co>",
+  "license": "MIT",
+  "homepage": "https://github.com/hannoeru/vite-plugin-pages",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hannoeru/vite-plugin-pages"
+  },
+  "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "keywords": [
     "vite",
     "vue",
@@ -14,20 +23,11 @@
     "file-system-based",
     "routing"
   ],
-  "license": "MIT",
-  "author": "hannoeru <me@hanlee.co>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hannoeru/vite-plugin-pages"
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./client": {
       "types": "./client.d.ts"
@@ -39,15 +39,15 @@
       "types": "./client-solid.d.ts"
     }
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "client.d.ts",
+    "LICENSE",
     "client-react.d.ts",
     "client-solid.d.ts",
-    "LICENSE"
+    "client.d.ts",
+    "dist"
   ],
-  "homepage": "https://github.com/hannoeru/vite-plugin-pages",
-  "bugs": "https://github.com/hannoeru/vite-plugin-pages/issues",
   "scripts": {
     "dev": "npm run build -- --watch --ignore-watch examples",
     "build": "tsup",
@@ -58,8 +58,8 @@
     "publish:ci": "esno scripts/publish.ts",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "lint": "eslint . --cache",
-    "lint:fix": "pnpm lint --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -83,8 +83,8 @@
     "yaml": "^2.3.4"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.1.0",
     "@antfu/utils": "^0.7.6",
-    "@hannoeru/eslint-config": "^0.9.7",
     "@solidjs/router": "^0.9.1",
     "@types/deep-equal": "^1.0.4",
     "@types/glob-to-regexp": "^0.4.4",

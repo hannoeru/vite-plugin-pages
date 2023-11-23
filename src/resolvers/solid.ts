@@ -88,7 +88,8 @@ async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
       if (normalizedPath === 'index') {
         if (!route.path)
           route.path = '/'
-      } else if (normalizedPath !== 'index') {
+      }
+      else if (normalizedPath !== 'index') {
         if (routeStyle === 'remix')
           route.path = buildReactRemixRoutePath(node) || ''
         else

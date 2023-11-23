@@ -7,10 +7,14 @@ const Component: FC = () => {
       <p>blog/index.vue</p>
       <Link to="/blog/1b234bk12b3">
         id: 1b234bk12b3
-      </Link> |
+      </Link>
+      {' '}
+      |
       <Link to="/blog/today">
         today
-      </Link> |
+      </Link>
+      {' '}
+      |
       <Link to="/blog/today/xxx">
         not exit
       </Link>

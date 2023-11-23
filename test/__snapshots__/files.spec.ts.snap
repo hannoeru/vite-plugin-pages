@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Get files > pages 1`] = `
+exports[`get files > pages 1`] = `
 [
   "examples/vue/src/pages/[...all].vue",
   "examples/vue/src/pages/[sensor].vue",
@@ -19,7 +19,7 @@ exports[`Get files > pages 1`] = `
 ]
 `;
 
-exports[`Get files - direct children only > pages 1`] = `
+exports[`get files - direct children only > pages 1`] = `
 [
   "examples/vue/src/pages/[...all].vue",
   "examples/vue/src/pages/[sensor].vue",
@@ -29,7 +29,7 @@ exports[`Get files - direct children only > pages 1`] = `
 ]
 `;
 
-exports[`Get page dirs > with glob 1`] = `
+exports[`get page dirs > with glob 1`] = `
 [
   {
     "baseRoute": "",

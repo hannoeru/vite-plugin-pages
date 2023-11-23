@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Parser > custom block 1`] = `
+exports[`parser > custom block 1`] = `
 {
   "meta": {
     "requiresAuth": false,
@@ -9,7 +9,7 @@ exports[`Parser > custom block 1`] = `
 }
 `;
 
-exports[`Parser > jsx yaml comment 1`] = `
+exports[`parser > jsx yaml comment 1`] = `
 {
   "meta": {
     "id": 1234,

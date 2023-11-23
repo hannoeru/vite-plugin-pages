@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { join } from 'node:path'
 import { resolveOptions } from '../src/options'
 import { getPageDirs, getPageFiles } from '../src/files'
 
@@ -6,15 +6,15 @@ const options = resolveOptions({}, process.cwd())
 const testpages = 'examples/vue/src/pages'
 const testDeeppages = 'examples/vue/src/features'
 
-describe('Get files', () => {
-  test('pages', async() => {
+describe('get files', () => {
+  it('pages', async () => {
     const files = getPageFiles(testpages, options)
     expect(files.sort()).toMatchSnapshot()
   })
 })
 
-describe('Get files - direct children only', () => {
-  test('pages', async() => {
+describe('get files - direct children only', () => {
+  it('pages', async () => {
     const files = getPageFiles(testpages, options, {
       dir: join(testDeeppages, '**', 'pages'),
       baseRoute: '',
@@ -24,8 +24,8 @@ describe('Get files - direct children only', () => {
   })
 })
 
-describe('Get page dirs', () => {
-  test('with glob', async() => {
+describe('get page dirs', () => {
+  it('with glob', async () => {
     const PageOptions = {
       dir: join(testDeeppages, '**', 'pages'),
       baseRoute: '',

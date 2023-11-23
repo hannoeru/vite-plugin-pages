@@ -1,10 +1,10 @@
-import { resolve, win32 } from 'path'
-import { URLSearchParams } from 'url'
+import { resolve, win32 } from 'node:path'
+import { URLSearchParams } from 'node:url'
 import Debug from 'debug'
 import { slash } from '@antfu/utils'
+import type { ModuleNode, ViteDevServer } from 'vite'
 import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
-import type { ModuleNode, ViteDevServer } from 'vite'
 import type { ResolvedOptions } from './types'
 
 export const debug = {
@@ -29,7 +29,8 @@ export function countSlash(value: string) {
 function isPagesDir(path: string, options: ResolvedOptions) {
   for (const page of options.dirs) {
     const dirPath = slash(resolve(options.root, page.dir))
-    if (path.startsWith(dirPath)) return true
+    if (path.startsWith(dirPath))
+      return true
   }
   return false
 }
@@ -72,12 +73,14 @@ export function invalidatePagesModule(server: ViteDevServer) {
 }
 
 export function normalizeCase(str: string, caseSensitive: boolean) {
-  if (!caseSensitive) return str.toLocaleLowerCase()
+  if (!caseSensitive)
+    return str.toLocaleLowerCase()
   return str
 }
 
 export function normalizeName(name: string, isDynamic: boolean, nuxtStyle = false) {
-  if (!isDynamic) return name
+  if (!isDynamic)
+    return name
 
   return nuxtStyle
     ? name.replace(nuxtDynamicRouteRE, '$1') || 'all'

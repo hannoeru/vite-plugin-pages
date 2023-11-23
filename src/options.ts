@@ -1,4 +1,5 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
+import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
 import { getPageDirs } from './files'
 
@@ -28,7 +29,7 @@ export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
   return 'async'
 }
 
-const getResolver = (originalResolver: UserOptions['resolver']) => {
+function getResolver(originalResolver: UserOptions['resolver']) {
   let resolver = originalResolver || 'vue'
 
   if (typeof resolver !== 'string')

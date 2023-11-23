@@ -7,13 +7,19 @@ const index: FC = () => {
       <p>index.vue</p>
       <Link to="/blog">
         blog
-      </Link> |
+      </Link>
+      {' '}
+      |
       <Link to="/about">
         about
-      </Link> |
+      </Link>
+      {' '}
+      |
       <Link to="/components">
         components
-      </Link> |
+      </Link>
+      {' '}
+      |
       <Link to="/xxx">
         not exists
       </Link>

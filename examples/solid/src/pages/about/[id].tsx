@@ -5,7 +5,9 @@ export default function IdLayout() {
   return (
     <div>
       <div>
-        about/[id].tsx: { id }
+        about/[id].tsx:
+        {' '}
+        { id }
       </div>
       <Link href="/about/1b234bk12b3/more">
         more deep

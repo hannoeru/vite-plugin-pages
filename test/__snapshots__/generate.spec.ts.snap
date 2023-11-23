@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Generate routes > react - match snapshot > client code 1`] = `
+exports[`generate routes > react - match snapshot > client code 1`] = `
 "import React from \\"react\\";
 const __pages_import_0__ = React.lazy(() => import(\\"/examples/react/src/pages/[...all].tsx\\"));
 const __pages_import_1__ = React.lazy(() => import(\\"/examples/react/src/pages/about.tsx\\"));
@@ -18,7 +18,7 @@ const routes = [{\\"caseSensitive\\":false,\\"path\\":\\"*\\",\\"element\\":Reac
 export default routes;"
 `;
 
-exports[`Generate routes > react - match snapshot > routes 1`] = `
+exports[`generate routes > react - match snapshot > routes 1`] = `
 [
   {
     "caseSensitive": false,
@@ -87,7 +87,7 @@ exports[`Generate routes > react - match snapshot > routes 1`] = `
 ]
 `;
 
-exports[`Generate routes > routeStyle > nuxt style match snapshot > client code 1`] = `
+exports[`generate routes > routeStyle > nuxt style match snapshot > client code 1`] = `
 "const __pages_import_0__ = () => import(\\"/examples/nuxt-style/src/pages/_.vue\\");
 const __pages_import_1__ = () => import(\\"/examples/nuxt-style/src/pages/_sensor/current.vue\\");
 const __pages_import_2__ = () => import(\\"/examples/nuxt-style/src/pages/about.vue\\");
@@ -103,7 +103,7 @@ const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\
 export default routes;"
 `;
 
-exports[`Generate routes > routeStyle > nuxt style match snapshot > routes 1`] = `
+exports[`generate routes > routeStyle > nuxt style match snapshot > routes 1`] = `
 [
   {
     "component": "/examples/nuxt-style/src/pages/_.vue",
@@ -176,7 +176,7 @@ exports[`Generate routes > routeStyle > nuxt style match snapshot > routes 1`] =
 ]
 `;
 
-exports[`Generate routes > routeStyle > remix Style match snapshot > client code 1`] = `
+exports[`generate routes > routeStyle > remix Style match snapshot > client code 1`] = `
 "import React from \\"react\\";
 const __pages_import_0__ = React.lazy(() => import(\\"/examples/remix-style/src/pages/__marketing.tsx\\"));
 const __pages_import_1__ = React.lazy(() => import(\\"/examples/remix-style/src/pages/__marketing/product.tsx\\"));
@@ -197,7 +197,7 @@ const routes = [{\\"caseSensitive\\":false,\\"element\\":React.createElement(__p
 export default routes;"
 `;
 
-exports[`Generate routes > routeStyle > remix Style match snapshot > routes 1`] = `
+exports[`generate routes > routeStyle > remix Style match snapshot > routes 1`] = `
 [
   {
     "caseSensitive": false,
@@ -279,7 +279,7 @@ exports[`Generate routes > routeStyle > remix Style match snapshot > routes 1`] 
 ]
 `;
 
-exports[`Generate routes > solid - match snapshot > client code 1`] = `
+exports[`generate routes > solid - match snapshot > client code 1`] = `
 "import * as Solid from \\"solid-js\\";
 const __pages_import_0__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[...all].tsx\\"));
 const __pages_import_1__ = Solid.lazy(() => import(\\"/examples/solid/src/pages/[sensor].tsx\\"));
@@ -301,7 +301,7 @@ const routes = [{\\"path\\":\\"*\\",\\"element\\":__pages_import_0__,\\"componen
 export default routes;"
 `;
 
-exports[`Generate routes > solid - match snapshot > routes 1`] = `
+exports[`generate routes > solid - match snapshot > routes 1`] = `
 [
   {
     "component": "/examples/solid/src/pages/[...all].tsx",
@@ -392,7 +392,7 @@ exports[`Generate routes > solid - match snapshot > routes 1`] = `
 ]
 `;
 
-exports[`Generate routes > use route name separator > client code 1`] = `
+exports[`generate routes > use route name separator > client code 1`] = `
 "const __pages_import_0__ = () => import(\\"/examples/vue/src/pages/blog/today/index.vue\\");
 const __pages_import_1__ = () => import(\\"/examples/vue/src/pages/blog/index.vue\\");
 import __pages_import_2__ from \\"/examples/vue/src/pages/index.vue\\";
@@ -413,7 +413,7 @@ const routes = [{\\"name\\":\\"blog/today\\",\\"path\\":\\"/blog/today\\",\\"com
 export default routes;"
 `;
 
-exports[`Generate routes > vue - async mode match snapshot > client code 1`] = `
+exports[`generate routes > vue - async mode match snapshot > client code 1`] = `
 "const __pages_import_0__ = () => import(\\"/examples/vue/src/pages/[...all].vue\\");
 const __pages_import_1__ = () => import(\\"/examples/vue/src/pages/[sensor].vue\\");
 const __pages_import_2__ = () => import(\\"/examples/vue/src/pages/[sensor]/current.vue\\");
@@ -434,7 +434,7 @@ const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\
 export default routes;"
 `;
 
-exports[`Generate routes > vue - async mode match snapshot > routes 1`] = `
+exports[`generate routes > vue - async mode match snapshot > routes 1`] = `
 [
   {
     "component": "/examples/vue/src/pages/[...all].vue",
@@ -552,7 +552,7 @@ exports[`Generate routes > vue - async mode match snapshot > routes 1`] = `
 ]
 `;
 
-exports[`Generate routes > vue - sync mode match snapshot > client code 1`] = `
+exports[`generate routes > vue - sync mode match snapshot > client code 1`] = `
 "import __pages_import_0__ from \\"/examples/vue/src/pages/[...all].vue\\";
 import __pages_import_1__ from \\"/examples/vue/src/pages/[sensor].vue\\";
 import __pages_import_2__ from \\"/examples/vue/src/pages/[sensor]/current.vue\\";
@@ -573,7 +573,7 @@ const routes = [{\\"name\\":\\"all\\",\\"path\\":\\"/:all(.*)*\\",\\"component\\
 export default routes;"
 `;
 
-exports[`Generate routes > vue - sync mode match snapshot > routes 1`] = `
+exports[`generate routes > vue - sync mode match snapshot > routes 1`] = `
 [
   {
     "component": "/examples/vue/src/pages/[...all].vue",

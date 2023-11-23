@@ -1,5 +1,6 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
 import express from 'express'
 import type { ViteDevServer } from 'vite'
 
@@ -33,7 +34,8 @@ async function createServer(
     }))
     // use vite's connect instance as middleware
     app.use(vite.middlewares)
-  } else {
+  }
+  else {
     app.use(await import('compression').then(i => i.default()))
     app.use(await import('serve-static')
       .then(i => i.default(resolve('dist/client'), {
@@ -42,7 +44,7 @@ async function createServer(
     )
   }
 
-  app.use('*', async(req, res) => {
+  app.use('*', async (req, res) => {
     try {
       const url = req.originalUrl
 
@@ -52,7 +54,8 @@ async function createServer(
         template = fs.readFileSync(resolve('index.html'), 'utf-8')
         template = await vite.transformIndexHtml(url, template)
         render = (await vite.ssrLoadModule('/src/entry-server.ts')).render
-      } else {
+      }
+      else {
         template = indexProd
         // @ts-expect-error dist file
         render = await import('./dist/server/entry-server.js').then(i => i.render)
@@ -65,7 +68,8 @@ async function createServer(
         .replace('<!--app-html-->', appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
-    } catch (e: any) {
+    }
+    catch (e: any) {
       vite && vite.ssrFixStacktrace(e)
       // eslint-disable-next-line no-console
       console.log(e.stack)

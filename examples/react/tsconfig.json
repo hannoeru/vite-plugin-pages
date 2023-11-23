@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "jsx": "preserve",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client"],
-    "allowJs": false,
-    "skipLibCheck": false,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "types": ["vite/client"],
+    "allowJs": false,
+    "strict": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": false
   },
   "include": ["./src", "../../client-react.d.ts"]
 }

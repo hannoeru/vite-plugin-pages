@@ -1,7 +1,7 @@
 import { resolveOptions } from '../src/options'
 
-describe('Options resolve', () => {
-  test('vue', () => {
+describe('options resolve', () => {
+  it('vue', () => {
     const options = resolveOptions({
       dirs: 'examples/vue/src/pages',
     })
@@ -10,7 +10,7 @@ describe('Options resolve', () => {
     })
   })
 
-  test('vue - custom module id', () => {
+  it('vue - custom module id', () => {
     const options = resolveOptions({
       dirs: 'examples/vue/src/pages',
       moduleId: '~vue-pages',
@@ -20,7 +20,7 @@ describe('Options resolve', () => {
     })
   })
 
-  test('react', () => {
+  it('react', () => {
     const options = resolveOptions({
       dirs: 'examples/react/src/pages',
       resolver: 'react',
@@ -30,7 +30,7 @@ describe('Options resolve', () => {
     })
   })
 
-  test('solid', () => {
+  it('solid', () => {
     const options = resolveOptions({
       dirs: 'examples/solid/src/pages',
       resolver: 'solid',

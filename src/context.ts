@@ -1,11 +1,11 @@
-import { join, resolve } from 'path'
+import { join, resolve } from 'node:path'
+import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
+import type { Logger, ViteDevServer } from 'vite'
 import { resolveOptions } from './options'
 import { getPageFiles } from './files'
 import { debug, invalidatePagesModule, isTarget } from './utils'
 
-import type { FSWatcher } from 'fs'
-import type { Logger, ViteDevServer } from 'vite'
 import type { PageOptions, ResolvedOptions, UserOptions } from './types'
 
 export interface PageRoute {
@@ -42,9 +42,9 @@ export class PageContext {
     this.setupWatcher(server.watcher)
   }
 
-  setupWatcher(watcher: FSWatcher) {
+  setupWatcher(watcher: ViteDevServer['watcher']) {
     watcher
-      .on('unlink', async(path) => {
+      .on('unlink', async (path) => {
         path = slash(path)
         if (!isTarget(path, this.options))
           return
@@ -52,7 +52,7 @@ export class PageContext {
         this.onUpdate()
       })
     watcher
-      .on('add', async(path) => {
+      .on('add', async (path) => {
         path = slash(path)
         if (!isTarget(path, this.options))
           return
@@ -62,7 +62,7 @@ export class PageContext {
       })
 
     watcher
-      .on('change', async(path) => {
+      .on('change', async (path) => {
         path = slash(path)
         if (!isTarget(path, this.options))
           return
@@ -77,7 +77,8 @@ export class PageContext {
     for (const p of toArray(path)) {
       const pageDirPath = slash(resolve(this.root, pageDir.dir))
       const extension = this.options.extensions.find(ext => p.endsWith(`.${ext}`))
-      if (!extension) continue
+      if (!extension)
+        continue
 
       const route = slash(join(pageDir.baseRoute, p.replace(`${pageDirPath}/`, '').replace(`.${extension}`, '')))
       this._pageRouteMap.set(p, {

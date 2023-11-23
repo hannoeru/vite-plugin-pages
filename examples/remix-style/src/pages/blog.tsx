@@ -7,10 +7,14 @@ const Blog: FC = () => {
       <p>blog.tsx</p>
       <Link to="/blog/1b234bk12b3">
         id: 1b234bk12b3
-      </Link> |
+      </Link>
+      {' '}
+      |
       <Link to="/blog/today">
         today
-      </Link> |
+      </Link>
+      {' '}
+      |
       <Link to="/blog/today/xxx">
         not exists
       </Link>

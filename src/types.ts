@@ -1,6 +1,6 @@
+import type { Awaitable } from '@antfu/utils'
 import type { ReactRoute, SolidRoute, VueRoute } from './resolvers'
 import type { PageContext } from './context'
-import type { Awaitable } from '@antfu/utils'
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
@@ -106,7 +106,7 @@ interface Options {
   /**
    * Case for route paths
    * @default false
-     */
+   */
   caseSensitive: boolean
   /**
    * Set the default route block parser, or use `<route lang=xxx>` in SFC route block

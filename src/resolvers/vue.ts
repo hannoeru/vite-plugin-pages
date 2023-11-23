@@ -112,10 +112,12 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
         parentRoutes = parent.children
         // Reset path
         route.path = ''
-      } else if (normalizedPath === 'index') {
+      }
+      else if (normalizedPath === 'index') {
         if (!route.path)
           route.path = '/'
-      } else if (normalizedPath !== 'index') {
+      }
+      else if (normalizedPath !== 'index') {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
           // Catch-all route
@@ -126,14 +128,17 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
             else
               // nested cache all route not include children
               route.path += '(.*)'
-          } else if (nuxtStyle && i === pathNodes.length - 1) {
+          }
+          else if (nuxtStyle && i === pathNodes.length - 1) {
             // we need to search if the folder provide `index.vue`
             const isIndexFound = pageRoutes.find(({ route }) => {
               return route === page.route.replace(pathNodes[i], 'index')
             })
-            if (!isIndexFound) route.path += '?'
+            if (!isIndexFound)
+              route.path += '?'
           }
-        } else {
+        }
+        else {
           route.path += `/${normalizedPath}`
         }
       }
@@ -169,7 +174,8 @@ export function vueResolver(): PageResolver {
     let customBlock: CustomBlock | undefined
     try {
       customBlock = await getRouteBlock(path, ctx.options)
-    } catch (error: any) {
+    }
+    catch (error: any) {
       ctx.logger?.error(colors.red(`[vite-plugin-pages] ${error.message}`))
       return
     }
@@ -203,9 +209,9 @@ export function vueResolver(): PageResolver {
       return computeVueRoutes(ctx, customBlockMap)
     },
     hmr: {
-      added: async(ctx, path) => checkCustomBlockChange(ctx, path),
-      changed: async(ctx, path) => checkCustomBlockChange(ctx, path),
-      removed: async(_ctx, path) => {
+      added: async (ctx, path) => checkCustomBlockChange(ctx, path),
+      changed: async (ctx, path) => checkCustomBlockChange(ctx, path),
+      removed: async (_ctx, path) => {
         customBlockMap.delete(path)
       },
     },

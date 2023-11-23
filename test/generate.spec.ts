@@ -8,14 +8,15 @@ function deepSortArray(arr: any[], react?: boolean) {
     if (i.children)
       i.children = deepSortArray(i.children, react)
   })
-  if (arr.length === 1) return arr
+  if (arr.length === 1)
+    return arr
   return arr.sort((a, b) => {
     return a[key] && b[key] ? a[key].localeCompare(b[key], 'en', { sensitivity }) : !(a[key] && b[key]) ? 0 : a[key] ? 1 : -1
   })
 }
 
-describe('Generate routes', () => {
-  test('vue - async mode match snapshot', async() => {
+describe('generate routes', () => {
+  it('vue - async mode match snapshot', async () => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       extendRoute(route) {
@@ -34,7 +35,7 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('vue - sync mode match snapshot', async() => {
+  it('vue - sync mode match snapshot', async () => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       importMode: 'sync',
@@ -50,7 +51,7 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('react - match snapshot', async() => {
+  it('react - match snapshot', async () => {
     const ctx = new PageContext({
       dirs: 'examples/react/src/pages',
       resolver: 'react',
@@ -66,7 +67,7 @@ describe('Generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  test('solid - match snapshot', async() => {
+  it('solid - match snapshot', async () => {
     const ctx = new PageContext({
       dirs: 'examples/solid/src/pages',
       resolver: 'solid',
@@ -83,7 +84,7 @@ describe('Generate routes', () => {
   })
 
   describe('routeStyle', () => {
-    test('nuxt style match snapshot', async() => {
+    it('nuxt style match snapshot', async () => {
       const ctx = new PageContext({
         dirs: 'examples/nuxt-style/src/pages',
         routeStyle: 'nuxt',
@@ -99,7 +100,7 @@ describe('Generate routes', () => {
       expect(routes).toMatchSnapshot('client code')
     })
 
-    test('remix Style match snapshot', async() => {
+    it('remix Style match snapshot', async () => {
       const ctx = new PageContext({
         dirs: 'examples/remix-style/src/pages',
         routeStyle: 'remix',
@@ -117,7 +118,7 @@ describe('Generate routes', () => {
     })
   })
 
-  test('use route name separator', async() => {
+  it('use route name separator', async () => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       routeNameSeparator: '/',
