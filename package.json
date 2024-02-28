@@ -89,7 +89,7 @@
     "@types/deep-equal": "^1.0.4",
     "@types/glob-to-regexp": "^0.4.4",
     "@types/node": "^20.9.4",
-    "@vitest/ui": "^0.34.6",
+    "@vitest/ui": "^0.34.7",
     "@vue/compiler-sfc": "^3.3.8",
     "bumpp": "^9.2.0",
     "eslint": "^8.54.0",
