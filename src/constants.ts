@@ -7,8 +7,8 @@ export const MODULE_IDS = [
   'virtual:generated-pages-react',
 ]
 
-export const MODULE_ID_VIRTUAL = 'virtual:@vite-plugin-pages/generated-pages'
-export const ROUTE_BLOCK_ID_VIRTUAL = 'virtual:@vite-plugin-pages/route-block'
+export const MODULE_ID_VIRTUAL = 'virtual:vite-plugin-pages/generated-pages'
+export const ROUTE_BLOCK_ID_VIRTUAL = 'virtual:vite-plugin-pages/route-block'
 export const ROUTE_IMPORT_NAME = '__pages_import_$1__'
 
 export const routeBlockQueryRE = /\?vue&type=route/
