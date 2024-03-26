@@ -36,41 +36,44 @@ describe('solid e2e test', () => {
   const getUrl = (path: string) => `http://localhost:${server.config.server.port}${path}`
 
   it('/blog/today have content', async () => {
-    await page.goto(getUrl('/blog/today'), { waitUntil: 'networkidle' })
+    await page.goto(getUrl('/blog/today'))
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('blog/today/index.tsx')
   })
 
   it('/blog/today/xxx - nested cache all', async () => {
-    await page.goto(getUrl('/blog/today/xxx'), { waitUntil: 'networkidle' })
+    await page.goto(getUrl('/blog/today/xxx'))
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('blog/today ...all route')
   })
 
   it('/xxx/xxx - cache all route', async () => {
-    await page.goto(getUrl('/xxx/xxx'), { waitUntil: 'networkidle' })
+    await page.goto(getUrl('/xxx/xxx'))
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('...all route')
   })
 
   it('/about/1b234bk12b3/more deep nested dynamic route', async () => {
-    await page.goto(getUrl('/about/1b234bk12b3/more'), { waitUntil: 'networkidle' })
+    await page.goto(getUrl('/about/1b234bk12b3/more'))
     const text = await page.locator('div.deep-more').textContent()
     expect(text?.trim()).toBe('deep nested: about/[id]/more.tsx')
   })
 
   it('/features/dashboard custom routes folder', async () => {
-    await page.goto(getUrl('/features/dashboard'), { waitUntil: 'networkidle' })
+    await page.goto(getUrl('/features/dashboard'))
     const text = await page.locator('body > div > p >> nth=0').textContent()
     expect(text?.trim()).toBe('features/dashboard/pages/dashboard.tsx')
   })
 
   it('hmr - dynamic add /test route', async () => {
-    await page.goto(getUrl('/'), { waitUntil: 'networkidle' })
+    await page.goto(getUrl('/'))
 
     await copyFile(srcPath, distPath)
 
-    await page.goto(getUrl('/test'), { waitUntil: 'networkidle' })
+    // wait page reload
+    await page.waitForLoadState('networkidle')
+
+    await page.goto(getUrl('/test'))
 
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('this is test file')
