@@ -35,38 +35,38 @@ describe('react e2e test', () => {
   const getUrl = (path: string) => `http://localhost:${server.config.server.port}${path}`
 
   it('/blog/today have content', async () => {
-    await page.goto(getUrl('/blog/today'))
+    await page.goto(getUrl('/blog/today'), { waitUntil: 'networkidle' })
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('blog/today/index')
   })
 
   it('/blog/today/xxx - nested cache all', async () => {
-    await page.goto(getUrl('/blog/today/xxx'))
+    await page.goto(getUrl('/blog/today/xxx'), { waitUntil: 'networkidle' })
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('blog/today ...all route')
   })
 
   it('/xxx/xxx - cache all route', async () => {
-    await page.goto(getUrl('/xxx/xxx'))
+    await page.goto(getUrl('/xxx/xxx'), { waitUntil: 'networkidle' })
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('...all route')
   })
 
   it('/blog/1b234bk12b3 - dynamic route', async () => {
-    await page.goto(getUrl('/blog/1b234bk12b3'))
+    await page.goto(getUrl('/blog/1b234bk12b3'), { waitUntil: 'networkidle' })
     const text = await page.locator('body > div > p').textContent()
     expect(text?.trim()).toBe('blog/[id].tsx: 1b234bk12b3')
   })
 
   it('hmr - dynamic add /test route', async () => {
-    await page.goto(getUrl('/'))
+    await page.goto(getUrl('/'), { waitUntil: 'networkidle' })
 
     await copyFile(srcPath, distPath)
 
     // wait page reload
     await page.waitForLoadState('networkidle')
 
-    await page.goto(getUrl('/test'))
+    await page.goto(getUrl('/test'), { waitUntil: 'networkidle' })
 
     const text = await page.locator('body > div').textContent()
     expect(text?.trim()).toBe('this is test file')
