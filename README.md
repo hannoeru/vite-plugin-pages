@@ -94,9 +94,10 @@ const router = createRouter({
 **experimental**
 
 ```jsx
-import { Suspense } from 'react'
+import { StrictMode, Suspense } from 'react'
+import { createRoot } from 'react-dom/client'
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   useRoutes,
 } from 'react-router-dom'
 
@@ -110,11 +111,14 @@ function App() {
   )
 }
 
-ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
-  document.getElementById('root'),
+const app = createRoot(document.getElementById('root')!)
+
+app.render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
 )
 ```
 
