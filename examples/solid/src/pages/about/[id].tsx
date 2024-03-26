@@ -1,6 +1,7 @@
-import { Link, Outlet, useParams } from '@solidjs/router'
+import { useParams } from '@solidjs/router'
+import type { ParentComponent } from 'solid-js'
 
-export default function IdLayout() {
+const IdLayout: ParentComponent = ({ children }) => {
   const { id } = useParams<{ id: string }>()
   return (
     <div>
@@ -9,10 +10,12 @@ export default function IdLayout() {
         {' '}
         { id }
       </div>
-      <Link href="/about/1b234bk12b3/more">
+      <a href="/about/1b234bk12b3/more">
         more deep
-      </Link>
-      <Outlet />
+      </a>
+      {children}
     </div>
   )
 }
+
+export default IdLayout

@@ -1,10 +1,12 @@
-import { Outlet } from '@solidjs/router'
+import type { ParentComponent } from 'solid-js'
 
-export default function SensorLayout() {
+const SensorLayout: ParentComponent = ({ children }) => {
   return (
     <>
       nested dynamic view:
-      <Outlet />
+      {children}
     </>
   )
 }
+
+export default SensorLayout

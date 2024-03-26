@@ -1,42 +1,40 @@
-import { Link } from '@solidjs/router'
-
 export default function Index() {
   return (
     <div>
       <p>index.tsx</p>
-      <Link href="/blog">
+      <a href="/blog">
         blog
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/about">
+      <a href="/about">
         about
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/components">
+      <a href="/components">
         components
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/xxx/xxx">
+      <a href="/xxx/xxx">
         not exits
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/features/dashboard">
+      <a href="/features/dashboard">
         features:dashboard
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/features/admin">
+      <a href="/features/admin">
         features:admin
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/admin">
+      <a href="/admin">
         admin
-      </Link>
+      </a>
     </div>
   )
 }

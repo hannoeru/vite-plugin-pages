@@ -1,6 +1,6 @@
 export default function More() {
   return (
-    <div className="deep-more">
+    <div class="deep-more">
       deep nested: about/[id]/more.tsx
     </div>
   )

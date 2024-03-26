@@ -1,22 +1,20 @@
-import { Link } from '@solidjs/router'
-
 export default function Index() {
   return (
     <div>
       blog/index.tsx
-      <Link href="/blog/1b234bk12b3">
+      <a href="/blog/1b234bk12b3">
         id: 1b234bk12b3
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/blog/today">
+      <a href="/blog/today">
         today
-      </Link>
+      </a>
       {' '}
       |
-      <Link href="/blog/today/xxx">
+      <a href="/blog/today/xxx">
         child - not found
-      </Link>
+      </a>
     </div>
   )
 }

@@ -1,10 +1,12 @@
-import { Outlet } from '@solidjs/router'
+import type { ParentComponent } from 'solid-js'
 
-export default function AboutLayout() {
+const AboutLayout: ParentComponent = ({ children }) => {
   return (
     <div>
       nested about view:
-      <Outlet />
+      {children}
     </div>
   )
 }
+
+export default AboutLayout
