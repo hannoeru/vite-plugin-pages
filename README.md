@@ -35,7 +35,7 @@ npm install vue-router
 
 ```bash
 npm install -D vite-plugin-pages
-npm install react-router react-router-dom 
+npm install react-router react-router-dom
 ```
 
 ### Solid
@@ -344,7 +344,7 @@ Default SFC route block parser.
 - **Type:** `'next' | 'nuxt' | 'remix'`
 - **Default:** `next`
 
-Use file system dynamic routing supporting: 
+Use file system dynamic routing supporting:
 
 - [Nextjs Routing](https://nextjs.org/docs/routing/introduction)
 - [Nuxtjs Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
@@ -458,19 +458,18 @@ meta:
 To enable syntax highlighting `<route>` in VS Code using [Vetur's Custom Code Blocks](https://vuejs.github.io/vetur/highlighting.html#custom-block) add the following snippet to your preferences...
 
  1. update setting
- 
+
  ```
  "vetur.grammar.customBlocks": {
     "route": "json"
   }
 ```
- 
- 2. Run the command in vscode
- 
- `Vetur: Generate grammar from vetur.grammar.customBlocks`
- 
- 3. Restart VS Code to get syntax highlighting for custom blocks.
 
+ 2. Run the command in vscode
+
+ `Vetur: Generate grammar from vetur.grammar.customBlocks`
+
+ 3. Restart VS Code to get syntax highlighting for custom blocks.
 
 ### JSX/TSX YAML format comments for Route Data(In Vue)
 
@@ -594,7 +593,6 @@ Catch-all routes are denoted with square brackets containing an ellipsis:
 
 The text after the ellipsis will be used both to name the route, and as the name
 of the prop in which the route parameters are passed.
-
 
 ## Sitemap generation
 
