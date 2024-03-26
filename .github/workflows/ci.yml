@@ -70,6 +70,9 @@ jobs:
       - name: Run test
         run: pnpm test
 
+      - name: Run E2E test
+        run: pnpm test:e2e
+
   lint:
     runs-on: ubuntu-latest
     name: 'Lint: node-16, ubuntu-latest'

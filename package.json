@@ -57,6 +57,7 @@
     "release": "bumpp --commit --tag --push",
     "publish:ci": "esno scripts/publish.ts",
     "test": "vitest",
+    "test:e2e": "vitest -c vitest.config.e2e.ts",
     "test:ui": "vitest --ui",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
