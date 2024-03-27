@@ -135,6 +135,10 @@ interface Options {
    * Custom generated client code
    */
   onClientGenerated?: (clientCode: string) => Awaitable<string | void>
+  /**
+   * Custom resolve route block
+   */
+  resolveRouteBlock?: (content: string, path: string) => Awaitable<CustomBlock | void>
 
   /**
    * Paths to the directory to search for page components.
