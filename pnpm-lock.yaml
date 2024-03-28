@@ -37,8 +37,8 @@ importers:
         version: 2.4.1
     devDependencies:
       '@antfu/eslint-config':
-        specifier: ^2.10.1
-        version: 2.10.1(@vue/compiler-sfc@3.4.21)(eslint@8.57.0)(typescript@5.4.3)(vitest@1.4.0)
+        specifier: ^2.11.4
+        version: 2.11.4(@vue/compiler-sfc@3.4.21)(eslint@8.57.0)(typescript@5.4.3)(vitest@1.4.0)
       '@antfu/utils':
         specifier: ^0.7.7
         version: 0.7.7
@@ -346,8 +346,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.25
     dev: true
 
-  /@antfu/eslint-config@2.10.1(@vue/compiler-sfc@3.4.21)(eslint@8.57.0)(typescript@5.4.3)(vitest@1.4.0):
-    resolution: {integrity: sha512-WdY8IfFZLW6ojPGiRvwwpziEAEIGe/Zul9IWyL115K7yUDoAXi1wMfaRFeqkl4hIKO2N2dZ11bUvhcmMRHexRg==}
+  /@antfu/eslint-config@2.11.4(@vue/compiler-sfc@3.4.21)(eslint@8.57.0)(typescript@5.4.3)(vitest@1.4.0):
+    resolution: {integrity: sha512-kQC8XFKih5igRodfDBpXIi3KFsjYuCfX2F9VK4hk79+KkDETUF/14ymai4O+Y+vmSNdRFwjtDL5YhcRoaD0rAg==}
     hasBin: true
     peerDependencies:
       '@unocss/eslint-plugin': '>=0.50.0'
@@ -358,7 +358,7 @@ packages:
       eslint-plugin-react: ^7.33.2
       eslint-plugin-react-hooks: ^4.6.0
       eslint-plugin-react-refresh: ^0.4.4
-      eslint-plugin-svelte: ^2.36.0-0
+      eslint-plugin-svelte: ^2.35.1
       prettier-plugin-astro: ^0.13.0
       prettier-plugin-slidev: ^1.0.5
       svelte-eslint-parser: ^0.33.1
@@ -386,18 +386,14 @@ packages:
       svelte-eslint-parser:
         optional: true
     dependencies:
-      '@antfu/eslint-define-config': 1.23.0-2
       '@antfu/install-pkg': 0.3.1
       '@clack/prompts': 0.7.0
-      '@eslint-types/jsdoc': 48.2.1
-      '@eslint-types/typescript-eslint': 7.2.0
-      '@eslint-types/unicorn': 51.0.1
       '@stylistic/eslint-plugin': 1.7.0(eslint@8.57.0)(typescript@5.4.3)
       '@typescript-eslint/eslint-plugin': 7.4.0(@typescript-eslint/parser@7.4.0)(eslint@8.57.0)(typescript@5.4.3)
       '@typescript-eslint/parser': 7.4.0(eslint@8.57.0)(typescript@5.4.3)
       eslint: 8.57.0
       eslint-config-flat-gitignore: 0.1.3
-      eslint-flat-config-utils: 0.1.0
+      eslint-flat-config-utils: 0.1.2
       eslint-merge-processors: 0.1.0(eslint@8.57.0)
       eslint-plugin-antfu: 2.1.2(eslint@8.57.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.57.0)
@@ -430,11 +426,6 @@ packages:
       - svelte
       - typescript
       - vitest
-    dev: true
-
-  /@antfu/eslint-define-config@1.23.0-2:
-    resolution: {integrity: sha512-LvxY21+ZhpuBf/aHeBUtGQhSEfad4PkNKXKvDOSvukaM3XVTfBhwmHX2EKwAsdq5DlfjbT3qqYyMiueBIO5iDQ==}
-    engines: {node: '>=18.0.0', npm: '>=9.0.0', pnpm: '>= 8.6.0'}
     dev: true
 
   /@antfu/install-pkg@0.3.1:
@@ -1130,18 +1121,6 @@ packages:
   /@eslint-community/regexpp@4.10.0:
     resolution: {integrity: sha512-Cu96Sd2By9mCNTx2iyKOmq10v22jUVQv0lQnlGNy16oE9589yE+QADPbrMGCkA51cKZSg3Pu/aTJVTGfL/qjUA==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
-    dev: true
-
-  /@eslint-types/jsdoc@48.2.1:
-    resolution: {integrity: sha512-ElgrRgEw262ca9BirIeylVQ834IfCVSr/7wMvv2+Dkl3SaPnzjs00bjmaT6srQs58gdxyZXVV6ZPiPyiV2xxsQ==}
-    dev: true
-
-  /@eslint-types/typescript-eslint@7.2.0:
-    resolution: {integrity: sha512-QeCnZEHdeehkcZSy5q41aVHXD78FElfTjQ8AG5HnEREtyBG3PEz7NTuLD13Xbh6p0YR7q4GkV4EswVxz8IiMxA==}
-    dev: true
-
-  /@eslint-types/unicorn@51.0.1:
-    resolution: {integrity: sha512-RuuEK+dBISEikf7a8lrWOrDCUYv09sZfqLoG/kozH+5UqEvot1xMmGHXomGkTyB68rzjgJe0N4uESVyL62obJw==}
     dev: true
 
   /@eslint/eslintrc@2.1.4:
@@ -2956,8 +2935,8 @@ packages:
       parse-gitignore: 2.0.0
     dev: true
 
-  /eslint-flat-config-utils@0.1.0:
-    resolution: {integrity: sha512-GVjeM6BITHRpax/lLV8IEdsyIFHH0/4ggN3WJ3IcMTxKRmbo1pA8chPE/WP4sjvkEo8W6WaeIopUMhlzHYeP4g==}
+  /eslint-flat-config-utils@0.1.2:
+    resolution: {integrity: sha512-NfeUJrbARSHGux2no/zz+YOjfMuPXpedcxRTqov3mlx9PJV2CYAJEj2EjbNSEyHMXQwNCfTtQVZXMSiktQTcpA==}
     dependencies:
       '@types/eslint': 8.56.6
     dev: true
