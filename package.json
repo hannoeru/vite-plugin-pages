@@ -84,12 +84,12 @@
     "yaml": "^2.4.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.10.1",
+    "@antfu/eslint-config": "^2.11.6",
     "@antfu/utils": "^0.7.7",
     "@solidjs/router": "^0.13.1",
     "@types/deep-equal": "^1.0.4",
     "@types/glob-to-regexp": "^0.4.4",
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.2",
     "@vitest/ui": "^1.4.0",
     "@vue/compiler-sfc": "^3.4.21",
     "bumpp": "^9.4.0",
@@ -101,7 +101,7 @@
     "solid-js": "^1.8.16",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3",
-    "vite": "^5.2.6",
+    "vite": "^5.2.7",
     "vitest": "^1.4.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
