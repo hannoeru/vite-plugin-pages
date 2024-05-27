@@ -10,7 +10,7 @@ import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import { debug } from './utils'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 
-const routeJSXReg = /^[\n\s]+(route)[\n\s]+/gm
+const routeJSXReg = /^\s+(route)\s+/gm
 
 export function parseJSX(code: string): ParsedJSX[] {
   return extractComments(code).slice(0, 1)

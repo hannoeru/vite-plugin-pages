@@ -6,7 +6,7 @@ import type { ResolvedOptions } from './types'
 const componentRE = /"(?:component|element)":("(.*?)")/g
 const hasFunctionRE = /"(?:props|beforeEnter)":("(.*?)")/g
 
-const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//gm
+const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//g
 const singlelineCommentsRE = /\/\/.*/g
 
 function replaceFunction(_: any, value: any) {
@@ -14,7 +14,7 @@ function replaceFunction(_: any, value: any) {
     const fnBody = value.toString()
       .replace(multilineCommentsRE, '')
       .replace(singlelineCommentsRE, '')
-      .replace(/(\t|\n|\r|\s)/g, '')
+      .replace(/(\s)/g, '')
 
     // ES6 Arrow Function
     if (fnBody.length < 8 || fnBody.substring(0, 8) !== 'function')
