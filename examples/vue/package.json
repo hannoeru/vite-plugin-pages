@@ -8,17 +8,17 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "vue": "^3.4.21",
+    "react": "^18.3.1",
+    "vue": "^3.4.27",
     "vue-router": "4.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
-    "@vue/compiler-sfc": "^3.4.21",
-    "nodemon": "^3.1.0",
-    "typescript": "^5.4.3",
-    "vite": "^5.2.6",
-    "vite-plugin-inspect": "^0.8.3",
+    "@vue/compiler-sfc": "^3.4.27",
+    "nodemon": "^3.1.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-inspect": "^0.8.4",
     "vite-plugin-pages": "workspace:*",
     "vite-plugin-vue-markdown": "^0.23.8"
   }
