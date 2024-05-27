@@ -7,7 +7,7 @@ import type { Browser, Page } from 'playwright'
 import type { ViteDevServer } from 'vite'
 import { getViteConfig, stopServer } from './utils'
 
-const vueRoot = resolve('./examples/react')
+const root = resolve('./examples/react')
 
 const srcPath = resolve('./test/data/test.tsx')
 const distPath = resolve('./examples/react/src/pages/test.tsx')
@@ -18,7 +18,7 @@ describe('react e2e test', () => {
   let page: Page
 
   beforeAll(async () => {
-    server = await createServer(getViteConfig(vueRoot))
+    server = await createServer(getViteConfig(root))
     await server.listen()
     browser = await chromium.launch()
     page = await browser.newPage()

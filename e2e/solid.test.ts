@@ -8,10 +8,10 @@ import type { Browser, Page } from 'playwright'
 import type { ViteDevServer } from 'vite'
 import { getViteConfig, stopServer } from './utils'
 
-const solidRoot = resolve('./examples/solid')
+const root = resolve('./examples/solid')
 
 const srcPath = resolve('./test/data/test.tsx')
-const distPath = resolve(`${solidRoot}/src/pages/test.tsx`)
+const distPath = resolve(`${root}/src/pages/test.tsx`)
 
 describe('solid e2e test', () => {
   let server: ViteDevServer
@@ -19,7 +19,7 @@ describe('solid e2e test', () => {
   let page: Page
 
   beforeAll(async () => {
-    server = await createServer(getViteConfig(solidRoot))
+    server = await createServer(getViteConfig(root))
     await server.listen()
     browser = await chromium.launch()
     page = await browser.newPage()
