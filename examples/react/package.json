@@ -1,5 +1,6 @@
 {
   "name": "react",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "nodemon --watch ../../dist/*.js -x 'DEBUG=vite-plugin-pages:* vite'",

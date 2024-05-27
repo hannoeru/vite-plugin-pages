@@ -1,5 +1,6 @@
 {
   "name": "vue-ssr",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "nodemon --watch ../../dist/*.js -x 'esno server'",
