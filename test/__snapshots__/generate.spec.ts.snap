@@ -552,6 +552,145 @@ exports[`generate routes > vue - async mode match snapshot > routes 1`] = `
 ]
 `;
 
+exports[`generate routes > vue - import absolute path match snapshot > client code 1`] = `
+"const __pages_import_0__ = () => import("/mock/fs/examples/vue/src/pages/[...all].vue");
+const __pages_import_1__ = () => import("/mock/fs/examples/vue/src/pages/[sensor].vue");
+const __pages_import_2__ = () => import("/mock/fs/examples/vue/src/pages/[sensor]/current.vue");
+const __pages_import_3__ = () => import("/mock/fs/examples/vue/src/pages/about.vue");
+const __pages_import_4__ = () => import("/mock/fs/examples/vue/src/pages/about/[id].vue");
+const __pages_import_5__ = () => import("/mock/fs/examples/vue/src/pages/about/[id]/more.vue");
+const __pages_import_6__ = () => import("/mock/fs/examples/vue/src/pages/about/[id]/nested.vue");
+const __pages_import_7__ = () => import("/mock/fs/examples/vue/src/pages/about/index.vue");
+const __pages_import_8__ = () => import("/mock/fs/examples/vue/src/pages/blog/[id].vue");
+const __pages_import_9__ = () => import("/mock/fs/examples/vue/src/pages/blog/index.vue");
+const __pages_import_10__ = () => import("/mock/fs/examples/vue/src/pages/blog/today/[...all].vue");
+const __pages_import_11__ = () => import("/mock/fs/examples/vue/src/pages/blog/today/index.vue");
+const __pages_import_12__ = () => import("/mock/fs/examples/vue/src/pages/components.vue");
+const __pages_import_13__ = () => import("/mock/fs/examples/vue/src/pages/index.vue");
+
+const routes = [{"name":"all","path":"/:all(.*)*","component":__pages_import_0__,"props":true},{"name":"sensor","path":"/:sensor","component":__pages_import_1__,"children":[{"name":"sensor-current","path":"current","component":__pages_import_2__,"props":true}],"props":true},{"path":"/about","component":__pages_import_3__,"children":[{"name":"about-user-id","path":":id","component":__pages_import_4__,"children":[{"name":"about-id-more","path":"more","component":__pages_import_5__,"props":true},{"name":"about-id-nested","path":"nested","component":__pages_import_6__,"props":true}],"props":true,"meta":{"requiresAuth":true}},{"name":"about","path":"","component":__pages_import_7__,"props":true}],"props":true,"meta":{"lang":"yml"}},{"name":"blog-id","path":"/blog/:id","component":__pages_import_8__,"props":true,"meta":{"requiresAuth":false}},{"name":"blog","path":"/blog","component":__pages_import_9__,"props":true},{"name":"blog-today-all","path":"/blog/today/:all(.*)","component":__pages_import_10__,"props":true},{"name":"blog-today","path":"/blog/today","component":__pages_import_11__,"props":true},{"name":"components","path":"/components","component":__pages_import_12__,"props":true,"meta":{"lang":"yaml"}},{"name":"homepage","path":"/","component":__pages_import_13__,"props":true,"meta":{"requiresAuth":false}}];
+
+export default routes;"
+`;
+
+exports[`generate routes > vue - import absolute path match snapshot > routes 1`] = `
+[
+  {
+    "component": "/mock/fs/examples/vue/src/pages/[...all].vue",
+    "customBlock": undefined,
+    "name": "all",
+    "path": "/:all(.*)*",
+    "props": true,
+  },
+  {
+    "children": [
+      {
+        "component": "/mock/fs/examples/vue/src/pages/[sensor]/current.vue",
+        "customBlock": undefined,
+        "name": "sensor-current",
+        "path": "current",
+        "props": true,
+      },
+    ],
+    "component": "/mock/fs/examples/vue/src/pages/[sensor].vue",
+    "customBlock": undefined,
+    "name": "sensor",
+    "path": "/:sensor",
+    "props": true,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "component": "/mock/fs/examples/vue/src/pages/about/[id]/more.vue",
+            "customBlock": undefined,
+            "name": "about-id-more",
+            "path": "more",
+            "props": true,
+          },
+          {
+            "component": "/mock/fs/examples/vue/src/pages/about/[id]/nested.vue",
+            "customBlock": undefined,
+            "name": "about-id-nested",
+            "path": "nested",
+            "props": true,
+          },
+        ],
+        "component": "/mock/fs/examples/vue/src/pages/about/[id].vue",
+        "meta": {
+          "requiresAuth": true,
+        },
+        "name": "about-user-id",
+        "path": ":id",
+        "props": true,
+      },
+      {
+        "component": "/mock/fs/examples/vue/src/pages/about/index.vue",
+        "customBlock": undefined,
+        "name": "about",
+        "path": "",
+        "props": true,
+      },
+    ],
+    "component": "/mock/fs/examples/vue/src/pages/about.vue",
+    "meta": {
+      "lang": "yml",
+    },
+    "path": "/about",
+    "props": true,
+  },
+  {
+    "component": "/mock/fs/examples/vue/src/pages/blog/[id].vue",
+    "meta": {
+      "requiresAuth": false,
+    },
+    "name": "blog-id",
+    "path": "/blog/:id",
+    "props": true,
+  },
+  {
+    "component": "/mock/fs/examples/vue/src/pages/blog/index.vue",
+    "customBlock": undefined,
+    "name": "blog",
+    "path": "/blog",
+    "props": true,
+  },
+  {
+    "component": "/mock/fs/examples/vue/src/pages/blog/today/[...all].vue",
+    "customBlock": undefined,
+    "name": "blog-today-all",
+    "path": "/blog/today/:all(.*)",
+    "props": true,
+  },
+  {
+    "component": "/mock/fs/examples/vue/src/pages/blog/today/index.vue",
+    "customBlock": undefined,
+    "name": "blog-today",
+    "path": "/blog/today",
+    "props": true,
+  },
+  {
+    "component": "/mock/fs/examples/vue/src/pages/components.vue",
+    "meta": {
+      "lang": "yaml",
+    },
+    "name": "components",
+    "path": "/components",
+    "props": true,
+  },
+  {
+    "component": "/mock/fs/examples/vue/src/pages/index.vue",
+    "meta": {
+      "requiresAuth": false,
+    },
+    "name": "homepage",
+    "path": "/",
+    "props": true,
+  },
+]
+`;
+
 exports[`generate routes > vue - sync mode match snapshot > client code 1`] = `
 "import __pages_import_0__ from "/examples/vue/src/pages/[...all].vue";
 import __pages_import_1__ from "/examples/vue/src/pages/[sensor].vue";

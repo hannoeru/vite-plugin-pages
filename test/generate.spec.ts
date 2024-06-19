@@ -51,6 +51,33 @@ describe('generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
+  it('vue - import absolute path match snapshot', async () => {
+    const root = process.cwd()
+    const ctx = new PageContext({
+      dirs: 'examples/vue/src/pages',
+      importPath: 'absolute',
+      extendRoute(route) {
+        if (route.component) {
+          route.component = route.component.replace(root, '/mock/fs')
+        }
+        if (route.element) {
+          route.element = route.element.replace(root, '/mock/fs')
+        }
+
+        return route
+      },
+      onRoutesGenerated(routes) {
+        routes = deepSortArray(routes)
+        expect(routes).toMatchSnapshot('routes')
+        return routes
+      },
+    }, root)
+    await ctx.searchGlob()
+    const routes = await ctx.resolveRoutes()
+
+    expect(routes).toMatchSnapshot('client code')
+  })
+
   it('react - match snapshot', async () => {
     const ctx = new PageContext({
       dirs: 'examples/react/src/pages',
