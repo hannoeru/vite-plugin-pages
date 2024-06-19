@@ -42,7 +42,7 @@ function prepareRoutes(
 }
 
 async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
-  const { routeStyle, caseSensitive } = ctx.options
+  const { routeStyle, caseSensitive, importPath } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
@@ -54,8 +54,8 @@ async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
 
-    const component = page.path.replace(ctx.root, '')
-    const element = page.path.replace(ctx.root, '')
+    const component = importPath === 'relative' ? page.path.replace(ctx.root, '') : page.path
+    const element = importPath === 'relative' ? page.path.replace(ctx.root, '') : page.path
 
     let parentRoutes = routes
 

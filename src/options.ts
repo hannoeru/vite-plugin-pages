@@ -68,6 +68,8 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const importMode = userOptions.importMode || (syncIndex ? syncIndexResolver : 'async')
 
+  const importPath = userOptions.importPath || 'relative'
+
   const resolver = getResolver(userOptions.resolver)
 
   const extensions = userOptions.extensions || resolver.resolveExtensions()
@@ -90,6 +92,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     root,
     extensions,
     importMode,
+    importPath,
     exclude,
     caseSensitive,
     resolver,
