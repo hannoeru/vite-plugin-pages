@@ -100,7 +100,7 @@
     "@types/glob-to-regexp": "^0.4.4",
     "@types/node": "^20.12.12",
     "@vitest/ui": "^1.6.0",
-    "@vue/compiler-sfc": "^3.4.29",
+    "@vue/compiler-sfc": "^3.4.30",
     "bumpp": "^9.4.1",
     "eslint": "^9.5.0",
     "esno": "^4.7.0",
@@ -112,7 +112,7 @@
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
     "vitest": "^1.6.0",
-    "vue": "^3.4.29",
+    "vue": "^3.4.30",
     "vue-router": "^4.3.2"
   },
   "pnpm": {
