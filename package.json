@@ -84,7 +84,7 @@
   "dependencies": {
     "@types/debug": "^4.1.12",
     "debug": "^4.3.4",
-    "deep-equal": "^2.2.3",
+    "dequal": "^2.0.3",
     "extract-comments": "^1.1.0",
     "fast-glob": "^3.3.2",
     "json5": "^2.2.3",
@@ -96,7 +96,6 @@
     "@antfu/eslint-config": "^2.19.0",
     "@antfu/utils": "^0.7.8",
     "@solidjs/router": "^0.13.3",
-    "@types/deep-equal": "^1.0.4",
     "@types/glob-to-regexp": "^0.4.4",
     "@types/node": "^20.12.12",
     "@vitest/ui": "^1.6.0",
