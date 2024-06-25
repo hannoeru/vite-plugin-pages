@@ -23,6 +23,7 @@ exports[`options resolve > react 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
   "importMode": [Function],
+  "importPath": "relative",
   "moduleIds": [
     "~react-pages",
     "virtual:generated-pages-react",
@@ -70,6 +71,7 @@ exports[`options resolve > solid 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(tsx\\|jsx\\|ts\\|js\\)\\$/,
   "importMode": [Function],
+  "importPath": "relative",
   "moduleIds": [
     "~solid-pages",
   ],
@@ -114,6 +116,7 @@ exports[`options resolve > vue - custom module id 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
   "importMode": [Function],
+  "importPath": "relative",
   "moduleIds": [
     "~vue-pages",
   ],
@@ -159,6 +162,7 @@ exports[`options resolve > vue 1`] = `
   ],
   "extensionsRE": /\\\\\\.\\(vue\\|ts\\|js\\)\\$/,
   "importMode": [Function],
+  "importPath": "relative",
   "moduleIds": [
     "~pages",
     "pages-generated",

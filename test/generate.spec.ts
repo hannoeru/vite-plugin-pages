@@ -1,3 +1,5 @@
+import { slash } from '@antfu/utils'
+
 import { PageContext } from '../src/context'
 
 const sensitivity = process.platform === 'win32' ? 'base' : 'variant'
@@ -45,6 +47,34 @@ describe('generate routes', () => {
         return routes
       },
     })
+    await ctx.searchGlob()
+    const routes = await ctx.resolveRoutes()
+
+    expect(routes).toMatchSnapshot('client code')
+  })
+
+  it('vue - import absolute path match snapshot', async () => {
+    const root = slash(process.cwd())
+    const mock = `/mock/fs/vite-plugin-pages${root.endsWith('/') ? '/' : ''}`
+    const ctx = new PageContext({
+      dirs: 'examples/vue/src/pages',
+      importPath: 'absolute',
+      extendRoute(route) {
+        if (route.component) {
+          route.component = route.component.replace(root, mock)
+        }
+        if (route.element) {
+          route.element = route.element.replace(root, mock)
+        }
+
+        return route
+      },
+      onRoutesGenerated(routes) {
+        routes = deepSortArray(routes)
+        expect(routes).toMatchSnapshot('routes')
+        return routes
+      },
+    }, root)
     await ctx.searchGlob()
     const routes = await ctx.resolveRoutes()
 

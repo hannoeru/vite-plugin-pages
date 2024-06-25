@@ -336,6 +336,32 @@ function App() {
 }
 ```
 
+### importPath
+
+- **Type:** `'absolute' | 'relative'`
+- **Default:** `'relative'`
+
+Import page components from absolute or relative paths. The default behavior is to import from relative paths, but in some special cases, it can be set to `'absolute'` to import from absolute paths.
+
+For example, if your page components are located in the `app/pages` directory and you have set `base: /app/` in your `vite.config.js`, you should set `importPath` to `'absolute'` in order to correctly import the page components.
+
+```js
+// vite.config.js
+export default {
+  base: '/app/',
+  plugins: [
+    Pages({
+      dirs: 'app/pages',
+
+      // It should be set to 'absolute' in this case.
+      importPath: 'absolute',
+    }),
+  ],
+}
+```
+
+See [#492](https://github.com/hannoeru/vite-plugin-pages/issues/492) for more details.
+
 ### routeBlockLang
 
 - **Type:** `string`

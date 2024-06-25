@@ -61,7 +61,7 @@ function prepareRoutes(
 }
 
 async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
-  const { routeStyle, caseSensitive, routeNameSeparator } = ctx.options
+  const { routeStyle, caseSensitive, importPath, routeNameSeparator } = ctx.options
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
     // sort routes for HMR
@@ -73,7 +73,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     const pathNodes = page.route.split('/')
 
     // add leading slash to component path if not already there
-    const component = page.path.replace(ctx.root, '')
+    const component = importPath === 'relative' ? page.path.replace(ctx.root, '') : page.path
     const customBlock = customBlockMap.get(page.path)
 
     const route: VueRouteBase = {

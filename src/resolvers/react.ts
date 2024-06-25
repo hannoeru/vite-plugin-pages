@@ -43,7 +43,7 @@ function prepareRoutes(
 }
 
 async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
-  const { routeStyle, caseSensitive } = ctx.options
+  const { routeStyle, caseSensitive, importPath } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
   const pageRoutes = [...ctx.pageRouteMap.values()]
@@ -54,7 +54,7 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
 
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
-    const element = page.path.replace(ctx.root, '')
+    const element = importPath === 'relative' ? page.path.replace(ctx.root, '') : page.path
     let parentRoutes = routes
 
     for (let i = 0; i < pathNodes.length; i++) {

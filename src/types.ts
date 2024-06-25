@@ -82,6 +82,11 @@ interface Options {
    */
   importMode: ImportMode | ImportModeResolver
   /**
+   * Import page components from absolute or relative paths.
+   * @default 'relative'
+   */
+  importPath: 'absolute' | 'relative'
+  /**
    * Sync load top level index file
    * @default true
    * @deprecated use `importMode` instead
