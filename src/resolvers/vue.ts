@@ -1,5 +1,5 @@
 import colors from 'picocolors'
-import deepEqual from 'deep-equal'
+import { dequal } from 'dequal'
 import {
   countSlash,
   isCatchAllRoute,
@@ -187,7 +187,7 @@ export function vueResolver(): PageResolver {
       ctx.debug.routeBlock('%s deleted', path)
       return
     }
-    if (!exitsCustomBlock || !deepEqual(exitsCustomBlock, customBlock)) {
+    if (!exitsCustomBlock || !dequal(exitsCustomBlock, customBlock)) {
       ctx.debug.routeBlock('%s old: %O', path, exitsCustomBlock)
       ctx.debug.routeBlock('%s new: %O', path, customBlock)
       customBlockMap.set(path, customBlock)
