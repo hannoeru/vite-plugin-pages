@@ -62,7 +62,7 @@ jobs:
         run: pnpm install
 
       - name: Install Playwright
-        run: pnpm dlx playwright install --with-deps
+        run: pnpm exec playwright install --with-deps
 
       - name: Run build
         run: pnpm build
