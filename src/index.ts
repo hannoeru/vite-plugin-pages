@@ -16,15 +16,17 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       if (
         !userOptions.resolver
         && config.plugins.find(i => i.name.includes('vite:react'))
-      )
+      ) {
         userOptions.resolver = 'react'
+      }
 
       // auto set resolver for solid project
       if (
         !userOptions.resolver
         && config.plugins.find(i => i.name.includes('solid'))
-      )
+      ) {
         userOptions.resolver = 'solid'
+      }
 
       ctx = new PageContext(userOptions, config.root)
       ctx.setLogger(config.logger)
