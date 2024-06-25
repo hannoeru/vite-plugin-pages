@@ -72,7 +72,7 @@ module in your application.
 
 ### Vue
 
-```js
+```ts
 import { createRouter } from 'vue-router'
 import routes from '~pages'
 
@@ -93,7 +93,7 @@ const router = createRouter({
 
 **experimental**
 
-```jsx
+```tsx
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import {

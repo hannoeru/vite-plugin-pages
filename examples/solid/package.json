@@ -8,13 +8,13 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@solidjs/router": "^0.13.3",
+    "@solidjs/router": "^0.13.6",
     "solid-js": "^1.8.17"
   },
   "devDependencies": {
-    "nodemon": "^3.1.1",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.11",
+    "nodemon": "^3.1.4",
+    "typescript": "^5.5.2",
+    "vite": "^5.3.1",
     "vite-plugin-pages": "workspace:*",
     "vite-plugin-solid": "^2.10.2"
   }
