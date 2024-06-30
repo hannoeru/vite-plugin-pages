@@ -93,7 +93,7 @@
     "yaml": "^2.4.5"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.21.1",
+    "@antfu/eslint-config": "^2.21.2",
     "@antfu/utils": "^0.7.10",
     "@solidjs/router": "^0.13.6",
     "@types/glob-to-regexp": "^0.4.4",
@@ -106,10 +106,10 @@
     "playwright": "^1.45.0",
     "react": "^18.3.1",
     "react-router": "^6.24.0",
-    "solid-js": "^1.8.17",
+    "solid-js": "^1.8.18",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
-    "vite": "^5.3.1",
+    "vite": "^5.3.2",
     "vitest": "^1.6.0",
     "vue": "^3.4.31",
     "vue-router": "^4.4.0"
