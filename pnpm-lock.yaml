@@ -67,7 +67,7 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0
       playwright:
-        specifier: ^1.45.0
+        specifier: ^1.45.1
         version: 1.45.1
       react:
         specifier: ^18.3.1
