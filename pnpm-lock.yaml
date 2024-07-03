@@ -68,7 +68,7 @@ importers:
         version: 4.7.0
       playwright:
         specifier: ^1.45.0
-        version: 1.45.0
+        version: 1.45.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -2547,13 +2547,13 @@ packages:
   pkg-types@1.1.1:
     resolution: {integrity: sha512-ko14TjmDuQJ14zsotODv7dBlwxKhUKQEhuhmbqo1uCi9BB0Z2alo/wAXg6q1dTR5TyuqYyWhjtfe/Tsh+X28jQ==}
 
-  playwright-core@1.45.0:
-    resolution: {integrity: sha512-lZmHlFQ0VYSpAs43dRq1/nJ9G/6SiTI7VPqidld9TDefL9tX87bTKExWZZUF5PeRyqtXqd8fQi2qmfIedkwsNQ==}
+  playwright-core@1.45.1:
+    resolution: {integrity: sha512-LF4CUUtrUu2TCpDw4mcrAIuYrEjVDfT1cHbJMfwnE2+1b8PZcFzPNgvZCvq2JfQ4aTjRCCHw5EJ2tmr2NSzdPg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.45.0:
-    resolution: {integrity: sha512-4z3ac3plDfYzGB6r0Q3LF8POPR20Z8D0aXcxbJvmfMgSSq1hkcgvFRXJk9rUq5H/MJ0Ktal869hhOdI/zUTeLA==}
+  playwright@1.45.1:
+    resolution: {integrity: sha512-Hjrgae4kpSQBr98nhCj3IScxVeVUixqj+5oyif8TdIn2opTCPEzqAqNMeK42i3cWDCVu9MI+ZsGWw+gVR4ISBg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -5641,11 +5641,11 @@ snapshots:
       mlly: 1.7.1
       pathe: 1.1.2
 
-  playwright-core@1.45.0: {}
+  playwright-core@1.45.1: {}
 
-  playwright@1.45.0:
+  playwright@1.45.1:
     dependencies:
-      playwright-core: 1.45.0
+      playwright-core: 1.45.1
     optionalDependencies:
       fsevents: 2.3.2
 
