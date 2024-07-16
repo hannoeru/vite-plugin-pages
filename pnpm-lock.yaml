@@ -74,7 +74,7 @@ importers:
         version: 18.3.1
       react-router:
         specifier: ^6.24.1
-        version: 6.24.1(react@18.3.1)
+        version: 6.25.0(react@18.3.1)
       solid-js:
         specifier: ^1.8.18
         version: 1.8.18
@@ -743,6 +743,10 @@ packages:
 
   '@remix-run/router@1.17.1':
     resolution: {integrity: sha512-mCOMec4BKd6BRGBZeSnGiIgwsbLGp3yhVqAD8H+PxiRNEHgDpZb8J1TnrSDlg97t0ySKMQJTHCWBCmBpSmkF6Q==}
+    engines: {node: '>=14.0.0'}
+
+  '@remix-run/router@1.18.0':
+    resolution: {integrity: sha512-L3jkqmqoSVBVKHfpGZmLrex0lxR5SucGA0sUfFzGctehw+S/ggL9L/0NnC5mw6P8HUWpFZ3nQw3cRApjjWx9Sw==}
     engines: {node: '>=14.0.0'}
 
   '@rollup/pluginutils@5.1.0':
@@ -2620,6 +2624,12 @@ packages:
     peerDependencies:
       react: '>=16.8'
 
+  react-router@6.25.0:
+    resolution: {integrity: sha512-bziKjCcDbcxgWS9WlWFcQIVZ2vJHnCP6DGpQDT0l+0PFDasfJKgzf9CM22eTyhFsZkjk8ApCdKjJwKtzqH80jQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
@@ -3667,6 +3677,8 @@ snapshots:
   '@polka/url@1.0.0-next.25': {}
 
   '@remix-run/router@1.17.1': {}
+
+  '@remix-run/router@1.18.0': {}
 
   '@rollup/pluginutils@5.1.0(rollup@4.18.0)':
     dependencies:
@@ -5680,6 +5692,11 @@ snapshots:
   react-router@6.24.1(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.17.1
+      react: 18.3.1
+
+  react-router@6.25.0(react@18.3.1):
+    dependencies:
+      '@remix-run/router': 1.18.0
       react: 18.3.1
 
   react@18.3.1:
