@@ -103,7 +103,7 @@
     "bumpp": "^9.4.1",
     "eslint": "^9.8.0",
     "esno": "^4.7.0",
-    "playwright": "^1.45.3",
+    "playwright": "^1.46.0",
     "react": "^18.3.1",
     "react-router": "^6.26.0",
     "solid-js": "^1.8.18",
