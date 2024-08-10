@@ -61,7 +61,7 @@ importers:
         specifier: ^9.4.1
         version: 9.4.1
       eslint:
-        specifier: ^9.8.0
+        specifier: ^9.9.0
         version: 9.9.0(jiti@1.21.6)
       esno:
         specifier: ^4.7.0
