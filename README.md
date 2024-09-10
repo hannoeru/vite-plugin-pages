@@ -16,7 +16,7 @@
 
 **🚨Important Notes🚨**
 
-We recommend Vue user using [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) instead of this plugin.
+We recommend that Vue users use [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) instead of this plugin.
 
 [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) is a unplugin library created by [@posva](https://github.com/posva), same auther as vue-router. It provide almost same feature as [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) but better intergration with vue-router, include some cool feature like auto generate route types base on your route files to provide autocomplete for vue-router.
 
