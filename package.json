@@ -101,7 +101,7 @@
     "@vitest/ui": "^2.1.1",
     "@vue/compiler-sfc": "^3.5.6",
     "bumpp": "^9.5.2",
-    "eslint": "^9.10.0",
+    "eslint": "^9.11.0",
     "esno": "^4.7.0",
     "playwright": "^1.47.1",
     "react": "^18.3.1",
