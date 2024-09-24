@@ -1,11 +1,11 @@
+import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
 import { resolve } from 'node:path'
 import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
-import { getPageDirs } from './files'
 
-import { reactResolver, solidResolver, vueResolver } from './resolvers'
 import { MODULE_IDS } from './constants'
-import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
+import { getPageDirs } from './files'
+import { reactResolver, solidResolver, vueResolver } from './resolvers'
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
   dirs = toArray(dirs)

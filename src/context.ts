@@ -1,12 +1,12 @@
+import type { Logger, ViteDevServer } from 'vite'
+import type { PageOptions, ResolvedOptions, UserOptions } from './types'
 import { join, resolve } from 'node:path'
 import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
-import type { Logger, ViteDevServer } from 'vite'
-import { resolveOptions } from './options'
 import { getPageFiles } from './files'
-import { debug, invalidatePagesModule, isTarget } from './utils'
+import { resolveOptions } from './options'
 
-import type { PageOptions, ResolvedOptions, UserOptions } from './types'
+import { debug, invalidatePagesModule, isTarget } from './utils'
 
 export interface PageRoute {
   path: string

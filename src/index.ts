@@ -1,9 +1,9 @@
 import type { Plugin } from 'vite'
-import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
-import { PageContext } from './context'
-
-import { parsePageRequest } from './utils'
 import type { UserOptions } from './types'
+import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
+
+import { PageContext } from './context'
+import { parsePageRequest } from './utils'
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
@@ -70,18 +70,18 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   }
 }
 
-export * from './types'
+export { syncIndexResolver } from './options'
 export type {
-  VueRoute,
   ReactRoute,
   SolidRoute,
+  VueRoute,
 } from './resolvers'
 
 export {
-  vueResolver,
   reactResolver,
   solidResolver,
+  vueResolver,
 } from './resolvers'
-export { syncIndexResolver } from './options'
+export * from './types'
 export { PageContext }
 export default pagesPlugin

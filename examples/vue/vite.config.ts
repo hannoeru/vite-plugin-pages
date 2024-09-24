@@ -1,9 +1,9 @@
 import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
+import Inspect from 'vite-plugin-inspect'
 import Pages from 'vite-plugin-pages'
 import Markdown from 'vite-plugin-vue-markdown'
-import Inspect from 'vite-plugin-inspect'
 
 const config = defineConfig({
   plugins: [
@@ -26,7 +26,6 @@ const config = defineConfig({
           return {
             ...route,
             beforeEnter: (route: any) => {
-              // eslint-disable-next-line no-console
               console.log(route)
             },
           }

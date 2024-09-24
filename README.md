@@ -73,8 +73,8 @@ module in your application.
 ### Vue
 
 ```ts
-import { createRouter } from 'vue-router'
 import routes from '~pages'
+import { createRouter } from 'vue-router'
 
 const router = createRouter({
   // ...
@@ -94,14 +94,14 @@ const router = createRouter({
 **experimental**
 
 ```tsx
+import routes from '~react-pages'
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
+
 import {
   BrowserRouter,
   useRoutes,
 } from 'react-router-dom'
-
-import routes from '~react-pages'
 
 function App() {
   return (
@@ -134,9 +134,9 @@ app.render(
 **experimental**
 
 ```tsx
-import { render } from 'solid-js/web'
 import { Router, useRoutes } from '@solidjs/router'
 import routes from '~solid-pages'
+import { render } from 'solid-js/web'
 
 render(
   () => {

@@ -1,5 +1,5 @@
-import { Link, Outlet } from 'react-router-dom'
 import type { FC } from 'react'
+import { Link, Outlet } from 'react-router-dom'
 
 const Blog: FC = () => {
   return (

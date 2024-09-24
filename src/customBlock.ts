@@ -1,20 +1,19 @@
+import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
+import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 import fs from 'node:fs'
+
 import JSON5 from 'json5'
-import { parse as YAMLParser } from 'yaml'
 
 import { importModule } from 'local-pkg'
-
+import { parse as YAMLParser } from 'yaml'
 // @ts-expect-error no type
 import extractComments from 'extract-comments'
-import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import { debug } from './utils'
-import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 
 const routeJSXReg = /^\s+(route)\s+/gm
 
 export function parseJSX(code: string): ParsedJSX[] {
-  return extractComments(code).slice(0, 1)
-    .filter((comment: ParsedJSX) => routeJSXReg.test(comment.value) && comment.value.includes(':') && comment.loc.start.line === 1)
+  return extractComments(code).slice(0, 1).filter((comment: ParsedJSX) => routeJSXReg.test(comment.value) && comment.value.includes(':') && comment.loc.start.line === 1)
 }
 
 export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {

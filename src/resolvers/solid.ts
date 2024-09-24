@@ -1,13 +1,13 @@
+import type { PageContext } from '../context'
+import type { Optional, PageResolver, ResolvedOptions } from '../types'
+
+import { generateClientCode } from '../stringify'
 import {
   buildReactRemixRoutePath,
   buildReactRoutePath,
   countSlash,
   normalizeCase,
 } from '../utils'
-import { generateClientCode } from '../stringify'
-
-import type { Optional, PageResolver, ResolvedOptions } from '../types'
-import type { PageContext } from '../context'
 
 export interface SolidRouteBase {
   rawRoute: string

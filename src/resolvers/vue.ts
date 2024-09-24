@@ -1,5 +1,10 @@
-import colors from 'picocolors'
+import type { PageContext } from '../context'
+import type { CustomBlock, Optional, PageResolver } from '../types'
 import { dequal } from 'dequal'
+import colors from 'picocolors'
+
+import { getRouteBlock } from '../customBlock'
+import { generateClientCode } from '../stringify'
 import {
   countSlash,
   isCatchAllRoute,
@@ -7,11 +12,6 @@ import {
   normalizeCase,
   normalizeName,
 } from '../utils'
-import { generateClientCode } from '../stringify'
-
-import { getRouteBlock } from '../customBlock'
-import type { CustomBlock, Optional, PageResolver } from '../types'
-import type { PageContext } from '../context'
 
 export interface VueRouteBase {
   name: string
@@ -34,7 +34,7 @@ function prepareRoutes(
 ) {
   for (const route of routes) {
     if (route.name)
-      route.name = route.name.replace(RegExp(`${ctx.options.routeNameSeparator}index$`), '')
+      route.name = route.name.replace(new RegExp(`${ctx.options.routeNameSeparator}index$`), '')
 
     if (parent)
       route.path = route.path?.replace(/^\//, '')

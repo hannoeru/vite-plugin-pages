@@ -1,5 +1,5 @@
-import { useParams } from '@solidjs/router'
 import type { ParentComponent } from 'solid-js'
+import { useParams } from '@solidjs/router'
 
 const IdLayout: ParentComponent = ({ children }) => {
   const { id } = useParams<{ id: string }>()

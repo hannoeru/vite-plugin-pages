@@ -1,13 +1,13 @@
+import routes from '~react-pages'
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
+
 import {
   BrowserRouter,
   useRoutes,
 } from 'react-router-dom'
 
 import './index.css'
-
-import routes from '~react-pages'
 
 // eslint-disable-next-line no-console
 console.log(routes)

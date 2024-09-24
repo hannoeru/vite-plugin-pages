@@ -1,11 +1,11 @@
+import type { ModuleNode, ViteDevServer } from 'vite'
+import type { ResolvedOptions } from './types'
 import { resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
-import Debug from 'debug'
 import { slash } from '@antfu/utils'
-import type { ModuleNode, ViteDevServer } from 'vite'
-import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
+import Debug from 'debug'
 
-import type { ResolvedOptions } from './types'
+import { cacheAllRouteRE, countSlashRE, dynamicRouteRE, MODULE_ID_VIRTUAL, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
 export const debug = {
   hmr: Debug('vite-plugin-pages:hmr'),

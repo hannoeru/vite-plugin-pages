@@ -1,10 +1,10 @@
-import { resolve } from 'node:path'
-import { copyFile, rm } from 'node:fs/promises'
-import { existsSync } from 'node:fs'
-import { createServer } from 'vite'
-import { chromium } from 'playwright'
 import type { Browser, Page } from 'playwright'
 import type { ViteDevServer } from 'vite'
+import { existsSync } from 'node:fs'
+import { copyFile, rm } from 'node:fs/promises'
+import { resolve } from 'node:path'
+import { chromium } from 'playwright'
+import { createServer } from 'vite'
 import { getViteConfig, stopServer } from './utils'
 
 const root = resolve('./examples/react')

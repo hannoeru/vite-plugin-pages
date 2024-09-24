@@ -1,9 +1,9 @@
+import routes from '~pages'
 import {
   createRouter as _createRouter,
   createMemoryHistory,
   createWebHistory,
 } from 'vue-router'
-import routes from '~pages'
 
 export function createRouter() {
   return _createRouter({

@@ -1,7 +1,7 @@
-import { resolveImportMode } from './utils'
+import type { ResolvedOptions } from './types'
 import { ROUTE_IMPORT_NAME } from './constants'
 
-import type { ResolvedOptions } from './types'
+import { resolveImportMode } from './utils'
 
 const componentRE = /"(?:component|element)":("(.*?)")/g
 const hasFunctionRE = /"(?:props|beforeEnter)":("(.*?)")/g

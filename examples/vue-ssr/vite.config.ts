@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
 import VuePlugin from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
 
 const config = defineConfig({
