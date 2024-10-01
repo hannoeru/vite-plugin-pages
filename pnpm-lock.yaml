@@ -37,19 +37,19 @@ importers:
         version: 2.5.1
     devDependencies:
       '@antfu/eslint-config':
-        specifier: ^3.7.1
+        specifier: ^3.7.3
         version: 3.7.3(@typescript-eslint/utils@8.7.0(eslint@9.11.1(jiti@1.21.6))(typescript@5.6.2))(@vue/compiler-sfc@3.5.10)(eslint@9.11.1(jiti@1.21.6))(typescript@5.6.2)(vitest@2.1.1(@types/node@20.16.10)(@vitest/ui@2.1.1)(jsdom@25.0.1))
       '@antfu/utils':
         specifier: ^0.7.10
         version: 0.7.10
       '@solidjs/router':
-        specifier: ^0.14.5
+        specifier: ^0.14.7
         version: 0.14.7(solid-js@1.9.1)
       '@types/glob-to-regexp':
         specifier: ^0.4.4
         version: 0.4.4
       '@types/node':
-        specifier: ^20.16.6
+        specifier: ^20.16.10
         version: 20.16.10
       '@vitest/ui':
         specifier: ^2.1.1
@@ -58,13 +58,13 @@ importers:
         specifier: ^3.5.10
         version: 3.5.10
       bumpp:
-        specifier: ^9.5.2
+        specifier: ^9.6.1
         version: 9.6.1
       eslint:
         specifier: ^9.11.1
         version: 9.11.1(jiti@1.21.6)
       esno:
-        specifier: ^4.7.0
+        specifier: ^4.8.0
         version: 4.8.0
       playwright:
         specifier: ^1.47.2
@@ -76,7 +76,7 @@ importers:
         specifier: ^6.26.2
         version: 6.26.2(react@18.3.1)
       solid-js:
-        specifier: ^1.8.23
+        specifier: ^1.9.1
         version: 1.9.1
       tsup:
         specifier: ^8.3.0
@@ -85,7 +85,7 @@ importers:
         specifier: ^5.6.2
         version: 5.6.2
       vite:
-        specifier: ^5.4.7
+        specifier: ^5.4.8
         version: 5.4.8(@types/node@20.16.10)
       vitest:
         specifier: ^2.1.1
