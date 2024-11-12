@@ -85,8 +85,8 @@ importers:
         specifier: ^5.6.3
         version: 5.6.3
       vite:
-        specifier: ^5.4.10
-        version: 5.4.10(@types/node@22.9.0)
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.9.0)
       vitest:
         specifier: ^2.1.4
         version: 2.1.4(@types/node@22.9.0)(@vitest/ui@2.1.4)
@@ -108,7 +108,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
-        version: 5.1.4(vite@5.4.10(@types/node@22.9.0))(vue@3.5.12(typescript@5.6.3))
+        version: 5.1.4(vite@5.4.11(@types/node@22.9.0))(vue@3.5.12(typescript@5.6.3))
       '@vue/compiler-sfc':
         specifier: ^3.5.8
         version: 3.5.12
@@ -120,13 +120,13 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.10(@types/node@22.9.0)
+        version: 5.4.11(@types/node@22.9.0)
       vite-plugin-pages:
         specifier: workspace:*
         version: link:../..
       vite-plugin-vue-markdown:
         specifier: ^0.23.8
-        version: 0.23.8(rollup@4.25.0)(vite@5.4.10(@types/node@22.9.0))
+        version: 0.23.8(rollup@4.25.0)(vite@5.4.11(@types/node@22.9.0))
 
   examples/react:
     dependencies:
@@ -154,7 +154,7 @@ importers:
         version: 5.3.3
       '@vitejs/plugin-react':
         specifier: ^4.3.1
-        version: 4.3.3(vite@5.4.10(@types/node@22.9.0))
+        version: 4.3.3(vite@5.4.11(@types/node@22.9.0))
       nodemon:
         specifier: ^3.1.7
         version: 3.1.7
@@ -163,7 +163,7 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.10(@types/node@22.9.0)
+        version: 5.4.11(@types/node@22.9.0)
       vite-plugin-pages:
         specifier: workspace:*
         version: link:../..
@@ -194,7 +194,7 @@ importers:
         version: 5.3.3
       '@vitejs/plugin-react':
         specifier: ^4.3.1
-        version: 4.3.3(vite@5.4.10(@types/node@22.9.0))
+        version: 4.3.3(vite@5.4.11(@types/node@22.9.0))
       nodemon:
         specifier: ^3.1.7
         version: 3.1.7
@@ -203,7 +203,7 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.10(@types/node@22.9.0)
+        version: 5.4.11(@types/node@22.9.0)
       vite-plugin-pages:
         specifier: workspace:*
         version: link:../..
@@ -225,13 +225,13 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.10(@types/node@22.9.0)
+        version: 5.4.11(@types/node@22.9.0)
       vite-plugin-pages:
         specifier: workspace:*
         version: link:../..
       vite-plugin-solid:
         specifier: ^2.10.2
-        version: 2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.9.0))
+        version: 2.10.2(solid-js@1.9.3)(vite@5.4.11(@types/node@22.9.0))
 
   examples/vue:
     dependencies:
@@ -247,7 +247,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
-        version: 5.1.4(vite@5.4.10(@types/node@22.9.0))(vue@3.5.12(typescript@5.6.3))
+        version: 5.1.4(vite@5.4.11(@types/node@22.9.0))(vue@3.5.12(typescript@5.6.3))
       '@vue/compiler-sfc':
         specifier: ^3.5.8
         version: 3.5.12
@@ -259,16 +259,16 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.10(@types/node@22.9.0)
+        version: 5.4.11(@types/node@22.9.0)
       vite-plugin-inspect:
         specifier: ^0.8.7
-        version: 0.8.7(rollup@4.25.0)(vite@5.4.10(@types/node@22.9.0))
+        version: 0.8.7(rollup@4.25.0)(vite@5.4.11(@types/node@22.9.0))
       vite-plugin-pages:
         specifier: workspace:*
         version: link:../..
       vite-plugin-vue-markdown:
         specifier: ^0.23.8
-        version: 0.23.8(rollup@4.25.0)(vite@5.4.10(@types/node@22.9.0))
+        version: 0.23.8(rollup@4.25.0)(vite@5.4.11(@types/node@22.9.0))
 
   examples/vue-ssr:
     dependencies:
@@ -293,7 +293,7 @@ importers:
         version: 1.15.7
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
-        version: 5.1.4(vite@5.4.10(@types/node@20.17.6))(vue@3.5.12(typescript@5.6.3))
+        version: 5.1.4(vite@5.4.11(@types/node@20.17.6))(vue@3.5.12(typescript@5.6.3))
       '@vue/compiler-sfc':
         specifier: ^3.5.8
         version: 3.5.12
@@ -323,7 +323,7 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.7
-        version: 5.4.10(@types/node@20.17.6)
+        version: 5.4.11(@types/node@20.17.6)
       vite-plugin-pages:
         specifier: workspace:*
         version: link:../..
@@ -3492,8 +3492,8 @@ packages:
     peerDependencies:
       vite: ^2.0.0 || ^3.0.0-0 || ^4.0.0
 
-  vite@5.4.10:
-    resolution: {integrity: sha512-1hvaPshuPUtxeQ0hsVH3Mud0ZanOLwVTneA1EgbAM5LhaZEqyPWGRQ7BtaMvUrTDeEaC8pxtj6a6jku3x4z6SQ==}
+  vite@5.4.11:
+    resolution: {integrity: sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -4498,25 +4498,25 @@ snapshots:
       '@typescript-eslint/types': 8.13.0
       eslint-visitor-keys: 3.4.3
 
-  '@vitejs/plugin-react@4.3.3(vite@5.4.10(@types/node@22.9.0))':
+  '@vitejs/plugin-react@4.3.3(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue@5.1.4(vite@5.4.10(@types/node@20.17.6))(vue@3.5.12(typescript@5.6.3))':
+  '@vitejs/plugin-vue@5.1.4(vite@5.4.11(@types/node@20.17.6))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
-      vite: 5.4.10(@types/node@20.17.6)
+      vite: 5.4.11(@types/node@20.17.6)
       vue: 3.5.12(typescript@5.6.3)
 
-  '@vitejs/plugin-vue@5.1.4(vite@5.4.10(@types/node@22.9.0))(vue@3.5.12(typescript@5.6.3))':
+  '@vitejs/plugin-vue@5.1.4(vite@5.4.11(@types/node@22.9.0))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
       vue: 3.5.12(typescript@5.6.3)
 
   '@vitest/eslint-plugin@1.1.8(@typescript-eslint/utils@8.13.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)(vitest@2.1.4)':
@@ -4534,13 +4534,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.4(vite@5.4.10(@types/node@22.9.0))':
+  '@vitest/mocker@2.1.4(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
       '@vitest/spy': 2.1.4
       estree-walker: 3.0.3
       magic-string: 0.30.12
     optionalDependencies:
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
 
   '@vitest/pretty-format@2.1.4':
     dependencies:
@@ -6933,7 +6933,7 @@ snapshots:
       cac: 6.7.14
       debug: 4.3.7(supports-color@5.5.0)
       pathe: 1.1.2
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -6945,7 +6945,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-inspect@0.8.7(rollup@4.25.0)(vite@5.4.10(@types/node@22.9.0)):
+  vite-plugin-inspect@0.8.7(rollup@4.25.0)(vite@5.4.11(@types/node@22.9.0)):
     dependencies:
       '@antfu/utils': 0.7.10
       '@rollup/pluginutils': 5.1.3(rollup@4.25.0)
@@ -6956,12 +6956,12 @@ snapshots:
       perfect-debounce: 1.0.0
       picocolors: 1.1.1
       sirv: 2.0.4
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
 
-  vite-plugin-solid@2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.9.0)):
+  vite-plugin-solid@2.10.2(solid-js@1.9.3)(vite@5.4.11(@types/node@22.9.0)):
     dependencies:
       '@babel/core': 7.26.0
       '@types/babel__core': 7.20.5
@@ -6969,12 +6969,12 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.3
       solid-refresh: 0.6.3(solid-js@1.9.3)
-      vite: 5.4.10(@types/node@22.9.0)
-      vitefu: 0.2.5(vite@5.4.10(@types/node@22.9.0))
+      vite: 5.4.11(@types/node@22.9.0)
+      vitefu: 0.2.5(vite@5.4.11(@types/node@22.9.0))
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-vue-markdown@0.23.8(rollup@4.25.0)(vite@5.4.10(@types/node@22.9.0)):
+  vite-plugin-vue-markdown@0.23.8(rollup@4.25.0)(vite@5.4.11(@types/node@22.9.0)):
     dependencies:
       '@antfu/utils': 0.7.10
       '@mdit-vue/plugin-component': 0.12.1
@@ -6983,11 +6983,11 @@ snapshots:
       '@rollup/pluginutils': 5.1.3(rollup@4.25.0)
       '@types/markdown-it': 13.0.9
       markdown-it: 13.0.2
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     transitivePeerDependencies:
       - rollup
 
-  vite@5.4.10(@types/node@20.17.6):
+  vite@5.4.11(@types/node@20.17.6):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.48
@@ -6996,7 +6996,7 @@ snapshots:
       '@types/node': 20.17.6
       fsevents: 2.3.3
 
-  vite@5.4.10(@types/node@22.9.0):
+  vite@5.4.11(@types/node@22.9.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.48
@@ -7005,14 +7005,14 @@ snapshots:
       '@types/node': 22.9.0
       fsevents: 2.3.3
 
-  vitefu@0.2.5(vite@5.4.10(@types/node@22.9.0)):
+  vitefu@0.2.5(vite@5.4.11(@types/node@22.9.0)):
     optionalDependencies:
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
 
   vitest@2.1.4(@types/node@22.9.0)(@vitest/ui@2.1.4):
     dependencies:
       '@vitest/expect': 2.1.4
-      '@vitest/mocker': 2.1.4(vite@5.4.10(@types/node@22.9.0))
+      '@vitest/mocker': 2.1.4(vite@5.4.11(@types/node@22.9.0))
       '@vitest/pretty-format': 2.1.4
       '@vitest/runner': 2.1.4
       '@vitest/snapshot': 2.1.4
@@ -7028,7 +7028,7 @@ snapshots:
       tinyexec: 0.3.1
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.10(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
       vite-node: 2.1.4(@types/node@22.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
