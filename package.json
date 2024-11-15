@@ -2,7 +2,7 @@
   "name": "vite-plugin-pages",
   "type": "module",
   "version": "0.32.3",
-  "packageManager": "pnpm@9.12.3",
+  "packageManager": "pnpm@9.13.2",
   "description": "File system base vue-router plugin for Vite",
   "author": "hannoeru <me@hanlee.co>",
   "license": "MIT",
@@ -93,7 +93,7 @@
     "yaml": "^2.6.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.8.0",
+    "@antfu/eslint-config": "^3.9.1",
     "@antfu/utils": "^0.7.10",
     "@solidjs/router": "^0.15.1",
     "@types/glob-to-regexp": "^0.4.4",
