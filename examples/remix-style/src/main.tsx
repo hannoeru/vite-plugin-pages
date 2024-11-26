@@ -1,11 +1,11 @@
-import routes from '~react-pages'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-
 import {
   BrowserRouter as Router,
   useRoutes,
 } from 'react-router-dom'
+
+import routes from '~react-pages'
 
 import './index.css'
 

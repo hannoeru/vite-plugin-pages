@@ -1,10 +1,10 @@
-import routes from '~pages'
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import App from './App.vue'
-
 // @ts-expect-error no routes type
 import reactRoutes from '~admin-pages'
+import routes from '~pages'
+
+import App from './App.vue'
 import './index.css'
 
 // eslint-disable-next-line no-console

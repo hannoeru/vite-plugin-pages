@@ -2,12 +2,12 @@ import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 import fs from 'node:fs'
 
-import JSON5 from 'json5'
-
-import { importModule } from 'local-pkg'
-import { parse as YAMLParser } from 'yaml'
 // @ts-expect-error no type
 import extractComments from 'extract-comments'
+
+import JSON5 from 'json5'
+import { importModule } from 'local-pkg'
+import { parse as YAMLParser } from 'yaml'
 import { debug } from './utils'
 
 const routeJSXReg = /^\s+(route)\s+/gm

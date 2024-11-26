@@ -1,6 +1,6 @@
 import { Router } from '@solidjs/router'
-import routes from '~solid-pages'
 import { render } from 'solid-js/web'
+import routes from '~solid-pages'
 
 render(
   () => {
