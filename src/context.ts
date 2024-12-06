@@ -74,6 +74,7 @@ export class PageContext {
 
   async addPage(path: string | string[], pageDir: PageOptions) {
     debug.pages('add', path)
+    const cleanRoute = pageDir.cleanRoute || ((route:string)=>route);
     for (const p of toArray(path)) {
       const pageDirPath = slash(resolve(this.root, pageDir.dir))
       const extension = this.options.extensions.find(ext => p.endsWith(`.${ext}`))
@@ -83,7 +84,7 @@ export class PageContext {
       const route = slash(join(pageDir.baseRoute, p.replace(`${pageDirPath}/`, '').replace(`.${extension}`, '')))
       this._pageRouteMap.set(p, {
         path: p,
-        route,
+        route: cleanRoute(route, p),
       })
       await this.options.resolver.hmr?.added?.(this, p)
     }
