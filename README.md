@@ -202,9 +202,14 @@ interface PageOptions {
   baseRoute: string
   /**
    * Page file pattern.
-   * @example `**\/*.page.vue`
+   * @example `**\/*.{page,layout}.*`
    */
   filePattern?: string
+  /**
+   * Function to clean or process the route by removing unnecessary parts.
+   * @example (route) => route.replace(/.(page|layout)$/, '')
+   */
+  cleanRoute?: (route:string, path:string)=>string
 }
 ```
 
@@ -246,6 +251,8 @@ export default {
         { dir: 'src/features/**/pages', baseRoute: 'features' },
         // with custom file pattern
         { dir: 'src/admin/pages', baseRoute: 'admin', filePattern: '**/*.page.*' },
+        // with custom file pattern and clean route
+        { dir: 'src/custom/pages', baseRoute: 'custom', filePattern: '**/*.{page,layout}.*', cleanRoute: (route) => route.replace(/.(page|layout)$/, '') },
       ],
     }),
   ],
