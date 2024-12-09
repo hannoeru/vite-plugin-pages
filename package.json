@@ -100,7 +100,7 @@
     "@types/node": "^22.10.1",
     "@vitest/ui": "^2.1.8",
     "@vue/compiler-sfc": "^3.5.13",
-    "bumpp": "^9.8.1",
+    "bumpp": "^9.9.0",
     "eslint": "^9.16.0",
     "esno": "^4.8.0",
     "playwright": "^1.49.0",
