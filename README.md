@@ -131,7 +131,34 @@ app.render(
 
 ### Solid
 
-**experimental**
+#### Passing routes to solid-router
+
+*solid-router newer than v0.9.x*
+
+```tsx
+import { Router } from '@solidjs/router'
+import { render } from 'solid-js/web'
+import routes from '~solid-pages'
+
+render(
+  () => {
+    return (
+      <Router
+        root={(props) => (
+          <Suspense>
+            {props.children}
+          </Suspense>
+        )}
+      >
+        {routes}
+      </Router>
+    )
+  },
+  document.getElementById('root') as HTMLElement,
+)
+```
+
+*solid-router older than and including v0.9.x* ([migration guide](https://github.com/solidjs/solid-router/blob/1c9eb8ed2cb70e4fa5a53d0d2836fc112e8ac4a0/README.md?plain=1#L925))
 
 ```tsx
 import { Router, useRoutes } from '@solidjs/router'
@@ -149,6 +176,41 @@ render(
   },
   document.getElementById('root') as HTMLElement,
 )
+```
+
+#### Configuring vite-plugin with SolidJS
+
+Remember to check the `dirs` is set to the correct routes directory in `vite.config.ts` or `app.config.ts`:
+
+*vite.config.ts* (without SolidStart)
+
+```ts
+import { defineConfig } from 'vite';
+import solidPlugin from 'vite-plugin-solid';
+import Pages from 'vite-plugin-pages';
+
+
+export default defineConfig({
+  plugins: [Pages({
+    dirs: ['src/pages'],
+  }), solidPlugin()],
+});
+```
+
+*app.config.ts* (with SolidStart)
+
+```ts
+import { defineConfig } from "@solidjs/start/config";
+import Pages from 'vite-plugin-pages'
+
+export default defineConfig({
+	ssr: false,
+	vite: {
+		plugins: [Pages({
+			dirs: ['src/routes'],
+		})],
+	}
+});
 ```
 
 **Type**
