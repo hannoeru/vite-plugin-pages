@@ -144,7 +144,7 @@ render(
   () => {
     return (
       <Router
-        root={(props) => (
+        root={props => (
           <Suspense>
             {props.children}
           </Suspense>
@@ -163,16 +163,18 @@ render(
 Remember to check the `dirs` is set to the correct routes directory in `vite.config.ts`:
 
 ```ts
-import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
-import Pages from 'vite-plugin-pages';
-
+import { defineConfig } from 'vite'
+import Pages from 'vite-plugin-pages'
+import solidPlugin from 'vite-plugin-solid'
 
 export default defineConfig({
-  plugins: [Pages({
-    dirs: ['src/pages'],
-  }), solidPlugin()],
-});
+  plugins: [
+    Pages({
+      dirs: ['src/pages'],
+    }),
+    solidPlugin()
+  ],
+})
 ```
 
 **Type**
