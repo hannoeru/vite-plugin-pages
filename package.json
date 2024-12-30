@@ -2,7 +2,7 @@
   "name": "vite-plugin-pages",
   "type": "module",
   "version": "0.32.4",
-  "packageManager": "pnpm@9.15.1",
+  "packageManager": "pnpm@9.15.2",
   "description": "File system base vue-router plugin for Vite",
   "author": "hannoeru <me@hanlee.co>",
   "license": "MIT",
