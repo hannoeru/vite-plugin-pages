@@ -90,7 +90,7 @@
     "json5": "^2.2.3",
     "local-pkg": "^0.5.1",
     "picocolors": "^1.1.1",
-    "yaml": "^2.6.1"
+    "yaml": "^2.7.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.12.1",
