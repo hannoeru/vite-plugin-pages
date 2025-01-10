@@ -88,7 +88,7 @@
     "extract-comments": "^1.1.0",
     "fast-glob": "^3.3.3",
     "json5": "^2.2.3",
-    "local-pkg": "^0.5.1",
+    "local-pkg": "^1.0.0",
     "picocolors": "^1.1.1",
     "yaml": "^2.7.0"
   },
