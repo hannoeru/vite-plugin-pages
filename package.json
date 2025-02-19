@@ -94,7 +94,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.1.0",
-    "@antfu/utils": "^8.1.0",
+    "@antfu/utils": "^9.1.0",
     "@solidjs/router": "^0.15.3",
     "@types/glob-to-regexp": "^0.4.4",
     "@types/node": "^22.12.0",
