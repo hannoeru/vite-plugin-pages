@@ -17,13 +17,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 20]
+        node_version: [20, 22]
         include:
           # Active LTS + other OS
           - os: macos-latest
-            node_version: 20
+            node_version: 22
           - os: windows-latest
-            node_version: 20
+            node_version: 22
 
     steps:
       - name: Checkout repo
