@@ -11,11 +11,11 @@
     "vue-router": "4.2.5"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.0",
+    "@vitejs/plugin-vue": "^5.2.1",
     "@vue/compiler-sfc": "^3.5.13",
-    "nodemon": "^3.1.7",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.0",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1",
     "vite-plugin-pages": "workspace:*",
     "vite-plugin-vue-markdown": "^0.23.8"
   }

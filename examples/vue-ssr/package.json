@@ -17,19 +17,19 @@
   "devDependencies": {
     "@types/compression": "^1.7.5",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.13.4",
     "@types/serve-static": "^1.15.7",
-    "@vitejs/plugin-vue": "^5.2.0",
+    "@vitejs/plugin-vue": "^5.2.1",
     "@vue/compiler-sfc": "^3.5.13",
     "@vue/server-renderer": "^3.5.13",
-    "compression": "^1.7.5",
+    "compression": "^1.8.0",
     "esno": "^4.8.0",
-    "express": "^4.21.1",
-    "fast-glob": "^3.3.2",
-    "nodemon": "^3.1.7",
+    "express": "^4.21.2",
+    "fast-glob": "^3.3.3",
+    "nodemon": "^3.1.9",
     "serve-static": "^1.16.2",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1",
     "vite-plugin-pages": "workspace:*"
   }
 }
