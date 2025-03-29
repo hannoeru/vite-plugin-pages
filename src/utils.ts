@@ -4,7 +4,7 @@ import { resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
 import { slash } from '@antfu/utils'
 import Debug from 'debug'
-import { isMatch } from 'micromatch'
+import micromatch from 'micromatch'
 
 import { cacheAllRouteRE, countSlashRE, dynamicRouteRE, MODULE_ID_VIRTUAL, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
@@ -37,7 +37,7 @@ function isPagesDir(path: string, options: ResolvedOptions) {
 }
 
 export function isTarget(path: string, options: ResolvedOptions) {
-  return isPagesDir(path, options) && !isMatch(path, options.exclude) && options.extensionsRE.test(path)
+  return isPagesDir(path, options) && !micromatch.isMatch(path, options.exclude) && options.extensionsRE.test(path)
 }
 
 export function isDynamicRoute(routePath: string, nuxtStyle = false) {
