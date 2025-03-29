@@ -1,4 +1,5 @@
-import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute } from '../src/utils'
+import type { ResolvedOptions } from '../src/types'
+import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, isTarget } from '../src/utils'
 
 describe('utils', () => {
   it('extensions to glob', () => {
@@ -38,5 +39,22 @@ describe('utils', () => {
     expect(buildReactRemixRoutePath('blog.authors')).toBe('blog/authors')
     expect(buildReactRemixRoutePath('[blog.authors]')).toBe('blog.authors')
     expect(buildReactRemixRoutePath('*')).toBe('*')
+  })
+
+  it('path is target', () => {
+    const mockOptions = {
+      dirs: [{ dir: 'src/pages', baseRoute: '' }],
+      root: '/project',
+      exclude: ['**/exclude/**'],
+      extensionsRE: /\.(vue|js|ts)$/,
+    }
+
+    const mockPath1 = '/project/src/pages/home.vue'
+    const mockPath2 = '/project/src/pages/exclude/home.vue'
+    const mockPath3 = '/project/src/pages/home.txt'
+
+    expect(isTarget(mockPath1, mockOptions as ResolvedOptions)).toBe(true) // Valid target
+    expect(isTarget(mockPath2, mockOptions as ResolvedOptions)).toBe(false) // Excluded path
+    expect(isTarget(mockPath3, mockOptions as ResolvedOptions)).toBe(false) // Invalid extension
   })
 })
