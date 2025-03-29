@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import { slash } from '@antfu/utils'
 import { resolveOptions } from '../src/options'
 import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, isTarget } from '../src/utils'
 
@@ -49,8 +50,10 @@ describe('utils', () => {
       exclude: ['**/exclude/**'],
     })
 
-    expect(isTarget(resolve('examples/vue/src/pages/home.vue'), options)).toBe(true)
-    expect(isTarget(resolve('examples/vue/src/pages/exclude/home.vue'), options)).toBe(false)
-    expect(isTarget(resolve('examples/vue/src/pages/home.txt'), options)).toBe(false)
+    const testIsTarget = (path: string) => expect(isTarget(slash(resolve(path)), options))
+
+    testIsTarget('examples/vue/src/pages/home.vue').toBe(true)
+    testIsTarget('examples/vue/src/pages/exclude/home.vue').toBe(false)
+    testIsTarget('examples/vue/src/pages/home.txt').toBe(false)
   })
 })
