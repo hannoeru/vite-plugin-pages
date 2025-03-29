@@ -1,7 +1,7 @@
 import type { PageOptions, ResolvedOptions } from './types'
 import { join } from 'node:path'
 import { slash } from '@antfu/utils'
-import fg from 'fast-glob'
+import { globSync } from 'tinyglobby'
 
 import { extsToGlob } from './utils'
 
@@ -9,17 +9,17 @@ import { extsToGlob } from './utils'
  * Resolves the page dirs for its for its given globs
  */
 export function getPageDirs(PageOptions: PageOptions, root: string, exclude: string[]): PageOptions[] {
-  const dirs = fg.sync(slash(PageOptions.dir), {
+  const dirs = globSync(slash(PageOptions.dir), {
     ignore: exclude,
     onlyDirectories: true,
     dot: true,
-    unique: true,
+    expandDirectories: false,
     cwd: root,
   })
 
   const pageDirs = dirs.map(dir => ({
     ...PageOptions,
-    dir,
+    dir: dir.replace(/\/$/, ''),
   }))
 
   return pageDirs
@@ -37,7 +37,7 @@ export function getPageFiles(path: string, options: ResolvedOptions, pageOptions
   const ext = extsToGlob(extensions)
   const pattern = pageOptions?.filePattern ?? `**/*.${ext}`
 
-  const files = fg.sync(pattern, {
+  const files = globSync(pattern, {
     ignore: exclude,
     onlyFiles: true,
     cwd: path,

@@ -20,9 +20,6 @@ importers:
       extract-comments:
         specifier: ^1.1.0
         version: 1.1.0
-      fast-glob:
-        specifier: ^3.3.3
-        version: 3.3.3
       json5:
         specifier: ^2.2.3
         version: 2.2.3
@@ -35,6 +32,9 @@ importers:
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
+      tinyglobby:
+        specifier: ^0.2.12
+        version: 0.2.12
       yaml:
         specifier: ^2.7.0
         version: 2.7.0
@@ -48,9 +48,6 @@ importers:
       '@solidjs/router':
         specifier: ^0.15.3
         version: 0.15.3(solid-js@1.9.5)
-      '@types/glob-to-regexp':
-        specifier: ^0.4.4
-        version: 0.4.4
       '@types/micromatch':
         specifier: ^4.0.9
         version: 4.0.9
@@ -969,9 +966,6 @@ packages:
 
   '@types/express@5.0.1':
     resolution: {integrity: sha512-UZUw8vjpWFXuDnjFTh7/5c2TWDlQqeXHi6hcN7F2XSVT5P+WmUnnbFS3KA6Jnc6IsEqI2qCVu2bK0R0J4A8ZQQ==}
-
-  '@types/glob-to-regexp@0.4.4':
-    resolution: {integrity: sha512-nDKoaKJYbnn1MZxUY0cA1bPmmgZbg0cTq7Rh13d0KWYNOiKbqoR+2d89SnRPszGh7ROzSwZ/GOjZ4jPbmmZ6Eg==}
 
   '@types/history@4.7.11':
     resolution: {integrity: sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==}
@@ -4012,8 +4006,6 @@ snapshots:
       '@types/body-parser': 1.19.5
       '@types/express-serve-static-core': 5.0.6
       '@types/serve-static': 1.15.7
-
-  '@types/glob-to-regexp@0.4.4': {}
 
   '@types/history@4.7.11': {}
 
