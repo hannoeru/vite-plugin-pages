@@ -1,4 +1,3 @@
-import type { ResolvedOptions } from '../src/types'
 import { resolve } from 'node:path'
 import { resolveOptions } from '../src/options'
 import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, isTarget } from '../src/utils'
