@@ -53,11 +53,10 @@ function getResolver(originalResolver: UserOptions['resolver']) {
 
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
-    dirs = userOptions.pagesDir || ['src/pages'],
+    dirs = ['src/pages'],
     routeBlockLang = 'json5',
     exclude = ['node_modules', '.git', '**/__*__/**'],
     caseSensitive = false,
-    syncIndex = true,
     routeNameSeparator = '-',
     extendRoute,
     onRoutesGenerated,
@@ -66,7 +65,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const root = viteRoot || slash(process.cwd())
 
-  const importMode = userOptions.importMode || (syncIndex ? syncIndexResolver : 'async')
+  const importMode = userOptions.importMode || syncIndexResolver
 
   const importPath = userOptions.importPath || 'relative'
 
@@ -78,7 +77,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const resolvedDirs = resolvePageDirs(dirs, root, exclude)
 
-  const routeStyle = userOptions.nuxtStyle ? 'nuxt' : userOptions.routeStyle || 'next'
+  const routeStyle = userOptions.routeStyle || 'next'
 
   const moduleIds = userOptions.moduleId
     ? [userOptions.moduleId]

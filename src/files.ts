@@ -35,7 +35,7 @@ export function getPageFiles(path: string, options: ResolvedOptions, pageOptions
   } = options
 
   const ext = extsToGlob(extensions)
-  const pattern = (pageOptions?.filePatern || pageOptions?.filePattern) ?? `**/*.${ext}`
+  const pattern = pageOptions?.filePattern ?? `**/*.${ext}`
 
   const files = fg.sync(pattern, {
     ignore: exclude,

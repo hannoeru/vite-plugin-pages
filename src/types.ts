@@ -31,10 +31,6 @@ export interface PageOptions {
    */
   baseRoute: string
   /**
-   * @deprecated use `filePattern` instead
-   */
-  filePatern?: string
-  /**
    * Page file pattern.
    * @example `**\/*.page.vue`
    */
@@ -87,18 +83,6 @@ interface Options {
    */
   importPath: 'absolute' | 'relative'
   /**
-   * Sync load top level index file
-   * @default true
-   * @deprecated use `importMode` instead
-   */
-  syncIndex: boolean
-  /**
-   * Use Nuxt.js style route naming
-   * @default false
-   * @deprecated use `routeStyle` instead
-   */
-  nuxtStyle: boolean
-  /**
    * Routing style
    * @default false
    */
@@ -140,17 +124,6 @@ interface Options {
    * Custom generated client code
    */
   onClientGenerated?: (clientCode: string) => Awaitable<string | void>
-
-  /**
-   * Paths to the directory to search for page components.
-   * @deprecated use `dirs` instead
-   */
-  pagesDir: string | (string | PageOptions)[]
-  /**
-   * Replace '[]' to '_' in bundle filename
-   * @deprecated issue #122
-   */
-  replaceSquareBrackets: never
 }
 
 export type UserOptions = Partial<Options>
