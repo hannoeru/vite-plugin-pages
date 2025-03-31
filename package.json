@@ -91,7 +91,7 @@
     "micromatch": "^4.0.8",
     "picocolors": "^1.1.1",
     "tinyglobby": "^0.2.12",
-    "yaml": "^2.7.0"
+    "yaml": "^2.7.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.11.0",
@@ -110,7 +110,7 @@
     "solid-js": "^1.9.5",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
-    "vite": "^6.2.3",
+    "vite": "^6.2.4",
     "vitest": "^3.0.9",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
@@ -122,11 +122,11 @@
       }
     },
     "overrides": {
-      "array-flatten": "npm:@nolyfill/array-flatten@^1",
-      "is-core-module": "npm:@nolyfill/is-core-module@^1",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1",
-      "side-channel": "npm:@nolyfill/side-channel@^1"
+      "array-flatten": "npm:@nolyfill/array-flatten@^1.0.44",
+      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.44",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.44",
+      "side-channel": "npm:@nolyfill/side-channel@^1.0.44"
     }
   }
 }
