@@ -62,7 +62,7 @@ importers:
         specifier: ^22.13.14
         version: 22.13.14
       '@vitest/ui':
-        specifier: ^3.0.9
+        specifier: ^3.1.1
         version: 3.1.1(vitest@3.1.1)
       '@vue/compiler-sfc':
         specifier: ^3.5.13
@@ -98,7 +98,7 @@ importers:
         specifier: ^6.2.4
         version: 6.2.4(@types/node@22.13.14)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
       vitest:
-        specifier: ^3.0.9
+        specifier: ^3.1.1
         version: 3.1.1(@types/debug@4.1.12)(@types/node@22.13.14)(@vitest/ui@3.1.1)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
       vue:
         specifier: ^3.5.13
