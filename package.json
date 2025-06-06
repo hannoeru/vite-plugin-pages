@@ -99,7 +99,7 @@
     "@solidjs/router": "^0.15.3",
     "@types/micromatch": "^4.0.9",
     "@types/node": "^22.15.29",
-    "@vitest/ui": "^3.1.4",
+    "@vitest/ui": "^3.2.2",
     "@vue/compiler-sfc": "^3.5.16",
     "bumpp": "^10.1.1",
     "eslint": "^9.23.0",
@@ -111,7 +111,7 @@
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
-    "vitest": "^3.1.4",
+    "vitest": "^3.2.2",
     "vue": "^3.5.16",
     "vue-router": "^4.5.1"
   },
