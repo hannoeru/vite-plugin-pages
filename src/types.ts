@@ -32,9 +32,14 @@ export interface PageOptions {
   baseRoute: string
   /**
    * Page file pattern.
-   * @example `**\/*.page.vue`
+   * @example `**\/*.{page,layout}.*`
    */
   filePattern?: string
+  /**
+   * Function to clean or process the route by removing unnecessary parts.
+   * @example (route) => route.replace(/.(page|layout)$/, '')
+   */
+  cleanRoute?: (route:string, path:string)=>string
 }
 
 export interface PageResolver {
