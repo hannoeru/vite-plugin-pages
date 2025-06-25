@@ -11,25 +11,25 @@
     "serve": "NODE_ENV=production esno server"
   },
   "dependencies": {
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@types/compression": "^1.7.5",
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.13.14",
-    "@types/serve-static": "^1.15.7",
-    "@vitejs/plugin-vue": "^5.2.3",
-    "@vue/compiler-sfc": "^3.5.13",
-    "@vue/server-renderer": "^3.5.13",
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.15.33",
+    "@types/serve-static": "^1.15.8",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/compiler-sfc": "^3.5.17",
+    "@vue/server-renderer": "^3.5.17",
     "compression": "^1.8.0",
     "esno": "^4.8.0",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "fast-glob": "^3.3.3",
-    "nodemon": "^3.1.9",
+    "nodemon": "^3.1.10",
     "serve-static": "^2.2.0",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.3",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0",
     "vite-plugin-pages": "workspace:*"
   }
 }

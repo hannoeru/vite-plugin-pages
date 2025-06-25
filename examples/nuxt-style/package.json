@@ -7,15 +7,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.13",
+    "vue": "^3.5.17",
     "vue-router": "4.2.5"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.3",
-    "@vue/compiler-sfc": "^3.5.13",
-    "nodemon": "^3.1.9",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.3",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/compiler-sfc": "^3.5.17",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0",
     "vite-plugin-pages": "workspace:*",
     "vite-plugin-vue-markdown": "^0.23.8"
   }

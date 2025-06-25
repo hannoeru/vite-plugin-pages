@@ -9,13 +9,13 @@
   },
   "dependencies": {
     "@solidjs/router": "^0.15.3",
-    "solid-js": "^1.9.5"
+    "solid-js": "^1.9.7"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.3",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0",
     "vite-plugin-pages": "workspace:*",
-    "vite-plugin-solid": "^2.11.6"
+    "vite-plugin-solid": "^2.11.7"
   }
 }
