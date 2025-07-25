@@ -100,7 +100,7 @@
     "@types/micromatch": "^4.0.9",
     "@types/node": "^22.16.5",
     "@vitest/ui": "^3.2.4",
-    "@vue/compiler-sfc": "^3.5.17",
+    "@vue/compiler-sfc": "^3.5.18",
     "bumpp": "^10.2.0",
     "eslint": "^9.31.0",
     "esno": "^4.8.0",
@@ -112,7 +112,7 @@
     "typescript": "^5.8.3",
     "vite": "^7.0.5",
     "vitest": "^3.2.4",
-    "vue": "^3.5.17",
+    "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },
   "pnpm": {
