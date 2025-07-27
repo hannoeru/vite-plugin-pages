@@ -94,7 +94,7 @@
     "yaml": "^2.8.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.19.0",
+    "@antfu/eslint-config": "^5.0.0",
     "@antfu/utils": "^9.2.0",
     "@solidjs/router": "^0.15.3",
     "@types/micromatch": "^4.0.9",
