@@ -98,7 +98,7 @@
     "@antfu/utils": "^9.2.0",
     "@solidjs/router": "^0.15.3",
     "@types/micromatch": "^4.0.9",
-    "@types/node": "^22.17.2",
+    "@types/node": "^22.18.0",
     "@vitest/ui": "^3.2.4",
     "@vue/compiler-sfc": "^3.5.20",
     "bumpp": "^10.2.3",
