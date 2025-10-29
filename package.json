@@ -105,7 +105,7 @@
     "eslint": "^9.38.0",
     "playwright": "^1.56.1",
     "react": "^19.2.0",
-    "react-router": "^7.9.4",
+    "react-router": "^7.9.5",
     "solid-js": "^1.9.9",
     "tsup": "^8.5.0",
     "tsx": "^4.20.6",
