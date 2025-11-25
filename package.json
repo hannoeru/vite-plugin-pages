@@ -103,7 +103,7 @@
     "@vue/compiler-sfc": "^3.5.25",
     "bumpp": "^10.3.1",
     "eslint": "^9.39.1",
-    "playwright": "^1.56.1",
+    "playwright": "^1.57.0",
     "react": "^19.2.0",
     "react-router": "^7.9.6",
     "solid-js": "^1.9.10",
