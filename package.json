@@ -91,7 +91,7 @@
     "micromatch": "^4.0.8",
     "picocolors": "^1.1.1",
     "tinyglobby": "^0.2.15",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.2.0",
@@ -108,9 +108,9 @@
     "react-router": "^7.9.6",
     "solid-js": "^1.9.10",
     "tsup": "^8.5.1",
-    "tsx": "^4.20.6",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vite": "^7.2.4",
+    "vite": "^7.2.6",
     "vitest": "^4.0.14",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
