@@ -10,17 +10,17 @@
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.3"
+    "react-router-dom": "^7.10.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@types/react-router-config": "^5.0.11",
     "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react": "^5.0.4",
-    "nodemon": "^3.1.10",
+    "@vitejs/plugin-react": "^5.1.1",
+    "nodemon": "^3.1.11",
     "typescript": "^5.9.3",
-    "vite": "^7.1.9",
+    "vite": "^7.2.6",
     "vite-plugin-pages": "workspace:*"
   }
 }
