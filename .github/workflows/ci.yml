@@ -50,7 +50,7 @@ jobs:
         run: echo "${{ toJson(steps.playwright-version.outputs) }}"
 
       - name: Cache Playwright v${{ steps.playwright-version.outputs.PLAYWRIGHT_VERSION }}
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: playwright-cache
         with:
           path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
