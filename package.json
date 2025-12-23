@@ -2,7 +2,7 @@
   "name": "vite-plugin-pages",
   "type": "module",
   "version": "0.33.2",
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.26.2",
   "description": "File system base vue-router plugin for Vite",
   "author": "hannoeru <me@hanlee.co>",
   "license": "MIT",
@@ -94,11 +94,11 @@
     "yaml": "^2.8.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.3.0",
+    "@antfu/eslint-config": "^6.7.3",
     "@antfu/utils": "^9.3.0",
     "@solidjs/router": "^0.15.4",
     "@types/micromatch": "^4.0.10",
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.10.4",
     "@vitest/ui": "^4.0.16",
     "@vue/compiler-sfc": "^3.5.25",
     "bumpp": "^10.3.2",
@@ -110,10 +110,10 @@
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vite": "^7.2.6",
+    "vite": "^7.3.0",
     "vitest": "^4.0.16",
     "vue": "^3.5.25",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.4"
   },
   "pnpm": {
     "overrides": {
