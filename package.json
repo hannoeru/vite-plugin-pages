@@ -102,7 +102,7 @@
     "@vitest/ui": "^4.0.18",
     "@vue/compiler-sfc": "^3.5.27",
     "bumpp": "^10.4.0",
-    "eslint": "^9.39.2",
+    "eslint": "^9.39.4",
     "playwright": "^1.58.1",
     "react": "^19.2.4",
     "react-router": "^7.13.0",
