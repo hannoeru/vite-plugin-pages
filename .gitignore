@@ -5,3 +5,4 @@ dist
 .idea/
 .pnpm-debug*
 .eslintcache
+vite-plugin-pages-*.tgz
