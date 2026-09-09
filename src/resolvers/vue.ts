@@ -185,6 +185,7 @@ export function vueResolver(): PageResolver {
     if (!customBlock) {
       customBlockMap.delete(path)
       ctx.debug.routeBlock('%s deleted', path)
+      ctx.onUpdate()
       return
     }
     if (!exitsCustomBlock || !dequal(exitsCustomBlock, customBlock)) {
