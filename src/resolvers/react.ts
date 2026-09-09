@@ -69,7 +69,7 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
       if (i === pathNodes.length - 1)
         route.element = element
 
-      const isIndexRoute = normalizeCase(node, caseSensitive).endsWith('index')
+      const isIndexRoute = normalizeCase(node, caseSensitive) === 'index'
 
       if (!route.path && isIndexRoute) {
         route.path = '/'
