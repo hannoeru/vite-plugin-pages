@@ -6,6 +6,54 @@ import { createServer } from 'vite'
 import { PageContext } from '../src/context'
 
 describe('page context', () => {
+  it('applies file patterns when adding and removing watched pages', async () => {
+    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
+    mkdirSync(join(root, 'pages'))
+    const server = await createServer({ root, configFile: false, server: { watch: null, ws: false } })
+
+    try {
+      const ctx = new PageContext({
+        resolver: 'react',
+        dirs: [
+          { dir: 'pages', baseRoute: 'app', filePattern: '**/*.page.tsx' },
+          { dir: 'pages', baseRoute: 'admin', filePattern: '**/*.view.tsx' },
+        ],
+      }, root)
+      const helper = `${root}/pages/helper.tsx`
+      writeFileSync(helper, 'export default () => null')
+      await ctx.searchGlob()
+      expect(ctx.pageRouteMap.size).toBe(0)
+
+      ctx.setupViteServer(server)
+      const send = vi.spyOn(server.ws, 'send')
+      for (const event of ['add', 'change', 'unlink']) {
+        await Promise.all(server.watcher.listeners(event).map(listener => listener(helper)))
+        expect(ctx.pageRouteMap.size).toBe(0)
+        expect(send).not.toHaveBeenCalled()
+      }
+
+      const path = `${root}/pages/home.view.tsx`
+      writeFileSync(path, 'export default () => null')
+      await Promise.all(server.watcher.listeners('add').map(listener => listener(path)))
+      expect(ctx.pageRouteMap.get(path)?.route).toBe('admin/home.view')
+      expect(send).toHaveBeenCalledExactlyOnceWith({ type: 'full-reload' })
+
+      const scanned = new PageContext(ctx.rawOptions, root)
+      await scanned.searchGlob()
+      expect(ctx.pageRouteMap).toEqual(scanned.pageRouteMap)
+
+      send.mockClear()
+      rmSync(path)
+      await Promise.all(server.watcher.listeners('unlink').map(listener => listener(path)))
+      expect(ctx.pageRouteMap.size).toBe(0)
+      expect(send).toHaveBeenCalledExactlyOnceWith({ type: 'full-reload' })
+    }
+    finally {
+      await server.close()
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
   it('uses the matching directory for new pages with a shared directory prefix', async () => {
     const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
     mkdirSync(join(root, 'pages'))

@@ -1,5 +1,5 @@
 import type { ModuleNode, ViteDevServer } from 'vite'
-import type { ResolvedOptions } from './types'
+import type { PageOptions, ResolvedOptions } from './types'
 import { resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
 import { slash } from '@antfu/utils'
@@ -23,6 +23,10 @@ export function extsToGlob(extensions: string[]) {
   return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
 }
 
+export function getPagePattern(options: ResolvedOptions, page?: PageOptions) {
+  return page?.filePattern ?? `**/*.${extsToGlob(options.extensions)}`
+}
+
 export function countSlash(value: string) {
   return (value.match(countSlashRE) || []).length
 }
@@ -30,7 +34,8 @@ export function countSlash(value: string) {
 export function findPageDir(path: string, options: ResolvedOptions) {
   return options.dirs.find((page) => {
     const dirPath = slash(resolve(options.root, page.dir))
-    return path.startsWith(dirPath.endsWith('/') ? dirPath : `${dirPath}/`)
+    const prefix = dirPath.endsWith('/') ? dirPath : `${dirPath}/`
+    return path.startsWith(prefix) && micromatch.isMatch(path.slice(prefix.length), getPagePattern(options, page))
   })
 }
 
