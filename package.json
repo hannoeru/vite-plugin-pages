@@ -96,7 +96,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^7.2.0",
     "@antfu/utils": "^9.3.0",
-    "@solidjs/router": "^0.15.4",
+    "@solidjs/router": "^1.0.0",
     "@types/micromatch": "^4.0.10",
     "@types/node": "^25.2.0",
     "@vitest/ui": "^4.0.18",
