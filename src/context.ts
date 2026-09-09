@@ -6,7 +6,7 @@ import { slash, toArray } from '@antfu/utils'
 import { getPageFiles } from './files'
 import { resolveOptions } from './options'
 
-import { debug, invalidatePagesModule, isTarget } from './utils'
+import { debug, findPageDir, invalidatePagesModule, isTarget } from './utils'
 
 export interface PageRoute {
   path: string
@@ -56,7 +56,7 @@ export class PageContext {
         path = slash(path)
         if (!isTarget(path, this.options))
           return
-        const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!
+        const page = findPageDir(path, this.options)!
         await this.addPage(path, page)
         this.onUpdate()
       })

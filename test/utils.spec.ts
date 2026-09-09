@@ -53,6 +53,9 @@ describe('utils', () => {
     const testIsTarget = (path: string) => expect(isTarget(slash(resolve(path)), options))
 
     testIsTarget('examples/vue/src/pages/home.vue').toBe(true)
+    testIsTarget('examples/vue/src/pages/nested/home.vue').toBe(true)
+    testIsTarget('examples/vue/src/pages-backup/home.vue').toBe(false)
+    testIsTarget('examples/vue/src/pages.vue').toBe(false)
     testIsTarget('examples/vue/src/pages/exclude/home.vue').toBe(false)
     testIsTarget('examples/vue/src/pages/home.txt').toBe(false)
   })

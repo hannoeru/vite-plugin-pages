@@ -27,17 +27,15 @@ export function countSlash(value: string) {
   return (value.match(countSlashRE) || []).length
 }
 
-function isPagesDir(path: string, options: ResolvedOptions) {
-  for (const page of options.dirs) {
+export function findPageDir(path: string, options: ResolvedOptions) {
+  return options.dirs.find((page) => {
     const dirPath = slash(resolve(options.root, page.dir))
-    if (path.startsWith(dirPath))
-      return true
-  }
-  return false
+    return path.startsWith(dirPath.endsWith('/') ? dirPath : `${dirPath}/`)
+  })
 }
 
 export function isTarget(path: string, options: ResolvedOptions) {
-  return isPagesDir(path, options) && !micromatch.isMatch(path, options.exclude) && options.extensionsRE.test(path)
+  return !!findPageDir(path, options) && !micromatch.isMatch(path, options.exclude) && options.extensionsRE.test(path)
 }
 
 export function isDynamicRoute(routePath: string, nuxtStyle = false) {

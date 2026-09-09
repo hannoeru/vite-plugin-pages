@@ -6,6 +6,43 @@ import { createServer } from 'vite'
 import { PageContext } from '../src/context'
 
 describe('page context', () => {
+  it('uses the matching directory for new pages with a shared directory prefix', async () => {
+    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
+    mkdirSync(join(root, 'pages'))
+    mkdirSync(join(root, 'pages-extra'))
+    const server = await createServer({ root, configFile: false, server: { watch: null, ws: false } })
+
+    try {
+      const ctx = new PageContext({
+        resolver: 'react',
+        dirs: [
+          { dir: 'pages', baseRoute: '' },
+          { dir: 'pages-extra', baseRoute: 'extra' },
+        ],
+      }, root)
+      ctx.setupViteServer(server)
+      const send = vi.spyOn(server.ws, 'send')
+      const path = `${root}/pages-extra/home.tsx`
+      writeFileSync(path, 'export default () => null')
+      await Promise.all(server.watcher.listeners('add').map(listener => listener(path)))
+
+      expect(ctx.pageRouteMap.get(path)?.route).toBe('extra/home')
+      expect(send).toHaveBeenCalledExactlyOnceWith({ type: 'full-reload' })
+
+      send.mockClear()
+      mkdirSync(join(root, 'pages-backup'))
+      const ignoredPath = `${root}/pages-backup/home.tsx`
+      writeFileSync(ignoredPath, 'export default () => null')
+      await Promise.all(server.watcher.listeners('add').map(listener => listener(ignoredPath)))
+      expect(ctx.pageRouteMap.has(ignoredPath)).toBe(false)
+      expect(send).not.toHaveBeenCalled()
+    }
+    finally {
+      await server.close()
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
   it('reloads routes when a route block is removed', async () => {
     const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
     mkdirSync(join(root, 'pages'))
