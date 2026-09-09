@@ -4,26 +4,10 @@ import { ROUTE_IMPORT_NAME } from './constants'
 import { resolveImportMode } from './utils'
 
 const componentRE = /"(?:component|element)":("(.*?)")/g
-const hasFunctionRE = /"(?:props|beforeEnter)":("(.*?)")/g
+const hasFunctionRE = /"(?:props|beforeEnter)":("(?:\\.|[^"\\])*")/g
 
-const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//g
-const singlelineCommentsRE = /\/\/.*/g
-
-function replaceFunction(_: any, value: any) {
-  if (typeof value === 'function' || typeof value === 'function') {
-    const fnBody = value.toString()
-      .replace(multilineCommentsRE, '')
-      .replace(singlelineCommentsRE, '')
-      .replace(/(\s)/g, '')
-
-    // ES6 Arrow Function
-    if (fnBody.length < 8 || fnBody.substring(0, 8) !== 'function')
-      return `_NuFrRa_${fnBody}`
-
-    return fnBody
-  }
-
-  return value
+function replaceFunction(_: string, value: unknown) {
+  return typeof value === 'function' ? `_NuFrRa_${value.toString()}` : value
 }
 
 /**
@@ -57,12 +41,11 @@ export function stringifyRoutes(
     return str.replace(replaceStr, importName)
   }
 
-  function functionReplacer(str: string, replaceStr: string, content: string) {
-    if (content.startsWith('function'))
-      return str.replace(replaceStr, content)
+  function functionReplacer(str: string, replaceStr: string) {
+    const content: string = JSON.parse(replaceStr)
 
     if (content.startsWith('_NuFrRa_'))
-      return str.replace(replaceStr, content.slice(8))
+      return str.replace(replaceStr, () => content.slice(8))
 
     return str
   }
