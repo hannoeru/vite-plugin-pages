@@ -1,17 +1,22 @@
-shellEmulator: true
+minimumReleaseAgeExcludePrune: true
+minimumReleaseAgeExclude:
+  - '@types/node@26.6.1'
+  - react-router-dom@7.18.4
+  - react-router@7.18.4 || 8.4.0
+
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 525600
+shellEmulator: true
+
 packages:
   - examples/*
+
 overrides:
   array-flatten: npm:@nolyfill/array-flatten@^1.0.44
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   safe-buffer: npm:@nolyfill/safe-buffer@^1.0.44
   safer-buffer: npm:@nolyfill/safer-buffer@^1.0.44
   side-channel: npm:@nolyfill/side-channel@^1.0.44
-minimumReleaseAgeExclude:
-  - '@types/node@26.6.1'
-  - react-router-dom@7.18.4
-  - react-router@7.18.4 || 8.4.0
+
 allowBuilds:
   esbuild: true

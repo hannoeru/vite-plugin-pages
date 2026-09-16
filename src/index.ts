@@ -15,7 +15,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       // auto set resolver for react project
       if (
         !userOptions.resolver
-        && config.plugins.find(i => i.name.includes('vite:react'))
+        && config.plugins.some(i => i.name.includes('vite:react'))
       ) {
         userOptions.resolver = 'react'
       }
@@ -23,7 +23,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       // auto set resolver for solid project
       if (
         !userOptions.resolver
-        && config.plugins.find(i => i.name.includes('solid'))
+        && config.plugins.some(i => i.name.includes('solid'))
       ) {
         userOptions.resolver = 'solid'
       }
