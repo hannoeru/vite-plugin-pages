@@ -12,24 +12,24 @@
   },
   "dependencies": {
     "vue": "^3.5.17",
-    "vue-router": "^4.6.3"
+    "vue-router": "^5.3.1"
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.6",
-    "@types/node": "^24.10.1",
+    "@types/node": "^26.6.1",
     "@types/serve-static": "^2.2.0",
-    "@vitejs/plugin-vue": "^6.0.2",
-    "@vue/compiler-sfc": "^3.5.25",
-    "@vue/server-renderer": "^3.5.25",
-    "compression": "^1.8.1",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "@vue/compiler-sfc": "^3.5.42",
+    "@vue/server-renderer": "^3.5.42",
+    "compression": "^1.8.2",
     "esno": "^4.8.0",
     "express": "^5.2.1",
     "fast-glob": "^3.3.3",
-    "nodemon": "^3.1.11",
-    "serve-static": "^2.2.0",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.6",
+    "nodemon": "^3.1.14",
+    "serve-static": "^2.2.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0",
     "vite-plugin-pages": "workspace:*"
   }
 }

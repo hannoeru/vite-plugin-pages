@@ -1,5 +1,6 @@
 shellEmulator: true
 trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 525600
 packages:
   - examples/*
 overrides:
@@ -8,5 +9,9 @@ overrides:
   safe-buffer: npm:@nolyfill/safe-buffer@^1.0.44
   safer-buffer: npm:@nolyfill/safer-buffer@^1.0.44
   side-channel: npm:@nolyfill/side-channel@^1.0.44
-onlyBuiltDependencies:
-  - esbuild
+minimumReleaseAgeExclude:
+  - '@types/node@26.6.1'
+  - react-router-dom@7.18.4
+  - react-router@7.18.4 || 8.4.0
+allowBuilds:
+  esbuild: true
