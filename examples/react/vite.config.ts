@@ -6,6 +6,18 @@ import Pages from 'vite-plugin-pages'
 export default defineConfig({
   plugins: [
     react(),
-    Pages(),
+    Pages({
+      dirs: [
+        { dir: 'src/pages', filePattern: '**/*.page.tsx' },
+        { dir: 'src/pages', baseRoute: 'admin', filePattern: '**/*.view.tsx' },
+      ],
+      extendRoute(route: any) {
+        if (route.path === 'about.page')
+          route.props = (route: any) => ({
+            label: 'hello world',
+            url: 'https://example.com',
+          })
+      },
+    }),
   ],
 })

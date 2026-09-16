@@ -80,7 +80,7 @@ export class PageContext {
       if (!extension)
         continue
 
-      const route = slash(join(pageDir.baseRoute, p.replace(`${pageDirPath}/`, '').replace(`.${extension}`, '')))
+      const route = slash(join(pageDir.baseRoute ?? '', p.replace(`${pageDirPath}/`, '').replace(`.${extension}`, '')))
       this._pageRouteMap.set(p, {
         path: p,
         route,
