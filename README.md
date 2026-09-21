@@ -16,9 +16,9 @@
 
 **🚨Important Notes🚨**
 
-We recommend that Vue users use [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) instead of this plugin.
+We recommend that Vue users use [vue-router](https://router.vuejs.org/) instead of this plugin.
 
-[unplugin-vue-router](https://github.com/posva/unplugin-vue-router) is a unplugin library created by [@posva](https://github.com/posva), the same author as vue-router. It provides almost the same features as [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) but with better integration with vue-router, including features like auto-generating route types based on your route files for vue-router autocomplete.
+[vue-router](https://router.vuejs.org/) now has built-in file-based routing created by [@posva](https://github.com/posva). It provides almost the same features as [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) but with better integration with vue-router, including features like auto-generating route types based on your route files for vue-router autocomplete.
 
 #### Install:
 
