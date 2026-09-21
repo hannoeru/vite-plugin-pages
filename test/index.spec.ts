@@ -44,7 +44,7 @@ describe('pages plugin', () => {
       for (const environment of Object.values(server.environments)) {
         const send = vi.spyOn(environment.hot, 'send')
         const invalidateModule = vi.spyOn(environment.moduleGraph, 'invalidateModule').mockImplementation(() => {})
-        const module = { id: 'virtual:vite-plugin-pages/generated-pages' }
+        const module = { id: '\0virtual:vite-plugin-pages/generated-pages' }
         vi.spyOn(environment.moduleGraph, 'getModulesByFile').mockReturnValue(new Set([module]) as never)
 
         const result = await hotUpdate.call({ environment } as never, {
