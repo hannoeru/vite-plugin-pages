@@ -1,6 +1,5 @@
 minimumReleaseAgeExcludePrune: true
 minimumReleaseAgeExclude:
-  - '@types/node@26.6.1'
   - react-router-dom@7.18.4
   - react-router@7.18.4 || 8.4.0
 
