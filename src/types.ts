@@ -20,6 +20,12 @@ export type CustomBlock = Record<string, any>
 
 export type InternalPageResolvers = 'vue' | 'react' | 'solid'
 
+export enum RouteChange {
+  None = 'none',
+  RouteMetadata = 'route-metadata',
+  RouteSet = 'route-set',
+}
+
 export interface PageOptions {
   /**
    * Page base directory.
@@ -51,7 +57,7 @@ export interface PageResolver {
   hmr?: {
     added?: (ctx: PageContext, path: string) => Awaitable<void>
     removed?: (ctx: PageContext, path: string) => Awaitable<void>
-    changed?: (ctx: PageContext, path: string) => Awaitable<boolean | void>
+    changed?: (ctx: PageContext, path: string) => Awaitable<RouteChange>
   }
 }
 

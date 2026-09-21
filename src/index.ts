@@ -3,28 +3,40 @@ import type { UserOptions } from './types'
 import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 
 import { PageContext } from './context'
+import { RouteChange } from './types'
 import { debug, invalidatePagesModule, parsePageRequest } from './utils'
+
+interface PendingHotUpdate {
+  environments: Set<string>
+  file: string
+  routeChange: Promise<RouteChange>
+  timestamp: number
+  type: HotUpdateOptions['type']
+}
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
-  const hotUpdates = new Map<string, {
-    environments: Set<string>
-    routesChanged: Promise<boolean>
-  }>()
+  const hotUpdates = new Set<PendingHotUpdate>()
 
   function processHotUpdate(options: HotUpdateOptions) {
-    const key = `${options.timestamp}:${options.type}:${options.file}`
-    let update = hotUpdates.get(key)
+    let update = [...hotUpdates].find(update =>
+      update.timestamp === options.timestamp
+      && update.type === options.type
+      && update.file === options.file,
+    )
 
     if (!update) {
       update = {
         environments: new Set(),
-        routesChanged: ctx.handleFileChange(options.type, options.file),
+        file: options.file,
+        routeChange: ctx.handleFileChange(options.type, options.file),
+        timestamp: options.timestamp,
+        type: options.type,
       }
-      hotUpdates.set(key, update)
+      hotUpdates.add(update)
     }
 
-    return { key, update }
+    return update
   }
 
   return {
@@ -57,14 +69,14 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       },
     },
     async hotUpdate(options) {
-      const { key, update } = processHotUpdate(options)
-      const routesChanged = await update.routesChanged
+      const update = processHotUpdate(options)
+      const routeChange = await update.routeChange
       update.environments.add(this.environment.name)
 
       if (update.environments.size === Object.keys(options.server.environments).length)
-        hotUpdates.delete(key)
+        hotUpdates.delete(update)
 
-      if (!routesChanged)
+      if (routeChange === RouteChange.None)
         return
 
       invalidatePagesModule(this.environment, options.timestamp)

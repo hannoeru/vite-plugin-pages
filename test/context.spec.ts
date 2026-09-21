@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { slash } from '@antfu/utils'
 import { PageContext } from '../src/context'
+import { RouteChange } from '../src/types'
 
 describe('page context', () => {
   it('applies file patterns when page files change', async () => {
@@ -23,13 +24,13 @@ describe('page context', () => {
       expect(ctx.pageRouteMap.size).toBe(0)
 
       for (const type of ['create', 'update', 'delete'] as const) {
-        expect(await ctx.handleFileChange(type, helper)).toBe(false)
+        expect(await ctx.handleFileChange(type, helper)).toBe(RouteChange.None)
         expect(ctx.pageRouteMap.size).toBe(0)
       }
 
       const path = `${root}/pages/home.view.tsx`
       writeFileSync(path, 'export default () => null')
-      expect(await ctx.handleFileChange('create', path)).toBe(true)
+      expect(await ctx.handleFileChange('create', path)).toBe(RouteChange.RouteSet)
       expect(ctx.pageRouteMap.get(path)?.route).toBe('admin/home.view')
 
       const scanned = new PageContext(ctx.rawOptions, root)
@@ -37,7 +38,7 @@ describe('page context', () => {
       expect(ctx.pageRouteMap).toEqual(scanned.pageRouteMap)
 
       rmSync(path)
-      expect(await ctx.handleFileChange('delete', path)).toBe(true)
+      expect(await ctx.handleFileChange('delete', path)).toBe(RouteChange.RouteSet)
       expect(ctx.pageRouteMap.size).toBe(0)
     }
     finally {
@@ -60,13 +61,13 @@ describe('page context', () => {
       }, root)
       const path = `${root}/pages-extra/home.tsx`
       writeFileSync(path, 'export default () => null')
-      expect(await ctx.handleFileChange('create', path)).toBe(true)
+      expect(await ctx.handleFileChange('create', path)).toBe(RouteChange.RouteSet)
       expect(ctx.pageRouteMap.get(path)?.route).toBe('extra/home')
 
       mkdirSync(join(root, 'pages-backup'))
       const ignoredPath = `${root}/pages-backup/home.tsx`
       writeFileSync(ignoredPath, 'export default () => null')
-      expect(await ctx.handleFileChange('create', ignoredPath)).toBe(false)
+      expect(await ctx.handleFileChange('create', ignoredPath)).toBe(RouteChange.None)
       expect(ctx.pageRouteMap.has(ignoredPath)).toBe(false)
     }
     finally {
@@ -81,7 +82,7 @@ describe('page context', () => {
     const secondPath = `${root}/pages/second.tsx`
     writeFileSync(firstPath, 'export default () => null')
     writeFileSync(secondPath, 'export default () => null')
-    const changes = new Map<string, (routesChanged: boolean) => void>()
+    const changes = new Map<string, (routeChange: RouteChange) => void>()
 
     try {
       const ctx = new PageContext({
@@ -92,7 +93,7 @@ describe('page context', () => {
           resolveRoutes: () => '',
           getComputedRoutes: () => [],
           hmr: {
-            changed: (_ctx, path) => new Promise<boolean>((resolve) => {
+            changed: (_ctx, path) => new Promise<RouteChange>((resolve) => {
               changes.set(path, resolve)
             }),
           },
@@ -102,11 +103,11 @@ describe('page context', () => {
 
       const firstChange = ctx.handleFileChange('update', firstPath)
       const secondChange = ctx.handleFileChange('update', secondPath)
-      changes.get(firstPath)!(true)
-      changes.get(secondPath)!(false)
+      changes.get(firstPath)!(RouteChange.RouteMetadata)
+      changes.get(secondPath)!(RouteChange.None)
 
-      await expect(firstChange).resolves.toBe(true)
-      await expect(secondChange).resolves.toBe(false)
+      await expect(firstChange).resolves.toBe(RouteChange.RouteMetadata)
+      await expect(secondChange).resolves.toBe(RouteChange.None)
     }
     finally {
       rmSync(root, { recursive: true, force: true })
@@ -128,12 +129,12 @@ describe('page context', () => {
       ])
 
       writeFileSync(path, '<template><div /></template>')
-      expect(await ctx.handleFileChange('update', path)).toBe(true)
+      expect(await ctx.handleFileChange('update', path)).toBe(RouteChange.RouteMetadata)
       expect(await ctx.options.resolver.getComputedRoutes(ctx)).toEqual([
         { name: 'index', path: '/', component: '/pages/index.vue', props: true },
       ])
 
-      expect(await ctx.handleFileChange('update', path)).toBe(false)
+      expect(await ctx.handleFileChange('update', path)).toBe(RouteChange.None)
     }
     finally {
       rmSync(root, { recursive: true, force: true })
