@@ -3,39 +3,26 @@ import type { UserOptions } from './types'
 import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 
 import { PageContext } from './context'
-import { RouteChange } from './types'
 import { debug, invalidatePagesModule, parsePageRequest } from './utils'
 
 interface PendingHotUpdate {
   environments: Set<string>
-  file: string
-  routeChange: Promise<RouteChange>
-  timestamp: number
-  type: HotUpdateOptions['type']
+  routesChanged: Promise<boolean>
 }
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
-  const hotUpdates = new Set<PendingHotUpdate>()
+  const hotUpdates = new Map<number, PendingHotUpdate>()
 
   function processHotUpdate(options: HotUpdateOptions) {
-    let update = [...hotUpdates].find(update =>
-      update.timestamp === options.timestamp
-      && update.type === options.type
-      && update.file === options.file,
-    )
-
+    let update = hotUpdates.get(options.timestamp)
     if (!update) {
       update = {
         environments: new Set(),
-        file: options.file,
-        routeChange: ctx.handleFileChange(options.type, options.file),
-        timestamp: options.timestamp,
-        type: options.type,
+        routesChanged: ctx.handleFileChange(options.type, options.file),
       }
-      hotUpdates.add(update)
+      hotUpdates.set(options.timestamp, update)
     }
-
     return update
   }
 
@@ -70,13 +57,13 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     },
     async hotUpdate(options) {
       const update = processHotUpdate(options)
-      const routeChange = await update.routeChange
+      const routesChanged = await update.routesChanged
       update.environments.add(this.environment.name)
 
       if (update.environments.size === Object.keys(options.server.environments).length)
-        hotUpdates.delete(update)
+        hotUpdates.delete(options.timestamp)
 
-      if (routeChange === RouteChange.None)
+      if (!routesChanged)
         return
 
       invalidatePagesModule(this.environment, options.timestamp)

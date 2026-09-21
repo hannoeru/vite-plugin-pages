@@ -5,7 +5,6 @@ import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
 import { getPageFiles } from './files'
 import { resolveOptions } from './options'
-import { RouteChange } from './types'
 
 import { debug, findPageDir, isTarget } from './utils'
 
@@ -37,25 +36,25 @@ export class PageContext {
   async handleFileChange(type: HotUpdateOptions['type'], path: string) {
     path = slash(path)
     if (!isTarget(path, this.options))
-      return RouteChange.None
+      return false
 
     if (type === 'create') {
       if (this._pageRouteMap.has(path))
-        return RouteChange.None
+        return false
 
       await this.addPage(path, findPageDir(path, this.options)!)
-      return RouteChange.RouteSet
+      return true
     }
 
     if (!this._pageRouteMap.has(path))
-      return RouteChange.None
+      return false
 
     if (type === 'delete') {
       await this.removePage(path)
-      return RouteChange.RouteSet
+      return true
     }
 
-    return await this.options.resolver.hmr?.changed?.(this, path) ?? RouteChange.None
+    return await this.options.resolver.hmr?.changed?.(this, path) ?? false
   }
 
   async addPage(path: string | string[], pageDir: PageOptions) {

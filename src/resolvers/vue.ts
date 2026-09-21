@@ -5,7 +5,6 @@ import colors from 'picocolors'
 
 import { getRouteBlock } from '../customBlock'
 import { generateClientCode } from '../stringify'
-import { RouteChange } from '../types'
 import {
   countSlash,
   isCatchAllRoute,
@@ -194,24 +193,24 @@ export function vueResolver(): PageResolver {
     const existingCustomBlock = customBlockMap.get(path)
     const customBlock = await readCustomBlock(ctx, path)
     if (customBlock === customBlockReadFailed)
-      return RouteChange.None
+      return false
 
     if (!existingCustomBlock && !customBlock)
-      return RouteChange.None
+      return false
 
     if (!customBlock) {
       customBlockMap.delete(path)
       ctx.debug.routeBlock('%s deleted', path)
-      return RouteChange.RouteMetadata
+      return true
     }
     if (!existingCustomBlock || !dequal(existingCustomBlock, customBlock)) {
       ctx.debug.routeBlock('%s old: %O', path, existingCustomBlock)
       ctx.debug.routeBlock('%s new: %O', path, customBlock)
       customBlockMap.set(path, customBlock)
-      return RouteChange.RouteMetadata
+      return true
     }
 
-    return RouteChange.None
+    return false
   }
 
   return {
