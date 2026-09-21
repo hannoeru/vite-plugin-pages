@@ -50,7 +50,7 @@ function prepareRoutes(
     delete route.rawRoute
 
     if (route.customBlock) {
-      Object.assign(route, route.customBlock || {})
+      Object.assign(route, route.customBlock)
       delete route.customBlock
     }
 
@@ -174,8 +174,9 @@ export function vueResolver(): PageResolver {
     try {
       return await getRouteBlock(path, ctx.options)
     }
-    catch (error: any) {
-      ctx.logger?.error(colors.red(`[vite-plugin-pages] ${error.message}`))
+    catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      ctx.logger?.error(colors.red(`[vite-plugin-pages] ${message}`))
       return customBlockReadFailed
     }
   }
@@ -192,10 +193,7 @@ export function vueResolver(): PageResolver {
   async function refreshCustomBlock(ctx: PageContext, path: string) {
     const existingCustomBlock = customBlockMap.get(path)
     const customBlock = await readCustomBlock(ctx, path)
-    if (customBlock === customBlockReadFailed)
-      return false
-
-    if (!existingCustomBlock && !customBlock)
+    if (customBlock === customBlockReadFailed || dequal(existingCustomBlock, customBlock))
       return false
 
     if (!customBlock) {
@@ -203,14 +201,10 @@ export function vueResolver(): PageResolver {
       ctx.debug.routeBlock('%s deleted', path)
       return true
     }
-    if (!existingCustomBlock || !dequal(existingCustomBlock, customBlock)) {
-      ctx.debug.routeBlock('%s old: %O', path, existingCustomBlock)
-      ctx.debug.routeBlock('%s new: %O', path, customBlock)
-      customBlockMap.set(path, customBlock)
-      return true
-    }
-
-    return false
+    ctx.debug.routeBlock('%s old: %O', path, existingCustomBlock)
+    ctx.debug.routeBlock('%s new: %O', path, customBlock)
+    customBlockMap.set(path, customBlock)
+    return true
   }
 
   return {

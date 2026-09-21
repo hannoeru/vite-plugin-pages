@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { slash } from '@antfu/utils'
 import { resolveOptions } from '../src/options'
-import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, isCatchAllRoute, isDynamicRoute, isTarget } from '../src/utils'
+import { buildReactRemixRoutePath, buildReactRoutePath, countSlash, extsToGlob, findPageDir, isCatchAllRoute, isDynamicRoute } from '../src/utils'
 
 describe('utils', () => {
   it('extensions to glob', () => {
@@ -43,20 +43,20 @@ describe('utils', () => {
     expect(buildReactRemixRoutePath('*')).toBe('*')
   })
 
-  it('path is target', () => {
+  it('finds the page directory only for target files', () => {
     const options = resolveOptions({
       dirs: 'examples/vue/src/pages',
       resolver: 'vue',
       exclude: ['**/exclude/**'],
     })
 
-    const testIsTarget = (path: string) => expect(isTarget(slash(resolve(path)), options))
+    const isPage = (path: string) => !!findPageDir(slash(resolve(path)), options)
 
-    testIsTarget('examples/vue/src/pages/home.vue').toBe(true)
-    testIsTarget('examples/vue/src/pages/nested/home.vue').toBe(true)
-    testIsTarget('examples/vue/src/pages-backup/home.vue').toBe(false)
-    testIsTarget('examples/vue/src/pages.vue').toBe(false)
-    testIsTarget('examples/vue/src/pages/exclude/home.vue').toBe(false)
-    testIsTarget('examples/vue/src/pages/home.txt').toBe(false)
+    expect(isPage('examples/vue/src/pages/home.vue')).toBe(true)
+    expect(isPage('examples/vue/src/pages/nested/home.vue')).toBe(true)
+    expect(isPage('examples/vue/src/pages-backup/home.vue')).toBe(false)
+    expect(isPage('examples/vue/src/pages.vue')).toBe(false)
+    expect(isPage('examples/vue/src/pages/exclude/home.vue')).toBe(false)
+    expect(isPage('examples/vue/src/pages/home.txt')).toBe(false)
   })
 })

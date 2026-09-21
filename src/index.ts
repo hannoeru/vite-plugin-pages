@@ -1,4 +1,4 @@
-import type { HotUpdateOptions, Plugin } from 'vite'
+import type { Plugin } from 'vite'
 import type { UserOptions } from './types'
 import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 
@@ -6,25 +6,13 @@ import { PageContext } from './context'
 import { debug, invalidatePagesModule, parsePageRequest } from './utils'
 
 interface PendingHotUpdate {
-  environments: Set<string>
+  remainingEnvironments: number
   routesChanged: Promise<boolean>
 }
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
   const hotUpdates = new Map<number, PendingHotUpdate>()
-
-  function processHotUpdate(options: HotUpdateOptions) {
-    let update = hotUpdates.get(options.timestamp)
-    if (!update) {
-      update = {
-        environments: new Set(),
-        routesChanged: ctx.handleFileChange(options.type, options.file),
-      }
-      hotUpdates.set(options.timestamp, update)
-    }
-    return update
-  }
 
   return {
     name: 'vite-plugin-pages',
@@ -56,11 +44,17 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       },
     },
     async hotUpdate(options) {
-      const update = processHotUpdate(options)
-      const routesChanged = await update.routesChanged
-      update.environments.add(this.environment.name)
+      let update = hotUpdates.get(options.timestamp)
+      if (!update) {
+        update = {
+          remainingEnvironments: Object.keys(options.server.environments).length,
+          routesChanged: ctx.handleFileChange(options.type, options.file),
+        }
+        hotUpdates.set(options.timestamp, update)
+      }
 
-      if (update.environments.size === Object.keys(options.server.environments).length)
+      const routesChanged = await update.routesChanged
+      if (--update.remainingEnvironments === 0)
         hotUpdates.delete(options.timestamp)
 
       if (!routesChanged)
