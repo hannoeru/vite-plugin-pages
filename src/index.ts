@@ -1,12 +1,30 @@
-import type { Plugin } from 'vite'
+import type { HotUpdateOptions, Plugin } from 'vite'
 import type { UserOptions } from './types'
 import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 
 import { PageContext } from './context'
-import { parsePageRequest } from './utils'
+import { debug, invalidatePagesModule, parsePageRequest } from './utils'
+
+interface PendingHotUpdate {
+  environments: Set<string>
+  routesChanged: Promise<boolean>
+}
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
+  const hotUpdates = new Map<number, PendingHotUpdate>()
+
+  function processHotUpdate(options: HotUpdateOptions) {
+    let update = hotUpdates.get(options.timestamp)
+    if (!update) {
+      update = {
+        environments: new Set(),
+        routesChanged: ctx.handleFileChange(options.type, options.file),
+      }
+      hotUpdates.set(options.timestamp, update)
+    }
+    return update
+  }
 
   return {
     name: 'vite-plugin-pages',
@@ -37,8 +55,21 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
         return ctx.options.resolver.getComputedRoutes(ctx)
       },
     },
-    configureServer(server) {
-      ctx.setupViteServer(server)
+    async hotUpdate(options) {
+      const update = processHotUpdate(options)
+      const routesChanged = await update.routesChanged
+      update.environments.add(this.environment.name)
+
+      if (update.environments.size === Object.keys(options.server.environments).length)
+        hotUpdates.delete(options.timestamp)
+
+      if (!routesChanged)
+        return
+
+      invalidatePagesModule(this.environment, options.timestamp)
+      debug.hmr(`Reload generated pages in the ${this.environment.name} environment.`)
+      this.environment.hot.send({ type: 'full-reload' })
+      return []
     },
     resolveId(id) {
       if (ctx.options.moduleIds.includes(id))
