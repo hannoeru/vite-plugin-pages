@@ -66,7 +66,7 @@ interface Options {
   dirs: string | (string | PageOptions)[]
   /**
    * Valid file extensions for page components.
-   * @default ['vue', 'js']
+   * @default ['vue', 'ts', 'js']
    */
   extensions: string[]
   /**
@@ -85,7 +85,7 @@ interface Options {
   importPath: 'absolute' | 'relative'
   /**
    * Routing style
-   * @default false
+   * @default 'next'
    */
   routeStyle: 'next' | 'nuxt' | 'remix'
   /**

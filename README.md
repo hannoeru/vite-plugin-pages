@@ -18,7 +18,7 @@
 
 We recommend that Vue users use [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) instead of this plugin.
 
-[unplugin-vue-router](https://github.com/posva/unplugin-vue-router) is a unplugin library created by [@posva](https://github.com/posva), same auther as vue-router. It provide almost same feature as [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) but better intergration with vue-router, include some cool feature like auto generate route types base on your route files to provide autocomplete for vue-router.
+[unplugin-vue-router](https://github.com/posva/unplugin-vue-router) is a unplugin library created by [@posva](https://github.com/posva), the same author as vue-router. It provides almost the same features as [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) but with better integration with vue-router, including features like auto-generating route types based on your route files for vue-router autocomplete.
 
 #### Install:
 
@@ -29,7 +29,7 @@ npm install vue-router
 
 ### React
 
-> since v0.19.0 we only support react-router v6, if you are using react-router v5 use v0.18.2.
+> The plugin supports react-router v6 and later. For react-router v5, use v0.18.2.
 
 #### Install:
 
@@ -292,7 +292,7 @@ An array of valid file extensions for pages. If multiple extensions match for a 
 ### exclude
 
 - **Type:** `string[]`
-- **Default:** `[]`
+- **Default:** `['node_modules', '.git', '**/__*__/**']`
 
 An array of glob patterns to exclude matches.
 
@@ -391,7 +391,7 @@ See [#492](https://github.com/hannoeru/vite-plugin-pages/issues/492) for more de
 
 ### routeBlockLang
 
-- **Type:** `string`
+- **Type:** `'json5' | 'json' | 'yaml' | 'yml'`
 - **Default:** `'json5'`
 
 Default SFC route block parser.
@@ -399,7 +399,7 @@ Default SFC route block parser.
 ### routeStyle
 
 - **Type:** `'next' | 'nuxt' | 'remix'`
-- **Default:** `next`
+- **Default:** `'next'`
 
 Use file system dynamic routing supporting:
 
@@ -414,12 +414,19 @@ Use file system dynamic routing supporting:
 
 Separator for generated route names.
 
+### caseSensitive
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Whether route paths preserve their original casing. When `false` (default), path segments are lowercased.
+
 ### resolver
 
 - **Type:** `'vue' | 'react' | 'solid' | PageResolver`
-- **Default:** `'auto detect'`
+- **Default:** `'vue'`
 
-Route resolver, support `vue`, `react`, `solid` or custom `PageResolver`.
+Route resolver, supporting `vue`, `react`, `solid`, or a custom `PageResolver`. When not set, the resolver is automatically switched to `react` or `solid` when the corresponding Vite plugin (`@vitejs/plugin-react` or `vite-plugin-solid`) is detected.
 
 ### moduleId
 
@@ -429,7 +436,13 @@ Route resolver, support `vue`, `react`, `solid` or custom `PageResolver`.
   - React: `'~react-pages'`
   - Solid: `'~solid-pages'`
 
-Module id for routes import, useful when you what to use multiple pages plugin in one project.
+Module id for routes import, useful when you want to use multiple pages plugins in one project.
+
+Each resolver also exposes additional aliases by default:
+
+- Vue: `'~pages'`, `'pages-generated'`, `'virtual:generated-pages'`
+- React: `'~react-pages'`, `'virtual:generated-pages-react'`
+- Solid: `'~solid-pages'`
 
 ### extendRoute
 
@@ -481,10 +494,10 @@ generated client code.
 Add route meta to the route by adding a `<route>` block to the SFC. This will be
 directly added to the route after it is generated, and will override it.
 
-You can specific a parser to use using `<route lang="yaml">`, or set a default
+You can specify a parser to use using `<route lang="yaml">`, or set a default
 parser using `routeBlockLang` option.
 
-- **Supported parser:** JSON, JSON5, YAML
+- **Supported parser:** JSON, JSON5, YAML (`yml` is an alias for `yaml`)
 - **Default:** JSON5
 
 JSON/JSON5:
