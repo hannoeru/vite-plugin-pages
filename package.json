@@ -48,6 +48,9 @@
     "client.d.ts",
     "dist"
   ],
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  },
   "scripts": {
     "dev": "npm run build -- --watch --ignore-watch examples",
     "build": "tsup",
