@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.9",
-    "@vue/compiler-sfc": "^3.5.42",
+    "@vue/compiler-sfc": "^3.5.43",
     "nodemon": "^3.1.14",
     "typescript": "^7.0.2",
     "vite": "^8.3.0",
