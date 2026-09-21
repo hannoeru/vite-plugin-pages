@@ -51,7 +51,7 @@ export interface PageResolver {
   hmr?: {
     added?: (ctx: PageContext, path: string) => Awaitable<void>
     removed?: (ctx: PageContext, path: string) => Awaitable<void>
-    changed?: (ctx: PageContext, path: string) => Awaitable<void>
+    changed?: (ctx: PageContext, path: string) => Awaitable<boolean | void>
   }
 }
 

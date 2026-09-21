@@ -15,7 +15,6 @@ export interface PageRoute {
 
 export class PageContext {
   private _pageRouteMap = new Map<string, PageRoute>()
-  private _routesChanged = false
 
   rawOptions: UserOptions
   root: string
@@ -39,8 +38,6 @@ export class PageContext {
     if (!isTarget(path, this.options))
       return false
 
-    this._routesChanged = false
-
     if (type === 'create') {
       if (this._pageRouteMap.has(path))
         return false
@@ -57,8 +54,7 @@ export class PageContext {
       return true
     }
 
-    await this.options.resolver.hmr?.changed?.(this, path)
-    return this._routesChanged
+    return await this.options.resolver.hmr?.changed?.(this, path) ?? false
   }
 
   async addPage(path: string | string[], pageDir: PageOptions) {
@@ -82,10 +78,6 @@ export class PageContext {
     debug.pages('remove', path)
     this._pageRouteMap.delete(path)
     await this.options.resolver.hmr?.removed?.(this, path)
-  }
-
-  markRoutesChanged() {
-    this._routesChanged = true
   }
 
   async resolveRoutes() {

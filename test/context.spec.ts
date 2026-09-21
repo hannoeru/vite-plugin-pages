@@ -74,6 +74,45 @@ describe('page context', () => {
     }
   })
 
+  it('tracks concurrent route metadata changes independently', async () => {
+    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
+    mkdirSync(join(root, 'pages'))
+    const firstPath = `${root}/pages/first.tsx`
+    const secondPath = `${root}/pages/second.tsx`
+    writeFileSync(firstPath, 'export default () => null')
+    writeFileSync(secondPath, 'export default () => null')
+    const changes = new Map<string, (routesChanged: boolean) => void>()
+
+    try {
+      const ctx = new PageContext({
+        dirs: 'pages',
+        resolver: {
+          resolveModuleIds: () => ['~pages'],
+          resolveExtensions: () => ['tsx'],
+          resolveRoutes: () => '',
+          getComputedRoutes: () => [],
+          hmr: {
+            changed: (_ctx, path) => new Promise<boolean>((resolve) => {
+              changes.set(path, resolve)
+            }),
+          },
+        },
+      }, root)
+      await ctx.searchGlob()
+
+      const firstChange = ctx.handleFileChange('update', firstPath)
+      const secondChange = ctx.handleFileChange('update', secondPath)
+      changes.get(firstPath)!(true)
+      changes.get(secondPath)!(false)
+
+      await expect(firstChange).resolves.toBe(true)
+      await expect(secondChange).resolves.toBe(false)
+    }
+    finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
   it('reloads routes when a route block is removed', async () => {
     const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
     mkdirSync(join(root, 'pages'))

@@ -177,23 +177,24 @@ export function vueResolver(): PageResolver {
     }
     catch (error: any) {
       ctx.logger?.error(colors.red(`[vite-plugin-pages] ${error.message}`))
-      return
+      return false
     }
     if (!exitsCustomBlock && !customBlock)
-      return
+      return false
 
     if (!customBlock) {
       customBlockMap.delete(path)
       ctx.debug.routeBlock('%s deleted', path)
-      ctx.markRoutesChanged()
-      return
+      return true
     }
     if (!exitsCustomBlock || !dequal(exitsCustomBlock, customBlock)) {
       ctx.debug.routeBlock('%s old: %O', path, exitsCustomBlock)
       ctx.debug.routeBlock('%s new: %O', path, customBlock)
       customBlockMap.set(path, customBlock)
-      ctx.markRoutesChanged()
+      return true
     }
+
+    return false
   }
 
   return {
@@ -210,7 +211,9 @@ export function vueResolver(): PageResolver {
       return computeVueRoutes(ctx, customBlockMap)
     },
     hmr: {
-      added: async (ctx, path) => checkCustomBlockChange(ctx, path),
+      added: async (ctx, path) => {
+        await checkCustomBlockChange(ctx, path)
+      },
       changed: async (ctx, path) => checkCustomBlockChange(ctx, path),
       removed: async (_ctx, path) => {
         customBlockMap.delete(path)
