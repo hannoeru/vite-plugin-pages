@@ -185,14 +185,14 @@ export function vueResolver(): PageResolver {
     if (!customBlock) {
       customBlockMap.delete(path)
       ctx.debug.routeBlock('%s deleted', path)
-      ctx.onUpdate()
+      ctx.markRoutesChanged()
       return
     }
     if (!exitsCustomBlock || !dequal(exitsCustomBlock, customBlock)) {
       ctx.debug.routeBlock('%s old: %O', path, exitsCustomBlock)
       ctx.debug.routeBlock('%s new: %O', path, customBlock)
       customBlockMap.set(path, customBlock)
-      ctx.onUpdate()
+      ctx.markRoutesChanged()
     }
   }
 

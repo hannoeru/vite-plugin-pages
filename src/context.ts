@@ -1,4 +1,4 @@
-import type { Logger, ViteDevServer } from 'vite'
+import type { HotUpdateOptions, Logger } from 'vite'
 import type { PageOptions, ResolvedOptions, UserOptions } from './types'
 import { join, resolve } from 'node:path'
 import process from 'node:process'
@@ -6,7 +6,7 @@ import { slash, toArray } from '@antfu/utils'
 import { getPageFiles } from './files'
 import { resolveOptions } from './options'
 
-import { debug, findPageDir, invalidatePagesModule, isTarget } from './utils'
+import { debug, findPageDir, isTarget } from './utils'
 
 export interface PageRoute {
   path: string
@@ -14,8 +14,8 @@ export interface PageRoute {
 }
 
 export class PageContext {
-  private _server: ViteDevServer | undefined
   private _pageRouteMap = new Map<string, PageRoute>()
+  private _routesChanged = false
 
   rawOptions: UserOptions
   root: string
@@ -34,42 +34,31 @@ export class PageContext {
     this.logger = logger
   }
 
-  setupViteServer(server: ViteDevServer) {
-    if (this._server === server)
-      return
+  async handleFileChange(type: HotUpdateOptions['type'], path: string) {
+    path = slash(path)
+    if (!isTarget(path, this.options))
+      return false
 
-    this._server = server
-    this.setupWatcher(server.watcher)
-  }
+    this._routesChanged = false
 
-  setupWatcher(watcher: ViteDevServer['watcher']) {
-    watcher
-      .on('unlink', async (path) => {
-        path = slash(path)
-        if (!isTarget(path, this.options))
-          return
-        await this.removePage(path)
-        this.onUpdate()
-      })
-    watcher
-      .on('add', async (path) => {
-        path = slash(path)
-        if (!isTarget(path, this.options))
-          return
-        const page = findPageDir(path, this.options)!
-        await this.addPage(path, page)
-        this.onUpdate()
-      })
+    if (type === 'create') {
+      if (this._pageRouteMap.has(path))
+        return false
 
-    watcher
-      .on('change', async (path) => {
-        path = slash(path)
-        if (!isTarget(path, this.options))
-          return
-        const page = this._pageRouteMap.get(path)
-        if (page)
-          await this.options.resolver.hmr?.changed?.(this, path)
-      })
+      await this.addPage(path, findPageDir(path, this.options)!)
+      return true
+    }
+
+    if (!this._pageRouteMap.has(path))
+      return false
+
+    if (type === 'delete') {
+      await this.removePage(path)
+      return true
+    }
+
+    await this.options.resolver.hmr?.changed?.(this, path)
+    return this._routesChanged
   }
 
   async addPage(path: string | string[], pageDir: PageOptions) {
@@ -95,15 +84,8 @@ export class PageContext {
     await this.options.resolver.hmr?.removed?.(this, path)
   }
 
-  onUpdate() {
-    if (!this._server)
-      return
-
-    invalidatePagesModule(this._server)
-    debug.hmr('Reload generated pages.')
-    this._server.ws.send({
-      type: 'full-reload',
-    })
+  markRoutesChanged() {
+    this._routesChanged = true
   }
 
   async resolveRoutes() {

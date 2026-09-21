@@ -1,4 +1,4 @@
-import type { ModuleNode, ViteDevServer } from 'vite'
+import type { DevEnvironment, EnvironmentModuleNode } from 'vite'
 import type { PageOptions, ResolvedOptions } from './types'
 import { resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
@@ -65,15 +65,16 @@ export function resolveImportMode(
   return mode
 }
 
-export function invalidatePagesModule(server: ViteDevServer) {
-  const { moduleGraph } = server
-  const mods = moduleGraph.getModulesByFile(MODULE_ID_VIRTUAL)
-  if (mods) {
-    const seen = new Set<ModuleNode>()
-    mods.forEach((mod) => {
-      moduleGraph.invalidateModule(mod, seen)
-    })
-  }
+export function invalidatePagesModule(environment: DevEnvironment, timestamp: number) {
+  const { moduleGraph } = environment
+  const modules = moduleGraph.getModulesByFile(MODULE_ID_VIRTUAL)
+  if (!modules)
+    return
+
+  const invalidatedModules = new Set<EnvironmentModuleNode>()
+  modules.forEach((module) => {
+    moduleGraph.invalidateModule(module, invalidatedModules, timestamp, true)
+  })
 }
 
 export function normalizeCase(str: string, caseSensitive: boolean) {
