@@ -6,7 +6,7 @@ import { slash, toArray } from '@antfu/utils'
 import { getPageFiles } from './files'
 import { resolveOptions } from './options'
 
-import { debug, findPageDir, isTarget } from './utils'
+import { debug, findPageDir } from './utils'
 
 export interface PageRoute {
   path: string
@@ -35,14 +35,15 @@ export class PageContext {
 
   async handleFileChange(type: HotUpdateOptions['type'], path: string) {
     path = slash(path)
-    if (!isTarget(path, this.options))
+    const pageDir = findPageDir(path, this.options)
+    if (!pageDir)
       return false
 
     if (type === 'create') {
       if (this._pageRouteMap.has(path))
         return false
 
-      await this.addPage(path, findPageDir(path, this.options)!)
+      await this.addPage(path, pageDir)
       return true
     }
 

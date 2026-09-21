@@ -32,15 +32,14 @@ export function countSlash(value: string) {
 }
 
 export function findPageDir(path: string, options: ResolvedOptions) {
+  if (micromatch.isMatch(path, options.exclude) || !options.extensionsRE.test(path))
+    return
+
   return options.dirs.find((page) => {
     const dirPath = slash(resolve(options.root, page.dir))
     const prefix = dirPath.endsWith('/') ? dirPath : `${dirPath}/`
     return path.startsWith(prefix) && micromatch.isMatch(path.slice(prefix.length), getPagePattern(options, page))
   })
-}
-
-export function isTarget(path: string, options: ResolvedOptions) {
-  return !!findPageDir(path, options) && !micromatch.isMatch(path, options.exclude) && options.extensionsRE.test(path)
 }
 
 export function isDynamicRoute(routePath: string, nuxtStyle = false) {
