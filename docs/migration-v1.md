@@ -70,6 +70,18 @@ Pages({
 
 An omitted `baseRoute` is equivalent to an empty string.
 
+## Review nested catch-all routes
+
+Vue catch-all routes now use optional matching at every depth. For example,
+`pages/docs/[...all].vue` matches both `/docs` and `/docs/intro`. An index route
+at `/docs` takes precedence when it exists.
+
+Normal dynamic segments such as `[id]` remain required. Use `extendRoute` or a
+custom resolver if a catch-all must require at least one segment.
+
+React and Solid catch-all routes already used optional wildcard matching, so
+this change makes Vue consistent with those resolvers.
+
 ## Verify the upgrade
 
 After the upgrade:

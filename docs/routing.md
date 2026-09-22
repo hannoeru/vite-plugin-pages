@@ -92,10 +92,20 @@ produces this routes config:
 
 Catch-all routes use square brackets with an ellipsis:
 
-- `src/pages/[...all].vue` → `/*` (`/non-existent-page`)
+- `src/pages/[...all].vue` → `/*`
+- `src/pages/docs/[...all].vue` → `/docs/*`
 
-The text after the ellipsis names the route. It also names the prop that holds
-the route parameters.
+A catch-all is optional. The nested example matches `/docs`, `/docs/intro`, and
+`/docs/guides/install`. When an index route exists at the same path, the router
+selects the index route for `/docs` and the catch-all for deeper paths.
+
+A normal dynamic segment is required: `src/pages/docs/[id].vue` matches
+`/docs/one`, but not `/docs`. There is no separate filename syntax for a
+required catch-all. Use `extendRoute` or a custom resolver when you need that
+behavior.
+
+The text after the ellipsis names the Vue route and its route parameter. Nuxt
+style uses `_` for the same optional catch-all behavior.
 
 ## Route Names
 

@@ -120,14 +120,8 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       else if (normalizedPath !== 'index') {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
-          // Catch-all route
           if (isCatchAll) {
-            if (i === 0)
-              // root cache all route include children
-              route.path += '(.*)*'
-            else
-              // nested cache all route not include children
-              route.path += '(.*)'
+            route.path += '(.*)*'
           }
           else if (nuxtStyle && i === pathNodes.length - 1) {
             // we need to search if the folder provide `index.vue`

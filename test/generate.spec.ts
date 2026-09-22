@@ -1,4 +1,6 @@
+import type { VueRoute } from '../src/resolvers/vue'
 import { slash } from '@antfu/utils'
+import { createMemoryHistory, createRouter } from 'vue-router'
 
 import { PageContext } from '../src/context'
 
@@ -157,5 +159,32 @@ describe('generate routes', () => {
 
     const routes = await ctx.resolveRoutes()
     expect(routes).toMatchSnapshot('client code')
+  })
+
+  it('makes root and nested Vue catch-all routes optional', async () => {
+    const ctx = new PageContext({
+      dirs: 'examples/vue/src/pages',
+    })
+    await ctx.searchGlob()
+
+    const routes = await ctx.options.resolver.getComputedRoutes(ctx) as VueRoute[]
+
+    const rootCatchAll = routes.find(route => route.name === 'all')
+    const nestedCatchAll = routes.find(route => route.name === 'blog-today-all')
+
+    expect(rootCatchAll?.path).toBe('/:all(.*)*')
+    expect(nestedCatchAll?.path).toBe('/blog/today/:all(.*)*')
+
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [{
+        path: nestedCatchAll!.path!,
+        name: nestedCatchAll!.name,
+        component: {},
+      }],
+    })
+
+    expect(router.resolve('/blog/today').name).toBe('blog-today-all')
+    expect(router.resolve('/blog/today/install').name).toBe('blog-today-all')
   })
 })
