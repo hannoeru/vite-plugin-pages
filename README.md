@@ -24,6 +24,10 @@ router.
 
 ## Quick Start
 
+vite-plugin-pages v1 requires Node.js 22.12 or later, Vite 6 or later, and an
+ESM project or ESM-compatible Vite configuration. If you upgrade from v0.33,
+read the [v1 migration guide](./docs/migration-v1.md).
+
 Start with an existing Vue, React, or Solid Vite project. Install the plugin:
 
 ```bash
@@ -53,6 +57,7 @@ to connect the generated routes to your framework router.
 - [File System Routing](./docs/routing.md) — routes, nesting, and routing styles
 - [Route Data](./docs/route-data.md) — `<route>` blocks and JSX comments
 - [Custom Resolver](./docs/custom-resolver.md) — the `PageResolver` API
+- [Migrate to v1](./docs/migration-v1.md) — requirements and breaking changes
 
 ## Sitemap generation
 

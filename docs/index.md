@@ -7,3 +7,4 @@ Guides for vite-plugin-pages:
 - [File System Routing](./routing.md) — map files to routes
 - [Route Data](./route-data.md) — add data to generated routes
 - [Custom Resolver](./custom-resolver.md) — create a route resolver
+- [Migrate to v1](./migration-v1.md) — update from v0.33

@@ -5,10 +5,7 @@ export default defineConfig({
     include: ['e2e/**/*.test.ts'],
     globals: true,
     pool: 'forks',
-    poolOptions: {
-      forks: {
-        singleFork: true,
-      },
-    },
+    maxWorkers: 1,
+    isolate: false,
   },
 })
