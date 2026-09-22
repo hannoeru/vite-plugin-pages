@@ -206,3 +206,4 @@ Create `src/pages/index.tsx`. The plugin maps it to `/`.
 
 - Learn how files map to routes in [File System Routing](./routing.md).
 - Change page directories and other options in [Configuration](./config.md).
+- Configure deployments below the domain root in [Base Path](./base-path.md).

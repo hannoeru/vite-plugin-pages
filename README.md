@@ -54,6 +54,7 @@ to connect the generated routes to your framework router.
 
 - [Getting Started](./docs/getting-started.md) — install and set up each framework
 - [Configuration](./docs/config.md) — every plugin option
+- [Base Path](./docs/base-path.md) — deploy below the domain root
 - [File System Routing](./docs/routing.md) — routes, nesting, and routing styles
 - [Route Data](./docs/route-data.md) — `<route>` blocks and JSX comments
 - [Custom Resolver](./docs/custom-resolver.md) — the `PageResolver` API

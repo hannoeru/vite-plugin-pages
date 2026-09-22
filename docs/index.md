@@ -4,6 +4,7 @@ Guides for vite-plugin-pages:
 
 - [Getting Started](./getting-started.md) — install and set up each framework
 - [Configuration](./config.md) — configure plugin options
+- [Base Path](./base-path.md) — deploy below the domain root
 - [File System Routing](./routing.md) — map files to routes
 - [Route Data](./route-data.md) — add data to generated routes
 - [Custom Resolver](./custom-resolver.md) — create a route resolver

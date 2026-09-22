@@ -5,7 +5,7 @@ import routes from '~solid-pages'
 render(
   () => {
     return (
-      <Router>
+      <Router base={import.meta.env.BASE_URL}>
         {routes}
       </Router>
     )
