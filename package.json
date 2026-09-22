@@ -25,9 +25,8 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     },
     "./client": {
       "types": "./client.d.ts"
@@ -39,8 +38,8 @@
       "types": "./client-solid.d.ts"
     }
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
   "files": [
     "LICENSE",
     "client-react.d.ts",
@@ -53,7 +52,7 @@
   },
   "scripts": {
     "dev": "npm run build -- --watch --ignore-watch examples",
-    "build": "tsup",
+    "build": "tsdown",
     "play": "pnpm --filter vue dev",
     "play:react": "pnpm --filter react dev",
     "prepublishOnly": "npm run build",
@@ -110,7 +109,7 @@
     "react": "^19.3.0",
     "react-router": "^8.4.0",
     "solid-js": "^1.9.15",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.23.0",
     "tsx": "^4.23.15",
     "typescript": "~6.0.3",
     "vite": "^8.3.0",
