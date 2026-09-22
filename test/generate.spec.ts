@@ -161,7 +161,7 @@ describe('generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  it('makes root and nested Vue catch-all routes optional', async () => {
+  it('makes root and nested Vue catch-all routes optional with index precedence', async () => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
     })
@@ -171,20 +171,29 @@ describe('generate routes', () => {
 
     const rootCatchAll = routes.find(route => route.name === 'all')
     const nestedCatchAll = routes.find(route => route.name === 'blog-today-all')
+    const nestedIndex = routes.find(route => route.name === 'blog-today')
 
     expect(rootCatchAll?.path).toBe('/:all(.*)*')
     expect(nestedCatchAll?.path).toBe('/blog/today/:all(.*)*')
+    expect(nestedIndex?.path).toBe('/blog/today')
 
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: [{
-        path: nestedCatchAll!.path!,
-        name: nestedCatchAll!.name,
-        component: {},
-      }],
+      routes: [
+        {
+          path: nestedCatchAll!.path!,
+          name: nestedCatchAll!.name,
+          component: {},
+        },
+        {
+          path: nestedIndex!.path!,
+          name: nestedIndex!.name,
+          component: {},
+        },
+      ],
     })
 
-    expect(router.resolve('/blog/today').name).toBe('blog-today-all')
+    expect(router.resolve('/blog/today').name).toBe('blog-today')
     expect(router.resolve('/blog/today/install').name).toBe('blog-today-all')
   })
 })
