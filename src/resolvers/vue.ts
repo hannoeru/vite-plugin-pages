@@ -1,7 +1,6 @@
 import type { PageContext } from '../context'
 import type { CustomBlock, Optional, PageResolver } from '../types'
 import { isDeepEqual } from '@antfu/utils'
-import colors from 'picocolors'
 
 import { getRouteBlock } from '../customBlock'
 import { generateClientCode } from '../stringify'
@@ -170,7 +169,7 @@ export function vueResolver(): PageResolver {
     }
     catch (error) {
       const message = error instanceof Error ? error.message : String(error)
-      ctx.logger?.error(colors.red(`[vite-plugin-pages] ${message}`))
+      ctx.logger?.error(`[vite-plugin-pages] ${message}`)
       return customBlockReadFailed
     }
   }
