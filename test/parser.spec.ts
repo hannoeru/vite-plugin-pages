@@ -117,4 +117,22 @@ describe('parseYamlComment', () => {
     const code = `/*\n  route\nname: [unclosed\n*/`
     expect(() => parseYamlComment(parseJSX(code), 'broken.jsx')).toThrow(/Invalid YAML format/)
   })
+
+  it.each([
+    'publishedAt: !!timestamp 2001-12-15T02:59:43.1Z',
+    'data: !!binary SGVsbG8=',
+    'roles: !!set\n  admin:',
+  ])('rejects YAML tags outside the core schema', (routeData) => {
+    const code = `/*\n  route\n${routeData}\n*/`
+    expect(() => parseYamlComment(parseJSX(code), 'tagged.jsx')).toThrow(/Invalid YAML format/)
+  })
+
+  it.each([
+    'value: .inf',
+    'value: .nan',
+    'value: &self\n  nested: *self',
+  ])('rejects route data that is not JSON-compatible', (routeData) => {
+    const code = `/*\n  route\n${routeData}\n*/`
+    expect(() => parseYamlComment(parseJSX(code), 'unsupported.jsx')).toThrow(/Invalid YAML format/)
+  })
 })

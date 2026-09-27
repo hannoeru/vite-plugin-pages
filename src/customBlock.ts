@@ -8,6 +8,35 @@ import { debug } from './utils'
 
 const routeJSXReg = /^\s+(route)\s+/m
 
+function assertJSONCompatible(value: unknown, ancestors = new WeakSet<object>()): void {
+  if (value === null || typeof value === 'string' || typeof value === 'boolean')
+    return
+  if (typeof value === 'number') {
+    if (Number.isFinite(value))
+      return
+    throw new TypeError('Route YAML numbers must be finite')
+  }
+  if (typeof value !== 'object')
+    throw new TypeError(`Route YAML does not support ${typeof value} values`)
+
+  const prototype = Object.getPrototypeOf(value)
+  if (!Array.isArray(value) && prototype !== Object.prototype && prototype !== null)
+    throw new TypeError('Route YAML supports only arrays and plain objects')
+  if (ancestors.has(value))
+    throw new TypeError('Route YAML does not support circular aliases')
+
+  ancestors.add(value)
+  for (const item of Array.isArray(value) ? value : Object.values(value))
+    assertJSONCompatible(item, ancestors)
+  ancestors.delete(value)
+}
+
+function parseRouteYAML<T>(code: string): T {
+  const value = parseYAML<T>(code)
+  assertJSONCompatible(value)
+  return value
+}
+
 function parseLeadingBlockComment(code: string): ParsedJSX[] {
   if (!/^\s*\/\*/.test(code))
     return []
@@ -39,7 +68,7 @@ export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
     const v = value.replace(routeJSXReg, '')
     debug.routeBlock(`use ${v} parser`)
     try {
-      const yamlResult = parseYAML<Record<string, unknown>>(v)
+      const yamlResult = parseRouteYAML<Record<string, unknown>>(v)
 
       return {
         ...memo,
@@ -91,7 +120,7 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
   }
   else if (lang === 'yaml' || lang === 'yml') {
     try {
-      return parseYAML(block.content)
+      return parseRouteYAML(block.content)
     }
     catch (err: any) {
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)

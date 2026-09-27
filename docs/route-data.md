@@ -28,6 +28,10 @@ Set the parser with the `lang` attribute, or use the
 
 ### YAML
 
+Route YAML uses the YAML 1.2 core schema and must contain JSON-compatible values:
+mappings, sequences, strings, finite numbers, booleans, and null. Extended tags
+such as `!!timestamp`, `!!binary`, and `!!set` are not supported.
+
 ```html
 <route lang="yaml">
 name: name-override
