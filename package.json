@@ -98,6 +98,7 @@
     "@antfu/utils": "^9.3.0",
     "@solidjs/router": "^1.0.0",
     "@types/node": "^26.6.3",
+    "@types/picomatch": "~4.0.3",
     "@vitest/ui": "^5.0.2",
     "@vue/compiler-sfc": "^3.5.43",
     "bumpp": "^12.3.0",
