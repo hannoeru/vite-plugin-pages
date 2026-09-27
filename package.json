@@ -85,13 +85,11 @@
   },
   "dependencies": {
     "@types/debug": "^4.1.13",
+    "confbox": "^0.3.1",
     "debug": "^4.4.3",
-    "extract-comments": "^1.1.0",
-    "json5": "^2.2.3",
     "picocolors": "^1.1.1",
     "picomatch": "^4.0.2",
-    "tinyglobby": "^0.2.17",
-    "yaml": "^2.9.1"
+    "tinyglobby": "^0.2.17"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
