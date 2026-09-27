@@ -6,7 +6,6 @@ import fs from 'node:fs'
 import extractComments from 'extract-comments'
 
 import JSON5 from 'json5'
-import { importModule } from 'local-pkg'
 import { parse as YAMLParser } from 'yaml'
 import { debug } from './utils'
 
@@ -37,7 +36,7 @@ export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
 
 export async function parseSFC(code: string): Promise<SFCDescriptor> {
   try {
-    const { parse } = await importModule('@vue/compiler-sfc') as typeof import('@vue/compiler-sfc')
+    const { parse } = await import('@vue/compiler-sfc')
     return parse(code, {
       pad: 'space',
     }).descriptor
