@@ -18,8 +18,11 @@ function parseLeadingBlockComment(code: string): ParsedJSX[] {
   if (closeIdx < 0)
     return []
   const rawValue = code.slice(openIdx + 2, closeIdx)
-  const value = rawValue.startsWith('*')
-    ? rawValue.slice(1).replace(/^[\t ]*\* ?/gm, '')
+  const isDecorated = rawValue
+    .split('\n')
+    .some(line => /^[\t ]*\*[\t ]+route[\t ]*$/.test(line))
+  const value = isDecorated
+    ? rawValue.replace(/^[\t ]*\* ?/gm, '')
     : rawValue
   return [{
     value,

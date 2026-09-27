@@ -33,8 +33,10 @@ describe('parseJSX', () => {
     expect(entry.value).toContain('name: blog-id')
   })
 
-  it('parses a JSDoc route block comment', () => {
-    const code = `/**\n * route\n *\n * name: dashboard\n * meta:\n *   requiresAuth: true\n */`
+  it.each([
+    `/**\n * route\n *\n * name: dashboard\n * meta:\n *   requiresAuth: true\n */`,
+    `/*\n * route\n *\n * name: dashboard\n * meta:\n *   requiresAuth: true\n */`,
+  ])('parses a decorated route block comment', (code) => {
     expect(parseYamlComment(parseJSX(code), 'test.jsx')).toEqual({
       name: 'dashboard',
       meta: {
