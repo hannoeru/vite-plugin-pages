@@ -22,6 +22,11 @@ describe('parser', () => {
     const routeBlock = parseCustomBlock(descriptor.customBlocks[0], 'empty.vue', options)
     expect(routeBlock).toBeNull()
   })
+
+  it('treats a blank YAML route block as no route data', () => {
+    const routeBlock = parseCustomBlock({ lang: 'yaml', content: '   \n  \n' } as any, 'empty.vue', options)
+    expect(routeBlock).toBeNull()
+  })
 })
 
 describe('parseJSX', () => {

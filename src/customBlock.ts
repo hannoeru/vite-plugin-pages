@@ -31,12 +31,12 @@ function assertJSONCompatible(value: unknown, ancestors = new WeakSet<object>())
   ancestors.delete(value)
 }
 
-function parseRouteYAML<T>(code: string): T {
+function parseRouteYAML<T>(code: string): T | null {
   const isEmptyDocument = code
     .split(/\r?\n/)
     .every(line => /^\s*(?:#.*)?$/.test(line))
   if (isEmptyDocument)
-    return null as T
+    return null
 
   const value = parseYAML<T>(code)
   assertJSONCompatible(value)
@@ -82,7 +82,7 @@ export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
 
       return {
         ...memo,
-        ...yamlResult,
+        ...(yamlResult ?? {}),
       }
     }
     catch (err: any) {
