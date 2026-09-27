@@ -179,9 +179,6 @@ importers:
       debug:
         specifier: ^4.4.3
         version: 4.4.3(supports-color@5.5.0)
-      dequal:
-        specifier: ^2.0.3
-        version: 2.0.3
       extract-comments:
         specifier: ^1.1.0
         version: 1.1.0
