@@ -1,6 +1,6 @@
 import type { PageContext } from '../context'
 import type { CustomBlock, Optional, PageResolver } from '../types'
-import { dequal } from 'dequal'
+import { isDeepEqual } from '@antfu/utils'
 import colors from 'picocolors'
 
 import { getRouteBlock } from '../customBlock'
@@ -187,7 +187,7 @@ export function vueResolver(): PageResolver {
   async function refreshCustomBlock(ctx: PageContext, path: string) {
     const existingCustomBlock = customBlockMap.get(path)
     const customBlock = await readCustomBlock(ctx, path)
-    if (customBlock === customBlockReadFailed || dequal(existingCustomBlock, customBlock))
+    if (customBlock === customBlockReadFailed || isDeepEqual(existingCustomBlock, customBlock))
       return false
 
     if (!customBlock) {
