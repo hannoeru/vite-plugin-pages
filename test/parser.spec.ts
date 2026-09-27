@@ -11,7 +11,6 @@ describe('parser', () => {
     expect(routeBlock).toMatchSnapshot()
   })
 
-
   it('parseJSX consecutive calls stay stable', () => {
     const code = `/*
 

@@ -9,7 +9,7 @@ import { debug } from './utils'
 const routeJSXReg = /^\s+(route)\s+/m
 
 function parseLeadingBlockComment(code: string): ParsedJSX[] {
-  if (!/^\uFEFF?\s*\/\*/.test(code))
+  if (!/^\s*\/\*/.test(code))
     return []
   const openIdx = code.indexOf('/*')
   if (openIdx < 0 || code.slice(0, openIdx).includes('\n'))
