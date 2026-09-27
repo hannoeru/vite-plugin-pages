@@ -1,5 +1,5 @@
 import { resolve } from 'node:path'
-import { getRouteBlock, parseJSX, parseYamlComment } from '../src/customBlock'
+import { getRouteBlock, parseCustomBlock, parseJSX, parseSFC, parseYamlComment } from '../src/customBlock'
 import { resolveOptions } from '../src/options'
 
 const options = resolveOptions({})
@@ -15,6 +15,17 @@ describe('parser', () => {
     const path = resolve('./examples/vue/src/pages/jsx.jsx')
     const routeBlock = await getRouteBlock(path, options)
     expect(routeBlock).toMatchSnapshot()
+  })
+
+  it('treats a comment-only YAML route block as no route data', async () => {
+    const descriptor = await parseSFC('<route lang="yaml">\n# No route data\n</route>')
+    const routeBlock = parseCustomBlock(descriptor.customBlocks[0], 'empty.vue', options)
+    expect(routeBlock).toBeNull()
+  })
+
+  it('treats a blank YAML route block as no route data', () => {
+    const routeBlock = parseCustomBlock({ lang: 'yaml', content: '   \n  \n' } as any, 'empty.vue', options)
+    expect(routeBlock).toBeNull()
   })
 })
 
