@@ -3,20 +3,20 @@ import type { PageOptions, ResolvedOptions } from './types'
 import { resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
 import { slash } from '@antfu/utils'
-import Debug from 'debug'
+import createDebug from 'obug'
 import picomatch from 'picomatch'
 
 import { cacheAllRouteRE, countSlashRE, dynamicRouteRE, MODULE_ID_VIRTUAL, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
 export const debug = {
-  hmr: Debug('vite-plugin-pages:hmr'),
-  routeBlock: Debug('vite-plugin-pages:routeBlock'),
-  options: Debug('vite-plugin-pages:options'),
-  pages: Debug('vite-plugin-pages:pages'),
-  search: Debug('vite-plugin-pages:search'),
-  env: Debug('vite-plugin-pages:env'),
-  cache: Debug('vite-plugin-pages:cache'),
-  resolver: Debug('vite-plugin-pages:resolver'),
+  hmr: createDebug('vite-plugin-pages:hmr'),
+  routeBlock: createDebug('vite-plugin-pages:routeBlock'),
+  options: createDebug('vite-plugin-pages:options'),
+  pages: createDebug('vite-plugin-pages:pages'),
+  search: createDebug('vite-plugin-pages:search'),
+  env: createDebug('vite-plugin-pages:env'),
+  cache: createDebug('vite-plugin-pages:cache'),
+  resolver: createDebug('vite-plugin-pages:resolver'),
 }
 
 export function extsToGlob(extensions: string[]) {
