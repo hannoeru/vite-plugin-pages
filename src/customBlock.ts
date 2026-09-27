@@ -2,17 +2,31 @@ import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 import fs from 'node:fs'
 
-// @ts-expect-error no type
-import extractComments from 'extract-comments'
-
 import JSON5 from 'json5'
 import { parse as YAMLParser } from 'yaml'
 import { debug } from './utils'
 
 const routeJSXReg = /^\s+(route)\s+/gm
 
+function parseLeadingBlockComment(code: string): ParsedJSX[] {
+  if (!/^\uFEFF?\s*\/\*/.test(code))
+    return []
+  const openIdx = code.indexOf('/*')
+  if (openIdx < 0 || code.slice(0, openIdx).includes('\n'))
+    return []
+  const closeIdx = code.indexOf('*/', openIdx + 2)
+  if (closeIdx < 0)
+    return []
+  return [{
+    value: code.slice(openIdx + 2, closeIdx),
+    loc: { start: { line: 1 } },
+  }]
+}
+
 export function parseJSX(code: string): ParsedJSX[] {
-  return extractComments(code).slice(0, 1).filter((comment: ParsedJSX) => routeJSXReg.test(comment.value) && comment.value.includes(':') && comment.loc.start.line === 1)
+  return parseLeadingBlockComment(code).filter(
+    c => routeJSXReg.test(c.value) && c.value.includes(':') && c.loc.start.line === 1,
+  )
 }
 
 export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
