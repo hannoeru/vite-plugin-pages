@@ -61,8 +61,6 @@ describe('utils', () => {
   })
 
   it('applies exclude globs relative to the root (hidden dir in cwd)', () => {
-    // Regression: exclude globs were matched against the absolute path, so a
-    // hidden directory segment (e.g. `~/.hermes/...`) broke `**/...` matching.
     const options = {
       root: '/tmp/.hidden/project',
       exclude: ['**/exclude/**'],
