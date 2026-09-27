@@ -2,8 +2,8 @@ import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 import fs from 'node:fs'
 
-import JSON5 from 'json5'
-import { parse as YAMLParser } from 'yaml'
+import { parseJSON5 } from 'confbox/json5'
+import { parseYAML } from 'confbox/yaml'
 import { debug } from './utils'
 
 const routeJSXReg = /^\s+(route)\s+/m
@@ -35,7 +35,7 @@ export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
     const v = value.replace(routeJSXReg, '')
     debug.routeBlock(`use ${v} parser`)
     try {
-      const yamlResult = YAMLParser(v)
+      const yamlResult = parseYAML<Record<string, unknown>>(v)
 
       return {
         ...memo,
@@ -71,7 +71,7 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
 
   if (lang === 'json5') {
     try {
-      return JSON5.parse(block.content)
+      return parseJSON5(block.content)
     }
     catch (err: any) {
       throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)
@@ -87,7 +87,7 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
   }
   else if (lang === 'yaml' || lang === 'yml') {
     try {
-      return YAMLParser(block.content)
+      return parseYAML(block.content)
     }
     catch (err: any) {
       throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`)
