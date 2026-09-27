@@ -33,6 +33,16 @@ describe('parseJSX', () => {
     expect(entry.value).toContain('name: blog-id')
   })
 
+  it('parses a JSDoc route block comment', () => {
+    const code = `/**\n * route\n *\n * name: dashboard\n * meta:\n *   requiresAuth: true\n */`
+    expect(parseYamlComment(parseJSX(code), 'test.jsx')).toEqual({
+      name: 'dashboard',
+      meta: {
+        requiresAuth: true,
+      },
+    })
+  })
+
   it('returns an empty array for code with no comment', () => {
     expect(parseJSX('export default {}')).toEqual([])
   })
