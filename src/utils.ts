@@ -4,7 +4,7 @@ import { resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
 import { slash } from '@antfu/utils'
 import Debug from 'debug'
-import micromatch from 'micromatch'
+import picomatch from 'picomatch'
 
 import { cacheAllRouteRE, countSlashRE, dynamicRouteRE, MODULE_ID_VIRTUAL, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
@@ -32,13 +32,13 @@ export function countSlash(value: string) {
 }
 
 export function findPageDir(path: string, options: ResolvedOptions) {
-  if (micromatch.isMatch(path, options.exclude) || !options.extensionsRE.test(path))
+  if (picomatch.isMatch(path, options.exclude) || !options.extensionsRE.test(path))
     return
 
   return options.dirs.find((page) => {
     const dirPath = slash(resolve(options.root, page.dir))
     const prefix = dirPath.endsWith('/') ? dirPath : `${dirPath}/`
-    return path.startsWith(prefix) && micromatch.isMatch(path.slice(prefix.length), getPagePattern(options, page))
+    return path.startsWith(prefix) && picomatch.isMatch(path.slice(prefix.length), getPagePattern(options, page))
   })
 }
 
