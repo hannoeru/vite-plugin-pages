@@ -17,8 +17,12 @@ function parseLeadingBlockComment(code: string): ParsedJSX[] {
   const closeIdx = code.indexOf('*/', openIdx + 2)
   if (closeIdx < 0)
     return []
+  const rawValue = code.slice(openIdx + 2, closeIdx)
+  const value = rawValue.startsWith('*')
+    ? rawValue.slice(1).replace(/^[\t ]*\* ?/gm, '')
+    : rawValue
   return [{
-    value: code.slice(openIdx + 2, closeIdx),
+    value,
     loc: { start: { line: 1 } },
   }]
 }
