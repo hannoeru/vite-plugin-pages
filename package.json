@@ -84,7 +84,6 @@
     }
   },
   "dependencies": {
-    "@types/debug": "^4.1.13",
     "debug": "^4.4.3",
     "dequal": "^2.0.3",
     "extract-comments": "^1.1.0",
@@ -98,6 +97,7 @@
     "@antfu/eslint-config": "^9.5.1",
     "@antfu/utils": "^9.3.0",
     "@solidjs/router": "^1.0.0",
+    "@types/debug": "^4.1.13",
     "@types/micromatch": "^4.0.10",
     "@types/node": "^26.6.2",
     "@vitest/ui": "^5.0.1",

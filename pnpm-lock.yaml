@@ -173,9 +173,6 @@ importers:
 
   .:
     dependencies:
-      '@types/debug':
-        specifier: ^4.1.13
-        version: 4.1.13
       debug:
         specifier: ^4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -210,6 +207,9 @@ importers:
       '@solidjs/router':
         specifier: ^1.0.0
         version: 1.0.0(solid-js@1.9.15)
+      '@types/debug':
+        specifier: ^4.1.13
+        version: 4.1.13
       '@types/micromatch':
         specifier: ^4.0.10
         version: 4.0.10
