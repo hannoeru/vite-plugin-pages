@@ -59,4 +59,18 @@ describe('utils', () => {
     expect(isPage('examples/vue/src/pages/exclude/home.vue')).toBe(false)
     expect(isPage('examples/vue/src/pages/home.txt')).toBe(false)
   })
+
+  it('applies exclude globs relative to the root (hidden dir in path)', () => {
+    const root = slash(resolve('.cache', 'project'))
+    const options = {
+      root,
+      exclude: ['**/exclude/**'],
+      extensions: ['vue'],
+      extensionsRE: /\.(vue)$/,
+      dirs: [{ dir: 'src/pages', baseRoute: '' }],
+    } as any
+
+    expect(findPageDir(`${root}/src/pages/exclude/home.vue`, options)).toBeUndefined()
+    expect(findPageDir(`${root}/src/pages/home.vue`, options)).toEqual(options.dirs[0])
+  })
 })

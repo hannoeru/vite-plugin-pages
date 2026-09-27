@@ -32,7 +32,11 @@ export function countSlash(value: string) {
 }
 
 export function findPageDir(path: string, options: ResolvedOptions) {
-  if (picomatch.isMatch(path, options.exclude) || !options.extensionsRE.test(path))
+  const relativePath = path.startsWith(`${options.root}/`)
+    ? path.slice(options.root.length + 1)
+    : path
+
+  if (picomatch.isMatch(relativePath, options.exclude) || !options.extensionsRE.test(path))
     return
 
   return options.dirs.find((page) => {
