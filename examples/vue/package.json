@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "^18.3.1",
     "vue": "^3.5.17",
-    "vue-router": "4.2.5"
+    "vue-router": "5.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.9",
