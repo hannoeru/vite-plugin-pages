@@ -1,5 +1,6 @@
 import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
+import { Buffer } from 'node:buffer'
 import fs from 'node:fs'
 
 import { parseJSON5 } from 'confbox/json5'
@@ -7,13 +8,19 @@ import { parseYAML } from 'confbox/yaml'
 import { debug } from './utils'
 
 const routeJSXReg = /^\s+(route)\s+/m
+const maxRouteJSONExpansion = 100
 
-function assertJSONCompatible(value: unknown, ancestors = new WeakSet<object>()): void {
+function getRouteJSONSize(
+  value: unknown,
+  maxBytes: number,
+  ancestors = new WeakSet<object>(),
+  sizes = new WeakMap<object, number>(),
+): number {
   if (value === null || typeof value === 'string' || typeof value === 'boolean')
-    return
+    return Buffer.byteLength(JSON.stringify(value))
   if (typeof value === 'number') {
     if (Number.isFinite(value))
-      return
+      return Buffer.byteLength(JSON.stringify(value))
     throw new TypeError('Route YAML numbers must be finite')
   }
   if (typeof value !== 'object')
@@ -25,10 +32,26 @@ function assertJSONCompatible(value: unknown, ancestors = new WeakSet<object>())
   if (ancestors.has(value))
     throw new TypeError('Route YAML does not support circular aliases')
 
+  const cachedSize = sizes.get(value)
+  if (cachedSize !== undefined)
+    return cachedSize
+
   ancestors.add(value)
-  for (const item of Array.isArray(value) ? value : Object.values(value))
-    assertJSONCompatible(item, ancestors)
+  let size = 2
+  let first = true
+  for (const [key, item] of Object.entries(value)) {
+    if (!first)
+      size++
+    first = false
+    if (!Array.isArray(value))
+      size += Buffer.byteLength(JSON.stringify(key)) + 1
+    size += getRouteJSONSize(item, maxBytes, ancestors, sizes)
+    if (size > maxBytes)
+      break
+  }
   ancestors.delete(value)
+  sizes.set(value, size)
+  return size
 }
 
 function parseRouteYAML<T>(code: string): T | null {
@@ -39,7 +62,9 @@ function parseRouteYAML<T>(code: string): T | null {
     return null
 
   const value = parseYAML<T>(code)
-  assertJSONCompatible(value)
+  const maxBytes = Buffer.byteLength(code) * maxRouteJSONExpansion
+  if (getRouteJSONSize(value, maxBytes) > maxBytes)
+    throw new TypeError(`Route YAML exceeds the ${maxRouteJSONExpansion}x JSON expansion limit`)
   return value
 }
 
