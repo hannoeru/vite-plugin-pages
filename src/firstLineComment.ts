@@ -296,7 +296,7 @@ class FirstLineCommentScanner {
             declarations.push({ depth: delimiters.length, after: 'statement' })
           if (word === 'case' && this.isStatementStart(previous, delimiters))
             caseExpressions.push({ depth: delimiters.length, conditionals: 0 })
-          regexpAllowed = !property && /^(?:return|throw|case|delete|void|typeof|new|yield|await|in|instanceof|of|else|do|extends)$/.test(word)
+          regexpAllowed = !property && /^(?:return|throw|case|delete|void|typeof|new|yield|await|in|instanceof|of|else|do|extends|default)$/.test(word)
           beforeWord = previous
           previous = property ? '.property' : word
           this.index += word.length
