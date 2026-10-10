@@ -33,7 +33,7 @@ function assertJSONCompatible(value: unknown, ancestors = new WeakSet<object>())
 
 function parseRouteYAML<T>(code: string): T | null {
   const isEmptyDocument = code
-    .split(/\r?\n/)
+    .split(/\r\n|[\r\n]/)
     .every(line => /^\s*(?:#.*)?$/.test(line))
   if (isEmptyDocument)
     return null
