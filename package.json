@@ -84,9 +84,6 @@
     }
   },
   "dependencies": {
-    "@sveltejs/acorn-typescript": "1.0.13",
-    "acorn": "^8.18.0",
-    "acorn-jsx": "5.3.2",
     "confbox": "^0.3.1",
     "obug": "^3.0.0",
     "picomatch": "^4.0.2",

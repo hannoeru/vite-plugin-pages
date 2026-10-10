@@ -1,25 +1,13 @@
 import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
-import type { Comment } from 'acorn'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 import fs from 'node:fs'
-import { extname } from 'node:path'
 
-import { tsPlugin } from '@sveltejs/acorn-typescript'
-import { Parser } from 'acorn'
-import jsx from 'acorn-jsx'
 import { parseJSON5 } from 'confbox/json5'
 import { parseYAML } from 'confbox/yaml'
+import { findFirstLineBlockComment } from './firstLineComment'
 import { debug } from './utils'
 
 const routeJSXReg = /^\s+(route)\s+/m
-const tsParser = Parser.extend(tsPlugin())
-const commentParsers = new Map([
-  ['.jsx', Parser.extend(jsx())],
-  ['.ts', tsParser],
-  ['.mts', tsParser],
-  ['.cts', tsParser],
-  ['.tsx', Parser.extend(tsPlugin({ jsx: true }))],
-])
 
 function assertJSONCompatible(value: unknown, ancestors = new WeakSet<object>()): void {
   if (value === null || typeof value === 'string' || typeof value === 'boolean')
@@ -57,28 +45,9 @@ function parseRouteYAML<T>(code: string): T | null {
 }
 
 function parseLeadingBlockComment(code: string, path: string): ParsedJSX[] {
-  const firstLine = code.split(/[\r\n\u2028\u2029]/, 1)[0]
-  const parser = commentParsers.get(extname(path).toLowerCase()) ?? Parser
-  const comments: Comment[] = []
-  try {
-    parser.parse(`${firstLine}\n*/`, {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      locations: true,
-      onComment(block, value, start, end) {
-        comments.push({ type: block ? 'Block' : 'Line', value, start, end })
-        throw new Error('Stop at the first comment')
-      },
-    })
-  }
-  catch {
-    if (comments.length === 0)
-      return []
-  }
-  const firstComment = comments[0]
-  if (firstComment?.type !== 'Block')
+  const openIdx = findFirstLineBlockComment(code, path)
+  if (openIdx < 0)
     return []
-  const openIdx = firstComment.start
   const closeIdx = code.indexOf('*/', openIdx + 2)
   if (closeIdx < 0)
     return []
