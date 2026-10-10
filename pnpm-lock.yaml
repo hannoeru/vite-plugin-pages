@@ -173,9 +173,15 @@ importers:
 
   .:
     dependencies:
+      '@sveltejs/acorn-typescript':
+        specifier: 1.0.13
+        version: 1.0.13(acorn@8.18.0)
       acorn:
         specifier: ^8.18.0
         version: 8.18.0
+      acorn-jsx:
+        specifier: 5.3.2
+        version: 5.3.2(acorn@8.18.0)
       confbox:
         specifier: ^0.3.1
         version: 0.3.1
@@ -1135,6 +1141,11 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
+
+  '@sveltejs/acorn-typescript@1.0.13':
+    resolution: {integrity: sha512-wgKggnhZVL9Bfx1OaKKTrYY9BFRk6C8UAkQNUcIv1+llzYrIqy+RZm5HPKzn0NpEBvTVhTqB4kQyllZywsRBRQ==}
+    peerDependencies:
+      acorn: ^8.9.0
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -4379,6 +4390,10 @@ snapshots:
       espree: 10.4.0
       estraverse: 5.3.0
       picomatch: 4.0.7
+
+  '@sveltejs/acorn-typescript@1.0.13(acorn@8.18.0)':
+    dependencies:
+      acorn: 8.18.0
 
   '@types/babel__core@7.20.5':
     dependencies:

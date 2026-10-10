@@ -76,8 +76,10 @@ describe('parseJSX', () => {
   it.each([
     'const el = <div>/*\nroute\nname: fake\n*/</div>;',
     'const el = <>/*\nroute\nname: fake\n*/</>;',
+    'const el = <T>(value: T) /*\nroute\nname: fake\n*/</T>;',
     'const el = <div>{/* ignored */value}</div>; /*\nroute\nname: later\n*/',
     'const value = <number>1; /*\nroute\nname: invalid-tsx\n*/',
+    'const id = <T>(value: T) => value; /*\nroute\nname: invalid-tsx\n*/',
   ])('does not extract JSX text or invalid TSX as route data', (code) => {
     for (const path of ['protected.jsx', 'protected.tsx'])
       expect(parseYamlComment(parseJSX(code, path), path)).toEqual({})

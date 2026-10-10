@@ -2,13 +2,24 @@ import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
 import type { Comment } from 'acorn'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 import fs from 'node:fs'
+import { extname } from 'node:path'
 
-import { tokenizer, tokTypes } from 'acorn'
+import { tsPlugin } from '@sveltejs/acorn-typescript'
+import { Parser } from 'acorn'
+import jsx from 'acorn-jsx'
 import { parseJSON5 } from 'confbox/json5'
 import { parseYAML } from 'confbox/yaml'
 import { debug } from './utils'
 
 const routeJSXReg = /^\s+(route)\s+/m
+const tsParser = Parser.extend(tsPlugin())
+const commentParsers = new Map([
+  ['.jsx', Parser.extend(jsx())],
+  ['.ts', tsParser],
+  ['.mts', tsParser],
+  ['.cts', tsParser],
+  ['.tsx', Parser.extend(tsPlugin({ jsx: true }))],
+])
 
 function assertJSONCompatible(value: unknown, ancestors = new WeakSet<object>()): void {
   if (value === null || typeof value === 'string' || typeof value === 'boolean')
@@ -45,20 +56,20 @@ function parseRouteYAML<T>(code: string): T | null {
   return value
 }
 
-function parseLeadingBlockComment(code: string): ParsedJSX[] {
+function parseLeadingBlockComment(code: string, path: string): ParsedJSX[] {
   const firstLine = code.split(/[\r\n\u2028\u2029]/, 1)[0]
+  const parser = commentParsers.get(extname(path).toLowerCase()) ?? Parser
   const comments: Comment[] = []
   try {
-    const tokens = tokenizer(`${firstLine}\n*/`, {
+    parser.parse(`${firstLine}\n*/`, {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      onComment: comments,
+      locations: true,
+      onComment(block, value, start, end) {
+        comments.push({ type: block ? 'Block' : 'Line', value, start, end })
+        throw new Error('Stop at the first comment')
+      },
     })
-    while (comments.length === 0) {
-      const token = tokens.getToken()
-      if (token.type === tokTypes.eof || token.start >= firstLine.length)
-        break
-    }
   }
   catch {
     if (comments.length === 0)
@@ -85,8 +96,8 @@ function parseLeadingBlockComment(code: string): ParsedJSX[] {
   }]
 }
 
-export function parseJSX(code: string): ParsedJSX[] {
-  return parseLeadingBlockComment(code).filter(
+export function parseJSX(code: string, path: string): ParsedJSX[] {
+  return parseLeadingBlockComment(code, path).filter(
     c => routeJSXReg.test(c.value) && c.value.includes(':') && c.loc.start.line === 1,
   )
 }
@@ -163,7 +174,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
   const parsedSFC = await parseSFC(content)
   const blockStr = parsedSFC?.customBlocks.find(b => b.type === 'route')
 
-  const parsedJSX = parseJSX(content)
+  const parsedJSX = parseJSX(content, path)
 
   if (!blockStr && parsedJSX.length === 0)
     return
