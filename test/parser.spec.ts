@@ -37,6 +37,8 @@ describe('parseJSX', () => {
     'const el = <><div /></>; ',
     'const el = <div>/* route name: fake */</div>; ',
     'const el = <div title="/* not a comment */" />; ',
+    String.raw`const el = <A title="backslash\" />; `,
+    'const el = <div>{`outer ${',
     'const el = <div>{value / 2}</div>; ',
     'const el = <div>{/["/]/.test(value)}</div>; ',
     'const el = <div>{`/* not a comment */`}</div>; ',
@@ -66,8 +68,27 @@ describe('parseJSX', () => {
     ['protected.tsx', 'const id = <T extends Record<string, unknown>>(value: T) => value; '],
     ['protected.tsx', 'const id = <T extends { factory: () => string }>(value: T) => value; '],
     ['protected.tsx', 'const id = <T = string>(value: T) => value; '],
+    ['protected.tsx', 'const id = <T extends unknown>(value: T): T => value; '],
+    ['protected.tsx', 'const id = <T extends unknown>(value: T): (() => T) => () => value; '],
+    ['protected.tsx', 'const el = <T extends Shape>(text) /* route name: fake */{() => <span />}</T>; '],
     ['protected.tsx', 'const el = <Component<Props> />; '],
+    ['protected.tsx', 'const el = <Component<Array<Props>> />; '],
+    ['protected.tsx', 'const el = <Component<(x: number) => Props> />; '],
+    ['protected.tsx', 'const el = <Component<{ make: () => Array<Props> }> />; '],
+    ['protected.tsx', 'const id = <T extends (x: number) => string,>(value: T) => value; '],
+    ['protected.tsx', 'const id = <T extends { make: () => Array<string> },>(value: T) => value; '],
     ['protected.tsx', 'function f() { const id = <T,>(value: T) => value; '],
+    ['protected.ts', 'export abstract class C {} /["/*]/.test(value); '],
+    ['protected.ts', '@sealed class C {} /["/*]/.test(value); '],
+    ['protected.ts', 'interface C {} /["/*]/.test(value); '],
+    ['protected.ts', 'namespace C {} /["/*]/.test(value); '],
+    ['protected.ts', 'const enum C {} /["/*]/.test(value); '],
+    ['protected.ts', 'declare global { var value: number } /["/*]/.test(value); '],
+    ['protected.tsx', 'const C = class extends function() { const el = <div />; return Base; } {} / 2; '],
+    ['protected.ts', 'function f() { interface C {} /["/*]/.test(value); '],
+    ['protected.ts', 'namespace Outer { namespace Inner {} /["/*]/.test(value); } '],
+    ['protected.ts', 'namespace Outer { enum Inner { A } /["/*]/.test(value); } '],
+    ['protected.ts', 'const obj = { namespace, module }; obj.make(function() {} / 2); '],
   ])('uses the filename dialect for %s prefix %s', (path, prefix) => {
     const code = `${prefix}/*\nroute\nname: protected-page\nmeta:\n  requiresAuth: true\n*/`
     expect(parseYamlComment(parseJSX(code, path), path)).toEqual({
@@ -81,12 +102,21 @@ describe('parseJSX', () => {
     'const el = <>/*\nroute\nname: fake\n*/</>;',
     'const el = <T>(value: T) /*\nroute\nname: fake\n*/</T>;',
     'const el = <T extends>(value) /*\nroute\nname: fake\n*/</T>;',
+    'const el = <T extends Shape>(text) /* route name: fake */{() => <span />}</T>;',
     'const el = <div>{/* ignored */value}</div>; /*\nroute\nname: later\n*/',
     'const value = <number>1; /*\nroute\nname: invalid-tsx\n*/',
     'const id = <T>(value: T) => value; /*\nroute\nname: invalid-tsx\n*/',
   ])('does not extract JSX text or invalid TSX as route data', (code) => {
     for (const path of ['protected.jsx', 'protected.tsx'])
       expect(parseYamlComment(parseJSX(code, path), path)).toEqual({})
+  })
+
+  it.each([
+    ['<template>', '</template>'],
+    ['<script setup>', ' const value = 1;</script><template />'],
+  ])('ignores Vue tag content after %s', (prefix, suffix) => {
+    const code = `${prefix}/*\nroute\nname: ghost\nmeta:\n  requiresAuth: true\n*/${suffix}`
+    expect(parseYamlComment(parseJSX(code, 'protected.vue'), 'protected.vue')).toEqual({})
   })
 
   it.each(['\n', '\r', '\r\n', '\u2028', '\u2029'])('ignores comments after multiline JSX with %j', (line) => {
@@ -107,8 +137,28 @@ describe('parseJSX', () => {
     'switch (value) { case 1: break; } /["/*]/.test(value); ',
     'function f() {} /["/*]/.test(value); ',
     'class Page {} /["/*]/.test(value); ',
+    'try {} catch {} /["/*]/.test(value); ',
     'const value = ({ x: 1 }) / /["/*]/.test(value); ',
     'const value = class {} / 2; ',
+    'const f = async function() {} / 2; ',
+    'const value = obj.if(x) / 2; ',
+    'const value = obj.while(x) / 2; ',
+    'const value = obj?.if(x) / 2; ',
+    'const obj = { class: compute }; obj.make(function() {} / 2); ',
+    'const value = `outer ${',
+    'label: {} /["/*]/.test(value); ',
+    'switch (value) { case 1: {} /["/*]/.test(value); } ',
+    'switch (value) { case ok ? 1 : 2: {} /["/*]/.test(value); } ',
+    'const value = a<<b; const re = /["/]/; ',
+    'const value = a<<=b; const re = /["/]/; ',
+    'const value = left << function() {} / 2; ',
+    'const value = left << class {} / 2; ',
+    'const value = left || function() {} / 2; ',
+    'const value = left || class {} / 2; ',
+    'const C = class extends (class {}) {} / 2; ',
+    'const C = class extends mix(class {}, class {}) {} / 2; ',
+    'class C extends function() {}.constructor {} /["/*]/.test(value); ',
+    'switch (value) { case left ?? right: {} /["/*]/.test(value); } ',
     'const value = 10 / 2 / 5; ',
     'const value = 10 / 2; ',
     `const value = \`outer \${\`inner\`} /*\`; `,
@@ -132,6 +182,8 @@ describe('parseJSX', () => {
 
   it.each([
     'const value = `/*\nroute\nname: fake\n*/`; ',
+    'const value = a<<b; const text = `/*\nroute\nname: fake\n*/`; ',
+    'const value = a<<=b; const text = `/*\nroute\nname: fake\n*/`; ',
     `const value = \`outer \${\`/*\nroute\nname: fake\n*/\`} end\`; `,
     'const value = "/*\\nroute\\nname: fake\\n*/";',
     'const value = \'/*\\nroute\\nname: fake\\n*/\';',
