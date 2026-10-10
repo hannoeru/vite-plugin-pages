@@ -12,7 +12,7 @@ interface PendingHotUpdate {
 
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
-  const hotUpdates = new Map<number, PendingHotUpdate>()
+  const hotUpdates = new Map<string, PendingHotUpdate>()
 
   return {
     name: 'vite-plugin-pages',
@@ -44,26 +44,30 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       },
     },
     async hotUpdate(options) {
-      let update = hotUpdates.get(options.timestamp)
+      const key = JSON.stringify([options.timestamp, options.file, options.type])
+      let update = hotUpdates.get(key)
       if (!update) {
         update = {
           remainingEnvironments: Object.keys(options.server.environments).length,
           routesChanged: ctx.handleFileChange(options.type, options.file),
         }
-        hotUpdates.set(options.timestamp, update)
+        hotUpdates.set(key, update)
       }
 
-      const routesChanged = await update.routesChanged
-      if (--update.remainingEnvironments === 0)
-        hotUpdates.delete(options.timestamp)
+      try {
+        const routesChanged = await update.routesChanged
+        if (!routesChanged)
+          return
 
-      if (!routesChanged)
-        return
-
-      invalidatePagesModule(this.environment, options.timestamp)
-      debug.hmr(`Reload generated pages in the ${this.environment.name} environment.`)
-      this.environment.hot.send({ type: 'full-reload' })
-      return []
+        invalidatePagesModule(this.environment, options.timestamp)
+        debug.hmr(`Reload generated pages in the ${this.environment.name} environment.`)
+        this.environment.hot.send({ type: 'full-reload' })
+        return []
+      }
+      finally {
+        if (--update.remainingEnvironments === 0)
+          hotUpdates.delete(key)
+      }
     },
     resolveId(id) {
       if (ctx.options.moduleIds.includes(id))

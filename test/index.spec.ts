@@ -107,6 +107,10 @@ describe('pages plugin', () => {
   it('keeps concurrent events independent when they finish out of order', async () => {
     const first = Promise.withResolvers<void>()
     const second = Promise.withResolvers<void>()
+    onTestFinished(() => {
+      first.resolve()
+      second.resolve()
+    })
     const added = vi.fn((_ctx: PageContext, file: string) => file.endsWith('/a.tsx') ? first.promise : second.promise)
     const { server, environments, invalidations, invoke } = await createHotUpdateFixture({ added })
     const files = ['a', 'b'].map(name => `${server.config.root}/pages/${name}.tsx`)
@@ -124,6 +128,29 @@ describe('pages plugin', () => {
     expect(await Promise.all(firstUpdates)).toEqual(environments.map(() => []))
     for (const invalidate of invalidations)
       expect(invalidate).toHaveBeenCalledTimes(2)
+  })
+
+  it('keeps concurrent timestamps for the same file and type independent', async () => {
+    const first = Promise.withResolvers<boolean>()
+    const second = Promise.withResolvers<boolean>()
+    onTestFinished(() => {
+      first.resolve(false)
+      second.resolve(false)
+    })
+    const changed = vi.fn().mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise)
+    const { server, environments, invoke } = await createHotUpdateFixture({ changed })
+    const file = `${server.config.root}/pages/home.tsx`
+    writeFileSync(file, 'export default () => null')
+    for (const environment of environments)
+      await invoke(environment, file, 'create')
+
+    const firstUpdates = environments.map(environment => invoke(environment, file, 'update', 124))
+    const secondUpdates = environments.map(environment => invoke(environment, file, 'update', 125))
+    expect(changed).toHaveBeenCalledTimes(2)
+    second.resolve(true)
+    expect(await Promise.all(secondUpdates)).toEqual(environments.map(() => []))
+    first.resolve(false)
+    expect(await Promise.all(firstUpdates)).toEqual(environments.map(() => undefined))
   })
 
   it('refreshes real client and SSR modules after a burst of file events', async () => {
