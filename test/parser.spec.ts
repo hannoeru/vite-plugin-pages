@@ -1,6 +1,12 @@
-import { resolve } from 'node:path'
+import { Buffer } from 'node:buffer'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join, resolve } from 'node:path'
+import { createLogger } from 'vite'
+import { PageContext } from '../src/context'
 import { getRouteBlock, parseCustomBlock, parseJSX, parseSFC, parseYamlComment } from '../src/customBlock'
 import { resolveOptions } from '../src/options'
+import { generateClientCode } from '../src/stringify'
 
 const options = resolveOptions({})
 
@@ -26,6 +32,135 @@ describe('parser', () => {
   it('treats a blank YAML route block as no route data', () => {
     const routeBlock = parseCustomBlock({ lang: 'yaml', content: '   \n  \n' } as any, 'empty.vue', options)
     expect(routeBlock).toBeNull()
+  })
+})
+
+function amplifiedAliases(levels: number): string {
+  const lines = ['a0: &a0 [0, 0]']
+  for (let i = 1; i <= levels; i++)
+    lines.push(`a${i}: &a${i} [*a${i - 1}, *a${i - 1}]`)
+  return `meta:\n${lines.map(line => `  ${line}`).join('\n')}`
+}
+
+describe('yaml output limits', () => {
+  async function parseBlock(content: string, lang = 'yaml') {
+    const descriptor = await parseSFC(`<route lang="${lang}">\n${content}\n</route>`)
+    return parseCustomBlock(descriptor.customBlocks[0], 'aliases.vue', options)
+  }
+
+  it('preserves ordinary shared aliases through route module generation', async () => {
+    const data = await parseBlock('meta:\n  defaults: &defaults {roles: [reader], enabled: true}\n  page: *defaults')
+    expect(data.meta.page).toBe(data.meta.defaults)
+    const client = generateClientCode([data], options)
+    expect(client).toBe(';\n\nconst routes = [{"meta":{"defaults":{"roles":["reader"],"enabled":true},"page":{"roles":["reader"],"enabled":true}}}];\n\nexport default routes;')
+  })
+
+  it.each([20, 60])('rejects amplified aliases at %i levels in SFC blocks and JSX comments', async (levels) => {
+    const content = amplifiedAliases(levels)
+    await expect(parseBlock(content)).rejects.toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
+    await expect(parseBlock(content, 'yml')).rejects.toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
+    expect(() => parseYamlComment(parseJSX(`/*\nroute\n${content}\n*/`), 'aliases.jsx'))
+      .toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
+  })
+
+  it('accepts aliases below the output limit', async () => {
+    const data = await parseBlock(amplifiedAliases(10))
+    expect(Buffer.byteLength(JSON.stringify(data))).toBe(16420)
+    expect(generateClientCode([data], options)).toContain('export default routes;')
+  })
+
+  it('counts each alias in the expanded output', async () => {
+    await expect(parseBlock(amplifiedAliases(16)))
+      .rejects
+      .toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
+  })
+
+  it.each([
+    ['{key: [true, null, 1.5, text]}', { key: [true, null, 1.5, 'text'] }],
+    ['[true, null, 1.5, text]', [true, null, 1.5, 'text']],
+    ['[&shared {a: 1}, *shared]', [{ a: 1 }, { a: 1 }]],
+    ['{value: 0x10, date: 2001-12-15, enabled: TRUE}', { value: 16, date: '2001-12-15', enabled: true }],
+    ['text', 'text'],
+    ['42', 42],
+    ['false', false],
+    ['null', null],
+    ['-0', -0],
+  ])('preserves the JSON-compatible root value %s', async (content, expected) => {
+    expect(await parseBlock(content)).toEqual(expected)
+  })
+
+  it.each([
+    ['{name: index}', { name: 'index' }],
+    ['[1, {a: 2}]', { 0: 1, 1: { a: 2 } }],
+    ['"a:b"', { 0: 'a', 1: ':', 2: 'b' }],
+  ])('preserves root spreads in JSX route comments for %s', (content, expected) => {
+    expect(parseYamlComment(parseJSX(`/*\nroute\n${content}\n*/`), 'root.jsx')).toEqual(expected)
+  })
+
+  it.each([
+    'value: &self\n  nested: *self',
+    '&self [*self]',
+    'value: .inf',
+    'value: .nan',
+    'value: !!timestamp 2001-12-15T02:59:43.1Z',
+  ])('rejects cycles and unsupported values in SFC blocks', async (content) => {
+    await expect(parseBlock(content)).rejects.toThrow(/Invalid YAML format/)
+  })
+
+  it.each([
+    (value: string) => JSON.stringify(value),
+    (value: string) => `{"key":${JSON.stringify(value)}}`,
+    (value: string) => `[${JSON.stringify(value)}]`,
+  ])('preserves large ordinary YAML without aliases', async (source) => {
+    const content = source('x'.repeat(1048576))
+    expect(JSON.stringify(await parseBlock(content))).toBe(content)
+  })
+
+  it('accepts the exact expansion boundary and rejects one fewer source byte', async () => {
+    const descriptor = await parseSFC('<route lang="yaml">null</route>')
+    const source = `${amplifiedAliases(12)}\npadding: "xxxxxxx"`
+    const content = `${source}\n#${' '.repeat(656 - Buffer.byteLength(source) - 2)}`
+    expect(Buffer.byteLength(content)).toBe(656)
+    const block = { ...descriptor.customBlocks[0], content }
+    expect(Buffer.byteLength(JSON.stringify(parseCustomBlock(block, 'boundary.vue', options)))).toBe(65600)
+    expect(() => parseCustomBlock({ ...block, content: content.slice(0, -1) }, 'boundary.vue', options))
+      .toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
+  })
+
+  it.each(['é', '\n', '"'])('counts UTF-8 bytes and JSON escapes in scalar aliases for %j', async (character) => {
+    const content = `meta:\n  text: &text ${JSON.stringify(character.repeat(4096))}\n  copies: [${Array.from({ length: 700 }).fill('*text').join(', ')}]`
+    await expect(parseBlock(content)).rejects.toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
+  })
+
+  it('counts mapping keys in repeated objects', async () => {
+    const key = 'é'.repeat(4096)
+    const content = `meta:\n  object: &object {${JSON.stringify(key)}: 0}\n  copies: [${Array.from({ length: 700 }).fill('*object').join(', ')}]`
+    await expect(parseBlock(content)).rejects.toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
+  })
+
+  it.each(['vue', 'jsx'])('does not emit amplified aliases from a %s page', async (extension) => {
+    const root = mkdtempSync(join(tmpdir(), 'pages-yaml-aliases-'))
+    mkdirSync(join(root, 'pages'))
+    const path = join(root, 'pages', `index.${extension}`)
+    const content = amplifiedAliases(20)
+    writeFileSync(path, extension === 'vue'
+      ? `<template><div /></template><route lang="yaml">\n${content}\n</route>`
+      : `/*\nroute\n${content}\n*/\nexport default {}`)
+    const logger = createLogger()
+    const error = vi.spyOn(logger, 'error').mockImplementation(() => {})
+    try {
+      const ctx = new PageContext({ dirs: 'pages', extensions: [extension] }, root)
+      ctx.setLogger(logger)
+      await ctx.searchGlob()
+      const client = await ctx.resolveRoutes()
+      expect(error).toHaveBeenCalledExactlyOnceWith(expect.stringContaining('Route YAML exceeds the 100x JSON expansion limit'))
+      expect(client).not.toContain('"meta"')
+      expect(client).toContain('export default routes;')
+      expect(client.length).toBeLessThan(512)
+    }
+    finally {
+      rmSync(root, { recursive: true, force: true })
+    }
   })
 })
 
