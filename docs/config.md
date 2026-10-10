@@ -125,7 +125,16 @@ plugin uses the first one.
 - **Type:** `string[]`
 - **Default:** `['node_modules', '.git', '**/__*__/**']`
 
-Glob patterns to exclude from the page search.
+Glob patterns to exclude from page discovery and file changes. Patterns match
+paths relative to the Vite project root, including hidden path segments.
+`filePattern` matches paths relative to each page directory.
+
+With `dirs: 'src/pages'`, use `src/pages/excluded/**` to exclude that subtree.
+Use `**/excluded/**` to exclude matching subtrees in every page directory.
+`excluded/**` does not match `src/pages/excluded/home.vue`.
+
+The same patterns also exclude page directories when `dirs` contains a glob.
+To exclude a subtree, include `/**` in the pattern.
 
 ```bash
 # folder structure

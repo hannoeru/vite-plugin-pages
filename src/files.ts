@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { slash } from '@antfu/utils'
 import { globSync } from 'tinyglobby'
 
-import { getPagePattern } from './utils'
+import { getPagePattern, isPageExcluded } from './utils'
 
 /**
  * Resolves the page dirs for its for its given globs
@@ -30,10 +30,9 @@ export function getPageDirs(PageOptions: PageOptions, root: string, exclude: str
  */
 export function getPageFiles(path: string, options: ResolvedOptions, pageOptions?: PageOptions): string[] {
   const files = globSync(getPagePattern(options, pageOptions), {
-    ignore: options.exclude,
     onlyFiles: true,
     cwd: path,
-  }).map(p => slash(join(path, p)))
+  }).map(p => slash(join(path, p))).filter(p => !isPageExcluded(p, options))
 
   return files
 }

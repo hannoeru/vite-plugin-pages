@@ -1,6 +1,6 @@
 import type { DevEnvironment, EnvironmentModuleNode } from 'vite'
 import type { PageOptions, ResolvedOptions } from './types'
-import { resolve, win32 } from 'node:path'
+import { relative, resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
 import { slash } from '@antfu/utils'
 import { createDebug } from 'obug'
@@ -31,12 +31,13 @@ export function countSlash(value: string) {
   return (value.match(countSlashRE) || []).length
 }
 
-export function findPageDir(path: string, options: ResolvedOptions) {
-  const relativePath = path.startsWith(`${options.root}/`)
-    ? path.slice(options.root.length + 1)
-    : path
+export function isPageExcluded(path: string, options: ResolvedOptions) {
+  const projectRelativePath = slash(relative(options.root, path))
+  return picomatch.isMatch(projectRelativePath, options.exclude, { dot: true })
+}
 
-  if (picomatch.isMatch(relativePath, options.exclude) || !options.extensionsRE.test(path))
+export function findPageDir(path: string, options: ResolvedOptions) {
+  if (isPageExcluded(path, options) || !options.extensionsRE.test(path))
     return
 
   return options.dirs.find((page) => {
