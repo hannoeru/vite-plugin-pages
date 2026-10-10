@@ -331,7 +331,7 @@ The return value is optional.
 
 ## Debugging
 
-The plugin uses the [`debug`](https://github.com/debug-js/debug) package. Enable
+The plugin uses the [`obug`](https://github.com/sxzz/obug) package. Enable
 logging with the `DEBUG` environment variable:
 
 ```bash
