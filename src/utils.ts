@@ -1,10 +1,11 @@
 import type { DevEnvironment, EnvironmentModuleNode } from 'vite'
 import type { PageOptions, ResolvedOptions } from './types'
-import { resolve, win32 } from 'node:path'
+import { posix, relative, resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
 import { slash } from '@antfu/utils'
 import { createDebug } from 'obug'
 import picomatch from 'picomatch'
+import { escapePath } from 'tinyglobby'
 
 import { cacheAllRouteRE, countSlashRE, dynamicRouteRE, MODULE_ID_VIRTUAL, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants'
 
@@ -31,18 +32,42 @@ export function countSlash(value: string) {
   return (value.match(countSlashRE) || []).length
 }
 
-export function findPageDir(path: string, options: ResolvedOptions) {
-  const relativePath = path.startsWith(`${options.root}/`)
-    ? path.slice(options.root.length + 1)
-    : path
+export function getPageExcludePatterns(options: Pick<ResolvedOptions, 'root' | 'exclude'>) {
+  return options.exclude
+    .filter(pattern => pattern && (!pattern.startsWith('!') || pattern.startsWith('!(')))
+    .map((pattern) => {
+      const nativeWindowsPath = /^(?:[a-z]:\\|\\\\)/i.test(pattern)
+      const root = slash(options.root)
+      if (nativeWindowsPath)
+        pattern = slash(pattern)
+      pattern = pattern.replace(/\/$/, '')
+      if (!pattern.endsWith('*'))
+        pattern += '/**'
+      return posix.isAbsolute(pattern) || /^[a-z]:\//i.test(pattern)
+        ? posix.relative(nativeWindowsPath ? root : escapePath(root), pattern)
+        : posix.normalize(pattern)
+    })
+}
 
-  if (picomatch.isMatch(relativePath, options.exclude) || !options.extensionsRE.test(path))
+export function isPageExcluded(path: string, options: ResolvedOptions) {
+  const isExcluded = picomatch(getPageExcludePatterns(options), { dot: true, posix: true })
+  let projectRelativePath = slash(relative(options.root, path))
+  while (projectRelativePath !== '.') {
+    if (isExcluded(projectRelativePath))
+      return true
+    projectRelativePath = posix.dirname(projectRelativePath)
+  }
+  return false
+}
+
+export function findPageDir(path: string, options: ResolvedOptions) {
+  if (isPageExcluded(path, options) || !options.extensionsRE.test(path))
     return
 
   return options.dirs.find((page) => {
     const dirPath = slash(resolve(options.root, page.dir))
     const prefix = dirPath.endsWith('/') ? dirPath : `${dirPath}/`
-    return path.startsWith(prefix) && picomatch.isMatch(path.slice(prefix.length), getPagePattern(options, page))
+    return path.startsWith(prefix) && picomatch.isMatch(path.slice(prefix.length), getPagePattern(options, page), { posix: true })
   })
 }
 

@@ -10,8 +10,8 @@ exports[`options resolve > react 1`] = `
     },
   ],
   "exclude": [
-    "node_modules",
-    ".git",
+    "**/node_modules/**",
+    "**/.git/**",
     "**/__*__/**",
   ],
   "extendRoute": undefined,
@@ -58,8 +58,8 @@ exports[`options resolve > solid 1`] = `
     },
   ],
   "exclude": [
-    "node_modules",
-    ".git",
+    "**/node_modules/**",
+    "**/.git/**",
     "**/__*__/**",
   ],
   "extendRoute": undefined,
@@ -104,8 +104,8 @@ exports[`options resolve > vue - custom module id 1`] = `
     },
   ],
   "exclude": [
-    "node_modules",
-    ".git",
+    "**/node_modules/**",
+    "**/.git/**",
     "**/__*__/**",
   ],
   "extendRoute": undefined,
@@ -150,8 +150,8 @@ exports[`options resolve > vue 1`] = `
     },
   ],
   "exclude": [
-    "node_modules",
-    ".git",
+    "**/node_modules/**",
+    "**/.git/**",
     "**/__*__/**",
   ],
   "extendRoute": undefined,

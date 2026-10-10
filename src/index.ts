@@ -1,18 +1,13 @@
-import type { Plugin } from 'vite'
+import type { HotUpdateOptions, Plugin } from 'vite'
 import type { UserOptions } from './types'
 import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 
 import { PageContext } from './context'
 import { debug, invalidatePagesModule, parsePageRequest } from './utils'
 
-interface PendingHotUpdate {
-  remainingEnvironments: number
-  routesChanged: Promise<boolean>
-}
-
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
-  const hotUpdates = new Map<number, PendingHotUpdate>()
+  const hotUpdates = new WeakMap<HotUpdateOptions['read'], Promise<boolean>>()
 
   return {
     name: 'vite-plugin-pages',
@@ -44,20 +39,13 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       },
     },
     async hotUpdate(options) {
-      let update = hotUpdates.get(options.timestamp)
-      if (!update) {
-        update = {
-          remainingEnvironments: Object.keys(options.server.environments).length,
-          routesChanged: ctx.handleFileChange(options.type, options.file),
-        }
-        hotUpdates.set(options.timestamp, update)
+      let routesChanged = hotUpdates.get(options.read)
+      if (!routesChanged) {
+        routesChanged = ctx.handleFileChange(options.type, options.file)
+        hotUpdates.set(options.read, routesChanged)
       }
 
-      const routesChanged = await update.routesChanged
-      if (--update.remainingEnvironments === 0)
-        hotUpdates.delete(options.timestamp)
-
-      if (!routesChanged)
+      if (!await routesChanged)
         return
 
       invalidatePagesModule(this.environment, options.timestamp)

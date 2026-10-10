@@ -32,6 +32,12 @@ Route YAML uses the YAML 1.2 core schema and must contain JSON-compatible values
 mappings, sequences, strings, finite numbers, booleans, and null. Extended tags
 such as `!!timestamp`, `!!binary`, and `!!set` are not supported.
 
+Aliases are supported, but circular aliases are rejected. The UTF-8 JSON size
+after alias expansion must not exceed 100 times the UTF-8 source size of the
+YAML route block or comment body. The limit includes JSON keys, punctuation,
+and string escapes. The plugin checks the limit before route module generation.
+There is no fixed byte limit for large YAML documents without aliases.
+
 ```html
 <route lang="yaml">
 name: name-override
