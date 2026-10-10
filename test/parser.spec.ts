@@ -23,9 +23,27 @@ describe('parser', () => {
     expect(routeBlock).toBeNull()
   })
 
-  it('treats a blank YAML route block as no route data', () => {
-    const routeBlock = parseCustomBlock({ lang: 'yaml', content: '   \n  \n' } as any, 'empty.vue', options)
-    expect(routeBlock).toBeNull()
+  describe.each(['\n', '\r\n', '\r'])('yaml line ending %j', (lineEnding) => {
+    it.each([
+      { name: 'blank', lines: ['', '', ''], expected: null },
+      { name: 'whitespace-only', lines: ['   ', '\t ', '  '], expected: null },
+      { name: 'comment-only', lines: ['# Comment', '# Comment'], expected: null },
+      { name: 'mapping', lines: ['name: dashboard', 'meta:', '  requiresAuth: true'], expected: { name: 'dashboard', meta: { requiresAuth: true } } },
+    ])('parses $name route data', ({ lines, expected }) => {
+      const content = lines.join(lineEnding)
+      const block = {
+        type: 'route',
+        lang: 'yaml',
+        content,
+        attrs: {},
+        loc: {
+          start: { line: 1, column: 1, offset: 0 },
+          end: { line: 1, column: 1, offset: content.length },
+          source: content,
+        },
+      }
+      expect(parseCustomBlock(block, 'test.vue', options)).toEqual(expected)
+    })
   })
 })
 
