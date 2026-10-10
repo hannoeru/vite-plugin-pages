@@ -7,6 +7,20 @@ import { PageContext } from '../src/context'
 describe('page context', () => {
   it.each([
     {
+      name: 'the documented component file exclusion',
+      dirs: ['src/pages'],
+      exclude: ['**/components/*.vue'],
+      allowed: ['src/pages/home.vue', 'src/pages/components/nested/home.vue'],
+      excluded: ['src/pages/components/form.vue'],
+    },
+    {
+      name: 'an exact project-relative file exclusion',
+      dirs: ['src/pages'],
+      exclude: ['src/pages/private.vue'],
+      allowed: ['src/pages/home.vue'],
+      excluded: ['src/pages/private.vue'],
+    },
+    {
       name: 'default directory excludes in the default page directory',
       dirs: undefined,
       exclude: undefined,
