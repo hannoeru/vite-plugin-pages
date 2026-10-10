@@ -26,7 +26,7 @@ router.
 
 vite-plugin-pages v1 requires Node.js 22.12 or later, Vite 6 or later, and an
 ESM project or ESM-compatible Vite configuration. If you upgrade from v0.33,
-read the [v1 migration guide](./docs/migration-v1.md).
+read the [v1 migration guide](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/migration-v1.md).
 
 Start with an existing Vue, React, or Solid Vite project. Install the plugin:
 
@@ -47,18 +47,18 @@ export default {
 ```
 
 Create `src/pages/index.vue`, `src/pages/index.tsx`, or
-`src/pages/index.jsx`. Then follow [Getting Started](./docs/getting-started.md)
+`src/pages/index.jsx`. Then follow [Getting Started](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/getting-started.md)
 to connect the generated routes to your framework router.
 
 ## Documentation
 
-- [Getting Started](./docs/getting-started.md) — install and set up each framework
-- [Configuration](./docs/config.md) — every plugin option
-- [Base Path](./docs/base-path.md) — deploy below the domain root
-- [File System Routing](./docs/routing.md) — routes, nesting, and routing styles
-- [Route Data](./docs/route-data.md) — `<route>` blocks and JSX comments
-- [Custom Resolver](./docs/custom-resolver.md) — the `PageResolver` API
-- [Migrate to v1](./docs/migration-v1.md) — requirements and breaking changes
+- [Getting Started](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/getting-started.md) — install and set up each framework
+- [Configuration](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/config.md) — every plugin option
+- [Base Path](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/base-path.md) — deploy below the domain root
+- [File System Routing](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/routing.md) — routes, nesting, and routing styles
+- [Route Data](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/route-data.md) — `<route>` blocks and JSX comments
+- [Custom Resolver](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/custom-resolver.md) — the `PageResolver` API
+- [Migrate to v1](https://github.com/hannoeru/vite-plugin-pages/blob/main/docs/migration-v1.md) — requirements and breaking changes
 
 ## Sitemap generation
 
