@@ -4,6 +4,14 @@ import { join } from 'node:path'
 import { resolveOptions } from '../src/options'
 
 describe('options resolve', () => {
+  it('excludes dependency and Git subtrees at every project depth by default', () => {
+    expect(resolveOptions({}).exclude).toEqual([
+      '**/node_modules/**',
+      '**/.git/**',
+      '**/__*__/**',
+    ])
+  })
+
   it('vue', () => {
     const options = resolveOptions({
       dirs: 'examples/vue/src/pages',

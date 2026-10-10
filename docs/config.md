@@ -25,7 +25,7 @@ the runtime behavior.
 | ------ | ---- | ------- | --------- |
 | [`dirs`](#dirs) | `string \| (string \| PageOptions)[]` | `'src/pages'` | All |
 | [`extensions`](#extensions) | `string[]` | Resolver-specific | All |
-| [`exclude`](#exclude) | `string[]` | `['node_modules', '.git', '**/__*__/**']` | All |
+| [`exclude`](#exclude) | `string[]` | `['**/node_modules/**', '**/.git/**', '**/__*__/**']` | All |
 | [`importMode`](#importmode) | `'sync' \| 'async' \| function` | Sync root index; async others | All |
 | [`importPath`](#importpath) | `'absolute' \| 'relative'` | `'relative'` | All |
 | [`routeBlockLang`](#routeblocklang) | `'json5' \| 'json' \| 'yaml' \| 'yml'` | `'json5'` | Vue |
@@ -123,9 +123,23 @@ plugin uses the first one.
 ### exclude
 
 - **Type:** `string[]`
-- **Default:** `['node_modules', '.git', '**/__*__/**']`
+- **Default:** `['**/node_modules/**', '**/.git/**', '**/__*__/**']`
 
-Glob patterns to exclude from the page search.
+Glob patterns to exclude from page discovery and file changes. Patterns match
+paths relative to the Vite project root, including hidden path segments.
+Absolute exclude patterns use the same project-root coordinate after normalization.
+For page directories outside the root, use a root-relative path such as
+`../shared/pages/excluded/**`.
+`filePattern` matches paths relative to each page directory.
+
+With `dirs: 'src/pages'`, use `src/pages/excluded/**` to exclude that subtree.
+Use `**/excluded/**` to exclude matching subtrees in every page directory.
+`excluded/**` does not match `src/pages/excluded/home.vue`.
+
+A pattern that matches a directory excludes its descendants too. The default
+patterns exclude `node_modules` and `.git` directories at every depth, including
+under `src/pages`. Discovery prunes ignored subtrees instead of scanning their files.
+The same patterns also exclude page directories when `dirs` contains a glob.
 
 ```bash
 # folder structure
