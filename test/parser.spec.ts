@@ -31,6 +31,56 @@ describe('parser', () => {
 
 describe('parseJSX', () => {
   it.each([
+    'const el = <div></div>; ',
+    'const el = <div />; ',
+    'const el = <></>; ',
+    'const el = <><div /></>; ',
+    'const el = <div>/* route name: fake */</div>; ',
+    'const el = <div title="/* not a comment */" />; ',
+    'const el = <div>{value / 2}</div>; ',
+    'const el = <div>{/["/]/.test(value)}</div>; ',
+    'const el = <div>{`/* not a comment */`}</div>; ',
+    'const el = <div>{() => <span />}</div>; ',
+    'const el = <div>{',
+  ])('parses actual route metadata after JSX code %s', (prefix) => {
+    const code = `${prefix}/*\nroute\nname: protected-page\nmeta:\n  requiresAuth: true\n*/\nnull}</div>`
+    expect(parseYamlComment(parseJSX(code, 'protected.jsx'), 'protected.jsx')).toEqual({
+      name: 'protected-page',
+      meta: { requiresAuth: true },
+    })
+  })
+
+  it.each([
+    ['protected.ts', 'const id = <T>(value: T) => value; '],
+    ['protected.ts', 'const id = <T,>(value: T) => value; '],
+    ['protected.ts', 'const value = <number>1; '],
+    ['protected.ts', 'const result = identity<string>(value); '],
+    ['protected.tsx', 'const id = <T,>(value: T) => value; '],
+    ['protected.tsx', 'const el = <Component<Props> />; '],
+    ['protected.tsx', 'function f() { const id = <T,>(value: T) => value; '],
+  ])('uses the filename dialect for %s prefix %s', (path, prefix) => {
+    const code = `${prefix}/*\nroute\nname: protected-page\nmeta:\n  requiresAuth: true\n*/`
+    expect(parseYamlComment(parseJSX(code, path), path)).toEqual({
+      name: 'protected-page',
+      meta: { requiresAuth: true },
+    })
+  })
+
+  it.each([
+    'const el = <div>/*\nroute\nname: fake\n*/</div>;',
+    'const el = <>/*\nroute\nname: fake\n*/</>;',
+    'const el = <div>{/* ignored */value}</div>; /*\nroute\nname: later\n*/',
+    'const value = <number>1; /*\nroute\nname: invalid-tsx\n*/',
+  ])('does not extract JSX text or invalid TSX as route data', (code) => {
+    expect(parseYamlComment(parseJSX(code, 'protected.tsx'), 'protected.tsx')).toEqual({})
+  })
+
+  it.each(['\n', '\r', '\r\n', '\u2028', '\u2029'])('ignores comments after multiline JSX with %j', (line) => {
+    const code = `const el = <div>${line}</div>; /*\nroute\nname: later\n*/`
+    expect(parseYamlComment(parseJSX(code, 'protected.jsx'), 'protected.jsx')).toEqual({})
+  })
+
+  it.each([
     '\'use strict\'; ',
     'const value = 1; ',
     String.raw`const re = /["]/; `,
