@@ -173,6 +173,9 @@ importers:
 
   .:
     dependencies:
+      acorn:
+        specifier: ^8.18.0
+        version: 8.18.0
       confbox:
         specifier: ^0.3.1
         version: 0.3.1

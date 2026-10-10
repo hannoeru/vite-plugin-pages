@@ -84,6 +84,7 @@
     }
   },
   "dependencies": {
+    "acorn": "^8.18.0",
     "confbox": "^0.3.1",
     "obug": "^3.0.0",
     "picomatch": "^4.0.2",

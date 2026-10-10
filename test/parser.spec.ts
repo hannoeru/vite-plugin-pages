@@ -77,6 +77,26 @@ describe('parseJSX', () => {
     expect(parseYamlComment(parseJSX(code), 'test.jsx')).toEqual({})
   })
 
+  it.each([
+    '\'use strict\'; /**\nroute\nname: protected-page\nmeta:\n  requiresAuth: true\n*/\nexport default <div />',
+    '\'use strict\'; /**\n * route\n * name: protected-page\n * meta:\n *   requiresAuth: true\n */\nexport default <Component<Props> />',
+    '\'use strict\'; /* route\nname: protected-page\nmeta:\n  requiresAuth: true\n*/\n@unsupported',
+  ])('preserves route data without parsing the JSX or TSX body', (code) => {
+    expect(parseYamlComment(parseJSX(code), 'protected.tsx')).toEqual({
+      name: 'protected-page',
+      meta: {
+        requiresAuth: true,
+      },
+    })
+  })
+
+  it('stops at a complete first-line comment before unsupported syntax', () => {
+    const code = '/* route name: protected-page */ @unsupported'
+    expect(parseYamlComment(parseJSX(code), 'protected.tsx')).toEqual({
+      name: 'protected-page',
+    })
+  })
+
   it('finds a leading route block comment', () => {
     const code = `/*\n\n      route\n\nname: blog-id\nmeta:\n  id: 1\n*/\n`
     const result = parseJSX(code)

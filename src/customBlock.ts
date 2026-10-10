@@ -1,7 +1,9 @@
 import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc'
+import type { Comment } from 'acorn'
 import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types'
 import fs from 'node:fs'
 
+import { tokenizer, tokTypes } from 'acorn'
 import { parseJSON5 } from 'confbox/json5'
 import { parseYAML } from 'confbox/yaml'
 import { debug } from './utils'
@@ -44,64 +46,28 @@ function parseRouteYAML<T>(code: string): T | null {
 }
 
 function parseLeadingBlockComment(code: string): ParsedJSX[] {
-  let quote: string | undefined
-  let inCharacterClass = false
-  const templateExpressions: number[] = []
-  let openIdx = -1
-  for (let index = 0; index < code.length; index++) {
-    const char = code[index]
-    if (char === '\n' || char === '\r')
-      return []
-    if (quote) {
-      if (char === '\\') {
-        if (code[index + 1] === '\n' || code[index + 1] === '\r')
-          return []
-        index++
-      }
-      else if (quote === '`' && char === '$' && code[index + 1] === '{') {
-        templateExpressions.push(1)
-        quote = undefined
-        index++
-      }
-      else if (quote === '/' && char === '[') {
-        inCharacterClass = true
-      }
-      else if (quote === '/' && char === ']') {
-        inCharacterClass = false
-      }
-      else if (char === quote && !inCharacterClass) {
-        quote = undefined
-      }
-      continue
-    }
-    if (templateExpressions.length > 0) {
-      const last = templateExpressions.length - 1
-      if (char === '{')
-        templateExpressions[last]++
-      if (char === '}' && --templateExpressions[last] === 0) {
-        templateExpressions.pop()
-        quote = '`'
-        continue
-      }
-    }
-    if (char === '"' || char === '\'' || char === '`') {
-      quote = char
-      continue
-    }
-    if (char === '/' && code[index + 1] === '/')
-      return []
-    if (char === '/' && code[index + 1] === '*') {
-      openIdx = index
-      break
-    }
-    if (char === '/') {
-      const prefix = code.slice(0, index).trimEnd()
-      if (!prefix || '=(:,[!&|?{};'.includes(prefix.at(-1) ?? '') || /\b(?:return|throw|case|delete|void|typeof|yield|await|in|of)$/.test(prefix))
-        quote = '/'
+  const firstLine = code.split(/[\r\n\u2028\u2029]/, 1)[0]
+  const comments: Comment[] = []
+  try {
+    const tokens = tokenizer(`${firstLine}\n*/`, {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      onComment: comments,
+    })
+    while (comments.length === 0) {
+      const token = tokens.getToken()
+      if (token.type === tokTypes.eof || token.start >= firstLine.length)
+        break
     }
   }
-  if (openIdx < 0)
+  catch {
+    if (comments.length === 0)
+      return []
+  }
+  const firstComment = comments[0]
+  if (firstComment?.type !== 'Block')
     return []
+  const openIdx = firstComment.start
   const closeIdx = code.indexOf('*/', openIdx + 2)
   if (closeIdx < 0)
     return []
