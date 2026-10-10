@@ -77,7 +77,8 @@ describe('yaml output limits', () => {
     const content = amplifiedAliases(levels)
     await expect(parseBlock(content)).rejects.toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
     await expect(parseBlock(content, 'yml')).rejects.toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
-    expect(() => parseYamlComment(parseJSX(`/*\nroute\n${content}\n*/`), 'aliases.jsx'))
+    const comments = [{ value: `\nroute\n${content}\n`, loc: { start: { line: 1 } } }]
+    expect(() => parseYamlComment(comments, 'aliases.jsx'))
       .toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
   })
 
@@ -112,7 +113,8 @@ describe('yaml output limits', () => {
     ['[1, {a: 2}]', { 0: 1, 1: { a: 2 } }],
     ['"a:b"', { 0: 'a', 1: ':', 2: 'b' }],
   ])('preserves root spreads in JSX route comments for %s', (content, expected) => {
-    expect(parseYamlComment(parseJSX(`/*\nroute\n${content}\n*/`), 'root.jsx')).toEqual(expected)
+    const comments = [{ value: `\nroute\n${content}\n`, loc: { start: { line: 1 } } }]
+    expect(parseYamlComment(comments, 'root.jsx')).toEqual(expected)
   })
 
   it.each([
