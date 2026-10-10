@@ -168,14 +168,6 @@ export default {
   plugins: [
     Pages({
       importMode(filepath, options) {
-        // default resolver
-        // for (const page of options.dirs) {
-        //   if (page.baseRoute === '' && filepath.startsWith(`/${page.dir}/index`))
-        //     return 'sync'
-        // }
-        // return 'async'
-
-        // Load the about page synchronously. Load all other pages async.
         return filepath.includes('about') ? 'sync' : 'async'
       },
     }),
