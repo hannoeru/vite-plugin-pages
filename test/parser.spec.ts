@@ -89,6 +89,18 @@ describe('parseJSX', () => {
     ['protected.ts', 'namespace Outer { namespace Inner {} /["/*]/.test(value); } '],
     ['protected.ts', 'namespace Outer { enum Inner { A } /["/*]/.test(value); } '],
     ['protected.ts', 'const obj = { namespace, module }; obj.make(function() {} / 2); '],
+    ['protected.jsx', 'switch (x) { case (() => { switch (y) { case 1: break; default: break; } return 1; })(): function f() {} /["/]/.test(value); break; } '],
+    ['protected.jsx', 'switch (x) { case (() => { switch (y) { case 1: break; } return 1; })(): {} /["/]/.test(value); break; } '],
+    ['protected.jsx', 'switch (x) { case test ? (() => { switch (y) { case 1: break; } return 1; })() : 2: function f() {} /["/]/.test(value); break; } '],
+    ['protected.jsx', 'switch (x) { case ({a: (() => { switch(y) { case 1: break; } return 1; })()}).a: class C {} /["/]/.test(value); break; } '],
+    ['protected.ts', 'function f(): { function(): void } { return null as any; } /["/]/.test(value); '],
+    ['protected.ts', 'function f(): { function<T>(): T } { return null as any; } /["/]/.test(value); '],
+    ['protected.ts', 'function f(): { nested: { function(): void } } { return null as any; } /["/]/.test(value); '],
+    ['protected.ts', 'declare function f(): void; const value = {} / /["/]/.source.length; '],
+    ['protected.ts', 'declare function f(): { function(): void; nested: { function<T>(): T; }; }; const value = {} / /["/]/.source.length; '],
+    ['protected.ts', 'function f(): { function(): void; nested: { function<T>(): T; }; } { return null as any; } /["/]/.test(value); '],
+    ['protected.jsx', `const v = \`outer \${ (() => { switch(x) { case (() => { switch(y) { case 1: break; } return 1; })(): function f() {} /["/]/.test(value); break; } return 1; })() }\`; `],
+    ['protected.tsx', 'const el = <A>{(() => { switch(x) { case (() => { switch(y) { case 1: break; } return 1; })(): function f() {} /["/]/.test(value); break; } return null; })()}</A>; '],
   ])('uses the filename dialect for %s prefix %s', (path, prefix) => {
     const code = `${prefix}/*\nroute\nname: protected-page\nmeta:\n  requiresAuth: true\n*/`
     expect(parseYamlComment(parseJSX(code, path), path)).toEqual({

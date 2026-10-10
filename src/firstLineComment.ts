@@ -231,10 +231,10 @@ class FirstLineCommentScanner {
     let previous = end ? '(' : ''
     let beforeWord = ''
     let asyncFunctionGoal: ClosingContext = 'operand'
-    let functionBody: ScopedContext | undefined
+    const functionBodies: ScopedContext[] = []
     let pendingFunction: ScopedContext | undefined
     const declarations: ScopedContext[] = []
-    let caseExpression: { depth: number, conditionals: number } | undefined
+    const caseExpressions: { depth: number, conditionals: number }[] = []
     while (this.index < this.source.length) {
       const char = this.source[this.index]
       if (/\s/.test(char)) {
@@ -264,7 +264,7 @@ class FirstLineCommentScanner {
       else if (char === '/' && regexpAllowed) {
         this.scanRegExp()
       }
-      else if (char === '<' && (pendingFunction?.depth === delimiters.length || declarations.at(-1)?.depth === delimiters.length || functionBody?.depth === delimiters.length) && (this.dialect === 'ts' || this.dialect === 'tsx')) {
+      else if (char === '<' && (pendingFunction?.depth === delimiters.length || declarations.at(-1)?.depth === delimiters.length || functionBodies.at(-1)?.depth === delimiters.length) && (this.dialect === 'ts' || this.dialect === 'tsx')) {
         this.scanTypeArguments()
         regexpAllowed = false
         continue
@@ -295,7 +295,7 @@ class FirstLineCommentScanner {
           if ((this.dialect === 'ts' || this.dialect === 'tsx') && word === 'global' && previous === 'declare')
             declarations.push({ depth: delimiters.length, after: 'statement' })
           if (word === 'case' && this.isStatementStart(previous, delimiters))
-            caseExpression = { depth: delimiters.length, conditionals: 0 }
+            caseExpressions.push({ depth: delimiters.length, conditionals: 0 })
           regexpAllowed = !property && /^(?:return|throw|case|delete|void|typeof|new|yield|await|in|instanceof|of|else|do|extends)$/.test(word)
           beforeWord = previous
           previous = property ? '.property' : word
@@ -324,12 +324,13 @@ class FirstLineCommentScanner {
         }
         else if (char === '{') {
           const declaration = declarations.at(-1)
+          const functionBody = functionBodies.at(-1)
           let block = this.isStatementStart(previous, delimiters) || /^(?:\)|=>|try|finally)$/.test(previous)
           let after: ClosingContext = block && previous !== '=>' ? 'statement' : 'operand'
           if (functionBody?.depth === delimiters.length && !/^[:|&?]$/.test(previous)) {
             block = true
             after = functionBody.after
-            functionBody = undefined
+            functionBodies.pop()
           }
           else if (declaration?.depth === delimiters.length && !regexpAllowed) {
             block = true
@@ -345,15 +346,30 @@ class FirstLineCommentScanner {
             return false
           }
           if (delimiter.after === 'function')
-            functionBody = { depth: delimiters.length, after: delimiter.body }
+            functionBodies.push({ depth: delimiters.length, after: delimiter.body })
+          for (const scopes of [functionBodies, declarations, caseExpressions]) {
+            while ((scopes.at(-1)?.depth ?? -1) > delimiters.length)
+              scopes.pop()
+          }
+          if (pendingFunction && pendingFunction.depth > delimiters.length)
+            pendingFunction = undefined
           regexpAllowed = delimiter.after === 'statement'
           previous = char === ')' && regexpAllowed ? ')control' : char === '}' && regexpAllowed ? '}block' : char
           this.index++
           continue
         }
+        if (char === ';') {
+          for (const scopes of [functionBodies, declarations, caseExpressions]) {
+            while ((scopes.at(-1)?.depth ?? -1) >= delimiters.length)
+              scopes.pop()
+          }
+          if (pendingFunction && pendingFunction.depth >= delimiters.length)
+            pendingFunction = undefined
+        }
         const operator = this.source.slice(this.index).match(/^(?:<<=?|>>>?=?|\|\|=?|&&=?|\?\?=?|=>|\+\+|--|\?\.|\.\.\.)/)?.[0] ?? char
         this.index += operator.length
         regexpAllowed = operator !== '.' && operator !== '?.' && operator !== '++' && operator !== '--'
+        const caseExpression = caseExpressions.at(-1)
         if (operator === '?' && caseExpression?.depth === delimiters.length)
           caseExpression.conditionals++
         if (operator === ':' && caseExpression?.depth === delimiters.length) {
@@ -361,7 +377,7 @@ class FirstLineCommentScanner {
             caseExpression.conditionals--
           }
           else {
-            caseExpression = undefined
+            caseExpressions.pop()
             previous = ':statement'
             continue
           }
