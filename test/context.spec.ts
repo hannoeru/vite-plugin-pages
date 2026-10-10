@@ -5,6 +5,99 @@ import { slash } from '@antfu/utils'
 import { PageContext } from '../src/context'
 
 describe('page context', () => {
+  it.each([
+    {
+      name: 'project-relative excludes across multiple page directories',
+      dirs: ['pages', 'other'],
+      exclude: ['pages/excluded/**'],
+      allowed: ['pages/home.vue', 'other/excluded/home.vue'],
+      excluded: ['pages/excluded/home.vue'],
+    },
+    {
+      name: 'globstar excludes across multiple page directories',
+      dirs: ['pages', 'other'],
+      exclude: ['**/excluded/**'],
+      allowed: ['pages/home.vue', 'other/home.vue'],
+      excluded: ['pages/excluded/home.vue', 'other/excluded/home.vue'],
+    },
+    {
+      name: 'globstar excludes in a hidden page directory',
+      dirs: ['.pages'],
+      exclude: ['**/excluded/**'],
+      allowed: ['.pages/home.vue'],
+      excluded: ['.pages/excluded/home.vue'],
+    },
+    {
+      name: 'explicit hidden file patterns',
+      dirs: [{ dir: 'pages', filePattern: '**/.*.vue' }],
+      exclude: ['pages/excluded/**'],
+      allowed: ['pages/.home.vue', 'pages/nested/.home.vue'],
+      excluded: ['pages/excluded/.home.vue'],
+    },
+    {
+      name: 'explicit hidden directory patterns',
+      dirs: [{ dir: 'pages', filePattern: '.nested/**/*.vue' }],
+      exclude: ['**/excluded/**'],
+      allowed: ['pages/.nested/home.vue'],
+      excluded: ['pages/.nested/excluded/home.vue'],
+    },
+    {
+      name: 'no page-relative exclude fallback',
+      dirs: ['pages'],
+      exclude: ['excluded/**'],
+      allowed: ['pages/home.vue', 'pages/excluded/home.vue'],
+      excluded: [],
+    },
+  ])('keeps discovery and file changes consistent for $name', async ({ dirs, exclude, allowed, excluded }) => {
+    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
+    const component = (title: string) => `<template><div /></template><route>{"meta":{"title":"${title}"}}</route>`
+
+    try {
+      for (const file of [...allowed, ...excluded]) {
+        mkdirSync(join(root, file, '..'), { recursive: true })
+        writeFileSync(join(root, file), component('Initial'))
+      }
+      const ctx = new PageContext({ dirs, exclude }, root)
+      await ctx.searchGlob()
+      const expectedPaths = allowed.map(file => `${root}/${file}`).sort()
+      expect([...ctx.pageRouteMap.keys()].sort()).toEqual(expectedPaths)
+
+      for (const file of excluded) {
+        const path = `${root}/${file}`
+        writeFileSync(path, component('Updated'))
+        expect(await ctx.handleFileChange('update', path)).toBe(false)
+        rmSync(path)
+        expect(await ctx.handleFileChange('delete', path)).toBe(false)
+        writeFileSync(path, component('Created'))
+        expect(await ctx.handleFileChange('create', path)).toBe(false)
+        expect(ctx.pageRouteMap.has(path)).toBe(false)
+      }
+
+      for (const file of allowed) {
+        const path = `${root}/${file}`
+        writeFileSync(path, component('Updated'))
+        expect(await ctx.handleFileChange('update', path)).toBe(true)
+        expect(await ctx.options.resolver.getComputedRoutes(ctx)).toEqual(expect.arrayContaining([
+          expect.objectContaining({ component: `/${file}`, meta: { title: 'Updated' } }),
+        ]))
+        rmSync(path)
+        expect(await ctx.handleFileChange('delete', path)).toBe(true)
+        expect(ctx.pageRouteMap.has(path)).toBe(false)
+        writeFileSync(path, component('Created'))
+        expect(await ctx.handleFileChange('create', path)).toBe(true)
+        expect(ctx.pageRouteMap.has(path)).toBe(true)
+      }
+
+      const scanned = new PageContext({ dirs, exclude }, root)
+      await scanned.searchGlob()
+      expect(ctx.pageRouteMap).toEqual(scanned.pageRouteMap)
+      expect([...ctx.pageRouteMap.keys()].sort()).toEqual(expectedPaths)
+    }
+    finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
   it('applies file patterns when page files change', async () => {
     const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
     mkdirSync(join(root, 'pages'))
