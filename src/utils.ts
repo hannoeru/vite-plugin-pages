@@ -1,6 +1,6 @@
 import type { DevEnvironment, EnvironmentModuleNode } from 'vite'
 import type { PageOptions, ResolvedOptions } from './types'
-import { isAbsolute, posix, relative, resolve, win32 } from 'node:path'
+import { posix, relative, resolve, win32 } from 'node:path'
 import { URLSearchParams } from 'node:url'
 import { slash } from '@antfu/utils'
 import { createDebug } from 'obug'
@@ -36,11 +36,15 @@ export function getPageExcludePatterns(options: Pick<ResolvedOptions, 'root' | '
   return options.exclude
     .filter(pattern => pattern && (!pattern.startsWith('!') || pattern.startsWith('!(')))
     .map((pattern) => {
+      const nativeWindowsPath = /^(?:[a-z]:\\|\\\\)/i.test(pattern)
+      const root = slash(options.root)
+      if (nativeWindowsPath)
+        pattern = slash(pattern)
       pattern = pattern.replace(/\/$/, '')
       if (!pattern.endsWith('*'))
         pattern += '/**'
-      return isAbsolute(pattern)
-        ? posix.relative(escapePath(options.root), pattern)
+      return posix.isAbsolute(pattern) || /^[a-z]:\//i.test(pattern)
+        ? posix.relative(nativeWindowsPath ? root : escapePath(root), pattern)
         : posix.normalize(pattern)
     })
 }

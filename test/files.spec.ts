@@ -2,8 +2,10 @@ import fs, { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { syncBuiltinESMExports } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
+import { slash } from '@antfu/utils'
 import { getPageDirs, getPageFiles } from '../src/files'
 import { resolveOptions } from '../src/options'
+import { getPageExcludePatterns } from '../src/utils'
 
 const options = resolveOptions({}, process.cwd())
 const testpages = 'examples/vue/src/pages'
@@ -24,7 +26,7 @@ describe('get files', () => {
       const readdir = vi.spyOn(fs, 'readdirSync')
       syncBuiltinESMExports()
       try {
-        expect(getPageFiles(pages, resolved)).toEqual([join(pages, 'home.vue')])
+        expect(getPageFiles(pages, resolved)).toEqual([slash(join(pages, 'home.vue'))])
         expect(readdir.mock.calls.map(([path]) => resolve(String(path)))).toEqual([
           pages,
           join(pages, 'nested'),
@@ -55,7 +57,7 @@ describe('get files', () => {
       const readdir = vi.spyOn(fs, 'readdirSync')
       syncBuiltinESMExports()
       try {
-        expect(getPageFiles(pages, resolved)).toEqual([join(pages, 'home.vue')])
+        expect(getPageFiles(pages, resolved)).toEqual([slash(join(pages, 'home.vue'))])
         expect(getPageFiles(join(pages, 'excluded/1'), resolved)).toEqual([])
         expect(readdir.mock.calls.map(([path]) => resolve(String(path)))).toEqual([pages])
       }
@@ -87,6 +89,19 @@ describe('get files - direct children only', () => {
 })
 
 describe('get page dirs', () => {
+  it.each([
+    { root: String.raw`C:\project`, exclude: String.raw`C:\project\pages`, expected: 'pages/**' },
+    { root: 'C:/project', exclude: String.raw`C:\project\pages`, expected: 'pages/**' },
+    { root: String.raw`C:\project`, exclude: 'C:/project/pages', expected: 'pages/**' },
+    { root: String.raw`C:\[project]`, exclude: String.raw`C:\[project]\pages`, expected: 'pages/**' },
+    { root: String.raw`\\server\share\project`, exclude: String.raw`\\server\share\project\pages`, expected: 'pages/**' },
+    { root: 'C:/[project]', exclude: String.raw`C:/\[project\]/pages/\[draft\]/**`, expected: String.raw`pages/\[draft\]/**` },
+    { root: '/work/[project]', exclude: String.raw`/work/\[project\]/pages/\[draft\]/**`, expected: String.raw`pages/\[draft\]/**` },
+    { root: 'C:/project', exclude: String.raw`pages/\[draft\]/**`, expected: String.raw`pages/\[draft\]/**` },
+  ])('normalizes exclude $exclude relative to $root', ({ root, exclude, expected }) => {
+    expect(getPageExcludePatterns({ root, exclude: [exclude] })).toEqual([expected])
+  })
+
   it('excludes an absolute page-directory pattern', () => {
     const root = mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))
     try {
