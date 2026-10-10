@@ -10,6 +10,36 @@ const testpages = 'examples/vue/src/pages'
 const testDeeppages = 'examples/vue/src/features'
 
 describe('get files', () => {
+  it('prunes nested dependency and Git subtrees with default excludes', () => {
+    const root = mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))
+    const pages = join(root, 'src/pages')
+    try {
+      mkdirSync(pages, { recursive: true })
+      writeFileSync(join(pages, 'home.vue'), '<template><div /></template>')
+      for (const dir of ['node_modules', '.git', 'nested/node_modules', 'nested/.git']) {
+        mkdirSync(join(pages, dir, 'pkg'), { recursive: true })
+        writeFileSync(join(pages, dir, 'pkg/index.vue'), '<template><div /></template>')
+      }
+      const resolved = resolveOptions({}, root)
+      const readdir = vi.spyOn(fs, 'readdirSync')
+      syncBuiltinESMExports()
+      try {
+        expect(getPageFiles(pages, resolved)).toEqual([join(pages, 'home.vue')])
+        expect(readdir.mock.calls.map(([path]) => resolve(String(path)))).toEqual([
+          pages,
+          join(pages, 'nested'),
+        ])
+      }
+      finally {
+        readdir.mockRestore()
+        syncBuiltinESMExports()
+      }
+    }
+    finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
   it.each(['pages/excluded', 'pages/excluded/**', '**/excluded/**'])('prunes the ignored subtree for %s', (exclude) => {
     const root = mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))
     const pages = join(root, 'pages')

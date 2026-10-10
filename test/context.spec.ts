@@ -7,6 +7,25 @@ import { PageContext } from '../src/context'
 describe('page context', () => {
   it.each([
     {
+      name: 'default directory excludes in the default page directory',
+      dirs: undefined,
+      exclude: undefined,
+      allowed: ['src/pages/home.vue'],
+      excluded: [
+        'src/pages/node_modules/pkg.vue',
+        'src/pages/.git/hooks/pkg.vue',
+        'src/pages/nested/node_modules/pkg.vue',
+        'src/pages/nested/.git/hooks/pkg.vue',
+      ],
+    },
+    {
+      name: 'default nested Git excludes with an explicit hidden pattern',
+      dirs: [{ dir: 'src/pages', filePattern: '.git/**/*.vue' }],
+      exclude: undefined,
+      allowed: [],
+      excluded: ['src/pages/.git/hooks/pkg.vue'],
+    },
+    {
       name: 'default directory excludes at the project root',
       dirs: ['.'],
       exclude: undefined,
