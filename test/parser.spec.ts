@@ -30,6 +30,48 @@ describe('parser', () => {
 })
 
 describe('parseJSX', () => {
+  it.each([
+    '\'use strict\'; ',
+    'const value = 1; ',
+    String.raw`const re = /["]/; `,
+    String.raw`const re = /\/\*/; `,
+    String.raw`const re = /[/*]/; `,
+    'const value = 10 / 2; ',
+    `const value = \`outer \${\`inner\`} /*\`; `,
+    `const value = \`outer \${\`inner /*\`} end\`; `,
+    `const value = \`outer \${{ value: '/*' }.value} end\`; `,
+    'const value = "/* not a comment */"; ',
+    'const value = \'/* not a comment */\'; ',
+    'const value = `/* not a comment */`; ',
+    String.raw`const value = "escaped \" /* not a comment */"; `,
+    String.raw`const value = 'escaped \' /* not a comment */'; `,
+    'const value = `escaped \\` /* not a comment */`; ',
+  ])('parses the first route comment after first-line code %s', (prefix) => {
+    const code = `${prefix}/*\nroute\nname: protected-page\nmeta:\n  requiresAuth: true\n*/\nexport default {}`
+    expect(parseYamlComment(parseJSX(code), 'protected.jsx')).toEqual({
+      name: 'protected-page',
+      meta: {
+        requiresAuth: true,
+      },
+    })
+  })
+
+  it.each([
+    'const value = `/*\nroute\nname: fake\n*/`; ',
+    `const value = \`outer \${\`/*\nroute\nname: fake\n*/\`} end\`; `,
+    'const value = "/*\\nroute\\nname: fake\\n*/";',
+    'const value = \'/*\\nroute\\nname: fake\\n*/\';',
+    '\'use strict\'; // /*\nroute\nname: fake\n*/',
+    '\'use strict\';\n/*\nroute\nname: later\n*/',
+    '\'use strict\';\r/*\nroute\nname: later\n*/',
+    '\'use strict\';\r\n/*\nroute\nname: later\n*/',
+    'const re = /[/*]/; \r/*\nroute\nname: later\n*/',
+    '\'use strict\'; /* not a route */ /*\nroute\nname: second\n*/',
+    '\'use strict\'; /*\nroutes\nname: fake\n*/',
+  ])('ignores non-route comments and literal delimiters %s', (code) => {
+    expect(parseYamlComment(parseJSX(code), 'test.jsx')).toEqual({})
+  })
+
   it('finds a leading route block comment', () => {
     const code = `/*\n\n      route\n\nname: blog-id\nmeta:\n  id: 1\n*/\n`
     const result = parseJSX(code)
