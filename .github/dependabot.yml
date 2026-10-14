@@ -8,11 +8,20 @@ updates:
     commit-message:
       prefix: feat(deps)
     open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
     groups:
       production-dependencies:
         dependency-type: production
       development-dependencies:
         dependency-type: development
+        exclude-patterns:
+          - typescript
+      typescript:
+        patterns:
+          - typescript
 
   - package-ecosystem: github-actions
     directory: /
