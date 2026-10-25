@@ -89,6 +89,35 @@ Vue catch-all routes now use optional matching at every depth. For example,
 `pages/docs/[...all].vue` matches both `/docs` and `/docs/intro`. An index route
 at `/docs` takes precedence when it exists.
 
+Only nested Vue catch-alls change from a string to an array for nonempty
+matches. Root catch-alls such as `pages/[...all].vue` already returned arrays.
+For `pages/docs/[...all].vue`, `route.params.all` changes as follows:
+
+| URL | Before v1 | v1 |
+| --- | --- | --- |
+| `/docs/intro` | `'intro'` | `['intro']` |
+| `/docs/guides/install` | `'guides/install'` | `['guides', 'install']` |
+
+The generated nested pattern changes from `:all(.*)` to `:all(.*)*`.
+The final `*` makes the parameter optional and repeatable.
+Arrays follow [Vue Router's repeatable-parameter semantics](https://router.vuejs.org/guide/essentials/route-matching-syntax.html#Repeatable-params).
+Optional matching alone does not require arrays. Vue Router also supports
+`:all(.*)?`, an optional, non-repeatable parameter, but the generator does not
+emit that pattern.
+
+If your code calls string methods on `route.params.all`, join the segments
+before you use those methods:
+
+```diff
+-const isGuide = route.params.all.startsWith('guides/')
++const all = route.params.all
++const path = Array.isArray(all) ? all.join('/') : (all ?? '')
++const isGuide = path.startsWith('guides/')
+```
+
+This expression also handles absent or empty optional parameters. Do not rely
+on one exact empty value across supported Vue Router versions.
+
 Normal dynamic segments such as `[id]` remain required. Use `extendRoute` or a
 custom resolver if a catch-all must require at least one segment.
 
