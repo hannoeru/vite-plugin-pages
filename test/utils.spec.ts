@@ -60,11 +60,11 @@ describe('utils', () => {
     expect(isPage('examples/vue/src/pages/home.txt')).toBe(false)
   })
 
-  it('applies exclude globs relative to the root (hidden dir in path)', () => {
+  it('applies page-relative excludes below a hidden project path', () => {
     const root = slash(resolve('.cache', 'project'))
     const options = {
       root,
-      exclude: ['**/exclude/**'],
+      exclude: ['exclude/**'],
       extensions: ['vue'],
       extensionsRE: /\.(vue)$/,
       dirs: [{ dir: 'src/pages', baseRoute: '' }],

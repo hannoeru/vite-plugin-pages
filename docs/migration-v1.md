@@ -83,6 +83,33 @@ Pages({
 
 An omitted `baseRoute` is equivalent to an empty string.
 
+## Review exclude patterns
+
+`exclude` and `filePattern` both match paths relative to each concrete page
+directory. With `dirs: 'src/pages'`, use `exclude: ['drafts/**']` to exclude
+`src/pages/drafts`. Each pattern applies independently to all page directories,
+including directories outside the Vite project root.
+
+If you used project-root-relative excludes in a v1 beta, remove the page directory
+prefix:
+
+```diff
+ Pages({
+   dirs: 'src/pages',
+-  exclude: ['src/pages/drafts/**'],
++  exclude: ['drafts/**'],
+ })
+```
+
+Absolute exclude patterns now cause a configuration error. Replace them with
+page-relative patterns. There is no project-root-relative fallback.
+
+`exclude` does not filter the `dirs` glob. Restrict `dirs` itself when you need
+to select fewer page directories. Default excludes still prune `node_modules`,
+`.git`, and `__*__` subtrees inside each selected page directory, but not its
+ancestors. If multiple directories include the same file, the last matching
+directory sets its base route during both discovery and file changes.
+
 ## Review nested catch-all routes
 
 Vue catch-all routes now use optional matching at every depth. For example,
