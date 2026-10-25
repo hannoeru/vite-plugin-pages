@@ -125,21 +125,32 @@ plugin uses the first one.
 - **Type:** `string[]`
 - **Default:** `['**/node_modules/**', '**/.git/**', '**/__*__/**']`
 
-Glob patterns to exclude from page discovery and file changes. Patterns match
-paths relative to the Vite project root, including hidden path segments.
-Absolute exclude patterns use the same project-root coordinate after normalization.
-For page directories outside the root, use a root-relative path such as
-`../shared/pages/excluded/**`.
-`filePattern` matches paths relative to each page directory.
+Glob patterns to exclude from page discovery and file changes. Each pattern
+matches paths relative to each concrete page directory, not the Vite project
+root. The same rule applies to `filePattern`. Patterns can match hidden path
+segments. Use forward slashes in patterns.
 
-With `dirs: 'src/pages'`, use `src/pages/excluded/**` to exclude that subtree.
-Use `**/excluded/**` to exclude matching subtrees in every page directory.
-`excluded/**` does not match `src/pages/excluded/home.vue`.
+With `dirs: 'src/pages'`, use `exclude: ['drafts/**']` to exclude
+`src/pages/drafts` and its files. Do not add the `src/pages/` prefix.
+With multiple page directories, the plugin applies every pattern independently
+to each directory. This also applies to hidden directories and directories outside
+the project root. Use `**/drafts/**` to exclude a `drafts` directory at any depth
+inside each page directory.
+
+Absolute exclude patterns are not supported. The plugin rejects them with an
+error. There is no project-root-relative fallback.
 
 A pattern that matches a directory excludes its descendants too. The default
-patterns exclude `node_modules` and `.git` directories at every depth, including
-under `src/pages`. Discovery prunes ignored subtrees instead of scanning their files.
-The same patterns also exclude page directories when `dirs` contains a glob.
+patterns exclude `node_modules` and `.git` directories at every depth inside
+each page directory. Discovery prunes ignored subtrees instead of scanning their
+files. A custom `exclude` array replaces these defaults.
+
+The `dirs` glob is a separate directory search. It does not use `exclude` or
+skip dependency and Git directories. To limit the selected page directories,
+change `dirs`. An ancestor outside a page directory does not participate in
+page-relative exclude matching. If multiple page directories include the same
+file, the last matching directory in `dirs` sets its base route. Discovery and
+file changes use this same order.
 
 ```bash
 # folder structure

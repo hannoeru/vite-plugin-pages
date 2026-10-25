@@ -14,9 +14,9 @@ describe('page context', () => {
       excluded: ['src/pages/components/form.vue'],
     },
     {
-      name: 'an exact project-relative file exclusion',
+      name: 'an exact page-relative file exclusion',
       dirs: ['src/pages'],
-      exclude: ['src/pages/private.vue'],
+      exclude: ['private.vue'],
       allowed: ['src/pages/home.vue'],
       excluded: ['src/pages/private.vue'],
     },
@@ -56,30 +56,30 @@ describe('page context', () => {
     {
       name: 'literal directory excludes below a page directory',
       dirs: ['pages'],
-      exclude: ['pages/excluded'],
+      exclude: ['excluded'],
       allowed: ['pages/home.vue'],
       excluded: ['pages/excluded/nested/home.vue'],
     },
     {
       name: 'wildcard directory excludes and their descendants',
       dirs: ['pages'],
-      exclude: ['pages/excl*'],
+      exclude: ['excl*'],
       allowed: ['pages/home.vue'],
       excluded: ['pages/excluded/nested/home.vue'],
     },
     {
-      name: 'page directories below an excluded ancestor',
+      name: 'page directories below an ancestor with an excluded name',
       dirs: ['pages/excluded/nested'],
-      exclude: ['pages/excl*'],
-      allowed: [],
-      excluded: ['pages/excluded/nested/home.vue'],
+      exclude: ['**/excluded/**'],
+      allowed: ['pages/excluded/nested/home.vue'],
+      excluded: ['pages/excluded/nested/excluded/home.vue'],
     },
     {
-      name: 'project-relative excludes across multiple page directories',
+      name: 'page-relative excludes across multiple page directories',
       dirs: ['pages', 'other'],
-      exclude: ['pages/excluded/**'],
-      allowed: ['pages/home.vue', 'other/excluded/home.vue'],
-      excluded: ['pages/excluded/home.vue'],
+      exclude: ['excluded/**'],
+      allowed: ['pages/home.vue', 'other/home.vue'],
+      excluded: ['pages/excluded/home.vue', 'other/excluded/home.vue'],
     },
     {
       name: 'globstar excludes across multiple page directories',
@@ -89,16 +89,16 @@ describe('page context', () => {
       excluded: ['pages/excluded/home.vue', 'other/excluded/home.vue'],
     },
     {
-      name: 'globstar excludes in a hidden page directory',
+      name: 'page-relative excludes in a hidden page directory',
       dirs: ['.pages'],
-      exclude: ['**/excluded/**'],
+      exclude: ['excluded/**'],
       allowed: ['.pages/home.vue'],
       excluded: ['.pages/excluded/home.vue'],
     },
     {
       name: 'explicit hidden file patterns',
       dirs: [{ dir: 'pages', filePattern: '**/.*.vue' }],
-      exclude: ['pages/excluded/**'],
+      exclude: ['excluded/**'],
       allowed: ['pages/.home.vue', 'pages/nested/.home.vue'],
       excluded: ['pages/excluded/.home.vue'],
     },
@@ -112,19 +112,54 @@ describe('page context', () => {
     {
       name: 'concrete page directories with glob characters',
       dirs: ['features/*/pages'],
-      exclude: ['**/excluded/**'],
+      exclude: ['excluded/**'],
       allowed: ['features/[feature]/pages/home.vue'],
       excluded: ['features/[feature]/pages/excluded/home.vue'],
     },
     {
-      name: 'no page-relative exclude fallback',
+      name: 'literal glob characters in excluded directory names',
       dirs: ['pages'],
+      exclude: [String.raw`\[draft\]/**`],
+      allowed: ['pages/home.vue', 'pages/draft/home.vue'],
+      excluded: ['pages/[draft]/home.vue'],
+    },
+    {
+      name: 'page directories discovered below an excluded name',
+      dirs: ['features/*/pages'],
       exclude: ['excluded/**'],
+      allowed: ['features/excluded/pages/home.vue', 'features/other/pages/home.vue'],
+      excluded: ['features/excluded/pages/excluded/home.vue', 'features/other/pages/excluded/home.vue'],
+    },
+    {
+      name: 'a file pattern with a fixed directory prefix',
+      dirs: [{ dir: 'pages', filePattern: 'nested/**/*.vue' }],
+      exclude: ['nested/drafts/**'],
+      allowed: ['pages/nested/home.vue'],
+      excluded: ['pages/nested/drafts/home.vue'],
+    },
+    {
+      name: 'a wildcard exclude above a fixed file-pattern prefix',
+      dirs: [{ dir: 'pages', filePattern: 'nested/*.vue' }],
+      exclude: ['nested*'],
+      allowed: [],
+      excluded: ['pages/nested/home.vue'],
+    },
+    {
+      name: 'a root wildcard exclude above a fixed file-pattern prefix',
+      dirs: [{ dir: 'pages', filePattern: 'nested/*.vue' }],
+      exclude: ['*'],
+      allowed: [],
+      excluded: ['pages/nested/home.vue'],
+    },
+    {
+      name: 'no project-relative exclude fallback',
+      dirs: ['pages'],
+      exclude: ['pages/excluded/**'],
       allowed: ['pages/home.vue', 'pages/excluded/home.vue'],
       excluded: [],
     },
   ])('keeps discovery and file changes consistent for $name', async ({ dirs, exclude, allowed, excluded }) => {
-    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
+    const root = slash(mkdtempSync(join(tmpdir(), '.vite-plugin-pages-[project]-')))
     const component = (title: string) => `<template><div /></template><route>{"meta":{"title":"${title}"}}</route>`
 
     try {
@@ -174,10 +209,11 @@ describe('page context', () => {
   })
 
   it.each([
-    { absoluteDir: false, absoluteExclude: false, hidden: false },
-    { absoluteDir: true, absoluteExclude: false, hidden: false },
-    { absoluteDir: true, absoluteExclude: true, hidden: true },
-  ])('uses project-relative coordinates for external pages with $absoluteDir/$absoluteExclude/$hidden', async ({ absoluteDir, absoluteExclude, hidden }) => {
+    { absoluteDir: false, hidden: false },
+    { absoluteDir: true, hidden: false },
+    { absoluteDir: false, hidden: true },
+    { absoluteDir: true, hidden: true },
+  ])('uses page-relative excludes for external pages with $absoluteDir/$hidden', async ({ absoluteDir, hidden }) => {
     const fixture = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
     const root = `${fixture}/project`
     const dir = hidden ? '.shared' : 'shared'
@@ -192,7 +228,7 @@ describe('page context', () => {
     try {
       const ctx = new PageContext({
         dirs: absoluteDir ? pages : `../${dir}/pages`,
-        exclude: [absoluteExclude ? `${pages}/excluded` : `../${dir}/pages/excluded`],
+        exclude: ['excluded'],
       }, root)
       await ctx.searchGlob()
       expect([...ctx.pageRouteMap.keys()]).toEqual([home])
@@ -218,6 +254,43 @@ describe('page context', () => {
     }
     finally {
       rmSync(fixture, { recursive: true, force: true })
+    }
+  })
+
+  it.each([false, true])('keeps nested directory ownership consistent with reverse order %s', async (reverse) => {
+    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
+    const dirs = [
+      { dir: 'pages', baseRoute: 'outer' },
+      { dir: 'pages/nested', baseRoute: 'inner' },
+    ]
+    if (reverse)
+      dirs.reverse()
+    const path = `${root}/pages/nested/home.vue`
+    const draft = `${root}/pages/nested/drafts/home.vue`
+    try {
+      mkdirSync(`${root}/pages/nested/drafts`, { recursive: true })
+      writeFileSync(path, '<template><div /></template>')
+      writeFileSync(draft, '<template><div /></template>')
+      const ctx = new PageContext({ dirs, exclude: ['nested/drafts/**'] }, root)
+      await ctx.searchGlob()
+      expect(ctx.pageRouteMap.get(path)?.route).toBe(reverse ? 'outer/nested/home' : 'inner/home')
+      expect(ctx.pageRouteMap.get(draft)?.route).toBe('inner/drafts/home')
+      const initial = new Map(ctx.pageRouteMap)
+      for (const file of [path, draft]) {
+        writeFileSync(file, '<template><div /></template><route>{"meta":{"title":"Updated"}}</route>')
+        expect(await ctx.handleFileChange('update', file)).toBe(true)
+        rmSync(file)
+        expect(await ctx.handleFileChange('delete', file)).toBe(true)
+        writeFileSync(file, '<template><div /></template>')
+        expect(await ctx.handleFileChange('create', file)).toBe(true)
+      }
+      expect(ctx.pageRouteMap).toEqual(initial)
+      const scanned = new PageContext(ctx.rawOptions, root)
+      await scanned.searchGlob()
+      expect(ctx.pageRouteMap).toEqual(scanned.pageRouteMap)
+    }
+    finally {
+      rmSync(root, { recursive: true, force: true })
     }
   })
 

@@ -1,5 +1,5 @@
 import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
-import { resolve } from 'node:path'
+import { posix, resolve } from 'node:path'
 import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
 
@@ -7,7 +7,7 @@ import { MODULE_IDS } from './constants'
 import { getPageDirs } from './files'
 import { reactResolver, solidResolver, vueResolver } from './resolvers'
 
-function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[]) {
+function resolvePageDirs(dirs: UserOptions['dirs'], root: string) {
   dirs = toArray(dirs)
   return dirs.flatMap((dir) => {
     const option = typeof dir === 'string'
@@ -17,7 +17,7 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: strin
     option.dir = slash(resolve(root, option.dir)).replace(`${root}/`, '')
     option.baseRoute = (option.baseRoute ?? '').replace(/^\//, '').replace(/\/$/, '')
 
-    return getPageDirs(option, root, exclude)
+    return getPageDirs(option, root)
   })
 }
 
@@ -75,7 +75,10 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`)
 
-  const resolvedDirs = resolvePageDirs(dirs, root, exclude)
+  if (exclude.some(pattern => posix.isAbsolute(pattern) || /^(?:[a-z]:[\\/]|\\\\)/i.test(pattern)))
+    throw new Error('exclude patterns must be relative to each page directory.')
+
+  const resolvedDirs = resolvePageDirs(dirs, root)
 
   const routeStyle = userOptions.routeStyle || 'next'
 

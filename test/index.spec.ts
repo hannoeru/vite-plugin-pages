@@ -1,6 +1,6 @@
 import type { DevEnvironment, HotUpdateOptions, Plugin, ServerOptions } from 'vite'
 import type { PageResolver } from '../src/types'
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { slash } from '@antfu/utils'
@@ -70,6 +70,72 @@ async function createHotUpdateFixture(hmr: PageResolver['hmr'] = {}, {
 }
 
 describe('pages plugin', () => {
+  it('keeps page-relative excludes consistent through real Vite file events', async () => {
+    const root = slash(realpathSync(mkdtempSync(join(tmpdir(), '.vite-plugin-pages-[project]-'))))
+    const dirs = ['src/pages', '.features/[feature]/pages']
+    for (const dir of dirs) {
+      mkdirSync(`${root}/${dir}/drafts`, { recursive: true })
+      writeFileSync(`${root}/${dir}/home.vue`, '<template><div /></template>')
+      writeFileSync(`${root}/${dir}/drafts/home.vue`, '<template><div /></template>')
+    }
+    let completed = Promise.withResolvers<void>()
+    let events = 0
+    const server = await createServer({
+      root,
+      configFile: false,
+      plugins: [pagesPlugin({
+        dirs: ['src/pages', '.features/*/pages'],
+        exclude: ['drafts/**'],
+      }), {
+        name: 'observe-exclude-events',
+        hotUpdate() {
+          if (++events === Object.keys(server.environments).length)
+            completed.resolve()
+        },
+      }],
+      server: { watch: null, ws: false },
+    })
+    onTestFinished(async () => {
+      await server.close()
+      rmSync(root, { recursive: true, force: true })
+    })
+    async function checkRoutes(title?: string, removed?: string) {
+      for (const environment of Object.values(server.environments)) {
+        const result = await environment.transformRequest('~pages')
+        expect(result?.code).not.toContain('drafts')
+        for (const dir of dirs) {
+          if (dir === removed)
+            expect(result?.code).not.toContain(`${dir}/home.vue`)
+          else
+            expect(result?.code).toContain(`${dir}/home.vue`)
+        }
+        if (title)
+          expect(result?.code).toContain(title)
+      }
+    }
+    async function emit(event: 'add' | 'change' | 'unlink', file: string) {
+      events = 0
+      completed = Promise.withResolvers<void>()
+      server.watcher.emit(event, file)
+      await completed.promise
+    }
+    await checkRoutes()
+    for (const dir of dirs) {
+      for (const excluded of [false, true]) {
+        const path = `${root}/${dir}/${excluded ? 'drafts/' : ''}home.vue`
+        writeFileSync(path, '<template><div /></template><route>{"meta":{"title":"Updated"}}</route>')
+        await emit('change', path)
+        await checkRoutes(excluded ? undefined : 'Updated')
+        rmSync(path)
+        await emit('unlink', path)
+        await checkRoutes(undefined, excluded ? undefined : dir)
+        writeFileSync(path, '<template><div /></template>')
+        await emit('add', path)
+        await checkRoutes()
+      }
+    }
+  })
+
   it('preserves distinct files with the same timestamp in each environment', async () => {
     const added = vi.fn()
     const { server, environments, invalidations, sends, dispatch } = await createHotUpdateFixture({ added })

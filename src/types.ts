@@ -70,7 +70,7 @@ interface Options {
    */
   extensions: string[]
   /**
-   * List of path globs to exclude when resolving pages.
+   * Path globs relative to each page directory. Absolute patterns are not supported.
    */
   exclude: string[]
   /**
