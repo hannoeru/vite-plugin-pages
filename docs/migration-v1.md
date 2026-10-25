@@ -90,17 +90,6 @@ directory. With `dirs: 'src/pages'`, use `exclude: ['drafts/**']` to exclude
 `src/pages/drafts`. Each pattern applies independently to all page directories,
 including directories outside the Vite project root.
 
-If you used project-root-relative excludes in a v1 beta, remove the page directory
-prefix:
-
-```diff
- Pages({
-   dirs: 'src/pages',
--  exclude: ['src/pages/drafts/**'],
-+  exclude: ['drafts/**'],
- })
-```
-
 Absolute exclude patterns now cause a configuration error. Replace them with
 page-relative patterns. There is no project-root-relative fallback.
 
