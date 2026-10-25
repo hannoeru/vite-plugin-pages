@@ -161,7 +161,7 @@ describe('generate routes', () => {
     expect(routes).toMatchSnapshot('client code')
   })
 
-  it('makes root and nested Vue catch-all routes optional with index precedence', async () => {
+  it('resolves root and nested Vue catch-all params with optional matching and index precedence', async () => {
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
     })
@@ -171,29 +171,57 @@ describe('generate routes', () => {
 
     const rootCatchAll = routes.find(route => route.name === 'all')
     const nestedCatchAll = routes.find(route => route.name === 'blog-today-all')
+    const rootIndex = routes.find(route => route.name === 'homepage')
     const nestedIndex = routes.find(route => route.name === 'blog-today')
-
-    expect(rootCatchAll?.path).toBe('/:all(.*)*')
-    expect(nestedCatchAll?.path).toBe('/blog/today/:all(.*)*')
-    expect(nestedIndex?.path).toBe('/blog/today')
 
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [
         {
-          path: nestedCatchAll!.path!,
-          name: nestedCatchAll!.name,
+          path: rootCatchAll!.path!,
+          name: rootCatchAll!.name,
           component: {},
         },
         {
-          path: nestedIndex!.path!,
-          name: nestedIndex!.name,
+          path: nestedCatchAll!.path!,
+          name: nestedCatchAll!.name,
           component: {},
         },
       ],
     })
 
-    expect(router.resolve('/blog/today').name).toBe('blog-today')
+    expect(router.resolve('/install').name).toBe('all')
+    expect(router.resolve('/install').params).toEqual({ all: ['install'] })
+    expect(router.resolve('/install/setup').name).toBe('all')
+    expect(router.resolve('/install/setup').params).toEqual({ all: ['install', 'setup'] })
     expect(router.resolve('/blog/today/install').name).toBe('blog-today-all')
+    expect(router.resolve('/blog/today/install').params).toEqual({ all: ['install'] })
+    expect(router.resolve('/blog/today/install/setup').name).toBe('blog-today-all')
+    expect(router.resolve('/blog/today/install/setup').params).toEqual({ all: ['install', 'setup'] })
+    expect(router.resolve('/').name).toBe('all')
+    expect(router.resolve('/').params).toEqual({})
+    expect(router.resolve('/blog/today').name).toBe('blog-today-all')
+    expect(router.resolve('/blog/today').params).toEqual({})
+
+    expect(rootCatchAll?.path).toBe('/:all(.*)*')
+    expect(nestedCatchAll?.path).toBe('/blog/today/:all(.*)*')
+    expect(rootIndex?.path).toBe('/')
+    expect(nestedIndex?.path).toBe('/blog/today')
+
+    router.addRoute({
+      path: rootIndex!.path!,
+      name: rootIndex!.name,
+      component: {},
+    })
+    router.addRoute({
+      path: nestedIndex!.path!,
+      name: nestedIndex!.name,
+      component: {},
+    })
+
+    expect(router.resolve('/').name).toBe('homepage')
+    expect(router.resolve('/').params).toEqual({})
+    expect(router.resolve('/blog/today').name).toBe('blog-today')
+    expect(router.resolve('/blog/today').params).toEqual({})
   })
 })
