@@ -16,18 +16,31 @@ Upgrade Node.js and Vite before you install vite-plugin-pages v1.
 ## Replace CommonJS imports
 
 v1 is ESM-only. It does not provide a CommonJS build or a `require` export.
-Replace `require` calls with ESM imports:
+For ESM configuration files, prefer static ESM imports:
 
 ```diff
 -const Pages = require('vite-plugin-pages')
 +import Pages from 'vite-plugin-pages'
 ```
 
-If CommonJS code must load the plugin, use a dynamic import:
+If Vite loads your configuration as CommonJS, use an async configuration function
+with a dynamic import. For example, use this `vite.config.js` in a project without
+`"type": "module"` in `package.json`:
 
 ```js
-const { default: Pages } = await import('vite-plugin-pages')
+import { defineConfig } from 'vite'
+
+export default defineConfig(async () => {
+  const { default: Pages } = await import('vite-plugin-pages')
+  return {
+    plugins: [Pages()],
+  }
+})
 ```
+
+This example uses Vite's default bundled configuration loader.
+Vite waits for the async function before it uses the returned configuration.
+The dynamic import loads the ESM-only plugin without `require`.
 
 Do not import files from `vite-plugin-pages/dist`. The package output now uses
 `.mjs` and `.d.mts` extensions. Import the package root and its documented
