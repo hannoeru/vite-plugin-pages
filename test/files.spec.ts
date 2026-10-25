@@ -69,6 +69,34 @@ describe('get files', () => {
     }
   })
 
+  it.each(['*', 'nested*', 'nested', 'nested/**', '**/nested*'])('prunes a fixed file-pattern prefix excluded by %s', (exclude) => {
+    const root = mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))
+    const pages = join(root, 'pages')
+    const page = { dir: 'pages', filePattern: 'nested/*.vue' }
+    try {
+      mkdirSync(join(pages, 'nested/deep'), { recursive: true })
+      const file = join(pages, 'nested/home.vue')
+      writeFileSync(file, '<template><div /></template>')
+      writeFileSync(join(pages, 'nested/deep/home.vue'), '<template><div /></template>')
+      const included = resolveOptions({ dirs: [page], exclude: [] }, root)
+      expect(getPageFiles(pages, included, page)).toEqual([slash(file)])
+      const resolved = resolveOptions({ dirs: [page], exclude: [exclude] }, root)
+      const readdir = vi.spyOn(fs, 'readdirSync')
+      syncBuiltinESMExports()
+      try {
+        expect(getPageFiles(pages, resolved, page)).toEqual([])
+        expect(readdir.mock.calls.map(([path]) => resolve(String(path)))).toEqual([pages])
+      }
+      finally {
+        readdir.mockRestore()
+        syncBuiltinESMExports()
+      }
+    }
+    finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
   it('prunes page-relative excludes independently in hidden and external directories', () => {
     const fixture = mkdtempSync(join(tmpdir(), 'vite-plugin-pages-[fixture]-'))
     const root = join(fixture, '.project')

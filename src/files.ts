@@ -32,7 +32,7 @@ export function getPageDirs(PageOptions: PageOptions, root: string): PageOptions
 export function getPageFiles(path: string, options: ResolvedOptions, pageOptions?: PageOptions): string[] {
   const pagePattern = getPagePattern(options, pageOptions)
   const isPage = picomatch(pagePattern, { posix: true })
-  const files = globSync(pagePattern, {
+  const files = globSync(getPagePattern(options), {
     ignore: getPageExcludePatterns(options.exclude),
     onlyFiles: true,
     dot: true,

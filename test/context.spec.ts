@@ -131,6 +131,27 @@ describe('page context', () => {
       excluded: ['features/excluded/pages/excluded/home.vue', 'features/other/pages/excluded/home.vue'],
     },
     {
+      name: 'a file pattern with a fixed directory prefix',
+      dirs: [{ dir: 'pages', filePattern: 'nested/**/*.vue' }],
+      exclude: ['nested/drafts/**'],
+      allowed: ['pages/nested/home.vue'],
+      excluded: ['pages/nested/drafts/home.vue'],
+    },
+    {
+      name: 'a wildcard exclude above a fixed file-pattern prefix',
+      dirs: [{ dir: 'pages', filePattern: 'nested/*.vue' }],
+      exclude: ['nested*'],
+      allowed: [],
+      excluded: ['pages/nested/home.vue'],
+    },
+    {
+      name: 'a root wildcard exclude above a fixed file-pattern prefix',
+      dirs: [{ dir: 'pages', filePattern: 'nested/*.vue' }],
+      exclude: ['*'],
+      allowed: [],
+      excluded: ['pages/nested/home.vue'],
+    },
+    {
       name: 'no project-relative exclude fallback',
       dirs: ['pages'],
       exclude: ['pages/excluded/**'],
