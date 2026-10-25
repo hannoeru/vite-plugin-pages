@@ -107,6 +107,13 @@ behavior.
 The text after the ellipsis names the Vue route and its route parameter. Nuxt
 style uses `_` for the same optional catch-all behavior.
 
+For Vue, the generator emits `:all(.*)*`. The final `*` makes the parameter
+optional and repeatable. For nonempty matches, `route.params.all` is an array
+of path segments at every depth. For example, `/docs/intro` gives `['intro']`,
+and `/docs/guides/install` gives `['guides', 'install']`.
+See the [v1 migration guide](./migration-v1.md#review-nested-catch-all-routes)
+for the nested parameter change and how to use it as a string.
+
 ## Route Names
 
 The Vue resolver generates a route name from the file path. It joins segments
