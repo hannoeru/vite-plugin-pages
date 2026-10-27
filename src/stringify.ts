@@ -7,7 +7,9 @@ const componentRE = /"(?:component|element)":("(.*?)")/g
 const hasFunctionRE = /"(?:props|beforeEnter)":("(?:\\.|[^"\\])*")/g
 
 function replaceFunction(_: string, value: unknown) {
-  return typeof value === 'function' ? `_NuFrRa_${value.toString()}` : value
+  return typeof value === 'function'
+    ? `_NuFrRa_${value.toString()}`
+    : value
 }
 
 /**

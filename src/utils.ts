@@ -20,7 +20,9 @@ export const debug = {
 }
 
 export function extsToGlob(extensions: string[]) {
-  return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || ''
+  return extensions.length > 1
+    ? `{${extensions.join(',')}}`
+    : extensions[0] || ''
 }
 
 export function getPagePattern(options: ResolvedOptions, page?: PageOptions) {
@@ -58,7 +60,9 @@ export function findPageDir(path: string, options: ResolvedOptions) {
 
   return options.dirs.findLast((page) => {
     const dirPath = slash(resolve(options.root, page.dir))
-    const prefix = dirPath.endsWith('/') ? dirPath : `${dirPath}/`
+    const prefix = dirPath.endsWith('/')
+      ? dirPath
+      : `${dirPath}/`
     if (!path.startsWith(prefix))
       return false
 
@@ -143,8 +147,12 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
   let skipSegment = false
   for (let i = 0; i < node.length; i++) {
     const char = node.charAt(i)
-    const lastChar = i > 0 ? node.charAt(i - 1) : undefined
-    const nextChar = i < node.length - 1 ? node.charAt(i + 1) : undefined
+    const lastChar = i > 0
+      ? node.charAt(i - 1)
+      : undefined
+    const nextChar = i < node.length - 1
+      ? node.charAt(i + 1)
+      : undefined
 
     function isNewEscapeSequence() {
       return (
@@ -199,7 +207,9 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
     rawSegmentBuffer += char
 
     if (char === '$') {
-      result += typeof nextChar === 'undefined' ? '*' : ':'
+      result += typeof nextChar === 'undefined'
+        ? '*'
+        : ':'
       continue
     }
 

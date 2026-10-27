@@ -11,7 +11,9 @@ describe('stringify routes', () => {
       escaped: '"quoted" \\path\nnext line',
       replacement: '$& $$ $` $\'',
     })
-    const { stringRoutes } = stringifyRoutes([{ [key]: callback }], resolveOptions({}))
+    const { stringRoutes } = stringifyRoutes([
+      { [key]: callback },
+    ], resolveOptions({}))
     const routes = runInNewContext(`(${stringRoutes})`)
 
     expect(routes[0][key]()).toEqual({
@@ -27,9 +29,13 @@ describe('stringify routes', () => {
     const callback = function (route: { params: { id: string } }) {
       return route.params.id
     }
-    const { stringRoutes } = stringifyRoutes([{ props: callback }], resolveOptions({}))
+    const { stringRoutes } = stringifyRoutes([
+      { props: callback },
+    ], resolveOptions({}))
     const routes = runInNewContext(`(${stringRoutes})`)
 
-    expect(routes[0].props({ params: { id: '42' } })).toBe('42')
+    expect(routes[0].props({
+      params: { id: '42' },
+    })).toBe('42')
   })
 })

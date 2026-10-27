@@ -13,7 +13,10 @@ const config = defineConfig({
     Pages({
       dirs: [
         // issue #68
-        { dir: resolve(__dirname, './src/pages'), baseRoute: '' },
+        {
+          dir: resolve(__dirname, './src/pages'),
+          baseRoute: '',
+        },
         { dir: 'src/features/**/pages', baseRoute: 'features' },
         { dir: 'src/admin/pages', baseRoute: 'admin' },
       ],

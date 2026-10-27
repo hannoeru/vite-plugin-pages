@@ -34,7 +34,9 @@ describe('page context', () => {
     },
     {
       name: 'default nested Git excludes with an explicit hidden pattern',
-      dirs: [{ dir: 'src/pages', filePattern: '.git/**/*.vue' }],
+      dirs: [
+        { dir: 'src/pages', filePattern: '.git/**/*.vue' },
+      ],
       exclude: undefined,
       allowed: [],
       excluded: ['src/pages/.git/hooks/pkg.vue'],
@@ -48,7 +50,9 @@ describe('page context', () => {
     },
     {
       name: 'default excludes with explicit hidden patterns',
-      dirs: [{ dir: '.', filePattern: '.*/**/*.vue' }],
+      dirs: [
+        { dir: '.', filePattern: '.*/**/*.vue' },
+      ],
       exclude: undefined,
       allowed: ['.allowed/home.vue'],
       excluded: ['.git/hooks/index.vue'],
@@ -97,14 +101,18 @@ describe('page context', () => {
     },
     {
       name: 'explicit hidden file patterns',
-      dirs: [{ dir: 'pages', filePattern: '**/.*.vue' }],
+      dirs: [
+        { dir: 'pages', filePattern: '**/.*.vue' },
+      ],
       exclude: ['excluded/**'],
       allowed: ['pages/.home.vue', 'pages/nested/.home.vue'],
       excluded: ['pages/excluded/.home.vue'],
     },
     {
       name: 'explicit hidden directory patterns',
-      dirs: [{ dir: 'pages', filePattern: '.nested/**/*.vue' }],
+      dirs: [
+        { dir: 'pages', filePattern: '.nested/**/*.vue' },
+      ],
       exclude: ['**/excluded/**'],
       allowed: ['pages/.nested/home.vue'],
       excluded: ['pages/.nested/excluded/home.vue'],
@@ -132,21 +140,27 @@ describe('page context', () => {
     },
     {
       name: 'a file pattern with a fixed directory prefix',
-      dirs: [{ dir: 'pages', filePattern: 'nested/**/*.vue' }],
+      dirs: [
+        { dir: 'pages', filePattern: 'nested/**/*.vue' },
+      ],
       exclude: ['nested/drafts/**'],
       allowed: ['pages/nested/home.vue'],
       excluded: ['pages/nested/drafts/home.vue'],
     },
     {
       name: 'a wildcard exclude above a fixed file-pattern prefix',
-      dirs: [{ dir: 'pages', filePattern: 'nested/*.vue' }],
+      dirs: [
+        { dir: 'pages', filePattern: 'nested/*.vue' },
+      ],
       exclude: ['nested*'],
       allowed: [],
       excluded: ['pages/nested/home.vue'],
     },
     {
       name: 'a root wildcard exclude above a fixed file-pattern prefix',
-      dirs: [{ dir: 'pages', filePattern: 'nested/*.vue' }],
+      dirs: [
+        { dir: 'pages', filePattern: 'nested/*.vue' },
+      ],
       exclude: ['*'],
       allowed: [],
       excluded: ['pages/nested/home.vue'],
@@ -163,14 +177,19 @@ describe('page context', () => {
     const component = (title: string) => `<template><div /></template><route>{"meta":{"title":"${title}"}}</route>`
 
     try {
-      for (const file of [...allowed, ...excluded]) {
+      for (const file of [
+        ...allowed,
+        ...excluded,
+      ]) {
         mkdirSync(join(root, file, '..'), { recursive: true })
         writeFileSync(join(root, file), component('Initial'))
       }
       const ctx = new PageContext({ dirs, exclude }, root)
       await ctx.searchGlob()
       const expectedPaths = allowed.map(file => `${root}/${file}`).sort()
-      expect([...ctx.pageRouteMap.keys()].sort()).toEqual(expectedPaths)
+      expect([
+        ...ctx.pageRouteMap.keys(),
+      ].sort()).toEqual(expectedPaths)
 
       for (const file of excluded) {
         const path = `${root}/${file}`
@@ -188,7 +207,10 @@ describe('page context', () => {
         writeFileSync(path, component('Updated'))
         expect(await ctx.handleFileChange('update', path)).toBe(true)
         expect(await ctx.options.resolver.getComputedRoutes(ctx)).toEqual(expect.arrayContaining([
-          expect.objectContaining({ component: `/${file}`, meta: { title: 'Updated' } }),
+          expect.objectContaining({
+            component: `/${file}`,
+            meta: { title: 'Updated' },
+          }),
         ]))
         rmSync(path)
         expect(await ctx.handleFileChange('delete', path)).toBe(true)
@@ -201,7 +223,9 @@ describe('page context', () => {
       const scanned = new PageContext({ dirs, exclude }, root)
       await scanned.searchGlob()
       expect(ctx.pageRouteMap).toEqual(scanned.pageRouteMap)
-      expect([...ctx.pageRouteMap.keys()].sort()).toEqual(expectedPaths)
+      expect([
+        ...ctx.pageRouteMap.keys(),
+      ].sort()).toEqual(expectedPaths)
     }
     finally {
       rmSync(root, { recursive: true, force: true })
@@ -227,11 +251,15 @@ describe('page context', () => {
 
     try {
       const ctx = new PageContext({
-        dirs: absoluteDir ? pages : `../${dir}/pages`,
+        dirs: absoluteDir
+          ? pages
+          : `../${dir}/pages`,
         exclude: ['excluded'],
       }, root)
       await ctx.searchGlob()
-      expect([...ctx.pageRouteMap.keys()]).toEqual([home])
+      expect([
+        ...ctx.pageRouteMap.keys(),
+      ]).toEqual([home])
       expect(await ctx.handleFileChange('update', excluded)).toBe(false)
       rmSync(excluded)
       expect(await ctx.handleFileChange('delete', excluded)).toBe(false)
@@ -241,13 +269,17 @@ describe('page context', () => {
       writeFileSync(home, '<template><div /></template><route>{"meta":{"title":"Updated"}}</route>')
       expect(await ctx.handleFileChange('update', home)).toBe(true)
       expect(await ctx.options.resolver.getComputedRoutes(ctx)).toEqual([
-        expect.objectContaining({ meta: { title: 'Updated' } }),
+        expect.objectContaining({
+          meta: { title: 'Updated' },
+        }),
       ])
       rmSync(home)
       expect(await ctx.handleFileChange('delete', home)).toBe(true)
       writeFileSync(home, '<template><div /></template>')
       expect(await ctx.handleFileChange('create', home)).toBe(true)
-      expect([...ctx.pageRouteMap.keys()]).toEqual([home])
+      expect([
+        ...ctx.pageRouteMap.keys(),
+      ]).toEqual([home])
       const scanned = new PageContext(ctx.rawOptions, root)
       await scanned.searchGlob()
       expect(scanned.pageRouteMap).toEqual(ctx.pageRouteMap)
@@ -271,7 +303,10 @@ describe('page context', () => {
       mkdirSync(`${root}/pages/nested/drafts`, { recursive: true })
       writeFileSync(path, '<template><div /></template>')
       writeFileSync(draft, '<template><div /></template>')
-      const ctx = new PageContext({ dirs, exclude: ['nested/drafts/**'] }, root)
+      const ctx = new PageContext({
+        dirs,
+        exclude: ['nested/drafts/**'],
+      }, root)
       await ctx.searchGlob()
       expect(ctx.pageRouteMap.get(path)?.route).toBe(reverse ? 'outer/nested/home' : 'inner/home')
       expect(ctx.pageRouteMap.get(draft)?.route).toBe('inner/drafts/home')
@@ -413,13 +448,20 @@ describe('page context', () => {
       await ctx.searchGlob()
 
       expect(await ctx.options.resolver.getComputedRoutes(ctx)).toEqual([
-        expect.objectContaining({ meta: { title: 'Home' } }),
+        expect.objectContaining({
+          meta: { title: 'Home' },
+        }),
       ])
 
       writeFileSync(path, '<template><div /></template>')
       expect(await ctx.handleFileChange('update', path)).toBe(true)
       expect(await ctx.options.resolver.getComputedRoutes(ctx)).toEqual([
-        { name: 'index', path: '/', component: '/pages/index.vue', props: true },
+        {
+          name: 'index',
+          path: '/',
+          component: '/pages/index.vue',
+          props: true,
+        },
       ])
 
       expect(await ctx.handleFileChange('update', path)).toBe(false)

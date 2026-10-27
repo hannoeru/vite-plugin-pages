@@ -67,7 +67,9 @@ describe('utils', () => {
       exclude: ['exclude/**'],
       extensions: ['vue'],
       extensionsRE: /\.(vue)$/,
-      dirs: [{ dir: 'src/pages', baseRoute: '' }],
+      dirs: [
+        { dir: 'src/pages', baseRoute: '' },
+      ],
     } as any
 
     expect(findPageDir(`${root}/src/pages/exclude/home.vue`, options)).toBeUndefined()

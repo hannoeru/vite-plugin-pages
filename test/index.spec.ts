@@ -30,7 +30,9 @@ async function createHotUpdateFixture(hmr: PageResolver['hmr'] = {}, {
     resolver: {
       resolveModuleIds: () => ['~pages'],
       resolveExtensions: () => ['tsx'],
-      resolveRoutes: ctx => `export default ${JSON.stringify([...ctx.pageRouteMap.values()])}`,
+      resolveRoutes: ctx => `export default ${JSON.stringify([
+        ...ctx.pageRouteMap.values(),
+      ])}`,
       getComputedRoutes: () => [],
       hmr,
     },
@@ -38,7 +40,11 @@ async function createHotUpdateFixture(hmr: PageResolver['hmr'] = {}, {
   const server = await createServer({
     root,
     configFile: false,
-    plugins: [...beforePlugins, plugin, ...plugins],
+    plugins: [
+      ...beforePlugins,
+      plugin,
+      ...plugins,
+    ],
     server: { watch: null, ws: false, ...serverOptions },
   })
   onTestFinished(async () => {
@@ -66,7 +72,13 @@ async function createHotUpdateFixture(hmr: PageResolver['hmr'] = {}, {
     } satisfies HotUpdateOptions)
   }
 
-  return { server, environments, invalidations, sends, dispatch }
+  return {
+    server,
+    environments,
+    invalidations,
+    sends,
+    dispatch,
+  }
 }
 
 describe('pages plugin', () => {
@@ -83,16 +95,19 @@ describe('pages plugin', () => {
     const server = await createServer({
       root,
       configFile: false,
-      plugins: [pagesPlugin({
-        dirs: ['src/pages', '.features/*/pages'],
-        exclude: ['drafts/**'],
-      }), {
-        name: 'observe-exclude-events',
-        hotUpdate() {
-          if (++events === Object.keys(server.environments).length)
-            completed.resolve()
+      plugins: [
+        pagesPlugin({
+          dirs: ['src/pages', '.features/*/pages'],
+          exclude: ['drafts/**'],
+        }),
+        {
+          name: 'observe-exclude-events',
+          hotUpdate() {
+            if (++events === Object.keys(server.environments).length)
+              completed.resolve()
+          },
         },
-      }],
+      ],
       server: { watch: null, ws: false },
     })
     onTestFinished(async () => {
@@ -190,7 +205,9 @@ describe('pages plugin', () => {
       first.resolve()
       second.resolve()
     })
-    const added = vi.fn((_ctx: PageContext, file: string) => file.endsWith('/a.tsx') ? first.promise : second.promise)
+    const added = vi.fn((_ctx: PageContext, file: string) => file.endsWith('/a.tsx')
+      ? first.promise
+      : second.promise)
     const { server, environments, invalidations, dispatch } = await createHotUpdateFixture({ added })
     const files = ['a', 'b'].map(name => `${server.config.root}/pages/${name}.tsx`)
     for (const file of files)
@@ -238,13 +255,15 @@ describe('pages plugin', () => {
     let events = 0
     const added = vi.fn()
     const { server, environments } = await createHotUpdateFixture({ added }, {
-      plugins: [{
-        name: 'observe-page-events',
-        hotUpdate() {
-          if (++events === 60)
-            finished.resolve()
+      plugins: [
+        {
+          name: 'observe-page-events',
+          hotUpdate() {
+            if (++events === 60)
+              finished.resolve()
+          },
         },
-      }],
+      ],
     })
     const files = Array.from({ length: 30 }, (_, index) => `${server.config.root}/pages/page${index}.tsx`)
     for (const file of files) {
@@ -274,10 +293,14 @@ describe('pages plugin', () => {
     const first = dispatch(file, 'update')
     for (const environment of environments) {
       const update = first(environment)
-      if (outcome === 'reject')
+      if (outcome === 'reject') {
         await expect(update).rejects.toThrow('resolver failed')
-      else
-        expect(await update).toEqual(outcome ? [] : undefined)
+      }
+      else {
+        expect(await update).toEqual(outcome
+          ? []
+          : undefined)
+      }
     }
     expect(handleFileChange).toHaveBeenCalledTimes(1)
 
@@ -301,7 +324,16 @@ describe('pages plugin', () => {
     expect(handleFileChange).toHaveBeenCalledTimes(2)
   })
 
-  it.each(['parallel', 'sequential', 'client-only', 'ssr-only', 'none', 'skip-client', 'skip-ssr', 'skip-all'])('handles real dispatches with %s', async (mode) => {
+  it.each([
+    'parallel',
+    'sequential',
+    'client-only',
+    'ssr-only',
+    'none',
+    'skip-client',
+    'skip-ssr',
+    'skip-all',
+  ])('handles real dispatches with %s', async (mode) => {
     let completed = Promise.withResolvers<void>()
     const reads: HotUpdateOptions['read'][] = []
     const propagated: string[] = []
@@ -343,16 +375,18 @@ describe('pages plugin', () => {
           }
         },
       },
-      beforePlugins: [{
-        name: 'trace-dispatch',
-        enforce: 'pre',
-        hotUpdate(options) {
-          reads.push(options.read)
-          options.timestamp = 123
-          if (mode === `skip-${this.environment.name}` || mode === 'skip-all')
-            throw new Error('Skip later environment callbacks')
+      beforePlugins: [
+        {
+          name: 'trace-dispatch',
+          enforce: 'pre',
+          hotUpdate(options) {
+            reads.push(options.read)
+            options.timestamp = 123
+            if (mode === `skip-${this.environment.name}` || mode === 'skip-all')
+              throw new Error('Skip later environment callbacks')
+          },
         },
-      }],
+      ],
     })
     const file = `${server.config.root}/pages/home.tsx`
     writeFileSync(file, 'export default () => null')
@@ -361,7 +395,10 @@ describe('pages plugin', () => {
       await create(environment)
     for (const environment of environments)
       await environment.transformRequest('~pages')
-    for (const spy of [...invalidations, ...sends])
+    for (const spy of [
+      ...invalidations,
+      ...sends,
+    ])
       spy.mockClear()
 
     for (let event = 0; event < 2; event++) {
@@ -375,9 +412,20 @@ describe('pages plugin', () => {
     expect(reads[0]).toBe(reads[1])
     expect(reads[2]).toBe(reads[3])
     expect(reads[0]).not.toBe(reads[2])
-    expect(changed).toHaveBeenCalledTimes(mode === 'skip-all' ? 0 : 2)
-    const selectedNames = mode === 'client-only' ? ['client'] : mode === 'ssr-only' ? ['ssr'] : mode === 'none' ? [] : ['client', 'ssr']
-    expect(propagated).toEqual([...selectedNames, ...selectedNames])
+    expect(changed).toHaveBeenCalledTimes(mode === 'skip-all'
+      ? 0
+      : 2)
+    const selectedNames = mode === 'client-only'
+      ? ['client']
+      : mode === 'ssr-only'
+        ? ['ssr']
+        : mode === 'none'
+          ? []
+          : ['client', 'ssr']
+    expect(propagated).toEqual([
+      ...selectedNames,
+      ...selectedNames,
+    ])
     for (const [index, environment] of environments.entries()) {
       const skipped = mode === `skip-${environment.name}` || mode === 'skip-all'
       expect(invalidations[index]).toHaveBeenCalledTimes(skipped ? 0 : 1)

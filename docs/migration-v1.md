@@ -33,7 +33,9 @@ import { defineConfig } from 'vite'
 export default defineConfig(async () => {
   const { default: Pages } = await import('vite-plugin-pages')
   return {
-    plugins: [Pages()],
+    plugins: [
+      Pages()
+    ],
   }
 })
 ```

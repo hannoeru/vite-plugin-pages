@@ -4,7 +4,9 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 
 import { PageContext } from '../src/context'
 
-const sensitivity = process.platform === 'win32' ? 'base' : 'variant'
+const sensitivity = process.platform === 'win32'
+  ? 'base'
+  : 'variant'
 
 function deepSortArray(arr: any[], react?: boolean) {
   const key = react ? 'element' : 'component'
@@ -15,7 +17,13 @@ function deepSortArray(arr: any[], react?: boolean) {
   if (arr.length === 1)
     return arr
   return arr.sort((a, b) => {
-    return a[key] && b[key] ? a[key].localeCompare(b[key], 'en', { sensitivity }) : !(a[key] && b[key]) ? 0 : a[key] ? 1 : -1
+    return a[key] && b[key]
+      ? a[key].localeCompare(b[key], 'en', { sensitivity })
+      : !(a[key] && b[key])
+          ? 0
+          : a[key]
+            ? 1
+            : -1
   })
 }
 
@@ -57,7 +65,9 @@ describe('generate routes', () => {
 
   it('vue - import absolute path match snapshot', async () => {
     const root = slash(process.cwd())
-    const mock = `/mock/fs/vite-plugin-pages${root.endsWith('/') ? '/' : ''}`
+    const mock = `/mock/fs/vite-plugin-pages${root.endsWith('/')
+      ? '/'
+      : ''}`
     const ctx = new PageContext({
       dirs: 'examples/vue/src/pages',
       importPath: 'absolute',
@@ -191,13 +201,21 @@ describe('generate routes', () => {
     })
 
     expect(router.resolve('/install').name).toBe('all')
-    expect(router.resolve('/install').params).toEqual({ all: ['install'] })
+    expect(router.resolve('/install').params).toEqual({
+      all: ['install'],
+    })
     expect(router.resolve('/install/setup').name).toBe('all')
-    expect(router.resolve('/install/setup').params).toEqual({ all: ['install', 'setup'] })
+    expect(router.resolve('/install/setup').params).toEqual({
+      all: ['install', 'setup'],
+    })
     expect(router.resolve('/blog/today/install').name).toBe('blog-today-all')
-    expect(router.resolve('/blog/today/install').params).toEqual({ all: ['install'] })
+    expect(router.resolve('/blog/today/install').params).toEqual({
+      all: ['install'],
+    })
     expect(router.resolve('/blog/today/install/setup').name).toBe('blog-today-all')
-    expect(router.resolve('/blog/today/install/setup').params).toEqual({ all: ['install', 'setup'] })
+    expect(router.resolve('/blog/today/install/setup').params).toEqual({
+      all: ['install', 'setup'],
+    })
     expect(router.resolve('/').name).toBe('all')
     expect(router.resolve('/').params).toEqual({})
     expect(router.resolve('/blog/today').name).toBe('blog-today-all')

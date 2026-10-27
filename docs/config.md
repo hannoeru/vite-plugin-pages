@@ -193,7 +193,9 @@ export default {
   plugins: [
     Pages({
       importMode(filepath, options) {
-        return filepath.includes('about') ? 'sync' : 'async'
+        return filepath.includes('about')
+          ? 'sync'
+          : 'async'
       },
     }),
   ],

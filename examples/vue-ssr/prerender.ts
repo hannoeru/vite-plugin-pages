@@ -40,7 +40,9 @@ export async function build() {
     .filter(i => !i.includes('['))
     .map((file) => {
       const name = file.replace(/\.(vue|md)$/, '').toLowerCase()
-      return name === 'index' ? '/' : `/${name}`
+      return name === 'index'
+        ? '/'
+        : `/${name}`
     })
 
   // eslint-disable-next-line no-console
@@ -56,7 +58,9 @@ export async function build() {
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--app-html-->', appHtml)
 
-    const filePath = `dist/static${url === '/' ? '/index' : url}.html`
+    const filePath = `dist/static${url === '/'
+      ? '/index'
+      : url}.html`
     ensureDirExist(filePath)
     fs.writeFileSync(toAbsolute(filePath), html)
     // eslint-disable-next-line no-console
