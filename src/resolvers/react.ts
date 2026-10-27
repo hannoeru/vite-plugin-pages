@@ -46,7 +46,9 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
   const { routeStyle, caseSensitive, importPath } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
 
-  const pageRoutes = [...ctx.pageRouteMap.values()]
+  const pageRoutes = [
+    ...ctx.pageRouteMap.values(),
+  ]
     // sort routes for HMR
     .sort((a, b) => countSlash(a.route) - countSlash(b.route))
 
@@ -54,7 +56,9 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
 
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
-    const element = importPath === 'relative' ? page.path.replace(ctx.root, '') : page.path
+    const element = importPath === 'relative'
+      ? page.path.replace(ctx.root, '')
+      : page.path
     let parentRoutes = routes
 
     for (let i = 0; i < pathNodes.length; i++) {

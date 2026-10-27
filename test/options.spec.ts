@@ -12,9 +12,18 @@ describe('options resolve', () => {
     ])
   })
 
-  it.each(['/work/pages/drafts/**', 'C:/project/pages/drafts/**', String.raw`C:\project\pages\drafts`, String.raw`\\server\share\pages\drafts`])('rejects the absolute exclude %s', (exclude) => {
-    expect(() => resolveOptions({ exclude: [exclude] })).toThrow('exclude patterns must be relative to each page directory.')
-    expect(resolveOptions({ exclude: ['drafts/**'] }).exclude).toEqual(['drafts/**'])
+  it.each([
+    '/work/pages/drafts/**',
+    'C:/project/pages/drafts/**',
+    String.raw`C:\project\pages\drafts`,
+    String.raw`\\server\share\pages\drafts`,
+  ])('rejects the absolute exclude %s', (exclude) => {
+    expect(() => resolveOptions({
+      exclude: [exclude],
+    })).toThrow('exclude patterns must be relative to each page directory.')
+    expect(resolveOptions({
+      exclude: ['drafts/**'],
+    }).exclude).toEqual(['drafts/**'])
   })
 
   it('vue', () => {

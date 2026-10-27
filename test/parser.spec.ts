@@ -31,10 +31,29 @@ describe('parser', () => {
 
   describe.each(['\n', '\r\n', '\r'])('yaml line ending %j', (lineEnding) => {
     it.each([
-      { name: 'blank', lines: ['', '', ''], expected: null },
-      { name: 'whitespace-only', lines: ['   ', '\t ', '  '], expected: null },
-      { name: 'comment-only', lines: ['# Comment', '# Comment'], expected: null },
-      { name: 'mapping', lines: ['name: dashboard', 'meta:', '  requiresAuth: true'], expected: { name: 'dashboard', meta: { requiresAuth: true } } },
+      {
+        name: 'blank',
+        lines: ['', '', ''],
+        expected: null,
+      },
+      {
+        name: 'whitespace-only',
+        lines: ['   ', '\t ', '  '],
+        expected: null,
+      },
+      {
+        name: 'comment-only',
+        lines: ['# Comment', '# Comment'],
+        expected: null,
+      },
+      {
+        name: 'mapping',
+        lines: ['name: dashboard', 'meta:', '  requiresAuth: true'],
+        expected: {
+          name: 'dashboard',
+          meta: { requiresAuth: true },
+        },
+      },
     ])('parses $name route data', ({ lines, expected }) => {
       const content = lines.join(lineEnding)
       const block = {
@@ -94,10 +113,27 @@ describe('yaml output limits', () => {
   })
 
   it.each([
-    ['{key: [true, null, 1.5, text]}', { key: [true, null, 1.5, 'text'] }],
-    ['[true, null, 1.5, text]', [true, null, 1.5, 'text']],
-    ['[&shared {a: 1}, *shared]', [{ a: 1 }, { a: 1 }]],
-    ['{value: 0x10, date: 2001-12-15, enabled: TRUE}', { value: 16, date: '2001-12-15', enabled: true }],
+    [
+      '{key: [true, null, 1.5, text]}',
+      {
+        key: [true, null, 1.5, 'text'],
+      },
+    ],
+    [
+      '[true, null, 1.5, text]',
+      [true, null, 1.5, 'text'],
+    ],
+    [
+      '[&shared {a: 1}, *shared]',
+      [
+        { a: 1 },
+        { a: 1 },
+      ],
+    ],
+    [
+      '{value: 0x10, date: 2001-12-15, enabled: TRUE}',
+      { value: 16, date: '2001-12-15', enabled: true },
+    ],
     ['text', 'text'],
     ['42', 42],
     ['false', false],
@@ -108,9 +144,21 @@ describe('yaml output limits', () => {
   })
 
   it.each([
-    ['{name: index}', { name: 'index' }],
-    ['[1, {a: 2}]', { 0: 1, 1: { a: 2 } }],
-    ['"a:b"', { 0: 'a', 1: ':', 2: 'b' }],
+    [
+      '{name: index}',
+      { name: 'index' },
+    ],
+    [
+      '[1, {a: 2}]',
+      {
+        0: 1,
+        1: { a: 2 },
+      },
+    ],
+    [
+      '"a:b"',
+      { 0: 'a', 1: ':', 2: 'b' },
+    ],
   ])('preserves root spreads in JSX route comments for %s', (content, expected) => {
     expect(parseYamlComment(parseJSX(`/*\nroute\n${content}\n*/`), 'root.jsx')).toEqual(expected)
   })
@@ -141,7 +189,10 @@ describe('yaml output limits', () => {
     expect(Buffer.byteLength(content)).toBe(656)
     const block = { ...descriptor.customBlocks[0], content }
     expect(Buffer.byteLength(JSON.stringify(parseCustomBlock(block, 'boundary.vue', options)))).toBe(65600)
-    expect(() => parseCustomBlock({ ...block, content: content.slice(0, -1) }, 'boundary.vue', options))
+    expect(() => parseCustomBlock({
+      ...block,
+      content: content.slice(0, -1),
+    }, 'boundary.vue', options))
       .toThrow(/Route YAML exceeds the 100x JSON expansion limit/)
   })
 
@@ -167,7 +218,10 @@ describe('yaml output limits', () => {
     const logger = createLogger()
     const error = vi.spyOn(logger, 'error').mockImplementation(() => {})
     try {
-      const ctx = new PageContext({ dirs: 'pages', extensions: [extension] }, root)
+      const ctx = new PageContext({
+        dirs: 'pages',
+        extensions: [extension],
+      }, root)
       ctx.setLogger(logger)
       await ctx.searchGlob()
       const client = await ctx.resolveRoutes()

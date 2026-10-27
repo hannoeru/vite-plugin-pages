@@ -62,7 +62,9 @@ function prepareRoutes(
 async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
   const { routeStyle, caseSensitive, importPath, routeNameSeparator } = ctx.options
 
-  const pageRoutes = [...ctx.pageRouteMap.values()]
+  const pageRoutes = [
+    ...ctx.pageRouteMap.values(),
+  ]
     // sort routes for HMR
     .sort((a, b) => countSlash(a.route) - countSlash(b.route))
 
@@ -72,7 +74,9 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     const pathNodes = page.route.split('/')
 
     // add leading slash to component path if not already there
-    const component = importPath === 'relative' ? page.path.replace(ctx.root, '') : page.path
+    const component = importPath === 'relative'
+      ? page.path.replace(ctx.root, '')
+      : page.path
     const customBlock = customBlockMap.get(page.path)
 
     const route: VueRouteBase = {
@@ -97,7 +101,9 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       if (isDynamic)
         dynamicRoute = true
 
-      route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName
+      route.name += route.name
+        ? `${routeNameSeparator}${normalizedName}`
+        : normalizedName
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
@@ -168,7 +174,9 @@ export function vueResolver(): PageResolver {
       return await getRouteBlock(path, ctx.options)
     }
     catch (error) {
-      const message = error instanceof Error ? error.message : String(error)
+      const message = error instanceof Error
+        ? error.message
+        : String(error)
       ctx.logger?.error(`[vite-plugin-pages] ${message}`)
       return customBlockReadFailed
     }

@@ -17,7 +17,12 @@ describe('get files', () => {
     try {
       mkdirSync(pages, { recursive: true })
       writeFileSync(join(pages, 'home.vue'), '<template><div /></template>')
-      for (const dir of ['node_modules', '.git', 'nested/node_modules', 'nested/.git']) {
+      for (const dir of [
+        'node_modules',
+        '.git',
+        'nested/node_modules',
+        'nested/.git',
+      ]) {
         mkdirSync(join(pages, dir, 'pkg'), { recursive: true })
         writeFileSync(join(pages, dir, 'pkg/index.vue'), '<template><div /></template>')
       }
@@ -25,7 +30,9 @@ describe('get files', () => {
       const readdir = vi.spyOn(fs, 'readdirSync')
       syncBuiltinESMExports()
       try {
-        expect(getPageFiles(pages, resolved)).toEqual([slash(join(pages, 'home.vue'))])
+        expect(getPageFiles(pages, resolved)).toEqual([
+          slash(join(pages, 'home.vue')),
+        ])
         expect(readdir.mock.calls.map(([path]) => resolve(String(path)))).toEqual([
           pages,
           join(pages, 'nested'),
@@ -52,11 +59,16 @@ describe('get files', () => {
         mkdirSync(dir, { recursive: true })
         writeFileSync(join(dir, 'page.vue'), '<template><div /></template>')
       }
-      const resolved = resolveOptions({ dirs: 'pages', exclude: [exclude] }, root)
+      const resolved = resolveOptions({
+        dirs: 'pages',
+        exclude: [exclude],
+      }, root)
       const readdir = vi.spyOn(fs, 'readdirSync')
       syncBuiltinESMExports()
       try {
-        expect(getPageFiles(pages, resolved)).toEqual([slash(join(pages, 'home.vue'))])
+        expect(getPageFiles(pages, resolved)).toEqual([
+          slash(join(pages, 'home.vue')),
+        ])
         expect(readdir.mock.calls.map(([path]) => resolve(String(path)))).toEqual([pages])
       }
       finally {
@@ -69,7 +81,13 @@ describe('get files', () => {
     }
   })
 
-  it.each(['*', 'nested*', 'nested', 'nested/**', '**/nested*'])('prunes a fixed file-pattern prefix excluded by %s', (exclude) => {
+  it.each([
+    '*',
+    'nested*',
+    'nested',
+    'nested/**',
+    '**/nested*',
+  ])('prunes a fixed file-pattern prefix excluded by %s', (exclude) => {
     const root = mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))
     const pages = join(root, 'pages')
     const page = { dir: 'pages', filePattern: 'nested/*.vue' }
@@ -78,9 +96,17 @@ describe('get files', () => {
       const file = join(pages, 'nested/home.vue')
       writeFileSync(file, '<template><div /></template>')
       writeFileSync(join(pages, 'nested/deep/home.vue'), '<template><div /></template>')
-      const included = resolveOptions({ dirs: [page], exclude: [] }, root)
-      expect(getPageFiles(pages, included, page)).toEqual([slash(file)])
-      const resolved = resolveOptions({ dirs: [page], exclude: [exclude] }, root)
+      const included = resolveOptions({
+        dirs: [page],
+        exclude: [],
+      }, root)
+      expect(getPageFiles(pages, included, page)).toEqual([
+        slash(file),
+      ])
+      const resolved = resolveOptions({
+        dirs: [page],
+        exclude: [exclude],
+      }, root)
       const readdir = vi.spyOn(fs, 'readdirSync')
       syncBuiltinESMExports()
       try {
@@ -109,13 +135,18 @@ describe('get files', () => {
         writeFileSync(join(pages, 'home.vue'), '<template><div /></template>')
         writeFileSync(join(pages, 'drafts/deep/home.vue'), '<template><div /></template>')
       }
-      const resolved = resolveOptions({ dirs: [], exclude: ['drafts/**'] }, root)
+      const resolved = resolveOptions({
+        dirs: [],
+        exclude: ['drafts/**'],
+      }, root)
       const readdir = vi.spyOn(fs, 'readdirSync')
       syncBuiltinESMExports()
       try {
         for (const dir of dirs) {
           const pages = resolve(root, dir)
-          expect(getPageFiles(pages, resolved)).toEqual([slash(join(pages, 'home.vue'))])
+          expect(getPageFiles(pages, resolved)).toEqual([
+            slash(join(pages, 'home.vue')),
+          ])
         }
         expect(readdir.mock.calls.map(([path]) => resolve(String(path))).sort()).toEqual(
           dirs.map(dir => resolve(root, dir)).sort(),
@@ -152,10 +183,18 @@ describe('get page dirs', () => {
   it('does not apply page-relative excludes to directory enumeration', () => {
     const root = mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))
     try {
-      for (const dir of ['allowed', 'excluded', '.hidden', '[feature]'])
+      for (const dir of [
+        'allowed',
+        'excluded',
+        '.hidden',
+        '[feature]',
+      ])
         mkdirSync(join(root, 'features', dir, 'pages'), { recursive: true })
 
-      const resolved = resolveOptions({ dirs: 'features/*/pages', exclude: ['features/**', 'excluded/**'] }, root)
+      const resolved = resolveOptions({
+        dirs: 'features/*/pages',
+        exclude: ['features/**', 'excluded/**'],
+      }, root)
       expect(resolved.dirs.map(page => page.dir).sort()).toEqual([
         'features/.hidden/pages',
         'features/[feature]/pages',
