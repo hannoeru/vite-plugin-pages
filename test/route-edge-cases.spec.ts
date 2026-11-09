@@ -107,6 +107,17 @@ describe('default import mode', () => {
     expect(syncIndexResolver('/src/pages/users/index.vue', options)).toBe('async')
   })
 
+  it('uses the same extension as route generation for compound extensions', () => {
+    const root = createProject({ 'src/pages/index.vue': vuePage })
+    const options = resolveOptions({
+      dirs: 'src/pages',
+      extensions: ['vue', 'page.vue'],
+    }, root)
+
+    expect(syncIndexResolver('/src/pages/index.vue', options)).toBe('sync')
+    expect(syncIndexResolver('/src/pages/index.page.vue', options)).toBe('async')
+  })
+
   it('makes the root index sync with absolute import paths', () => {
     const { root, options } = createOptions()
 

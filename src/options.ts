@@ -6,6 +6,7 @@ import { slash, toArray } from '@antfu/utils'
 import { MODULE_IDS } from './constants'
 import { getPageDirs } from './files'
 import { reactResolver, solidResolver, vueResolver } from './resolvers'
+import { removePageExtension } from './utils'
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string) {
   dirs = toArray(dirs)
@@ -22,7 +23,7 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string) {
 }
 
 export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
-  const stem = filepath.replace(options.extensionsRE, '')
+  const stem = removePageExtension(filepath, options.extensions)
   return options.dirs.some(({ dir, baseRoute }) => baseRoute === ''
     && (stem === `/${dir}/index` || stem === `${options.root}/${dir}/index`))
     ? 'sync'

@@ -19,6 +19,11 @@ export const debug = {
   resolver: createDebug('vite-plugin-pages:resolver'),
 }
 
+export function removePageExtension(path: string, extensions: string[]) {
+  const extension = extensions.find(ext => path.endsWith(`.${ext}`))
+  return extension && path.slice(0, -(extension.length + 1))
+}
+
 export function extsToGlob(extensions: string[]) {
   return extensions.length > 1
     ? `{${extensions.join(',')}}`

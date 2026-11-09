@@ -6,7 +6,7 @@ import { slash, toArray } from '@antfu/utils'
 import { getPageFiles } from './files'
 import { resolveOptions } from './options'
 
-import { debug, findPageDir } from './utils'
+import { debug, findPageDir, removePageExtension } from './utils'
 
 export interface PageRoute {
   path: string
@@ -62,11 +62,11 @@ export class PageContext {
     debug.pages('add', path)
     for (const p of toArray(path)) {
       const pageDirPath = slash(resolve(this.root, pageDir.dir))
-      const extension = this.options.extensions.find(ext => p.endsWith(`.${ext}`))
-      if (!extension)
+      const pagePath = removePageExtension(p, this.options.extensions)
+      if (!pagePath)
         continue
 
-      const route = slash(join(pageDir.baseRoute ?? '', p.replace(`${pageDirPath}/`, '').slice(0, -(extension.length + 1))))
+      const route = slash(join(pageDir.baseRoute ?? '', pagePath.replace(`${pageDirPath}/`, '')))
       this._pageRouteMap.set(p, {
         path: p,
         route,
