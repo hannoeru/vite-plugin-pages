@@ -32,9 +32,6 @@ function prepareRoutes(
   parent?: VueRoute,
 ) {
   for (const route of routes) {
-    if (route.name)
-      route.name = route.name.replace(new RegExp(`${ctx.options.routeNameSeparator}index$`), '')
-
     if (parent)
       route.path = route.path?.replace(/^\//, '')
 
@@ -60,7 +57,7 @@ function prepareRoutes(
 }
 
 async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
-  const { routeStyle, caseSensitive, importPath, routeNameSeparator } = ctx.options
+  const { routeStyle, caseSensitive, routeNameSeparator } = ctx.options
 
   const pageRoutes = [
     ...ctx.pageRouteMap.values(),
@@ -74,9 +71,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     const pathNodes = page.route.split('/')
 
     // add leading slash to component path if not already there
-    const component = importPath === 'relative'
-      ? page.path.replace(ctx.root, '')
-      : page.path
+    const component = ctx.getImportPath(page.path)
     const customBlock = customBlockMap.get(page.path)
 
     const route: VueRouteBase = {
@@ -101,9 +96,14 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       if (isDynamic)
         dynamicRoute = true
 
-      route.name += route.name
-        ? `${routeNameSeparator}${normalizedName}`
-        : normalizedName
+      if (!route.name) {
+        route.name = isDynamic && normalizedName === 'index'
+          ? `${routeNameSeparator}index`
+          : normalizedName
+      }
+      else if (node !== 'index' || i < pathNodes.length - 1) {
+        route.name += `${routeNameSeparator}${normalizedName}`
+      }
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
@@ -118,11 +118,11 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
         // Reset path
         route.path = ''
       }
-      else if (normalizedPath === 'index') {
+      else if (normalizedPath === 'index' && !isDynamic) {
         if (!route.path)
           route.path = '/'
       }
-      else if (normalizedPath !== 'index') {
+      else {
         if (isDynamic) {
           route.path += `/:${normalizedName}`
           if (isCatchAll) {

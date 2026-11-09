@@ -7,7 +7,7 @@ import { parseJSON5 } from 'confbox/json5'
 import { parseYAML } from 'confbox/yaml'
 import { debug } from './utils'
 
-const routeJSXReg = /^\s+(route)\s+/m
+const routeJSXReg = /^\s+(route)\s+/
 const maxRouteJSONExpansion = 100
 
 function getRouteJSONSize(

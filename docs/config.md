@@ -179,7 +179,7 @@ export default {
 - **Type:** `'sync' | 'async' | (filepath: string, pluginOptions: ResolvedOptions) => 'sync' | 'async'`
 - **Default:** top-level index file is `'sync'`; all others are `'async'`
 
-Controls how the plugin imports page components.
+Controls how the plugin imports page components. An index file in a page directory outside the Vite root is `'async'` by default.
 
 - `'sync'` — imports the component directly.
 - `'async'` — wraps the component in a lazy import.
