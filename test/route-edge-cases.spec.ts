@@ -251,6 +251,7 @@ describe('custom module id', () => {
     await server.listen()
     const origin = server.resolvedUrls!.local[0]
     const main = await (await fetch(new URL('main.js', origin))).text()
+    expect(main).toContain('from "')
     const moduleUrl = new URL(main.match(/from "([^"]+)"/)![1], origin)
     const loadRoutes = async () => await (await fetch(moduleUrl)).text()
 
@@ -260,7 +261,7 @@ describe('custom module id', () => {
     server.watcher.emit('add', `${root}/src/pages/two.vue`)
 
     await expect.poll(loadRoutes, { timeout: 10_000 }).toContain('"path":"/two"')
-  })
+  }, 20_000)
 
   it('builds with a plus sign in the module id', async () => {
     const root = createProject({
