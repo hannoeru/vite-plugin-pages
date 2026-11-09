@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { slash } from '@antfu/utils'
-import { build, resolveConfig } from 'vite'
+import { build, createServer, resolveConfig } from 'vite'
 import pagesPlugin, { PageContext, syncIndexResolver } from '../src'
 import { resolveOptions } from '../src/options'
 
@@ -89,6 +89,47 @@ describe('route paths', () => {
   })
 })
 
+describe('route names', () => {
+  it('keeps a dynamic [index] name apart from its sibling index page', async () => {
+    const root = createProject({
+      'src/pages/blog/index.vue': vuePage,
+      'src/pages/blog/[index].vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages' }, root)
+
+    const routes = await getRoutes(ctx)
+
+    expect(Object.fromEntries(routes.map(route => [route.path, route.name]))).toEqual({
+      '/blog': 'blog',
+      '/blog/:index': 'blog-index',
+    })
+  })
+
+  it('keeps a page ending in -index apart from its sibling', async () => {
+    const root = createProject({
+      'src/pages/my.vue': vuePage,
+      'src/pages/my-index.vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages' }, root)
+
+    const routes = await getRoutes(ctx)
+
+    expect(routes.map(route => route.name).sort()).toEqual(['my', 'my-index'])
+  })
+
+  it.each(['+', '.', '|', '('])('treats the separator %s as literal text', async (routeNameSeparator) => {
+    const root = createProject({
+      'src/pages/users/index.vue': vuePage,
+      'src/pages/blogindex.vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages', routeNameSeparator }, root)
+
+    const routes = await getRoutes(ctx)
+
+    expect(routes.map(route => route.name).sort()).toEqual(['blogindex', 'users'])
+  })
+})
+
 describe('default import mode', () => {
   function createOptions() {
     const root = createProject({ 'src/pages/index.vue': vuePage })
@@ -161,6 +202,40 @@ describe('route comments', () => {
 })
 
 describe('custom module id', () => {
+  it.each([
+    '~pages',
+    'virtual:generated-pages',
+    'virtual:a+b',
+    'virtual:a%b',
+  ])('serves and reloads %s through the dev server', async (moduleId) => {
+    const root = createProject({
+      'src/pages/index.vue': vuePage,
+      'main.js': `import routes from ${JSON.stringify(moduleId)}\nconsole.log(routes)\n`,
+    })
+    const server = await createServer({
+      root,
+      configFile: false,
+      logLevel: 'silent',
+      plugins: [
+        pagesPlugin({ moduleId }),
+      ],
+      server: { watch: null },
+    })
+    onTestFinished(() => server.close())
+    await server.listen()
+    const origin = server.resolvedUrls!.local[0]
+    const main = await (await fetch(new URL('main.js', origin))).text()
+    const moduleUrl = new URL(main.match(/from "([^"]+)"/)![1], origin)
+    const loadRoutes = async () => await (await fetch(moduleUrl)).text()
+
+    expect(await loadRoutes()).toContain('"path":"/"')
+
+    writeFileSync(join(root, 'src/pages/two.vue'), vuePage)
+    server.watcher.emit('add', `${root}/src/pages/two.vue`)
+
+    await expect.poll(loadRoutes, { timeout: 10_000 }).toContain('"path":"/two"')
+  })
+
   it('builds with a plus sign in the module id', async () => {
     const root = createProject({
       'src/pages/index.vue': '<script>export default {}</script>',

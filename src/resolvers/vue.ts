@@ -32,9 +32,6 @@ function prepareRoutes(
   parent?: VueRoute,
 ) {
   for (const route of routes) {
-    if (route.name)
-      route.name = route.name.replace(new RegExp(`${ctx.options.routeNameSeparator}index$`), '')
-
     if (parent)
       route.path = route.path?.replace(/^\//, '')
 
@@ -99,9 +96,10 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       if (isDynamic)
         dynamicRoute = true
 
-      route.name += route.name
-        ? `${routeNameSeparator}${normalizedName}`
-        : normalizedName
+      if (!route.name)
+        route.name = normalizedName
+      else if (node !== 'index' || i < pathNodes.length - 1)
+        route.name += `${routeNameSeparator}${normalizedName}`
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
