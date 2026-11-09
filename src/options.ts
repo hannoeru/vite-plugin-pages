@@ -22,11 +22,11 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string) {
 }
 
 export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
-  for (const page of options.dirs) {
-    if (page.baseRoute === '' && filepath.startsWith(`/${page.dir}/index`))
-      return 'sync'
-  }
-  return 'async'
+  const stem = filepath.replace(options.extensionsRE, '')
+  return options.dirs.some(({ dir, baseRoute }) => baseRoute === ''
+    && (stem === `/${dir}/index` || stem === `${options.root}/${dir}/index`))
+    ? 'sync'
+    : 'async'
 }
 
 function getResolver(originalResolver: UserOptions['resolver']) {

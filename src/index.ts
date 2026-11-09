@@ -24,7 +24,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       // auto set resolver for solid project
       if (
         !userOptions.resolver
-        && config.plugins.some(i => i.name.includes('solid'))
+        && config.plugins.some(i => i.name === 'solid')
       ) {
         userOptions.resolver = 'solid'
       }
@@ -55,7 +55,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     },
     resolveId(id) {
       if (ctx.options.moduleIds.includes(id))
-        return `${MODULE_ID_VIRTUAL}?id=${id}`
+        return `${MODULE_ID_VIRTUAL}?id=${encodeURIComponent(id)}`
 
       if (routeBlockQueryRE.test(id))
         return ROUTE_BLOCK_ID_VIRTUAL

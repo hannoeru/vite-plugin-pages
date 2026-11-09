@@ -66,7 +66,7 @@ export class PageContext {
       if (!extension)
         continue
 
-      const route = slash(join(pageDir.baseRoute ?? '', p.replace(`${pageDirPath}/`, '').replace(`.${extension}`, '')))
+      const route = slash(join(pageDir.baseRoute ?? '', p.replace(`${pageDirPath}/`, '').slice(0, -(extension.length + 1))))
       this._pageRouteMap.set(p, {
         path: p,
         route,
@@ -79,6 +79,12 @@ export class PageContext {
     debug.pages('remove', path)
     this._pageRouteMap.delete(path)
     await this.options.resolver.hmr?.removed?.(this, path)
+  }
+
+  getImportPath(path: string) {
+    return this.options.importPath === 'relative' && path.startsWith(`${this.root}/`)
+      ? path.slice(this.root.length)
+      : path
   }
 
   async resolveRoutes() {
