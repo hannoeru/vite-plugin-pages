@@ -11,7 +11,7 @@ import { resolveOptions } from '../src/options'
 const vuePage = '<template><div /></template>'
 
 function createProject(files: Record<string, string>) {
-  const base = slash(realpathSync(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
+  const base = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
   onTestFinished(() => rmSync(base, { recursive: true, force: true }))
 
   for (const [file, content] of Object.entries(files)) {
