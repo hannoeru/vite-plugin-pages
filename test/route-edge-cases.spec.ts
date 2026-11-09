@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { slash } from '@antfu/utils'
 import { build, createServer, resolveConfig } from 'vite'
+import { createMemoryHistory, createRouter } from 'vue-router'
 import pagesPlugin, { PageContext, syncIndexResolver } from '../src'
 import { resolveOptions } from '../src/options'
 
@@ -103,6 +104,31 @@ describe('route names', () => {
       '/blog': 'blog',
       '/blog/:index': 'blog-index',
     })
+  })
+
+  it.each([
+    { page: '[index].vue', dynamicPath: '/abc' },
+    { page: '[index]/index.vue', dynamicPath: '/abc' },
+    { page: '[...index].vue', dynamicPath: '/abc/def' },
+  ])('keeps the root index reachable beside $page', async ({ page, dynamicPath }) => {
+    const root = createProject({
+      'src/pages/index.vue': vuePage,
+      [`src/pages/${page}`]: vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages' }, root)
+    const routes = await getRoutes(ctx)
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: routes.map(route => ({
+        ...route,
+        component: { template: route.component },
+      })),
+    })
+
+    const componentFor = (path: string) => router.resolve(path).matched[0]?.components?.default
+
+    expect(componentFor('/')).toEqual({ template: '/src/pages/index.vue' })
+    expect(componentFor(dynamicPath)).toEqual({ template: `/src/pages/${page}` })
   })
 
   it('keeps a page ending in -index apart from its sibling', async () => {

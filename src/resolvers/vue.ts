@@ -96,10 +96,14 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       if (isDynamic)
         dynamicRoute = true
 
-      if (!route.name)
-        route.name = normalizedName
-      else if (node !== 'index' || i < pathNodes.length - 1)
+      if (!route.name) {
+        route.name = isDynamic && normalizedName === 'index'
+          ? `${routeNameSeparator}index`
+          : normalizedName
+      }
+      else if (node !== 'index' || i < pathNodes.length - 1) {
         route.name += `${routeNameSeparator}${normalizedName}`
+      }
 
       // Check parent exits
       const parent = parentRoutes.find((parent) => {
