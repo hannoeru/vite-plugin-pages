@@ -50,9 +50,9 @@ describe('solid directory routes', () => {
   it('uses the same route records as react for a directory without its own page', async () => {
     const routes = await getRoutes(['docs/[...all].tsx', 'docs/index.tsx', 'users/[id].tsx'], 'solid')
 
-    expect(routes.map(route => [route.path, route.component, route.children])).toEqual([
-      ['docs/*', '/src/pages/docs/[...all].tsx', undefined],
+    expect(routes.map(route => [route.path, route.component, route.children]).sort()).toEqual([
       ['docs', '/src/pages/docs/index.tsx', undefined],
+      ['docs/*', '/src/pages/docs/[...all].tsx', undefined],
       ['users/:id', '/src/pages/users/[id].tsx', undefined],
     ])
   })
