@@ -126,6 +126,32 @@ export function normalizeName(name: string, isDynamic: boolean, nuxtStyle = fals
     : name.replace(replaceDynamicRouteRE, '$1')
 }
 
+interface DirectoryRoute<T> {
+  path?: string
+  element?: string
+  children?: T[]
+}
+
+function joinRoutePath(parentPath = '', childPath = '') {
+  return [parentPath, childPath].filter(path => path && path !== '/').join('/') || '/'
+}
+
+export function liftDirectoryRoutes<T extends DirectoryRoute<T>>(routes: T[]): T[] {
+  return routes.flatMap((route) => {
+    if (!route.children)
+      return [route]
+
+    route.children = liftDirectoryRoutes(route.children)
+    if (route.element)
+      return [route]
+
+    return route.children.map(child => ({
+      ...child,
+      path: joinRoutePath(route.path, child.path),
+    }))
+  })
+}
+
 export function buildReactRoutePath(node: string, nuxtStyle = false): string | undefined {
   const isDynamic = isDynamicRoute(node, nuxtStyle)
   const isCatchAll = isCatchAllRoute(node, nuxtStyle)

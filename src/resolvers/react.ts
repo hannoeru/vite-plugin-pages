@@ -6,6 +6,7 @@ import {
   buildReactRemixRoutePath,
   buildReactRoutePath,
   countSlash,
+  liftDirectoryRoutes,
   normalizeCase,
 } from '../utils'
 
@@ -104,7 +105,7 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
   })
 
   // sort by dynamic routes
-  let finalRoutes = prepareRoutes(routes, ctx.options)
+  let finalRoutes = prepareRoutes(liftDirectoryRoutes(routes), ctx.options)
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 

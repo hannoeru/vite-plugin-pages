@@ -5,15 +5,15 @@ exports[`generate routes > react - match snapshot > client code 1`] = `
 const __pages_import_0__ = React.lazy(() => import("/examples/react/src/pages/[...all].tsx"));
 const __pages_import_1__ = React.lazy(() => import("/examples/react/src/pages/about.tsx"));
 const __pages_import_2__ = React.lazy(() => import("/examples/react/src/pages/about/index.tsx"));
-const __pages_import_3__ = React.lazy(() => import("/examples/react/src/pages/components.tsx"));
-import __pages_import_4__ from "/examples/react/src/pages/index.tsx";
-const __pages_import_5__ = React.lazy(() => import("/examples/react/src/pages/blog/[...all].tsx"));
-const __pages_import_6__ = React.lazy(() => import("/examples/react/src/pages/blog/[id].tsx"));
-const __pages_import_7__ = React.lazy(() => import("/examples/react/src/pages/blog/index.tsx"));
-const __pages_import_8__ = React.lazy(() => import("/examples/react/src/pages/blog/today/[...all].tsx"));
-const __pages_import_9__ = React.lazy(() => import("/examples/react/src/pages/blog/today/index.tsx"));
+const __pages_import_3__ = React.lazy(() => import("/examples/react/src/pages/blog/[...all].tsx"));
+const __pages_import_4__ = React.lazy(() => import("/examples/react/src/pages/blog/[id].tsx"));
+const __pages_import_5__ = React.lazy(() => import("/examples/react/src/pages/blog/index.tsx"));
+const __pages_import_6__ = React.lazy(() => import("/examples/react/src/pages/blog/today/[...all].tsx"));
+const __pages_import_7__ = React.lazy(() => import("/examples/react/src/pages/blog/today/index.tsx"));
+const __pages_import_8__ = React.lazy(() => import("/examples/react/src/pages/components.tsx"));
+import __pages_import_9__ from "/examples/react/src/pages/index.tsx";
 
-const routes = [{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_0__)},{"caseSensitive":false,"path":"about","element":React.createElement(__pages_import_1__),"children":[{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_2__)}]},{"caseSensitive":false,"path":"components","element":React.createElement(__pages_import_3__)},{"caseSensitive":false,"path":"/","element":React.createElement(__pages_import_4__)},{"caseSensitive":false,"path":"blog","children":[{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_5__)},{"caseSensitive":false,"path":":id","element":React.createElement(__pages_import_6__)},{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_7__)},{"caseSensitive":false,"path":"today","children":[{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_8__)},{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_9__)}]}]}];
+const routes = [{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_0__)},{"caseSensitive":false,"path":"about","element":React.createElement(__pages_import_1__),"children":[{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_2__)}]},{"caseSensitive":false,"path":"blog/*","element":React.createElement(__pages_import_3__)},{"caseSensitive":false,"path":"blog/:id","element":React.createElement(__pages_import_4__)},{"caseSensitive":false,"path":"blog","element":React.createElement(__pages_import_5__)},{"caseSensitive":false,"path":"blog/today/*","element":React.createElement(__pages_import_6__)},{"caseSensitive":false,"path":"blog/today","element":React.createElement(__pages_import_7__)},{"caseSensitive":false,"path":"components","element":React.createElement(__pages_import_8__)},{"caseSensitive":false,"path":"/","element":React.createElement(__pages_import_9__)}];
 
 export default routes;"
 `;
@@ -39,6 +39,31 @@ exports[`generate routes > react - match snapshot > routes 1`] = `
   },
   {
     "caseSensitive": false,
+    "element": "/examples/react/src/pages/blog/[...all].tsx",
+    "path": "blog/*",
+  },
+  {
+    "caseSensitive": false,
+    "element": "/examples/react/src/pages/blog/[id].tsx",
+    "path": "blog/:id",
+  },
+  {
+    "caseSensitive": false,
+    "element": "/examples/react/src/pages/blog/index.tsx",
+    "path": "blog",
+  },
+  {
+    "caseSensitive": false,
+    "element": "/examples/react/src/pages/blog/today/[...all].tsx",
+    "path": "blog/today/*",
+  },
+  {
+    "caseSensitive": false,
+    "element": "/examples/react/src/pages/blog/today/index.tsx",
+    "path": "blog/today",
+  },
+  {
+    "caseSensitive": false,
     "element": "/examples/react/src/pages/components.tsx",
     "path": "components",
   },
@@ -46,43 +71,6 @@ exports[`generate routes > react - match snapshot > routes 1`] = `
     "caseSensitive": false,
     "element": "/examples/react/src/pages/index.tsx",
     "path": "/",
-  },
-  {
-    "caseSensitive": false,
-    "children": [
-      {
-        "caseSensitive": false,
-        "element": "/examples/react/src/pages/blog/[...all].tsx",
-        "path": "*",
-      },
-      {
-        "caseSensitive": false,
-        "element": "/examples/react/src/pages/blog/[id].tsx",
-        "path": ":id",
-      },
-      {
-        "caseSensitive": false,
-        "element": "/examples/react/src/pages/blog/index.tsx",
-        "path": "",
-      },
-      {
-        "caseSensitive": false,
-        "children": [
-          {
-            "caseSensitive": false,
-            "element": "/examples/react/src/pages/blog/today/[...all].tsx",
-            "path": "*",
-          },
-          {
-            "caseSensitive": false,
-            "element": "/examples/react/src/pages/blog/today/index.tsx",
-            "path": "",
-          },
-        ],
-        "path": "today",
-      },
-    ],
-    "path": "blog",
   },
 ]
 `;
@@ -192,7 +180,7 @@ const __pages_import_10__ = React.lazy(() => import("/examples/remix-style/src/p
 const __pages_import_11__ = React.lazy(() => import("/examples/remix-style/src/pages/blog/today/index.tsx"));
 import __pages_import_12__ from "/examples/remix-style/src/pages/index.tsx";
 
-const routes = [{"caseSensitive":false,"element":React.createElement(__pages_import_0__),"children":[{"caseSensitive":false,"path":"product","element":React.createElement(__pages_import_1__)}]},{"caseSensitive":false,"path":"sitemap.xml","element":React.createElement(__pages_import_2__)},{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_3__)},{"caseSensitive":false,"path":"about","element":React.createElement(__pages_import_4__),"children":[{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_5__)}]},{"caseSensitive":false,"path":"blog/authors","element":React.createElement(__pages_import_6__)},{"caseSensitive":false,"path":"blog","element":React.createElement(__pages_import_7__),"children":[{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_8__)},{"caseSensitive":false,"path":":id","element":React.createElement(__pages_import_9__)},{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_10__)},{"caseSensitive":false,"path":"today","children":[{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_11__)}]}]},{"caseSensitive":false,"path":"/","element":React.createElement(__pages_import_12__)}];
+const routes = [{"caseSensitive":false,"element":React.createElement(__pages_import_0__),"children":[{"caseSensitive":false,"path":"product","element":React.createElement(__pages_import_1__)}]},{"caseSensitive":false,"path":"sitemap.xml","element":React.createElement(__pages_import_2__)},{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_3__)},{"caseSensitive":false,"path":"about","element":React.createElement(__pages_import_4__),"children":[{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_5__)}]},{"caseSensitive":false,"path":"blog/authors","element":React.createElement(__pages_import_6__)},{"caseSensitive":false,"path":"blog","element":React.createElement(__pages_import_7__),"children":[{"caseSensitive":false,"path":"*","element":React.createElement(__pages_import_8__)},{"caseSensitive":false,"path":":id","element":React.createElement(__pages_import_9__)},{"caseSensitive":false,"path":"","element":React.createElement(__pages_import_10__)},{"caseSensitive":false,"path":"today","element":React.createElement(__pages_import_11__)}]},{"caseSensitive":false,"path":"/","element":React.createElement(__pages_import_12__)}];
 
 export default routes;"
 `;
@@ -258,13 +246,7 @@ exports[`generate routes > routeStyle > remix Style match snapshot > routes 1`] 
       },
       {
         "caseSensitive": false,
-        "children": [
-          {
-            "caseSensitive": false,
-            "element": "/examples/remix-style/src/pages/blog/today/index.tsx",
-            "path": "",
-          },
-        ],
+        "element": "/examples/remix-style/src/pages/blog/today/index.tsx",
         "path": "today",
       },
     ],
@@ -289,14 +271,14 @@ const __pages_import_4__ = Solid.lazy(() => import("/examples/solid/src/pages/ab
 const __pages_import_5__ = Solid.lazy(() => import("/examples/solid/src/pages/about/[id]/more.tsx"));
 const __pages_import_6__ = Solid.lazy(() => import("/examples/solid/src/pages/about/[id]/nested.tsx"));
 const __pages_import_7__ = Solid.lazy(() => import("/examples/solid/src/pages/about/index.tsx"));
-const __pages_import_8__ = Solid.lazy(() => import("/examples/solid/src/pages/components.tsx"));
-import __pages_import_9__ from "/examples/solid/src/pages/index.tsx";
-const __pages_import_10__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/[id].tsx"));
-const __pages_import_11__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/index.tsx"));
-const __pages_import_12__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/[...all].tsx"));
-const __pages_import_13__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/index.tsx"));
+const __pages_import_8__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/[id].tsx"));
+const __pages_import_9__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/index.tsx"));
+const __pages_import_10__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/[...all].tsx"));
+const __pages_import_11__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/index.tsx"));
+const __pages_import_12__ = Solid.lazy(() => import("/examples/solid/src/pages/components.tsx"));
+import __pages_import_13__ from "/examples/solid/src/pages/index.tsx";
 
-const routes = [{"path":"*","element":__pages_import_0__,"component":__pages_import_0__},{"path":":sensor","element":__pages_import_1__,"component":__pages_import_1__,"children":[{"path":"current","element":__pages_import_2__,"component":__pages_import_2__}]},{"path":"about","element":__pages_import_3__,"component":__pages_import_3__,"children":[{"path":":id","element":__pages_import_4__,"component":__pages_import_4__,"children":[{"path":"more","element":__pages_import_5__,"component":__pages_import_5__},{"path":"nested","element":__pages_import_6__,"component":__pages_import_6__}]},{"path":"","element":__pages_import_7__,"component":__pages_import_7__}]},{"path":"components","element":__pages_import_8__,"component":__pages_import_8__},{"path":"/","element":__pages_import_9__,"component":__pages_import_9__},{"path":"blog","children":[{"path":":id","element":__pages_import_10__,"component":__pages_import_10__},{"path":"","element":__pages_import_11__,"component":__pages_import_11__},{"path":"today","children":[{"path":"*","element":__pages_import_12__,"component":__pages_import_12__},{"path":"","element":__pages_import_13__,"component":__pages_import_13__}]}]}];
+const routes = [{"path":"*","element":__pages_import_0__,"component":__pages_import_0__},{"path":":sensor","element":__pages_import_1__,"component":__pages_import_1__,"children":[{"path":"current","element":__pages_import_2__,"component":__pages_import_2__}]},{"path":"about","element":__pages_import_3__,"component":__pages_import_3__,"children":[{"path":":id","element":__pages_import_4__,"component":__pages_import_4__,"children":[{"path":"more","element":__pages_import_5__,"component":__pages_import_5__},{"path":"nested","element":__pages_import_6__,"component":__pages_import_6__}]},{"path":"","element":__pages_import_7__,"component":__pages_import_7__}]},{"path":"blog/:id","element":__pages_import_8__,"component":__pages_import_8__},{"path":"blog","element":__pages_import_9__,"component":__pages_import_9__},{"path":"blog/today/*","element":__pages_import_10__,"component":__pages_import_10__},{"path":"blog/today","element":__pages_import_11__,"component":__pages_import_11__},{"path":"components","element":__pages_import_12__,"component":__pages_import_12__},{"path":"/","element":__pages_import_13__,"component":__pages_import_13__}];
 
 export default routes;"
 `;
@@ -350,6 +332,26 @@ exports[`generate routes > solid - match snapshot > routes 1`] = `
     "path": "about",
   },
   {
+    "component": "/examples/solid/src/pages/blog/[id].tsx",
+    "element": "/examples/solid/src/pages/blog/[id].tsx",
+    "path": "blog/:id",
+  },
+  {
+    "component": "/examples/solid/src/pages/blog/index.tsx",
+    "element": "/examples/solid/src/pages/blog/index.tsx",
+    "path": "blog",
+  },
+  {
+    "component": "/examples/solid/src/pages/blog/today/[...all].tsx",
+    "element": "/examples/solid/src/pages/blog/today/[...all].tsx",
+    "path": "blog/today/*",
+  },
+  {
+    "component": "/examples/solid/src/pages/blog/today/index.tsx",
+    "element": "/examples/solid/src/pages/blog/today/index.tsx",
+    "path": "blog/today",
+  },
+  {
     "component": "/examples/solid/src/pages/components.tsx",
     "element": "/examples/solid/src/pages/components.tsx",
     "path": "components",
@@ -358,36 +360,6 @@ exports[`generate routes > solid - match snapshot > routes 1`] = `
     "component": "/examples/solid/src/pages/index.tsx",
     "element": "/examples/solid/src/pages/index.tsx",
     "path": "/",
-  },
-  {
-    "children": [
-      {
-        "component": "/examples/solid/src/pages/blog/[id].tsx",
-        "element": "/examples/solid/src/pages/blog/[id].tsx",
-        "path": ":id",
-      },
-      {
-        "component": "/examples/solid/src/pages/blog/index.tsx",
-        "element": "/examples/solid/src/pages/blog/index.tsx",
-        "path": "",
-      },
-      {
-        "children": [
-          {
-            "component": "/examples/solid/src/pages/blog/today/[...all].tsx",
-            "element": "/examples/solid/src/pages/blog/today/[...all].tsx",
-            "path": "*",
-          },
-          {
-            "component": "/examples/solid/src/pages/blog/today/index.tsx",
-            "element": "/examples/solid/src/pages/blog/today/index.tsx",
-            "path": "",
-          },
-        ],
-        "path": "today",
-      },
-    ],
-    "path": "blog",
   },
 ]
 `;
