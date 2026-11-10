@@ -99,7 +99,7 @@ export function resolveImportMode(
   return mode
 }
 
-export function invalidatePagesModule(environment: DevEnvironment, timestamp: number) {
+export function invalidatePagesModule(environment: DevEnvironment) {
   const { moduleGraph } = environment
   const modules = moduleGraph.getModulesByFile(MODULE_ID_VIRTUAL)
   if (!modules)
@@ -107,7 +107,7 @@ export function invalidatePagesModule(environment: DevEnvironment, timestamp: nu
 
   const invalidatedModules = new Set<EnvironmentModuleNode>()
   modules.forEach((module) => {
-    moduleGraph.invalidateModule(module, invalidatedModules, timestamp, true)
+    moduleGraph.invalidateModule(module, invalidatedModules)
   })
 }
 

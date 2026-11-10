@@ -480,7 +480,7 @@ describe('pages plugin', () => {
         } satisfies HotUpdateOptions)
 
         expect(result).toEqual([])
-        expect(invalidateModule).toHaveBeenCalledExactlyOnceWith(module, expect.any(Set), timestamp, true)
+        expect(invalidateModule).toHaveBeenCalledExactlyOnceWith(module, expect.any(Set))
         expect(send).toHaveBeenCalledExactlyOnceWith({ type: 'full-reload' })
       }
 
