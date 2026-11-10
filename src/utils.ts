@@ -99,15 +99,15 @@ export function resolveImportMode(
   return mode
 }
 
-export function invalidatePagesModule(environment: DevEnvironment, timestamp: number) {
+export async function invalidatePagesModule(environment: DevEnvironment, moduleIds: string[]) {
   const { moduleGraph } = environment
-  const modules = moduleGraph.getModulesByFile(MODULE_ID_VIRTUAL)
-  if (!modules)
-    return
+  // A request that is still loading has no module entry yet; create it so the invalidation also applies to that request.
+  await Promise.all(moduleIds.map(id => moduleGraph.ensureEntryFromUrl(id)))
+  const modules = moduleGraph.getModulesByFile(MODULE_ID_VIRTUAL)!
 
   const invalidatedModules = new Set<EnvironmentModuleNode>()
   modules.forEach((module) => {
-    moduleGraph.invalidateModule(module, invalidatedModules, timestamp, true)
+    moduleGraph.invalidateModule(module, invalidatedModules)
   })
 }
 

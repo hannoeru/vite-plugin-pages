@@ -48,7 +48,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       if (!await routesChanged)
         return
 
-      invalidatePagesModule(this.environment, options.timestamp)
+      await invalidatePagesModule(this.environment, ctx.options.moduleIds)
       debug.hmr(`Reload generated pages in the ${this.environment.name} environment.`)
       this.environment.hot.send({ type: 'full-reload' })
       return []
