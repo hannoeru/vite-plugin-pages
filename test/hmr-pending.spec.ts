@@ -16,7 +16,10 @@ function createSignal() {
 }
 
 describe('dev route module', () => {
-  it('drops a route module that was generated while a page was added', async () => {
+  it.each([
+    { load: 'a later load', loadedBefore: true },
+    { load: 'the first load', loadedBefore: false },
+  ])('drops a route module from $load while a page is added', async ({ loadedBefore }) => {
     const root = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
     onTestFinished(() => rmSync(root, { recursive: true, force: true }))
     mkdirSync(join(root, 'src/pages'), { recursive: true })
@@ -56,11 +59,13 @@ describe('dev route module', () => {
     })
     const client = server.environments.client
 
-    await client.transformRequest('~pages')
-    writeFileSync(join(root, 'src/pages/first.vue'), vuePage)
-    server.watcher.emit('add', `${root}/src/pages/first.vue`)
-    await hotUpdated.promise
-    hotUpdated = createSignal()
+    if (loadedBefore) {
+      await client.transformRequest('~pages')
+      writeFileSync(join(root, 'src/pages/first.vue'), vuePage)
+      server.watcher.emit('add', `${root}/src/pages/first.vue`)
+      await hotUpdated.promise
+      hotUpdated = createSignal()
+    }
 
     holdGeneration = true
     const staleRequest = client.transformRequest('~pages')
@@ -74,5 +79,39 @@ describe('dev route module', () => {
     expect((await staleRequest)?.code).not.toContain('"path":"/new"')
 
     expect((await client.transformRequest('~pages'))?.code).toContain('"path":"/new"')
+  })
+
+  it('reloads routes for SSR module loading after a page is added', async () => {
+    const root = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
+    onTestFinished(() => rmSync(root, { recursive: true, force: true }))
+    mkdirSync(join(root, 'src/pages'), { recursive: true })
+    writeFileSync(join(root, 'src/pages/index.ts'), 'export default {}')
+    const hotUpdated = createSignal()
+    const server = await createServer({
+      root,
+      configFile: false,
+      logLevel: 'silent',
+      plugins: [
+        pagesPlugin(),
+        {
+          name: 'hot-update-done',
+          hotUpdate() {
+            if (this.environment.name === 'ssr')
+              hotUpdated.resolve()
+          },
+        },
+      ],
+      server: { watch: null, ws: false },
+    })
+    onTestFinished(() => server.close())
+    const loadPaths = async () => (await server.ssrLoadModule('~pages')).default.map((route: { path: string }) => route.path)
+
+    expect(await loadPaths()).toEqual(['/'])
+
+    writeFileSync(join(root, 'src/pages/new.ts'), 'export default {}')
+    server.watcher.emit('add', `${root}/src/pages/new.ts`)
+    await hotUpdated.promise
+
+    expect((await loadPaths()).sort()).toEqual(['/', '/new'])
   })
 })

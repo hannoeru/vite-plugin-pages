@@ -466,9 +466,6 @@ describe('pages plugin', () => {
 
       for (const environment of Object.values(server.environments)) {
         const send = vi.spyOn(environment.hot, 'send')
-        const invalidateModule = vi.spyOn(environment.moduleGraph, 'invalidateModule').mockImplementation(() => {})
-        const module = { id: '\0virtual:vite-plugin-pages/generated-pages' }
-        vi.spyOn(environment.moduleGraph, 'getModulesByFile').mockReturnValue(new Set([module]) as never)
 
         const result = await hotUpdate.call({ environment } as never, {
           type: 'create',
@@ -480,7 +477,6 @@ describe('pages plugin', () => {
         } satisfies HotUpdateOptions)
 
         expect(result).toEqual([])
-        expect(invalidateModule).toHaveBeenCalledExactlyOnceWith(module, expect.any(Set))
         expect(send).toHaveBeenCalledExactlyOnceWith({ type: 'full-reload' })
       }
 
