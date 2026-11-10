@@ -42,6 +42,26 @@ function prepareRoutes(
   return routes
 }
 
+function joinRoutePath(parentPath = '', childPath = '') {
+  return [parentPath, childPath].filter(path => path && path !== '/').join('/') || '/'
+}
+
+function liftDirectoryRoutes(routes: ReactRouteBase[]): ReactRouteBase[] {
+  return routes.flatMap((route) => {
+    if (!route.children)
+      return [route]
+
+    route.children = liftDirectoryRoutes(route.children)
+    if (route.element)
+      return [route]
+
+    return route.children.map(child => ({
+      ...child,
+      path: joinRoutePath(route.path, child.path),
+    }))
+  })
+}
+
 async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
   const { routeStyle, caseSensitive } = ctx.options
   const nuxtStyle = routeStyle === 'nuxt'
@@ -104,7 +124,7 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
   })
 
   // sort by dynamic routes
-  let finalRoutes = prepareRoutes(routes, ctx.options)
+  let finalRoutes = prepareRoutes(liftDirectoryRoutes(routes), ctx.options)
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
