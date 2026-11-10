@@ -5,14 +5,14 @@ import { slash } from '@antfu/utils'
 import { matchRoutes } from 'react-router'
 import { PageContext } from '../src'
 
-async function getRoutes(files: string[]) {
+async function getRoutes(files: string[], resolver: 'react' | 'solid' = 'react') {
   const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
   onTestFinished(() => rmSync(root, { recursive: true, force: true }))
   for (const file of files) {
     mkdirSync(dirname(join(root, 'src/pages', file)), { recursive: true })
     writeFileSync(join(root, 'src/pages', file), 'export default () => null')
   }
-  const ctx = new PageContext({ dirs: 'src/pages', resolver: 'react' }, root)
+  const ctx = new PageContext({ dirs: 'src/pages', resolver }, root)
   await ctx.searchGlob()
   return await ctx.options.resolver.getComputedRoutes(ctx) as any[]
 }
@@ -43,5 +43,17 @@ describe('react directory routes', () => {
 
     expect(matchRoutes(routes, '/about')?.map(match => match.route.element)).toEqual(['/src/pages/about.tsx', '/src/pages/about/index.tsx'])
     expect(matchRoutes(routes, '/about/1')?.map(match => match.route.element)).toEqual(['/src/pages/about.tsx', '/src/pages/about/[id].tsx'])
+  })
+})
+
+describe('solid directory routes', () => {
+  it('uses the same route records as react for a directory without its own page', async () => {
+    const routes = await getRoutes(['docs/[...all].tsx', 'docs/index.tsx', 'users/[id].tsx'], 'solid')
+
+    expect(routes.map(route => [route.path, route.component, route.children])).toEqual([
+      ['docs/*', '/src/pages/docs/[...all].tsx', undefined],
+      ['docs', '/src/pages/docs/index.tsx', undefined],
+      ['users/:id', '/src/pages/users/[id].tsx', undefined],
+    ])
   })
 })

@@ -142,6 +142,39 @@ custom resolver if a catch-all must require at least one segment.
 React and Solid catch-all routes already used optional wildcard matching, so
 this change makes Vue consistent with those resolvers.
 
+## Review React and Solid directory routes
+
+In React and Solid, a directory that has no page of its own no longer produces
+a route record. Its routes move up one level, and the directory path is added
+to their paths. A layout page, such as `about.tsx` beside `about/`, still keeps
+its directory routes as children.
+
+For these pages:
+
+```
+src/pages/
+  ├── [...all].tsx
+  └── docs/
+     ├── [...all].tsx
+     └── index.tsx
+```
+
+the generated routes change as follows:
+
+```diff
+-{ path: 'docs', children: [{ path: '*', ... }, { path: '', ... }] }
++{ path: 'docs/*', ... }
++{ path: 'docs', ... }
+```
+
+Before v1, React Router matched the directory record for `/docs` when the
+directory had no index page, and showed an empty page. Now `/docs` shows the
+directory catch-all, or the root catch-all when the directory has none.
+
+If your `extendRoute` or `onRoutesGenerated` code changes a directory record,
+move that change to the routes in the directory. For a route that moved up,
+`extendRoute` receives no `parent`.
+
 ## Verify the upgrade
 
 After the upgrade:

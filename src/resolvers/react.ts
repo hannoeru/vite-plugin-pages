@@ -6,6 +6,7 @@ import {
   buildReactRemixRoutePath,
   buildReactRoutePath,
   countSlash,
+  liftDirectoryRoutes,
   normalizeCase,
 } from '../utils'
 
@@ -40,26 +41,6 @@ function prepareRoutes(
   }
 
   return routes
-}
-
-function joinRoutePath(parentPath = '', childPath = '') {
-  return [parentPath, childPath].filter(path => path && path !== '/').join('/') || '/'
-}
-
-function liftDirectoryRoutes(routes: ReactRouteBase[]): ReactRouteBase[] {
-  return routes.flatMap((route) => {
-    if (!route.children)
-      return [route]
-
-    route.children = liftDirectoryRoutes(route.children)
-    if (route.element)
-      return [route]
-
-    return route.children.map(child => ({
-      ...child,
-      path: joinRoutePath(route.path, child.path),
-    }))
-  })
 }
 
 async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {

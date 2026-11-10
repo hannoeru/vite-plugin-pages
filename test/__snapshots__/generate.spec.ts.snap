@@ -271,14 +271,14 @@ const __pages_import_4__ = Solid.lazy(() => import("/examples/solid/src/pages/ab
 const __pages_import_5__ = Solid.lazy(() => import("/examples/solid/src/pages/about/[id]/more.tsx"));
 const __pages_import_6__ = Solid.lazy(() => import("/examples/solid/src/pages/about/[id]/nested.tsx"));
 const __pages_import_7__ = Solid.lazy(() => import("/examples/solid/src/pages/about/index.tsx"));
-const __pages_import_8__ = Solid.lazy(() => import("/examples/solid/src/pages/components.tsx"));
-import __pages_import_9__ from "/examples/solid/src/pages/index.tsx";
-const __pages_import_10__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/[id].tsx"));
-const __pages_import_11__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/index.tsx"));
-const __pages_import_12__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/[...all].tsx"));
-const __pages_import_13__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/index.tsx"));
+const __pages_import_8__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/[id].tsx"));
+const __pages_import_9__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/index.tsx"));
+const __pages_import_10__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/[...all].tsx"));
+const __pages_import_11__ = Solid.lazy(() => import("/examples/solid/src/pages/blog/today/index.tsx"));
+const __pages_import_12__ = Solid.lazy(() => import("/examples/solid/src/pages/components.tsx"));
+import __pages_import_13__ from "/examples/solid/src/pages/index.tsx";
 
-const routes = [{"path":"*","element":__pages_import_0__,"component":__pages_import_0__},{"path":":sensor","element":__pages_import_1__,"component":__pages_import_1__,"children":[{"path":"current","element":__pages_import_2__,"component":__pages_import_2__}]},{"path":"about","element":__pages_import_3__,"component":__pages_import_3__,"children":[{"path":":id","element":__pages_import_4__,"component":__pages_import_4__,"children":[{"path":"more","element":__pages_import_5__,"component":__pages_import_5__},{"path":"nested","element":__pages_import_6__,"component":__pages_import_6__}]},{"path":"","element":__pages_import_7__,"component":__pages_import_7__}]},{"path":"components","element":__pages_import_8__,"component":__pages_import_8__},{"path":"/","element":__pages_import_9__,"component":__pages_import_9__},{"path":"blog","children":[{"path":":id","element":__pages_import_10__,"component":__pages_import_10__},{"path":"","element":__pages_import_11__,"component":__pages_import_11__},{"path":"today","children":[{"path":"*","element":__pages_import_12__,"component":__pages_import_12__},{"path":"","element":__pages_import_13__,"component":__pages_import_13__}]}]}];
+const routes = [{"path":"*","element":__pages_import_0__,"component":__pages_import_0__},{"path":":sensor","element":__pages_import_1__,"component":__pages_import_1__,"children":[{"path":"current","element":__pages_import_2__,"component":__pages_import_2__}]},{"path":"about","element":__pages_import_3__,"component":__pages_import_3__,"children":[{"path":":id","element":__pages_import_4__,"component":__pages_import_4__,"children":[{"path":"more","element":__pages_import_5__,"component":__pages_import_5__},{"path":"nested","element":__pages_import_6__,"component":__pages_import_6__}]},{"path":"","element":__pages_import_7__,"component":__pages_import_7__}]},{"path":"blog/:id","element":__pages_import_8__,"component":__pages_import_8__},{"path":"blog","element":__pages_import_9__,"component":__pages_import_9__},{"path":"blog/today/*","element":__pages_import_10__,"component":__pages_import_10__},{"path":"blog/today","element":__pages_import_11__,"component":__pages_import_11__},{"path":"components","element":__pages_import_12__,"component":__pages_import_12__},{"path":"/","element":__pages_import_13__,"component":__pages_import_13__}];
 
 export default routes;"
 `;
@@ -332,6 +332,26 @@ exports[`generate routes > solid - match snapshot > routes 1`] = `
     "path": "about",
   },
   {
+    "component": "/examples/solid/src/pages/blog/[id].tsx",
+    "element": "/examples/solid/src/pages/blog/[id].tsx",
+    "path": "blog/:id",
+  },
+  {
+    "component": "/examples/solid/src/pages/blog/index.tsx",
+    "element": "/examples/solid/src/pages/blog/index.tsx",
+    "path": "blog",
+  },
+  {
+    "component": "/examples/solid/src/pages/blog/today/[...all].tsx",
+    "element": "/examples/solid/src/pages/blog/today/[...all].tsx",
+    "path": "blog/today/*",
+  },
+  {
+    "component": "/examples/solid/src/pages/blog/today/index.tsx",
+    "element": "/examples/solid/src/pages/blog/today/index.tsx",
+    "path": "blog/today",
+  },
+  {
     "component": "/examples/solid/src/pages/components.tsx",
     "element": "/examples/solid/src/pages/components.tsx",
     "path": "components",
@@ -340,36 +360,6 @@ exports[`generate routes > solid - match snapshot > routes 1`] = `
     "component": "/examples/solid/src/pages/index.tsx",
     "element": "/examples/solid/src/pages/index.tsx",
     "path": "/",
-  },
-  {
-    "children": [
-      {
-        "component": "/examples/solid/src/pages/blog/[id].tsx",
-        "element": "/examples/solid/src/pages/blog/[id].tsx",
-        "path": ":id",
-      },
-      {
-        "component": "/examples/solid/src/pages/blog/index.tsx",
-        "element": "/examples/solid/src/pages/blog/index.tsx",
-        "path": "",
-      },
-      {
-        "children": [
-          {
-            "component": "/examples/solid/src/pages/blog/today/[...all].tsx",
-            "element": "/examples/solid/src/pages/blog/today/[...all].tsx",
-            "path": "*",
-          },
-          {
-            "component": "/examples/solid/src/pages/blog/today/index.tsx",
-            "element": "/examples/solid/src/pages/blog/today/index.tsx",
-            "path": "",
-          },
-        ],
-        "path": "today",
-      },
-    ],
-    "path": "blog",
   },
 ]
 `;
