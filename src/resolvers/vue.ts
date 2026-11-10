@@ -46,7 +46,7 @@ function prepareRoutes(
     delete route.rawRoute
 
     if (route.customBlock) {
-      Object.assign(route, route.customBlock)
+      Object.assign(route, structuredClone(route.customBlock))
       delete route.customBlock
     }
 
