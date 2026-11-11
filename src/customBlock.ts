@@ -7,7 +7,7 @@ import { parseJSON5 } from 'confbox/json5'
 import { parseYAML } from 'confbox/yaml'
 import { debug } from './utils'
 
-const routeJSXReg = /^\s+(route)\s+/
+const routeJSXReg = /^\s*route\s+/
 const maxRouteJSONExpansion = 100
 
 function getRouteJSONSize(
@@ -21,16 +21,16 @@ function getRouteJSONSize(
   if (typeof value === 'number') {
     if (Number.isFinite(value))
       return Buffer.byteLength(JSON.stringify(value))
-    throw new TypeError('Route YAML numbers must be finite')
+    throw new TypeError('Route data numbers must be finite')
   }
   if (typeof value !== 'object')
-    throw new TypeError(`Route YAML does not support ${typeof value} values`)
+    throw new TypeError(`Route data does not support ${typeof value} values`)
 
   const prototype = Object.getPrototypeOf(value)
   if (!Array.isArray(value) && prototype !== Object.prototype && prototype !== null)
-    throw new TypeError('Route YAML supports only arrays and plain objects')
+    throw new TypeError('Route data supports only arrays and plain objects')
   if (ancestors.has(value))
-    throw new TypeError('Route YAML does not support circular aliases')
+    throw new TypeError('Route data does not support circular aliases')
 
   const cachedSize = sizes.get(value)
   if (cachedSize !== undefined)
@@ -72,8 +72,6 @@ function parseLeadingBlockComment(code: string): ParsedJSX[] {
   if (!/^\s*\/\*/.test(code))
     return []
   const openIdx = code.indexOf('/*')
-  if (openIdx < 0 || code.slice(0, openIdx).includes('\n'))
-    return []
   const closeIdx = code.indexOf('*/', openIdx + 2)
   if (closeIdx < 0)
     return []
@@ -88,18 +86,13 @@ function parseLeadingBlockComment(code: string): ParsedJSX[] {
     ? rawValue.replace(/^[\t ]*\*[\t ]?/gm, '')
     : rawValue
   return [
-    {
-      value,
-      loc: {
-        start: { line: 1 },
-      },
-    },
+    { value },
   ]
 }
 
 export function parseJSX(code: string): ParsedJSX[] {
   return parseLeadingBlockComment(code).filter(
-    c => routeJSXReg.test(c.value) && c.value.includes(':') && c.loc.start.line === 1,
+    c => routeJSXReg.test(c.value) && c.value.includes(':'),
   )
 }
 
@@ -145,7 +138,9 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
 
   if (lang === 'json5') {
     try {
-      return parseJSON5(block.content)
+      const value = parseJSON5(block.content)
+      getRouteJSONSize(value, Infinity)
+      return value
     }
     catch (err: any) {
       throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`)

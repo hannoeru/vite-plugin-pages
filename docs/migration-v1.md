@@ -175,6 +175,21 @@ If your `extendRoute` or `onRoutesGenerated` code changes a directory record,
 move that change to the routes in the directory. For a route that moved up,
 `extendRoute` receives no `parent`.
 
+## Review JSON5 route blocks
+
+JSON5 `<route>` blocks must contain finite numbers. Before v1, the plugin
+changed `Infinity`, `-Infinity`, and `NaN` to `null` in the generated routes.
+Now the plugin logs an error and drops the route data of that page.
+
+Replace these values with a finite number, `null`, or a string:
+
+```diff
+ <route>
+-{ meta: { maxItems: Infinity } }
++{ meta: { maxItems: null } }
+ </route>
+```
+
 ## Verify the upgrade
 
 After the upgrade:

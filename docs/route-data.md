@@ -15,6 +15,9 @@ Set the parser with the `lang` attribute, or use the
 
 ### JSON / JSON5
 
+JSON5 route data must contain finite numbers. The plugin rejects `Infinity`,
+`-Infinity`, and `NaN`. It logs an error and drops the route data of that page.
+
 ```html
 <route>
 {
@@ -51,7 +54,8 @@ meta:
 In Vue, you can add route data with a comment block that starts with `route`.
 This works only for JSX/TSX files in Vue.
 
-The plugin parses only the first comment block. It must start with `route`.
+The plugin parses only the first comment block in the file. Only whitespace and
+blank lines can come before it. The comment body must start with `route`.
 Only the YAML parser is supported.
 
 ```jsx
