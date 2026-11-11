@@ -282,7 +282,7 @@ Solid routes. See [Route Names](./routing.md#route-names).
 - **Default:** `false`
 
 Preserve the original casing of route paths. When `false`, the plugin lowercases
-path segments.
+the static text of path segments. Parameter names keep their case.
 
 ### resolver
 

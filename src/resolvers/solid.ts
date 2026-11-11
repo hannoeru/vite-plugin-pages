@@ -94,9 +94,9 @@ async function computeSolidRoutes(ctx: PageContext): Promise<SolidRoute[]> {
       }
       else if (normalizedPath !== 'index') {
         if (routeStyle === 'remix')
-          route.path = buildReactRemixRoutePath(node) || ''
+          route.path = buildReactRemixRoutePath(node, caseSensitive) || ''
         else
-          route.path = buildReactRoutePath(node, nuxtStyle) || ''
+          route.path = buildReactRoutePath(node, caseSensitive, nuxtStyle) || ''
       }
 
       const exist = parentRoutes.some((parent) => {
