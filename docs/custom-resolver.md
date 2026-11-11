@@ -131,6 +131,10 @@ function myPlugin() {
 }
 ```
 
+`getResolvedRoutes()` returns a promise. The promise waits until the plugin
+finds all pages, so you can call it in `configResolved`. If the page search
+fails, the promise rejects.
+
 The returned routes match the type of the active resolver: `VueRoute[]`,
 `ReactRoute[]`, or `SolidRoute[]`.
 
