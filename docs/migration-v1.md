@@ -215,6 +215,33 @@ The Vue resolver now stops route generation with an error in two cases:
 The error names the files. Rename one of the pages, or set a different `name`
 in a `<route>` block or with `extendRoute`. Rename a parameter such as
 `[user-id].vue` to `[user_id].vue` or `[userId].vue`.
+## Review Vue index route names
+
+When `caseSensitive` is `false` (the default), the Vue resolver now names a file
+named `Index` as it names `index`. A layout beside the directory loses its
+name, as it does for `index`. For these pages:
+
+```
+src/pages/
+  ├── Index.vue
+  ├── users.vue
+  └── users/
+     └── Index.vue
+```
+
+the route names change as follows:
+
+| File | Before v1 | v1 |
+| --- | --- | --- |
+| `Index.vue` | `Index` | `index` |
+| `users.vue` | `users` | no name |
+| `users/Index.vue` | `users-Index` | `users` |
+
+If your code uses the old names, change it to use the new names. When
+`caseSensitive` is `true`, `Index` is a static segment and names do not change.
+
+Pages in a root `index/` directory now get root paths. For example,
+`src/pages/index/about.vue` changes from `//about` to `/about`.
 
 ## Verify the upgrade
 

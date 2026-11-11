@@ -115,6 +115,8 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const isCatchAll = isCatchAllRoute(node, nuxtStyle)
       const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
+      const isIndex = !isDynamic && normalizedPath === 'index'
+      const nameNode = isIndex ? 'index' : normalizedName
 
       if (isDynamic) {
         dynamicRoute = true
@@ -125,10 +127,10 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       if (!route.name) {
         route.name = isDynamic && normalizedName === 'index'
           ? `${routeNameSeparator}index`
-          : normalizedName
+          : nameNode
       }
-      else if (node !== 'index' || i < pathNodes.length - 1) {
-        route.name += `${routeNameSeparator}${normalizedName}`
+      else if (!isIndex || i < pathNodes.length - 1) {
+        route.name += `${routeNameSeparator}${nameNode}`
       }
 
       // Check parent exits
@@ -144,8 +146,8 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
         // Reset path
         route.path = ''
       }
-      else if (normalizedPath === 'index' && !isDynamic) {
-        if (!route.path)
+      else if (isIndex) {
+        if (!route.path && i === pathNodes.length - 1)
           route.path = '/'
       }
       else {
@@ -156,9 +158,11 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
           }
           else if (nuxtStyle && i === pathNodes.length - 1) {
             // we need to search if the folder provide `index.vue`
-            const isIndexFound = pageRoutes.find(({ route }) => {
-              return route === page.route.replace(pathNodes[i], 'index')
-            })
+            const indexRoute = normalizeCase([
+              ...pathNodes.slice(0, i),
+              'index',
+            ].join('/'), caseSensitive)
+            const isIndexFound = pageRoutes.some(({ route }) => normalizeCase(route, caseSensitive) === indexRoute)
             if (!isIndexFound)
               route.path += '?'
           }
