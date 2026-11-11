@@ -1,16 +1,7 @@
 import type { ResolvedOptions } from './types'
+import { Script } from 'node:vm'
 import { ROUTE_IMPORT_NAME } from './constants'
-
 import { resolveImportMode } from './utils'
-
-const componentRE = /"(?:component|element)":("(.*?)")/g
-const hasFunctionRE = /"(?:props|beforeEnter)":("(?:\\.|[^"\\])*")/g
-
-function replaceFunction(_: string, value: unknown) {
-  return typeof value === 'function'
-    ? `_NuFrRa_${value.toString()}`
-    : value
-}
 
 /**
  * Creates a stringified Vue Router route definition.
@@ -24,38 +15,48 @@ export function stringifyRoutes(
   function getImportString(path: string, importName: string) {
     const mode = resolveImportMode(path, options)
     return mode === 'sync'
-      ? `import ${importName} from "${path}"`
+      ? `import ${importName} from ${JSON.stringify(path)}`
       : `const ${importName} = ${
-        options.resolver.stringify?.dynamicImport?.(path) || `() => import("${path}")`
+        options.resolver.stringify?.dynamicImport?.(path) || `() => import(${JSON.stringify(path)})`
       }`
   }
 
-  function componentReplacer(str: string, replaceStr: string, path: string) {
+  function stringifyComponent(path: string) {
     let importName = importsMap.get(path)
 
-    if (!importName)
+    if (!importName) {
       importName = ROUTE_IMPORT_NAME.replace('$1', `${importsMap.size}`)
+      importsMap.set(path, importName)
+    }
 
-    importsMap.set(path, importName)
-
-    importName = options.resolver.stringify?.component?.(importName) || importName
-
-    return str.replace(replaceStr, importName)
+    return options.resolver.stringify?.component?.(importName) || importName
   }
 
-  function functionReplacer(str: string, replaceStr: string) {
-    const content: string = JSON.parse(replaceStr)
-
-    if (content.startsWith('_NuFrRa_'))
-      return str.replace(replaceStr, () => content.slice(8))
-
-    return str
+  function stringifyValue(value: unknown, routePath: unknown, key: string): string | undefined {
+    if (typeof value === 'function') {
+      const source = value.toString()
+      if (!isExpression(source))
+        throw new Error(`[vite-plugin-pages] Cannot serialize "${key}" in route ${JSON.stringify(routePath)}: its function source is not an expression. Use an arrow function or a function expression.`)
+      return source
+    }
+    if (Array.isArray(value))
+      return `[${value.map((item, index) => stringifyValue(item, routePath, `${key}[${index}]`) ?? 'null').join(',')}]`
+    if (isPlainObject(value))
+      return stringifyObject(value, (child, childKey) => stringifyValue(child, routePath, childKey))
+    return JSON.stringify(value)
   }
 
-  const stringRoutes = JSON
-    .stringify(preparedRoutes, replaceFunction)
-    .replace(componentRE, componentReplacer)
-    .replace(hasFunctionRE, functionReplacer)
+  function stringifyRoute(route: Record<string, unknown>): string {
+    return stringifyObject(route, (value, key) => {
+      if ((key === 'component' || key === 'element') && typeof value === 'string')
+        return stringifyComponent(value)
+      if (key === 'children' && Array.isArray(value))
+        return `[${value.map(stringifyRoute).join(',')}]`
+      return stringifyValue(value, route.path, key)
+    })
+  }
+
+  const stringRoutes = `[${preparedRoutes.map(stringifyRoute).join(',')}]`
 
   const imports = Array.from(importsMap).map(args => getImportString(...args))
 
@@ -63,6 +64,37 @@ export function stringifyRoutes(
     imports,
     stringRoutes,
   }
+}
+
+function isExpression(source: string) {
+  try {
+    return new Script(`(${source})`) instanceof Script
+  }
+  catch {
+    return false
+  }
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (typeof value !== 'object' || value === null)
+    return false
+  const proto = Object.getPrototypeOf(value)
+  return proto === Object.prototype || proto === null
+}
+
+function stringifyObject(
+  object: Record<string, unknown>,
+  stringifyEntry: (value: unknown, key: string) => string | undefined,
+) {
+  const entries = Object.entries(object).flatMap(([key, value]) => {
+    if (value === undefined)
+      return []
+    const string = stringifyEntry(value, key)
+    return string === undefined
+      ? []
+      : [`${JSON.stringify(key)}:${string}`]
+  })
+  return `{${entries.join(',')}}`
 }
 
 export function generateClientCode(routes: any[], options: ResolvedOptions) {

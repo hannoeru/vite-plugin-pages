@@ -137,7 +137,7 @@ export function solidResolver(): PageResolver {
       return computeSolidRoutes(ctx)
     },
     stringify: {
-      dynamicImport: path => `Solid.lazy(() => import("${path}"))`,
+      dynamicImport: path => `Solid.lazy(() => import(${JSON.stringify(path)}))`,
       final: code => `import * as Solid from "solid-js";\n${code}`,
     },
   }
