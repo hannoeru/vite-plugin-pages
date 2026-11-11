@@ -4,7 +4,7 @@ import { join, resolve } from 'node:path'
 import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
 import { getPageFiles } from './files'
-import { resolveOptions } from './options'
+import { expandPageDirs, normalizePageDirs, resolveOptions } from './options'
 
 import { debug, findPageDir, removePageExtension } from './utils'
 
@@ -18,6 +18,7 @@ export class PageContext {
 
   rawOptions: UserOptions
   root: string
+  pageDirPatterns: PageOptions[]
   options: ResolvedOptions
   logger?: Logger
 
@@ -26,6 +27,7 @@ export class PageContext {
     this.root = slash(viteRoot)
     debug.env('root', this.root)
     this.options = resolveOptions(userOptions, this.root)
+    this.pageDirPatterns = normalizePageDirs(userOptions.dirs, this.root)
     debug.options(this.options)
   }
 
@@ -35,7 +37,11 @@ export class PageContext {
 
   async handleFileChange(type: HotUpdateOptions['type'], path: string) {
     path = slash(path)
-    const pageDir = findPageDir(path, this.options)
+    let pageDir = findPageDir(path, this.options)
+    if (!pageDir && type === 'create' && this.options.extensionsRE.test(path)) {
+      this.options.dirs = expandPageDirs(this.pageDirPatterns, this.root)
+      pageDir = findPageDir(path, this.options)
+    }
     if (!pageDir)
       return false
 

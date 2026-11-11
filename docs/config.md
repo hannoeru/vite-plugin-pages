@@ -71,6 +71,9 @@ A single path points all routes to `/`. An array of paths also points all routes
 to `/`. An array of `PageOptions` lets you set a base route and file pattern per
 directory.
 
+The dev server finds page directories that you create after it starts. It also
+watches page directories outside the Vite root.
+
 #### Example
 
 Folder structure:

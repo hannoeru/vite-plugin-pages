@@ -1,4 +1,4 @@
-import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types'
+import type { ImportModeResolver, PageOptions, ResolvedOptions, UserOptions } from './types'
 import { posix, resolve } from 'node:path'
 import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
@@ -8,18 +8,22 @@ import { getPageDirs } from './files'
 import { reactResolver, solidResolver, vueResolver } from './resolvers'
 import { removePageExtension } from './utils'
 
-function resolvePageDirs(dirs: UserOptions['dirs'], root: string) {
-  dirs = toArray(dirs)
-  return dirs.flatMap((dir) => {
+export function normalizePageDirs(dirs: UserOptions['dirs'] = 'src/pages', root: string): PageOptions[] {
+  return toArray(dirs).map((dir) => {
     const option = typeof dir === 'string'
-      ? { dir, baseRoute: '' }
+      ? { dir }
       : dir
 
-    option.dir = slash(resolve(root, option.dir)).replace(`${root}/`, '')
-    option.baseRoute = (option.baseRoute ?? '').replace(/^\//, '').replace(/\/$/, '')
-
-    return getPageDirs(option, root)
+    return {
+      ...option,
+      dir: slash(resolve(root, option.dir)).replace(`${root}/`, ''),
+      baseRoute: (option.baseRoute ?? '').replace(/^\//, '').replace(/\/$/, ''),
+    }
   })
+}
+
+export function expandPageDirs(patterns: PageOptions[], root: string) {
+  return patterns.flatMap(pattern => getPageDirs(pattern, root))
 }
 
 export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
@@ -54,7 +58,6 @@ function getResolver(originalResolver: UserOptions['resolver']) {
 
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
   const {
-    dirs = ['src/pages'],
     routeBlockLang = 'json5',
     exclude = ['**/node_modules/**', '**/.git/**', '**/__*__/**'],
     caseSensitive = false,
@@ -79,7 +82,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
   if (exclude.some(pattern => posix.isAbsolute(pattern) || /^(?:[a-z]:[\\/]|\\\\)/i.test(pattern)))
     throw new Error('exclude patterns must be relative to each page directory.')
 
-  const resolvedDirs = resolvePageDirs(dirs, root)
+  const resolvedDirs = expandPageDirs(normalizePageDirs(userOptions.dirs, root), root)
 
   const routeStyle = userOptions.routeStyle || 'next'
 
