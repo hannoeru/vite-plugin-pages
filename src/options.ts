@@ -6,7 +6,7 @@ import { slash, toArray } from '@antfu/utils'
 import { MODULE_IDS } from './constants'
 import { getPageDirs } from './files'
 import { reactResolver, solidResolver, vueResolver } from './resolvers'
-import { removePageExtension } from './utils'
+import { normalizeCase, removePageExtension } from './utils'
 
 export function normalizePageDirs(dirs: UserOptions['dirs'] = 'src/pages', root: string): PageOptions[] {
   return toArray(dirs).map((dir) => {
@@ -28,8 +28,14 @@ export function expandPageDirs(patterns: PageOptions[], root: string) {
 
 export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
   const stem = removePageExtension(filepath, options.extensions)
+  if (!stem || normalizeCase(posix.basename(stem), options.caseSensitive) !== 'index')
+    return 'async'
+
+  const stemDir = posix.dirname(stem)
   return options.dirs.some(({ dir, baseRoute }) => baseRoute === ''
-    && (stem === `/${dir}/index` || stem === `${options.root}/${dir}/index`))
+    && dir !== '..'
+    && !dir.startsWith('../')
+    && (stemDir === posix.join('/', dir) || stemDir === posix.join(options.root, dir)))
     ? 'sync'
     : 'async'
 }
