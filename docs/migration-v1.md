@@ -201,6 +201,20 @@ URL matching does not change, because React Router and Solid Router already
 match static text without case. If your `extendRoute` or `onRoutesGenerated`
 code compares `route.path` with text that has capital letters, compare it with
 lowercase text. To keep the original case, set `caseSensitive: true`.
+## Fix Vue route name errors
+
+The Vue resolver now stops route generation with an error in two cases:
+
+- Two routes have the same name, for example `users/id.vue` and
+  `users/[id].vue` (both `users-id`). Before v1, vue-router kept only the last
+  route with that name, and one page could not be reached.
+- A parameter name contains a character other than a letter, a digit, or an
+  underscore, for example `[user-id].vue`. Before v1, vue-router read this as
+  the parameter `user` and the text `-id`, and the page did not match.
+
+The error names the files. Rename one of the pages, or set a different `name`
+in a `<route>` block or with `extendRoute`. Rename a parameter such as
+`[user-id].vue` to `[user_id].vue` or `[userId].vue`.
 
 ## Verify the upgrade
 

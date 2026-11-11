@@ -2,7 +2,7 @@
 
       route
 
-name: blog-id
+name: jsx
 meta:
   requiresAuth: false
   id: 1234
