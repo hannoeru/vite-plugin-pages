@@ -1,7 +1,7 @@
 import type { UserOptions } from '../src'
-import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import { slash } from '@antfu/utils'
 import { createServer } from 'vite'
 import pagesPlugin from '../src'
@@ -41,8 +41,11 @@ async function startServer(root: string, options: UserOptions) {
       const updated = new Promise<void>((resolve) => {
         hotUpdates.set(file, resolve)
       })
-      mkdirSync(join(file, '..'), { recursive: true })
+      const newDir = !existsSync(dirname(file))
+      mkdirSync(dirname(file), { recursive: true })
       writeFileSync(file, vuePage)
+      if (newDir)
+        server.watcher.emit('add', file)
       await updated
     },
     async routePaths() {
