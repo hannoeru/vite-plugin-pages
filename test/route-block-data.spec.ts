@@ -102,3 +102,19 @@ describe('json5 route block numbers', () => {
     expect(client).not.toContain('null')
   })
 })
+
+describe('json route block numbers', () => {
+  it.each([
+    { lang: 'json', format: 'JSON' },
+    { lang: 'json5', format: 'JSON5' },
+  ])('reports a number that is too large in $lang', async ({ lang, format }) => {
+    const { client, errors } = await resolveProjectRoutes({
+      'bad.vue': `<template><div /></template>\n<route lang="${lang}">{ "meta": { "value": 1e400 } }</route>`,
+    })
+    expect(errors).toEqual([
+      expect.stringContaining('Route data numbers must be finite'),
+    ])
+    expect(errors[0]).toContain(`Invalid ${format} format of <route> content in`)
+    expect(client).not.toContain('null')
+  })
+})

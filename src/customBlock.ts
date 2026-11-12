@@ -148,7 +148,9 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
   }
   else if (lang === 'json') {
     try {
-      return JSON.parse(block.content)
+      const value = JSON.parse(block.content)
+      getRouteJSONSize(value, Infinity)
+      return value
     }
     catch (err: any) {
       throw new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`)

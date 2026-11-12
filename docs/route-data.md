@@ -15,8 +15,9 @@ Set the parser with the `lang` attribute, or use the
 
 ### JSON / JSON5
 
-JSON5 route data must contain finite numbers. The plugin rejects `Infinity`,
-`-Infinity`, and `NaN`. It logs an error and drops the route data of that page.
+JSON and JSON5 route data must contain finite numbers. The plugin rejects
+`Infinity`, `-Infinity`, `NaN`, and numbers that are too large, such as `1e400`.
+It logs an error and drops the route data of that page.
 
 ```html
 <route>

@@ -179,7 +179,8 @@ move that change to the routes in the directory. For a route that moved up,
 
 JSON5 `<route>` blocks must contain finite numbers. Before v1, the plugin
 changed `Infinity`, `-Infinity`, and `NaN` to `null` in the generated routes.
-Now the plugin logs an error and drops the route data of that page.
+Now the plugin logs an error and drops the route data of that page. The same
+error occurs for a JSON or JSON5 number that is too large, such as `1e400`.
 
 Replace these values with a finite number, `null`, or a string:
 
