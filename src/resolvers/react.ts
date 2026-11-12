@@ -135,7 +135,7 @@ export function reactResolver(): PageResolver {
     },
     stringify: {
       component: path => `React.createElement(${path})`,
-      dynamicImport: path => `React.lazy(() => import("${path}"))`,
+      dynamicImport: path => `React.lazy(() => import(${JSON.stringify(path)}))`,
       final: code => `import React from "react";\n${code}`,
     },
   }

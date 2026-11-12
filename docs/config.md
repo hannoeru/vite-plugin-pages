@@ -322,6 +322,11 @@ When `moduleId` is not set, each resolver registers these aliases:
 A function that receives a route and returns a modified route. Use it to add
 data such as route metadata.
 
+The plugin writes function values, such as `redirect`, `beforeEnter`, or a
+function in `meta`, as their source code. The function cannot use variables
+from `vite.config.js`. Use an arrow function or a function expression. Method
+shorthand, such as `redirect() {}`, causes an error.
+
 ```js
 // vite.config.js
 export default {
