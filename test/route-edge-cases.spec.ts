@@ -156,6 +156,114 @@ describe('route names', () => {
   })
 })
 
+function createVueRouter(routes: any[]) {
+  return createRouter({
+    history: createMemoryHistory(),
+    routes: routes.map(function withComponent(route): any {
+      return {
+        ...route,
+        component: { template: route.component },
+        children: route.children?.map(withComponent),
+      }
+    }),
+  })
+}
+
+describe('vue index routes', () => {
+  it('maps pages in a root index directory to root paths', async () => {
+    const root = createProject({
+      'src/pages/index/foo.vue': vuePage,
+      'src/pages/index/[id].vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages' }, root)
+    const router = createVueRouter(await getRoutes(ctx))
+
+    expect(router.resolve({ name: 'index-foo' }).href).toBe('/foo')
+    expect(router.resolve({
+      name: 'index-id',
+      params: { id: 'abc' },
+    }).href).toBe('/abc')
+    expect(router.resolve('/foo').name).toBe('index-foo')
+    expect(router.resolve('/abc').name).toBe('index-id')
+  })
+
+  it('names Index.vue as an index page when the case does not matter', async () => {
+    const root = createProject({
+      'src/pages/Index.vue': vuePage,
+      'src/pages/users.vue': vuePage,
+      'src/pages/users/Index.vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages' }, root)
+    const router = createVueRouter(await getRoutes(ctx))
+
+    expect(router.resolve('/').name).toBe('index')
+    const users = router.resolve({ name: 'users' })
+    expect(users.href).toBe('/users')
+    expect(users.matched.map(route => route.components?.default)).toEqual([
+      { template: '/src/pages/users.vue' },
+      { template: '/src/pages/users/Index.vue' },
+    ])
+  })
+
+  it('keeps Index.vue a static page when the case matters', async () => {
+    const root = createProject({
+      'src/pages/users.vue': vuePage,
+      'src/pages/users/Index.vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages', caseSensitive: true }, root)
+    const router = createVueRouter(await getRoutes(ctx))
+
+    expect(router.resolve({ name: 'users-Index' }).href).toBe('/users/Index')
+    expect(router.resolve({ name: 'users' }).href).toBe('/users')
+  })
+
+  it('keeps [index] pages dynamic', async () => {
+    const root = createProject({
+      'src/pages/[index].vue': vuePage,
+      'src/pages/users/[index].vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: 'src/pages' }, root)
+    const router = createVueRouter(await getRoutes(ctx))
+
+    expect(router.resolve({
+      name: '-index',
+      params: { index: 'a' },
+    }).href).toBe('/a')
+    expect(router.resolve({
+      name: 'users-index',
+      params: { index: 'a' },
+    }).href).toBe('/users/a')
+  })
+})
+
+describe('nuxt style optional parameters', () => {
+  it.each([
+    {
+      pages: ['blog_id/_id.vue', 'blog_id/index.vue'],
+      path: '/blog_id/:id',
+    },
+    {
+      pages: ['blog_id/_id.vue'],
+      path: '/blog_id/:id?',
+    },
+    {
+      pages: ['blog_id/_id.vue', 'index.vue'],
+      path: '/blog_id/:id?',
+    },
+    {
+      pages: ['blog/_id.vue', 'blog/Index.vue'],
+      path: '/blog/:id',
+    },
+  ])('makes the parameter of $pages.0 required only beside an index page', async ({ pages, path }) => {
+    const root = createProject(Object.fromEntries(pages.map(page => [`src/pages/${page}`, vuePage])))
+    const ctx = new PageContext({ dirs: 'src/pages', routeStyle: 'nuxt' }, root)
+
+    const routes = await getRoutes(ctx)
+
+    expect(routes.find(route => route.component === `/src/pages/${pages[0]}`).path).toBe(path)
+  })
+})
+
 describe('default import mode', () => {
   function createOptions() {
     const root = createProject({ 'src/pages/index.vue': vuePage })

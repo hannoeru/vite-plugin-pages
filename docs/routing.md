@@ -35,6 +35,11 @@ A file named `index` is the index page of a route:
 
 - `src/pages/index.vue` → `/`
 - `src/pages/users/index.vue` → `/users`
+- `src/pages/index/about.vue` → `/about`
+
+When [`caseSensitive`](./config.md#casesensitive) is `false` (the default), a
+file named `Index` is also an index page. When it is `true`, only `index` is an
+index page, and `src/pages/users/Index.vue` → `/users/Index`.
 
 ## Dynamic Routes
 
@@ -175,6 +180,12 @@ segment.
 | `users/_id.vue` | `/users/:id` |
 | `docs/_.vue` | `/docs/*` |
 | `users/_id/settings.vue` | `/users/:id/settings` |
+
+The Vue resolver makes the last dynamic segment optional when its directory has
+no index page. Thus `users/_id.vue` → `/users/:id?`, and `/users` also shows
+this page. Add `users/index.vue` to make the segment required. The React and
+Solid resolvers always make the segment required: `users/_id.tsx` →
+`/users/:id`.
 
 ### `remix`
 
