@@ -1,5 +1,8 @@
 import type { HotUpdateOptions, Plugin } from 'vite'
 import type { UserOptions } from './types'
+import { resolve } from 'node:path'
+import { slash } from '@antfu/utils'
+import picomatch from 'picomatch'
 import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants'
 
 import { PageContext } from './context'
@@ -32,6 +35,13 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       ctx = new PageContext(userOptions, config.root)
       ctx.setLogger(config.logger)
       await ctx.searchGlob()
+    },
+    configureServer(server) {
+      for (const { dir } of ctx.pageDirPatterns) {
+        const base = slash(resolve(ctx.root, picomatch.scan(dir).base))
+        if (base !== ctx.root && !base.startsWith(`${ctx.root}/`))
+          server.watcher.add(base)
+      }
     },
     api: {
       getResolvedRoutes() {
