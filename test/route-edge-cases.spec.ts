@@ -191,6 +191,60 @@ describe('default import mode', () => {
     expect(syncIndexResolver(`${root}/src/pages/index.vue`, options)).toBe('sync')
     expect(syncIndexResolver(`${root}/src/pages/index-card.vue`, options)).toBe('async')
   })
+
+  it.each(['.', './'])('makes the root index sync when dirs is %s', (dirs) => {
+    const root = createProject({ 'index.vue': vuePage })
+    const options = resolveOptions({ dirs }, root)
+
+    expect(syncIndexResolver('/index.vue', options)).toBe('sync')
+    expect(syncIndexResolver(`${root}/index.vue`, options)).toBe('sync')
+    expect(syncIndexResolver('/users/index.vue', options)).toBe('async')
+  })
+
+  it('makes the root Index file sync when routes ignore case', async () => {
+    const root = createProject({ 'src/pages/Index.vue': vuePage })
+    const ctx = new PageContext({ dirs: 'src/pages' }, root)
+
+    const [route] = await getRoutes(ctx)
+
+    expect(route.path).toBe('/')
+    expect(syncIndexResolver('/src/pages/Index.vue', ctx.options)).toBe('sync')
+    expect(syncIndexResolver(`${root}/src/pages/Index.vue`, ctx.options)).toBe('sync')
+  })
+
+  it('makes the root Index file async when routes are case sensitive', async () => {
+    const root = createProject({ 'src/pages/Index.vue': vuePage })
+    const ctx = new PageContext({ dirs: 'src/pages', caseSensitive: true }, root)
+
+    const [route] = await getRoutes(ctx)
+
+    expect(route.path).toBe('/Index')
+    expect(syncIndexResolver('/src/pages/Index.vue', ctx.options)).toBe('async')
+  })
+
+  it('makes the index file of a page directory outside the root async', () => {
+    const base = createProject({
+      'shared/pages/index.vue': vuePage,
+      'app/index.html': '',
+    })
+    const options = resolveOptions({ dirs: '../shared/pages' }, `${base}/app`)
+
+    expect(syncIndexResolver(`${base}/shared/pages/index.vue`, options)).toBe('async')
+  })
+
+  it('imports the root index directly in client code', async () => {
+    const root = createProject({
+      'index.vue': vuePage,
+      'about.vue': vuePage,
+    })
+    const ctx = new PageContext({ dirs: '.' }, root)
+    await ctx.searchGlob()
+
+    const code = await ctx.resolveRoutes()
+
+    expect(code).toContain('import __pages_import_0__ from "/index.vue"')
+    expect(code).toContain('() => import("/about.vue")')
+  })
 })
 
 describe('solid resolver detection', () => {
