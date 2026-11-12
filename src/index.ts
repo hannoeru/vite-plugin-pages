@@ -11,6 +11,7 @@ import { debug, invalidatePagesModule, parsePageRequest } from './utils'
 function pagesPlugin(userOptions: UserOptions = {}): Plugin {
   let ctx: PageContext
   const hotUpdates = new WeakMap<HotUpdateOptions['read'], Promise<boolean>>()
+  const pagesSearched = Promise.withResolvers<void>()
 
   return {
     name: 'vite-plugin-pages',
@@ -34,7 +35,8 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
 
       ctx = new PageContext(userOptions, config.root)
       ctx.setLogger(config.logger)
-      await ctx.searchGlob()
+      pagesSearched.resolve(ctx.searchGlob())
+      await pagesSearched.promise
     },
     configureServer(server) {
       for (const { dir } of ctx.pageDirPatterns) {
@@ -44,7 +46,8 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
       }
     },
     api: {
-      getResolvedRoutes() {
+      async getResolvedRoutes() {
+        await pagesSearched.promise
         return ctx.options.resolver.getComputedRoutes(ctx)
       },
     },
