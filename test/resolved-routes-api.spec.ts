@@ -55,4 +55,41 @@ describe('getResolvedRoutes', () => {
     expect(finalRoutes).toHaveLength(3)
     expect(routePaths(routesInConfigResolved)).toEqual(routePaths(finalRoutes))
   })
+
+  it('rejects for a plugin that waits when the page search fails', async () => {
+    const root = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
+    onTestFinished(() => rmSync(root, { recursive: true, force: true }))
+    mkdirSync(join(root, 'src/pages'), { recursive: true })
+    writeFileSync(join(root, 'src/pages/index.vue'), '')
+
+    let readerError: unknown
+    const reader: Plugin = {
+      name: 'routes-reader',
+      async configResolved(config) {
+        const plugin = config.plugins.find(p => p.name === 'vite-plugin-pages')!
+        readerError = await plugin.api.getResolvedRoutes().catch((error: unknown) => error)
+      },
+    }
+    const pages = pagesPlugin({
+      resolver: {
+        resolveModuleIds: () => ['~pages'],
+        resolveExtensions: () => ['vue'],
+        resolveRoutes: () => '',
+        getComputedRoutes: () => [],
+        hmr: {
+          added() {
+            throw new Error('search failed')
+          },
+        },
+      },
+    })
+
+    await expect(resolveConfig({
+      root,
+      configFile: false,
+      logLevel: 'silent',
+      plugins: [reader, pages],
+    }, 'serve')).rejects.toThrow('search failed')
+    expect(readerError).toEqual(new Error('search failed'))
+  })
 })
