@@ -50,6 +50,11 @@ The Vue resolver passes dynamic parameters to the page as props. The file
 { "id": "abc" }
 ```
 
+In the Vue resolver, a parameter name can contain only letters, digits, and
+underscores. A name such as `[user-id].vue` or `_user-id.vue` stops route
+generation with an error that names the file. Use `[user_id].vue` or
+`[userId].vue` instead.
+
 ## Nested Routes
 
 Use child routes to create nested layouts. Give the parent component the same
@@ -128,6 +133,19 @@ have generated names.
 A trailing `-index` is removed:
 
 - `src/pages/users/index.vue` → `users`
+
+Each route name must be unique. vue-router keeps only one route with a given
+name, so these pages cannot both have the name `users-id`:
+
+- `src/pages/users/id.vue` → `users-id`
+- `src/pages/users/[id].vue` → `users-id`
+
+Other pairs that collide are `about-us.vue` and `about/us.vue`, and `all.vue`
+and `[...all].vue`. When two routes have the same name, route generation stops
+with an error that names both files. To fix it, rename one of the pages, or set
+a different `name` in a [`<route>` block](./route-data.md#sfc-route-block) or with
+[`extendRoute`](./config.md#extendroute). The check runs after `extendRoute`
+and before `onRoutesGenerated`.
 
 ## Routing Styles
 

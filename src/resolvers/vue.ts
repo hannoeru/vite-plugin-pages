@@ -64,6 +64,19 @@ function prepareRoutes(
   return routes
 }
 
+function assertUniqueRouteNames(routes: VueRoute[], pageFiles: Map<VueRoute, string>, seen = new Map<string, VueRoute>()) {
+  for (const route of routes) {
+    if (route.name !== undefined) {
+      const other = seen.get(route.name)
+      if (other)
+        throw new Error(`[vite-plugin-pages] Duplicate route name "${route.name}" for "${pageFiles.get(other)}" and "${pageFiles.get(route)}". vue-router keeps only one route with a given name. Rename one of the pages, or set a different \`name\` in a <route> block or with \`extendRoute\`.`)
+      seen.set(route.name, route)
+    }
+    if (route.children)
+      assertUniqueRouteNames(route.children, pageFiles, seen)
+  }
+}
+
 async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
   const { routeStyle, caseSensitive, routeNameSeparator } = ctx.options
 
@@ -74,6 +87,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
     .sort((a, b) => countSlash(a.route) - countSlash(b.route))
 
   const routes: VueRouteBase[] = []
+  const pageFiles = new Map<VueRoute, string>()
 
   pageRoutes.forEach((page) => {
     const pathNodes = page.route.split('/')
@@ -89,6 +103,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       customBlock,
       rawRoute: page.route,
     }
+    pageFiles.set(route, page.path)
 
     let parentRoutes = routes
     let dynamicRoute = false
@@ -101,8 +116,11 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
       const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
       const normalizedPath = normalizeCase(normalizedName, caseSensitive)
 
-      if (isDynamic)
+      if (isDynamic) {
         dynamicRoute = true
+        if (!/^\w+$/.test(normalizedName))
+          throw new Error(`[vite-plugin-pages] Invalid route parameter name "${normalizedName}" in "${page.path}". A parameter name can contain only letters, digits, and underscores.`)
+      }
 
       if (!route.name) {
         route.name = isDynamic && normalizedName === 'index'
@@ -159,6 +177,7 @@ async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, Cu
   })
 
   let finalRoutes = prepareRoutes(ctx, routes)
+  assertUniqueRouteNames(finalRoutes, pageFiles)
 
   finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes
 
