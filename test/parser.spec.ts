@@ -241,7 +241,6 @@ describe('parseJSX', () => {
     const code = `/*\n\n      route\n\nname: blog-id\nmeta:\n  id: 1\n*/\n`
     const result = parseJSX(code)
     expect(result).toHaveLength(1)
-    expect(result[0].loc.start.line).toBe(1)
   })
 
   it('preserves the raw comment body as value', () => {

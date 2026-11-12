@@ -9,11 +9,6 @@ export type ImportModeResolver = (filepath: string, pluginOptions: ResolvedOptio
 
 export interface ParsedJSX {
   value: string
-  loc: {
-    start: {
-      line: number
-    }
-  }
 }
 
 export type CustomBlock = Record<string, any>
