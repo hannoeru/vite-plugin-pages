@@ -8,6 +8,7 @@ import {
   countSlash,
   isCatchAllRoute,
   isDynamicRoute,
+  isEmptyRoutePath,
   normalizeCase,
   normalizeName,
 } from '../utils'
@@ -15,6 +16,7 @@ import {
 export interface VueRouteBase {
   name: string
   path: string
+  alias?: string
   props?: boolean
   component: string
   children?: VueRouteBase[]
@@ -26,6 +28,8 @@ export interface VueRoute extends Omit<Optional<VueRouteBase, 'rawRoute' | 'name
   children?: VueRoute[]
 }
 
+const catchAllChildPathRE = /^\/:[^/]+\(\.\*\)\*$/
+
 function prepareRoutes(
   ctx: PageContext,
   routes: VueRoute[],
@@ -35,8 +39,12 @@ function prepareRoutes(
     if (parent)
       route.path = route.path?.replace(/^\//, '')
 
-    if (route.children)
+    if (route.children) {
+      const catchAll = route.children.find(child => catchAllChildPathRE.test(child.path))
+      if (catchAll && !route.children.some(child => isEmptyRoutePath(child.path)))
+        catchAll.alias = ''
       route.children = prepareRoutes(ctx, route.children, route)
+    }
 
     if (route.children?.find(c => c.name === route.name))
       delete route.name

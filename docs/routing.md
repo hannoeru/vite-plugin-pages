@@ -97,7 +97,9 @@ Catch-all routes use square brackets with an ellipsis:
 
 A catch-all is optional. The nested example matches `/docs`, `/docs/intro`, and
 `/docs/guides/install`. When an index route exists at the same path, the router
-selects the index route for `/docs` and the catch-all for deeper paths.
+selects the index route for `/docs` and the catch-all for deeper paths. Under a
+layout page, the catch-all also matches the directory path: with `docs.vue` and
+no index route, `/docs` renders `docs.vue` with the catch-all page in its outlet.
 
 A normal dynamic segment is required: `src/pages/docs/[id].vue` matches
 `/docs/one`, but not `/docs`. There is no separate filename syntax for a

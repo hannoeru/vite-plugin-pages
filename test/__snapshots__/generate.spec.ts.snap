@@ -278,7 +278,7 @@ const __pages_import_11__ = Solid.lazy(() => import("/examples/solid/src/pages/b
 const __pages_import_12__ = Solid.lazy(() => import("/examples/solid/src/pages/components.tsx"));
 import __pages_import_13__ from "/examples/solid/src/pages/index.tsx";
 
-const routes = [{"path":"*","element":__pages_import_0__,"component":__pages_import_0__},{"path":":sensor","element":__pages_import_1__,"component":__pages_import_1__,"children":[{"path":"current","element":__pages_import_2__,"component":__pages_import_2__}]},{"path":"about","element":__pages_import_3__,"component":__pages_import_3__,"children":[{"path":":id","element":__pages_import_4__,"component":__pages_import_4__,"children":[{"path":"more","element":__pages_import_5__,"component":__pages_import_5__},{"path":"nested","element":__pages_import_6__,"component":__pages_import_6__}]},{"path":"","element":__pages_import_7__,"component":__pages_import_7__}]},{"path":"blog/:id","element":__pages_import_8__,"component":__pages_import_8__},{"path":"blog","element":__pages_import_9__,"component":__pages_import_9__},{"path":"blog/today/*","element":__pages_import_10__,"component":__pages_import_10__},{"path":"blog/today","element":__pages_import_11__,"component":__pages_import_11__},{"path":"components","element":__pages_import_12__,"component":__pages_import_12__},{"path":"/","element":__pages_import_13__,"component":__pages_import_13__}];
+const routes = [{"path":"*","element":__pages_import_0__,"component":__pages_import_0__},{"path":":sensor","element":__pages_import_1__,"component":__pages_import_1__,"children":[{"path":"current","element":__pages_import_2__,"component":__pages_import_2__},{"path":""}]},{"path":"about","element":__pages_import_3__,"component":__pages_import_3__,"children":[{"path":":id","element":__pages_import_4__,"component":__pages_import_4__,"children":[{"path":"more","element":__pages_import_5__,"component":__pages_import_5__},{"path":"nested","element":__pages_import_6__,"component":__pages_import_6__},{"path":""}]},{"path":"","element":__pages_import_7__,"component":__pages_import_7__}]},{"path":"blog/:id","element":__pages_import_8__,"component":__pages_import_8__},{"path":"blog","element":__pages_import_9__,"component":__pages_import_9__},{"path":"blog/today/*","element":__pages_import_10__,"component":__pages_import_10__},{"path":"blog/today","element":__pages_import_11__,"component":__pages_import_11__},{"path":"components","element":__pages_import_12__,"component":__pages_import_12__},{"path":"/","element":__pages_import_13__,"component":__pages_import_13__}];
 
 export default routes;"
 `;
@@ -296,6 +296,9 @@ exports[`generate routes > solid - match snapshot > routes 1`] = `
         "component": "/examples/solid/src/pages/[sensor]/current.tsx",
         "element": "/examples/solid/src/pages/[sensor]/current.tsx",
         "path": "current",
+      },
+      {
+        "path": "",
       },
     ],
     "component": "/examples/solid/src/pages/[sensor].tsx",
@@ -315,6 +318,9 @@ exports[`generate routes > solid - match snapshot > routes 1`] = `
             "component": "/examples/solid/src/pages/about/[id]/nested.tsx",
             "element": "/examples/solid/src/pages/about/[id]/nested.tsx",
             "path": "nested",
+          },
+          {
+            "path": "",
           },
         ],
         "component": "/examples/solid/src/pages/about/[id].tsx",

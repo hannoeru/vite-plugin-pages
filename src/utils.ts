@@ -132,6 +132,10 @@ interface DirectoryRoute<T> {
   children?: T[]
 }
 
+export function isEmptyRoutePath(path = '') {
+  return path === '' || path === '/'
+}
+
 function joinRoutePath(parentPath = '', childPath = '') {
   return [parentPath, childPath].filter(path => path && path !== '/').join('/') || '/'
 }

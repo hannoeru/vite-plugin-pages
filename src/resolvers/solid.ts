@@ -6,6 +6,7 @@ import {
   buildReactRemixRoutePath,
   buildReactRoutePath,
   countSlash,
+  isEmptyRoutePath,
   liftDirectoryRoutes,
   normalizeCase,
 } from '../utils'
@@ -28,11 +29,15 @@ function prepareRoutes(
   parent?: SolidRoute,
 ) {
   for (const route of routes) {
+    const pathless = !route.path
     if (parent)
       route.path = route.path?.replace(/^\//, '')
 
-    if (route.children)
+    if (route.children) {
+      if (!pathless && !route.children.some(child => isEmptyRoutePath(child.path) || child.path === '*'))
+        route.children.push({ path: '' })
       route.children = prepareRoutes(options, route.children, route)
+    }
 
     delete route.rawRoute
 
