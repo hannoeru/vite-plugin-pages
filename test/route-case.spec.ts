@@ -79,6 +79,16 @@ describe.each(['react', 'solid'] as const)('%s route path case', (resolver) => {
   })
 })
 
+describe.each(['react', 'solid'] as const)('%s remix index case', (resolver) => {
+  it('treats a nested INDEX segment as an index when case-insensitive', async () => {
+    expect(paths(await getRoutes(['blog.INDEX.tsx'], { resolver, routeStyle: 'remix' }))).toEqual(['blog'])
+  })
+
+  it('keeps a nested INDEX segment when case-sensitive', async () => {
+    expect(paths(await getRoutes(['blog.INDEX.tsx'], { resolver, routeStyle: 'remix', caseSensitive: true }))).toEqual(['blog/INDEX'])
+  })
+})
+
 describe('react-router path case', () => {
   it('matches lowercase and original URLs and keeps the parameter name', async () => {
     const routes = await getRoutes(pages.next, { resolver: 'react' })

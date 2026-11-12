@@ -224,7 +224,7 @@ export function buildReactRemixRoutePath(node: string, caseSensitive: boolean): 
 
     if (char === '/' || char === win32.sep || char === '.') {
       inParam = false
-      if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+      if (normalizeCase(rawSegmentBuffer, caseSensitive) === 'index' && result.endsWith('index'))
         result = result.replace(replaceIndexRE, '')
       else result += '/'
 
@@ -252,7 +252,7 @@ export function buildReactRemixRoutePath(node: string, caseSensitive: boolean): 
       : normalizeCase(char, caseSensitive)
   }
 
-  if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+  if (normalizeCase(rawSegmentBuffer, caseSensitive) === 'index' && result.endsWith('index'))
     result = result.replace(replaceIndexRE, '')
 
   return result || undefined
