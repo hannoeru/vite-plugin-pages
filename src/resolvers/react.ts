@@ -85,9 +85,9 @@ async function computeReactRoutes(ctx: PageContext): Promise<ReactRoute[]> {
       }
       else if (!isIndexRoute) {
         if (routeStyle === 'remix')
-          route.path = buildReactRemixRoutePath(node)
+          route.path = buildReactRemixRoutePath(node, caseSensitive)
         else
-          route.path = buildReactRoutePath(node, nuxtStyle)
+          route.path = buildReactRoutePath(node, caseSensitive, nuxtStyle)
       }
 
       // Check parent exits

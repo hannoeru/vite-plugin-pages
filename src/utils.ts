@@ -156,7 +156,7 @@ export function liftDirectoryRoutes<T extends DirectoryRoute<T>>(routes: T[]): T
   })
 }
 
-export function buildReactRoutePath(node: string, nuxtStyle = false): string | undefined {
+export function buildReactRoutePath(node: string, caseSensitive: boolean, nuxtStyle = false): string | undefined {
   const isDynamic = isDynamicRoute(node, nuxtStyle)
   const isCatchAll = isCatchAllRoute(node, nuxtStyle)
   const normalizedName = normalizeName(node, isDynamic, nuxtStyle)
@@ -168,17 +168,18 @@ export function buildReactRoutePath(node: string, nuxtStyle = false): string | u
     return `:${normalizedName}`
   }
 
-  return `${normalizedName}`
+  return normalizeCase(normalizedName, caseSensitive)
 }
 
 // https://github.dev/remix-run/remix/blob/264e3f8884c5cafd8d06acc3e01153b376745b7c/packages/remix-dev/config/routesConvention.ts#L105
-export function buildReactRemixRoutePath(node: string): string | undefined {
+export function buildReactRemixRoutePath(node: string, caseSensitive: boolean): string | undefined {
   const escapeStart = '['
   const escapeEnd = ']'
   let result = ''
   let rawSegmentBuffer = ''
 
   let inEscapeSequence = 0
+  let inParam = false
   let skipSegment = false
   for (let i = 0; i < node.length; i++) {
     const char = node.charAt(i)
@@ -221,12 +222,13 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
     }
 
     if (inEscapeSequence) {
-      result += char
+      result += normalizeCase(char, caseSensitive)
       continue
     }
 
     if (char === '/' || char === win32.sep || char === '.') {
-      if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+      inParam = false
+      if (normalizeCase(rawSegmentBuffer, caseSensitive) === 'index' && result.endsWith('index'))
         result = result.replace(replaceIndexRE, '')
       else result += '/'
 
@@ -242,16 +244,19 @@ export function buildReactRemixRoutePath(node: string): string | undefined {
     rawSegmentBuffer += char
 
     if (char === '$') {
+      inParam = true
       result += typeof nextChar === 'undefined'
         ? '*'
         : ':'
       continue
     }
 
-    result += char
+    result += inParam
+      ? char
+      : normalizeCase(char, caseSensitive)
   }
 
-  if (rawSegmentBuffer === 'index' && result.endsWith('index'))
+  if (normalizeCase(rawSegmentBuffer, caseSensitive) === 'index' && result.endsWith('index'))
     result = result.replace(replaceIndexRE, '')
 
   return result || undefined

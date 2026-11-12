@@ -28,19 +28,19 @@ describe('utils', () => {
 
   // react route path
   it('react route path', () => {
-    expect(buildReactRoutePath('index')).toBe('index')
-    expect(buildReactRoutePath('[...all]')).toBe('*')
-    expect(buildReactRoutePath('[id]')).toBe(':id')
-    expect(buildReactRoutePath('normal')).toBe('normal')
+    expect(buildReactRoutePath('index', false)).toBe('index')
+    expect(buildReactRoutePath('[...all]', false)).toBe('*')
+    expect(buildReactRoutePath('[id]', false)).toBe(':id')
+    expect(buildReactRoutePath('normal', false)).toBe('normal')
   })
 
   it('remix style route path', () => {
-    expect(buildReactRemixRoutePath('root')).toBe('root')
-    expect(buildReactRemixRoutePath('about')).toBe('about')
-    expect(buildReactRemixRoutePath('__marketing')).toBeUndefined()
-    expect(buildReactRemixRoutePath('blog.authors')).toBe('blog/authors')
-    expect(buildReactRemixRoutePath('[blog.authors]')).toBe('blog.authors')
-    expect(buildReactRemixRoutePath('*')).toBe('*')
+    expect(buildReactRemixRoutePath('root', false)).toBe('root')
+    expect(buildReactRemixRoutePath('about', false)).toBe('about')
+    expect(buildReactRemixRoutePath('__marketing', false)).toBeUndefined()
+    expect(buildReactRemixRoutePath('blog.authors', false)).toBe('blog/authors')
+    expect(buildReactRemixRoutePath('[blog.authors]', false)).toBe('blog.authors')
+    expect(buildReactRemixRoutePath('*', false)).toBe('*')
   })
 
   it('finds the page directory only for target files', () => {

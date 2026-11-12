@@ -190,6 +190,17 @@ Replace these values with a finite number, `null`, or a string:
 +{ meta: { maxItems: null } }
  </route>
 ```
+## Review React and Solid path case
+
+When `caseSensitive` is `false` (the default), React and Solid now lowercase
+the static text of route paths, as Vue does. Parameter names keep their case.
+For example, `src/pages/About/[postId].tsx` gives the path `about/:postId`.
+Before v1, it gave `About/:postId`.
+
+URL matching does not change, because React Router and Solid Router already
+match static text without case. If your `extendRoute` or `onRoutesGenerated`
+code compares `route.path` with text that has capital letters, compare it with
+lowercase text. To keep the original case, set `caseSensitive: true`.
 
 ## Verify the upgrade
 
