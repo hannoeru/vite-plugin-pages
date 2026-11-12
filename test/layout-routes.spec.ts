@@ -12,7 +12,7 @@ function vuePage(file: string) {
   return `<template><div /></template>\n<route>\n{ meta: { title: "${file}" } }\n</route>\n`
 }
 
-async function getRoutes(files: string[], resolver: 'vue' | 'react' | 'solid') {
+async function getRoutes(files: string[], resolver: 'vue' | 'react' | 'solid', routeStyle?: 'remix') {
   const root = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
   onTestFinished(() => rmSync(root, { recursive: true, force: true }))
   for (const file of files) {
@@ -21,7 +21,7 @@ async function getRoutes(files: string[], resolver: 'vue' | 'react' | 'solid') {
       ? vuePage(file)
       : 'export default () => null')
   }
-  const ctx = new PageContext({ dirs: 'src/pages', resolver }, root)
+  const ctx = new PageContext({ dirs: 'src/pages', resolver, routeStyle }, root)
   await ctx.searchGlob()
   return await ctx.options.resolver.getComputedRoutes(ctx) as any[]
 }
@@ -116,5 +116,19 @@ describe('layout page without an index page', () => {
     expect(reactPages(react, '/docs')).toEqual(['/src/pages/docs.tsx', '/src/pages/docs/index.tsx'])
     expect(solidPages(solid, '/docs')).toEqual(['/src/pages/docs.tsx', '/src/pages/docs/index.tsx'])
     expect(vuePages(vue, '/docs')).toEqual(['/src/pages/docs.vue', '/src/pages/docs/index.vue'])
+  })
+
+  it.each([
+    ['a child page', '__marketing/product.tsx', '/product'],
+    ['a catch-all page', '__marketing/$.tsx', '/x'],
+  ])('keeps the root index page beside a remix pathless layout with %s', async (_, child, childPath) => {
+    const files = ['__marketing.tsx', child, 'index.tsx']
+    const react = await getRoutes(files, 'react', 'remix')
+    const solid = await getRoutes(files, 'solid', 'remix')
+
+    expect(reactPages(react, '/')).toEqual(['/src/pages/index.tsx'])
+    expect(solidPages(solid, '/')).toEqual(['/src/pages/index.tsx'])
+    expect(reactPages(react, childPath)).toEqual(['/src/pages/__marketing.tsx', `/src/pages/${child}`])
+    expect(solidPages(solid, childPath)).toEqual(['/src/pages/__marketing.tsx', `/src/pages/${child}`])
   })
 })
