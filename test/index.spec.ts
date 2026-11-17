@@ -1,6 +1,6 @@
 import type { DevEnvironment, HotUpdateOptions, Plugin, ServerOptions } from 'vite'
 import type { PageResolver } from '../src/types'
-import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { slash } from '@antfu/utils'
@@ -83,7 +83,7 @@ async function createHotUpdateFixture(hmr: PageResolver['hmr'] = {}, {
 
 describe('pages plugin', () => {
   it('keeps page-relative excludes consistent through real Vite file events', async () => {
-    const root = slash(realpathSync(mkdtempSync(join(tmpdir(), '.vite-plugin-pages-[project]-'))))
+    const root = slash(mkdtempSync(join(tmpdir(), '.vite-plugin-pages-[project]-')))
     const dirs = ['src/pages', '.features/[feature]/pages']
     for (const dir of dirs) {
       mkdirSync(`${root}/${dir}/drafts`, { recursive: true })
@@ -137,7 +137,7 @@ describe('pages plugin', () => {
     await checkRoutes()
     for (const dir of dirs) {
       for (const excluded of [false, true]) {
-        const path = `${root}/${dir}/${excluded ? 'drafts/' : ''}home.vue`
+        const path = `${server.config.root}/${dir}/${excluded ? 'drafts/' : ''}home.vue`
         writeFileSync(path, '<template><div /></template><route>{"meta":{"title":"Updated"}}</route>')
         await emit('change', path)
         await checkRoutes(excluded ? undefined : 'Updated')

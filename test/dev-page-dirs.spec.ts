@@ -1,7 +1,7 @@
 import type { UserOptions } from '../src'
-import { existsSync, mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { dirname, join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 import { slash } from '@antfu/utils'
 import { createServer } from 'vite'
 import pagesPlugin from '../src'
@@ -37,7 +37,8 @@ async function startServer(root: string, options: UserOptions) {
   await ready
 
   return {
-    async addPage(file: string) {
+    async addPage(rootRelativePath: string) {
+      const file = slash(resolve(server.config.root, rootRelativePath))
       const updated = new Promise<void>((resolve) => {
         hotUpdates.set(file, resolve)
       })
@@ -58,7 +59,7 @@ async function startServer(root: string, options: UserOptions) {
 }
 
 function createRoot() {
-  const root = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
+  const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
   onTestFinished(() => rmSync(root, { recursive: true, force: true }))
   return root
 }
@@ -75,7 +76,7 @@ describe('dev page directories', () => {
     })
     expect(await server.routePaths()).toEqual(['/features'])
 
-    await server.addPage(`${root}/src/features/b/pages/new.vue`)
+    await server.addPage('src/features/b/pages/new.vue')
 
     expect(await server.routePaths()).toEqual(['/features', '/features/new'])
   })
@@ -85,7 +86,7 @@ describe('dev page directories', () => {
     const server = await startServer(root, {})
     expect(await server.routePaths()).toEqual([])
 
-    await server.addPage(`${root}/src/pages/index.vue`)
+    await server.addPage('src/pages/index.vue')
 
     expect(await server.routePaths()).toEqual(['/'])
   })
@@ -99,7 +100,7 @@ describe('dev page directories', () => {
     const server = await startServer(root, { dirs: '../shared/pages' })
     expect(await server.routePaths()).toEqual(['/'])
 
-    await server.addPage(`${base}/shared/pages/new.vue`)
+    await server.addPage('../shared/pages/new.vue')
 
     expect(await server.routePaths()).toEqual(['/', '/new'])
   })

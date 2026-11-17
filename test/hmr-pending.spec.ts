@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { slash } from '@antfu/utils'
@@ -20,7 +20,7 @@ describe('dev route module', () => {
     { load: 'a later load', loadedBefore: true },
     { load: 'the first load', loadedBefore: false },
   ])('drops a route module from $load while a page is added', async ({ loadedBefore }) => {
-    const root = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
+    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
     onTestFinished(() => rmSync(root, { recursive: true, force: true }))
     mkdirSync(join(root, 'src/pages'), { recursive: true })
     writeFileSync(join(root, 'src/pages/index.vue'), vuePage)
@@ -61,8 +61,9 @@ describe('dev route module', () => {
 
     if (loadedBefore) {
       await client.transformRequest('~pages')
-      writeFileSync(join(root, 'src/pages/first.vue'), vuePage)
-      server.watcher.emit('add', `${root}/src/pages/first.vue`)
+      const first = `${server.config.root}/src/pages/first.vue`
+      writeFileSync(first, vuePage)
+      server.watcher.emit('add', first)
       await hotUpdated.promise
       hotUpdated = createSignal()
     }
@@ -71,8 +72,9 @@ describe('dev route module', () => {
     const staleRequest = client.transformRequest('~pages')
     await generationHeld.promise
 
-    writeFileSync(join(root, 'src/pages/new.vue'), vuePage)
-    server.watcher.emit('add', `${root}/src/pages/new.vue`)
+    const added = `${server.config.root}/src/pages/new.vue`
+    writeFileSync(added, vuePage)
+    server.watcher.emit('add', added)
     await hotUpdated.promise
 
     generationReleased.resolve()
@@ -82,7 +84,7 @@ describe('dev route module', () => {
   })
 
   it('reloads routes for SSR module loading after a page is added', async () => {
-    const root = slash(realpathSync.native(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-'))))
+    const root = slash(mkdtempSync(join(tmpdir(), 'vite-plugin-pages-')))
     onTestFinished(() => rmSync(root, { recursive: true, force: true }))
     mkdirSync(join(root, 'src/pages'), { recursive: true })
     writeFileSync(join(root, 'src/pages/index.ts'), 'export default {}')
@@ -108,8 +110,9 @@ describe('dev route module', () => {
 
     expect(await loadPaths()).toEqual(['/'])
 
-    writeFileSync(join(root, 'src/pages/new.ts'), 'export default {}')
-    server.watcher.emit('add', `${root}/src/pages/new.ts`)
+    const added = `${server.config.root}/src/pages/new.ts`
+    writeFileSync(added, 'export default {}')
+    server.watcher.emit('add', added)
     await hotUpdated.promise
 
     expect((await loadPaths()).sort()).toEqual(['/', '/new'])
