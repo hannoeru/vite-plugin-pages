@@ -419,8 +419,9 @@ describe('custom module id', () => {
 
     expect(await loadRoutes()).toContain('"path":"/"')
 
-    writeFileSync(join(root, 'src/pages/two.vue'), vuePage)
-    server.watcher.emit('add', `${root}/src/pages/two.vue`)
+    const added = `${server.config.root}/src/pages/two.vue`
+    writeFileSync(added, vuePage)
+    server.watcher.emit('add', added)
 
     await expect.poll(loadRoutes, { timeout: 10_000 }).toContain('"path":"/two"')
   }, 20_000)

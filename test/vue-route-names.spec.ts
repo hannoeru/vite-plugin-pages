@@ -187,8 +187,9 @@ describe('route name error in the dev server', () => {
     expect(failed).toMatch(/^500 /)
     expect(failed).toContain('Duplicate route name')
 
-    unlinkSync(join(root, 'src/pages/id.vue'))
-    server.watcher.emit('unlink', `${root}/src/pages/id.vue`)
+    const removed = `${server.config.root}/src/pages/id.vue`
+    unlinkSync(removed)
+    server.watcher.emit('unlink', removed)
 
     await expect.poll(loadRoutes, { timeout: 10_000 }).toMatch(/^200 [\s\S]*"path":"\/:id"/)
   }, 20_000)
