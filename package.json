@@ -92,7 +92,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^10.0.0",
     "@antfu/utils": "^9.3.0",
-    "@solidjs/router": "^1.0.0",
+    "@solidjs/router": "^2.0.1",
     "@types/node": "^26.6.3",
     "@types/picomatch": "~4.0.3",
     "@vitest/ui": "^5.0.2",
@@ -102,7 +102,7 @@
     "playwright": "^1.63.0",
     "react": "^19.3.1",
     "react-router": "^8.4.0",
-    "solid-js": "^1.9.15",
+    "solid-js": "^2.0.3",
     "tsdown": "^0.23.0",
     "tsx": "^4.23.15",
     "typescript": "~6.0.3",
